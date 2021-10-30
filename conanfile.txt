@@ -1,0 +1,16 @@
+[requires]
+sfml/2.5.1@bincrafters/stable
+boost/1.77.0
+
+[options]
+sfml:graphics=True
+sfml:window=True
+sfml:network=True
+sfml:audio=True
+
+[generators]
+cmake
+
+[imports]
+bin, *.dll -> ./bin
+lib, *.dylib* -> ./bin
