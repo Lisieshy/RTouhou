@@ -41,11 +41,29 @@ jobs:
         if: ${{ matrix.config.os == 'ubuntu-latest' }}
         run: |
           sudo apt install xorg-dev
+          wget https://github.com/conan-io/conan/releases/latest/download/conan-ubuntu-64.deb
+          sudo dpkg -i conan-ubuntu-64.deb
+          conan profile new --detect default
+          conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
+          conan config set general.revisions_enabled=1
+          mkdir build
+          cd build
+          conan install .. --build=missing
+
+      - name: Install dependencies on Windows Latest
+        if: ${{ matrix.config.os == 'windows-latest' }}
+        run: |
+          pip install conan
+          conan profile new --detect default
+          conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
+          conan config set general.revisions_enabled=1
+          mkdir build
+          cd build
+          conan install .. --build=missing
 
       - name: Configure
         shell: bash
         run: |
-          mkdir build
           cmake -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} -G "${{ matrix.config.generators }}"
 
       - name: Build
@@ -56,7 +74,7 @@ jobs:
 
       - name: Windows build compiled project
         if: ${{ matrix.config.os == 'windows-latest' }}
-        run: msbuild r-touhou.sln /t:r-touhou /p:Configuration="Release" /p:Platform="x64" /p:BuildProjectReferences=false
+        run: msbuild r-touhou_client.sln /t:r-touhou_client /p:Configuration="Release" /p:Platform="x64" /p:BuildProjectReferences=false
 
 
       - name: Ubuntu build compiled project
