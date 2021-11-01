@@ -16,4 +16,4 @@ Creating a R-Type like game in C++, with multiplayer Co-Op.
 
 # Documentation
 
-Internal documentation generated with Doxygen.
+The documentation is generated using Doxygen. It uses the doxygen-awesome theme.
