@@ -23,6 +23,7 @@ struct ne::Graphics::Window::WImpl
         "R-Touhou",
         sf::Style::Default
     };
+    sf::Event event;
 };
 
 auto ne::Graphics::Window::Get() -> Window& {
@@ -38,12 +39,15 @@ bool ne::Graphics::Window::isOpen() const {
     return _wImpl->i_window.isOpen();
 }
 
-void ne::Graphics::Window::display() const {
-    sf::Event event;
-    while (_wImpl->i_window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed)
+void ne::Graphics::Window::pollEvent() const {
+    while(_wImpl->i_window.pollEvent(_wImpl->event)) {
+        if (_wImpl->event.type == sf::Event::Closed) {
             _wImpl->i_window.close();
+        }
     }
+}
+
+void ne::Graphics::Window::display() const {
     _wImpl->i_window.clear(sf::Color::Green);
     _wImpl->i_window.display();
 }

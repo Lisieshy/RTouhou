@@ -45,6 +45,7 @@ namespace ne::Graphics {
             auto static Get() -> Window&;
 
             bool isOpen() const;
+            void pollEvent() const;
 
             void display() const;
 

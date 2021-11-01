@@ -34,6 +34,7 @@ int main(void)
     // }
 
     while (ne::Graphics::Window::Get().isOpen()) {
+        ne::Graphics::Window::Get().pollEvent();
         ne::Graphics::Window::Get().display();
     }
 
