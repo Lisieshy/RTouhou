@@ -1,5 +1,10 @@
 build/
 .vscode
+doc/
+docs/
 
 windows/
 linux/
+
+html/
+latex/

@@ -1,20 +1,19 @@
-# R-Type | R-Touhou rien
+# R-Touhou
 
-Creating a R-Type like game in C++, with multiplayer Co-Op with up to 4 players.
+Creating a R-Type like game in C++, with multiplayer Co-Op.
 
-## Contributors
+# Contributors
 
 > **Aurélien Schulz** aka [@Lisieshy](https://github.com/Lisieshy)
 
-> **Eliott Ferry** aka [@](https://github.com/)
+> **Eliott Ferry** aka [@?](https://github.com/?)
 
-> **Pierre Fricker** aka [@](https://github.com/)
+> **Pierre Fricker** aka [@?](https://github.com/?)
 
 > **Thomas Moreau** aka [@zoomzoomzen](https://github.com/zoomzoomzen)
 
-> **Tom Wederich** aka [@](https://github.com/)
+> **Tom Wederich** aka [@?](https://github.com/?)
 
-## Documentation
+# Documentation
 
 Internal documentation generated with Doxygen.
-
