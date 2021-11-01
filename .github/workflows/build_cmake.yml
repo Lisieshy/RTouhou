@@ -74,7 +74,7 @@ jobs:
 
       - name: Windows build compiled project
         if: ${{ matrix.config.os == 'windows-latest' }}
-        run: msbuild r-touhou_client.sln /t:r-touhou_client /p:Configuration="Release" /p:Platform="x64" /p:BuildProjectReferences=false
+        run: msbuild rtouhou.sln /t:r-touhou_client /p:Configuration="Release" /p:Platform="x64" /p:BuildProjectReferences=false
 
 
       - name: Ubuntu build compiled project

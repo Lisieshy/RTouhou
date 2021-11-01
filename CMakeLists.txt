@@ -18,6 +18,7 @@ file(COPY
 
 set(NEKOENGINE_GRAPHICS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/Graphics/NekoWindowException.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/Graphics/Window.cpp
 )
 
 set(NEKOENGINE_ECS_SOURCES

@@ -17,25 +17,47 @@
 #include <string>
 #include "NekoEngine/NekoEngine.hpp"
 
+#include <SFML/Graphics.hpp>
+
 int main(void)
 {
-    ne::Scene Scene;
+    // ne::Scene Scene;
 
-    Scene.coordinator->registerComponent<ne::Transform, ne::Timer>();
+    // Scene.coordinator->registerComponent<ne::Transform, ne::Timer>();
 
-    auto TimerSystem = Scene.coordinator->registerSystem<ne::TimerSystem>(Scene.coordinator);
-    {
-        ne::Signature signature;
-        signature.set(Scene.coordinator->getComponentType<ne::Transform>());
-        signature.set(Scene.coordinator->getComponentType<ne::Timer>());
-        Scene.coordinator->setSystemSignature<ne::TimerSystem>(signature);
+    // auto TimerSystem = Scene.coordinator->registerSystem<ne::TimerSystem>(Scene.coordinator);
+    // {
+    //     ne::Signature signature;
+    //     signature.set(Scene.coordinator->getComponentType<ne::Transform>());
+    //     signature.set(Scene.coordinator->getComponentType<ne::Timer>());
+    //     Scene.coordinator->setSystemSignature<ne::TimerSystem>(signature);
+    // }
+
+    while (ne::Graphics::Window::Get().isOpen()) {
+        ne::Graphics::Window::Get().display();
     }
+
+    // sf::RenderWindow window(sf::VideoMode(800, 600), "R-Touhou", sf::Style::Default);
+
+    // while (window.isOpen()) {
+    //     sf::Event event;
+    //     while (window.pollEvent(event)) {
+    //         // Close window: exit
+    //         if (event.type == sf::Event::Closed)
+    //             window.close();
+    //     }
+    //     // Clear screen
+    //     window.clear();
+    //     // Update the window
+    //     window.display();
+    // }
+
 
     // Scene.coordinator->addComponent(
     //     neCamera,
     //     ne::Camera3D{
     //         camPos,
-    //         camTgt,
+    //         camTgt, 
     //         camUp,
     //         90.0f
     //     }
@@ -91,7 +113,7 @@ int main(void)
     //         return;
     //     ne::Window::Get().Clear(White);
     // }
-    printf("It should work.");
-    std::cin.get();
+    // printf("It should work.");
+    // std::cin.get();
     return (0);
 }
