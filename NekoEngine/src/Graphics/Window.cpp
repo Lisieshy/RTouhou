@@ -72,7 +72,7 @@ void ne::Graphics::Window::drawPixel(ne::Transform& transform) const {
     );
 
     pixel.setFillColor(
-        sf::Color::Blue
+        sf::Color::Cyan
     );
 
     _wImpl->i_window.draw(pixel);

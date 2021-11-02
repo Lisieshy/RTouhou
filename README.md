@@ -17,3 +17,4 @@ Creating a R-Type like game in C++, with multiplayer Co-Op.
 # Documentation
 
 The documentation is generated using Doxygen. It uses the doxygen-awesome theme.
+It is available at [this address](https://portfolio.lisieshy.dev/RTouhou/).

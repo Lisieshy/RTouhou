@@ -42,18 +42,33 @@ int main(void)
     }
 
     ne::EntityID pixel1 = testScene.coordinator->createEntity();
+    ne::EntityID pixel2 = testScene.coordinator->createEntity();
 
     testScene.coordinator->addComponent(
         pixel1,
         ne::Transform{
-            ne::Math::Vector3f{50.f, 50.f, 0.f},
             ne::Math::Vector3f{0.f, 0.f, 0.f},
-            ne::Math::Vector3f{50.f, 50.f, 0.f}
+            ne::Math::Vector3f{0.f, 0.f, 0.f},
+            ne::Math::Vector3f{800.f, 600.f, 0.f}
+        }
+    );
+
+    testScene.coordinator->addComponent(
+        pixel2,
+        ne::Transform{
+            ne::Math::Vector3f{300.f, 50.f, 0.f},
+            ne::Math::Vector3f{0.f, 0.f, 0.f},
+            ne::Math::Vector3f{75.f, 75.f, 0.f}
         }
     );
 
     testScene.coordinator->addComponent(
         pixel1,
+        ne::Renderable{}
+    );
+
+    testScene.coordinator->addComponent(
+        pixel2,
         ne::Renderable{}
     );
 
