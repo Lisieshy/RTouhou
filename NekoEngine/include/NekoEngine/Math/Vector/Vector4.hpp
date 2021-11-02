@@ -17,7 +17,10 @@
 #ifndef VECTOR4_HPP_
 #define VECTOR4_HPP_
 
-namespace ne {
+/**
+ * @namespace ne::Math
+ */
+namespace ne::Math {
     /**
      * @brief Vector4 class taking <Type>.
      * 

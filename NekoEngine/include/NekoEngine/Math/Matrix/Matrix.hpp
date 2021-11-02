@@ -18,7 +18,10 @@
 
 #include "NekoEngine/Math/Vector/Vector.hpp"
 
-namespace ne {
+/**
+ * @namespace ne::Math
+ */
+namespace ne::Math {
     /**
      * @brief Matrix class taking <Type>.
      * 
@@ -28,12 +31,17 @@ namespace ne {
     class Matrix {
         public:
             Matrix();
-            Matrix(ne::Vector4<Type> col1, ne::Vector4<Type> col2, ne::Vector4<Type> col3, ne::Vector4<Type> col4);
+            Matrix(
+                ne::Math::Vector4<Type> col1,
+                ne::Math::Vector4<Type> col2,
+                ne::Math::Vector4<Type> col3,
+                ne::Math::Vector4<Type> col4
+            );
 
-            ne::Vector4<Type> col1;
-            ne::Vector4<Type> col2;
-            ne::Vector4<Type> col3;
-            ne::Vector4<Type> col4;
+            ne::Math::Vector4<Type> col1;
+            ne::Math::Vector4<Type> col2;
+            ne::Math::Vector4<Type> col3;
+            ne::Math::Vector4<Type> col4;
     };
 }
 

@@ -20,10 +20,27 @@
 #include "Matrix.hpp"
 
 template<typename Type>
-ne::Matrix<Type>::Matrix() : col1(ne::Vector4<Type>()), col2(ne::Vector4<Type>()), col3(ne::Vector4<Type>()), col4(ne::Vector4<Type>()) {}
+ne::Math::Matrix<Type>::Matrix() : 
+    col1(ne::Math::Vector4<Type>()),
+    col2(ne::Math::Vector4<Type>()),
+    col3(ne::Math::Vector4<Type>()),
+    col4(ne::Math::Vector4<Type>())
+{
+}
 
 template<typename Type>
-ne::Matrix<Type>::Matrix(ne::Vector4<Type> col1, ne::Vector4<Type> col2, ne::Vector4<Type> col3, ne::Vector4<Type> col4) : col1(col1), col2(col2), col3(col3), col4(col4) {}
+ne::Math::Matrix<Type>::Matrix(
+    ne::Math::Vector4<Type> col1,
+    ne::Math::Vector4<Type> col2,
+    ne::Math::Vector4<Type> col3,
+    ne::Math::Vector4<Type> col4)
+    :
+    col1(col1),
+    col2(col2),
+    col3(col3),
+    col4(col4)
+{
+}
 
 #endif
 #endif

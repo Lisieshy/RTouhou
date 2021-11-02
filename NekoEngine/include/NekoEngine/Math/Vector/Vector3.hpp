@@ -17,7 +17,10 @@
 #ifndef VECTOR3_HPP_
 #define VECTOR3_HPP_
 
-namespace ne {
+/**
+ * @namespace ne::Math
+ */
+namespace ne::Math {
     /**
      * @brief Vector3 class taking <Type>.
      * 

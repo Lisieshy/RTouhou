@@ -18,8 +18,11 @@
 
 #include "NekoEngine/Math/Vector/Vector.hpp"
 
-namespace ne {
-    using Quaternion = ne::Vector4<float>;
+/**
+ * @namespace ne::Math
+ */
+namespace ne::Math {
+    using Quaternion = ne::Math::Vector4<float>;
 }
 
 #endif /* !QUATERNION_HPP_ */

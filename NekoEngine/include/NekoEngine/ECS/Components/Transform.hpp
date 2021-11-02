@@ -21,9 +21,9 @@
 namespace ne {
     class Transform {
         public:
-            Vector3f position;
-            Vector3f rotation;
-            Vector3f scale;
+            ne::Math::Vector3f position;
+            ne::Math::Vector3f rotation;
+            ne::Math::Vector3f scale;
     };
 }
 

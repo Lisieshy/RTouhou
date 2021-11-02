@@ -13,11 +13,7 @@
  * @date        05/2021
  */
 
-#include <iostream>
-#include <string>
 #include "NekoEngine/NekoEngine.hpp"
-
-#include <SFML/Graphics.hpp>
 
 int main(void)
 {
@@ -33,26 +29,38 @@ int main(void)
     //     Scene.coordinator->setSystemSignature<ne::TimerSystem>(signature);
     // }
 
-    while (ne::Graphics::Window::Get().isOpen()) {
-        ne::Graphics::Window::Get().pollEvent();
-        ne::Graphics::Window::Get().display();
+    ne::Scene testScene;
+
+    testScene.coordinator->registerComponent<ne::Transform, ne::Renderable>();
+
+    auto RenderSystem = testScene.coordinator->registerSystem<ne::RenderSystem>(testScene.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(testScene.coordinator->getComponentType<ne::Transform>());
+        signature.set(testScene.coordinator->getComponentType<ne::Renderable>());
+        testScene.coordinator->setSystemSignature<ne::RenderSystem>(signature);
     }
 
-    // sf::RenderWindow window(sf::VideoMode(800, 600), "R-Touhou", sf::Style::Default);
+    ne::EntityID pixel1 = testScene.coordinator->createEntity();
 
-    // while (window.isOpen()) {
-    //     sf::Event event;
-    //     while (window.pollEvent(event)) {
-    //         // Close window: exit
-    //         if (event.type == sf::Event::Closed)
-    //             window.close();
-    //     }
-    //     // Clear screen
-    //     window.clear();
-    //     // Update the window
-    //     window.display();
-    // }
+    testScene.coordinator->addComponent(
+        pixel1,
+        ne::Transform{
+            ne::Math::Vector3f{50.f, 50.f, 0.f},
+            ne::Math::Vector3f{0.f, 0.f, 0.f},
+            ne::Math::Vector3f{50.f, 50.f, 0.f}
+        }
+    );
 
+    testScene.coordinator->addComponent(
+        pixel1,
+        ne::Renderable{}
+    );
+
+    while (ne::Graphics::Window::Get().isOpen()) {
+        ne::Graphics::Window::Get().pollEvent();
+        RenderSystem->update();
+    }
 
     // Scene.coordinator->addComponent(
     //     neCamera,

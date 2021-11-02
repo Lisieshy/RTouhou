@@ -14,6 +14,7 @@
  */
 
 #include "NekoEngine/Graphics/Window.hpp"
+#include "NekoEngine/ECS/Components/Components.hpp"
 #include <SFML/Graphics.hpp>
 
 struct ne::Graphics::Window::WImpl
@@ -31,9 +32,13 @@ auto ne::Graphics::Window::Get() -> Window& {
     return s_window;
 }
 
-ne::Graphics::Window::Window() : _wImpl(std::make_unique<ne::Graphics::Window::WImpl>()) {}
+ne::Graphics::Window::Window() : _wImpl(std::make_unique<ne::Graphics::Window::WImpl>()) {
+    _wImpl->i_window.setVerticalSyncEnabled(true);
+}
 
-ne::Graphics::Window::~Window() {}
+ne::Graphics::Window::~Window() {
+    _wImpl->i_window.close();
+}
 
 bool ne::Graphics::Window::isOpen() const {
     return _wImpl->i_window.isOpen();
@@ -48,6 +53,27 @@ void ne::Graphics::Window::pollEvent() const {
 }
 
 void ne::Graphics::Window::display() const {
-    _wImpl->i_window.clear(sf::Color::Green);
     _wImpl->i_window.display();
+}
+
+void ne::Graphics::Window::drawPixel(ne::Transform& transform) const {
+    sf::RectangleShape pixel;
+
+    pixel.setPosition(
+        transform.position.x,
+        transform.position.y
+    );
+
+    pixel.setSize(
+        sf::Vector2f(
+            transform.scale.x,
+            transform.scale.y
+        )
+    );
+
+    pixel.setFillColor(
+        sf::Color::Blue
+    );
+
+    _wImpl->i_window.draw(pixel);
 }

@@ -18,6 +18,6 @@
 
 #include "NekoEngine/ECS/Components/Transform.hpp"
 #include "NekoEngine/ECS/Components/Timer.hpp"
-
+#include "NekoEngine/ECS/Components/Renderable.hpp"
 
 #endif /* !COMPONENTS_HPP_ */

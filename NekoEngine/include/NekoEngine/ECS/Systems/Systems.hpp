@@ -17,5 +17,6 @@
 #define SYSTEMS_HPP_
 
 #include "NekoEngine/ECS/Systems/TimerSystem.hpp"
+#include "NekoEngine/ECS/Systems/RenderSystem.hpp"
 
 #endif /* !SYSTEMS_HPP_ */

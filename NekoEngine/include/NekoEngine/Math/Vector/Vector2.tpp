@@ -20,27 +20,27 @@
 #include "Vector2.hpp"
 
 template<typename Type>
-ne::Vector2<Type>::Vector2() : x(0), y(0) {}
+ne::Math::Vector2<Type>::Vector2() : x(0), y(0) {}
 
 template<typename Type>
-ne::Vector2<Type>::Vector2(Type x, Type y) : x(x), y(y) {}
+ne::Math::Vector2<Type>::Vector2(Type x, Type y) : x(x), y(y) {}
 
 template<typename Type>
-ne::Vector2<Type> ne::Vector2<Type>::Zero()
+ne::Math::Vector2<Type> ne::Math::Vector2<Type>::Zero()
 {
-    ne::Vector2<Type> vect(static_cast<Type>(0), static_cast<Type>(0));
+    ne::Math::Vector2<Type> vect(static_cast<Type>(0), static_cast<Type>(0));
     return vect;
 }
 
 template<typename Type>
-ne::Vector2<Type> ne::Vector2<Type>::One()
+ne::Math::Vector2<Type> ne::Math::Vector2<Type>::One()
 {
-    ne::Vector2<Type> vect(static_cast<Type>(1), static_cast<Type>(1));
+    ne::Math::Vector2<Type> vect(static_cast<Type>(1), static_cast<Type>(1));
     return vect;
 }
 
 template<typename Type>
-ne::Vector2<Type>& ne::operator -=(Vector2<Type>& lhs, const Vector2<Type>& rhs)
+ne::Math::Vector2<Type>& ne::Math::operator -=(Vector2<Type>& lhs, const Vector2<Type>& rhs)
 {
     lhs.x -= rhs.x;
     lhs.y -= rhs.y;
@@ -49,7 +49,7 @@ ne::Vector2<Type>& ne::operator -=(Vector2<Type>& lhs, const Vector2<Type>& rhs)
 }
 
 template<typename Type>
-ne::Vector2<Type>& ne::operator +=(Vector2<Type>& lhs, const Vector2<Type>& rhs)
+ne::Math::Vector2<Type>& ne::Math::operator +=(Vector2<Type>& lhs, const Vector2<Type>& rhs)
 {
     lhs.x += rhs.x;
     lhs.y += rhs.y;
@@ -58,39 +58,39 @@ ne::Vector2<Type>& ne::operator +=(Vector2<Type>& lhs, const Vector2<Type>& rhs)
 }
 
 template<typename Type>
-ne::Vector2<Type> ne::operator +(const Vector2<Type>& lhs, const Vector2<Type>& rhs)
+ne::Math::Vector2<Type> ne::Math::operator +(const Vector2<Type>& lhs, const Vector2<Type>& rhs)
 {
-    ne::Vector2<Type> vect(lhs.x + rhs.x, lhs.y + rhs.y);
+    ne::Math::Vector2<Type> vect(lhs.x + rhs.x, lhs.y + rhs.y);
 
     return vect;
 }
 
 template<typename Type>
-ne::Vector2<Type> ne::operator -(const Vector2<Type>& lhs, const Vector2<Type>& rhs)
+ne::Math::Vector2<Type> ne::Math::operator -(const Vector2<Type>& lhs, const Vector2<Type>& rhs)
 {
-    ne::Vector2<Type> vect(lhs.x - rhs.x, lhs.y - rhs.y);
+    ne::Math::Vector2<Type> vect(lhs.x - rhs.x, lhs.y - rhs.y);
 
     return vect;
 }
 
 template<typename Type>
-ne::Vector2<Type> ne::operator *(const Vector2<Type>& lhs, Type rhs)
+ne::Math::Vector2<Type> ne::Math::operator *(const Vector2<Type>& lhs, Type rhs)
 {
-    ne::Vector2<Type> vect(lhs.x * rhs, lhs.y * rhs);
+    ne::Math::Vector2<Type> vect(lhs.x * rhs, lhs.y * rhs);
 
     return vect;
 }
 
 template<typename Type>
-ne::Vector2<Type> ne::operator *(Type lhs, const Vector2<Type>& rhs)
+ne::Math::Vector2<Type> ne::Math::operator *(Type lhs, const Vector2<Type>& rhs)
 {
-    ne::Vector2<Type> vect(lhs * rhs.x, lhs * rhs.y);
+    ne::Math::Vector2<Type> vect(lhs * rhs.x, lhs * rhs.y);
 
     return vect;
 }
 
 template<typename Type>
-ne::Vector2<Type>& ne::operator *=(Vector2<Type>& lhs, Type rhs)
+ne::Math::Vector2<Type>& ne::Math::operator *=(Vector2<Type>& lhs, Type rhs)
 {
     lhs.x *= rhs.x;
     lhs.y *= rhs.y;
@@ -99,15 +99,15 @@ ne::Vector2<Type>& ne::operator *=(Vector2<Type>& lhs, Type rhs)
 }
 
 template<typename Type>
-ne::Vector2<Type> ne::operator /(const Vector2<Type>& lhs, Type rhs)
+ne::Math::Vector2<Type> ne::Math::operator /(const Vector2<Type>& lhs, Type rhs)
 {
-    ne::Vector2<Type> vect(lhs.x / rhs, lhs.y / rhs);
+    ne::Math::Vector2<Type> vect(lhs.x / rhs, lhs.y / rhs);
 
     return vect;
 }
 
 template<typename Type>
-ne::Vector2<Type> ne::operator /=(Vector2<Type>& lhs, Type rhs)
+ne::Math::Vector2<Type> ne::Math::operator /=(Vector2<Type>& lhs, Type rhs)
 {
     lhs.x /= rhs.x;
     lhs.y /= rhs.y;
@@ -116,9 +116,9 @@ ne::Vector2<Type> ne::operator /=(Vector2<Type>& lhs, Type rhs)
 }
 
 template<typename Type>
-ne::Vector2<Type> ne::operator -(const Vector2<Type>& rhs)
+ne::Math::Vector2<Type> ne::Math::operator -(const Vector2<Type>& rhs)
 {
-    ne::Vector2<Type> vect(-rhs.x, -rhs.y);
+    ne::Math::Vector2<Type> vect(-rhs.x, -rhs.y);
 
     return vect;
 }

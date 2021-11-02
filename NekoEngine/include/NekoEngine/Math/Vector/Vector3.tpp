@@ -20,27 +20,27 @@
 #include "Vector3.hpp"
 
 template<typename Type>
-ne::Vector3<Type>::Vector3() : x(0), y(0), z(0) {}
+ne::Math::Vector3<Type>::Vector3() : x(0), y(0), z(0) {}
 
 template<typename Type>
-ne::Vector3<Type>::Vector3(Type x, Type y, Type z) : x(x), y(y), z(z) {}
+ne::Math::Vector3<Type>::Vector3(Type x, Type y, Type z) : x(x), y(y), z(z) {}
 
 template<typename Type>
-ne::Vector3<Type> ne::Vector3<Type>::Zero()
+ne::Math::Vector3<Type> ne::Math::Vector3<Type>::Zero()
 {
-    ne::Vector3<Type> vect(static_cast<Type>(0), static_cast<Type>(0), static_cast<Type>(0));
+    ne::Math::Vector3<Type> vect(static_cast<Type>(0), static_cast<Type>(0), static_cast<Type>(0));
     return vect;
 }
 
 template<typename Type>
-ne::Vector3<Type> ne::Vector3<Type>::One()
+ne::Math::Vector3<Type> ne::Math::Vector3<Type>::One()
 {
-    ne::Vector3<Type> vect(static_cast<Type>(1), static_cast<Type>(1), static_cast<Type>(1));
+    ne::Math::Vector3<Type> vect(static_cast<Type>(1), static_cast<Type>(1), static_cast<Type>(1));
     return vect;
 }
 
 template<typename Type>
-ne::Vector3<Type>& ne::operator -=(Vector3<Type>& lhs, const Vector3<Type>& rhs)
+ne::Math::Vector3<Type>& ne::Math::operator -=(Vector3<Type>& lhs, const Vector3<Type>& rhs)
 {
     lhs.x -= rhs.x;
     lhs.y -= rhs.y;
@@ -50,7 +50,7 @@ ne::Vector3<Type>& ne::operator -=(Vector3<Type>& lhs, const Vector3<Type>& rhs)
 }
 
 template<typename Type>
-ne::Vector3<Type>& ne::operator +=(Vector3<Type>& lhs, const Vector3<Type>& rhs)
+ne::Math::Vector3<Type>& ne::Math::operator +=(Vector3<Type>& lhs, const Vector3<Type>& rhs)
 {
     lhs.x += rhs.x;
     lhs.y += rhs.y;
@@ -60,39 +60,39 @@ ne::Vector3<Type>& ne::operator +=(Vector3<Type>& lhs, const Vector3<Type>& rhs)
 }
 
 template<typename Type>
-ne::Vector3<Type> ne::operator +(const Vector3<Type>& lhs, const Vector3<Type>& rhs)
+ne::Math::Vector3<Type> ne::Math::operator +(const Vector3<Type>& lhs, const Vector3<Type>& rhs)
 {
-    ne::Vector3<Type> vect(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z);
+    ne::Math::Vector3<Type> vect(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z);
 
     return vect;
 }
 
 template<typename Type>
-ne::Vector3<Type> ne::operator -(const Vector3<Type>& lhs, const Vector3<Type>& rhs)
+ne::Math::Vector3<Type> ne::Math::operator -(const Vector3<Type>& lhs, const Vector3<Type>& rhs)
 {
-    ne::Vector3<Type> vect(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
+    ne::Math::Vector3<Type> vect(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
 
     return vect;
 }
 
 template<typename Type>
-ne::Vector3<Type> ne::operator *(const Vector3<Type>& lhs, Type rhs)
+ne::Math::Vector3<Type> ne::Math::operator *(const Vector3<Type>& lhs, Type rhs)
 {
-    ne::Vector3<Type> vect(lhs.x * rhs, lhs.y * rhs, lhs.z * rhs);
+    ne::Math::Vector3<Type> vect(lhs.x * rhs, lhs.y * rhs, lhs.z * rhs);
 
     return vect;
 }
 
 template<typename Type>
-ne::Vector3<Type> ne::operator *(Type lhs, const Vector3<Type>& rhs)
+ne::Math::Vector3<Type> ne::Math::operator *(Type lhs, const Vector3<Type>& rhs)
 {
-    ne::Vector3<Type> vect(lhs * rhs.x, lhs * rhs.y, lhs * rhs.z);
+    ne::Math::Vector3<Type> vect(lhs * rhs.x, lhs * rhs.y, lhs * rhs.z);
 
     return vect;
 }
 
 template<typename Type>
-ne::Vector3<Type>& ne::operator *=(Vector3<Type>& lhs, Type rhs)
+ne::Math::Vector3<Type>& ne::Math::operator *=(Vector3<Type>& lhs, Type rhs)
 {
     lhs.x *= rhs.x;
     lhs.y *= rhs.y;
@@ -102,15 +102,15 @@ ne::Vector3<Type>& ne::operator *=(Vector3<Type>& lhs, Type rhs)
 }
 
 template<typename Type>
-ne::Vector3<Type> ne::operator /(const Vector3<Type>& lhs, Type rhs)
+ne::Math::Vector3<Type> ne::Math::operator /(const Vector3<Type>& lhs, Type rhs)
 {
-    ne::Vector3<Type> vect(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs);
+    ne::Math::Vector3<Type> vect(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs);
 
     return vect;
 }
 
 template<typename Type>
-ne::Vector3<Type> ne::operator /=(Vector3<Type>& lhs, Type rhs)
+ne::Math::Vector3<Type> ne::Math::operator /=(Vector3<Type>& lhs, Type rhs)
 {
     lhs.x /= rhs.x;
     lhs.y /= rhs.y;
@@ -120,9 +120,9 @@ ne::Vector3<Type> ne::operator /=(Vector3<Type>& lhs, Type rhs)
 }
 
 template<typename Type>
-ne::Vector3<Type> ne::operator -(const Vector3<Type>& rhs)
+ne::Math::Vector3<Type> ne::Math::operator -(const Vector3<Type>& rhs)
 {
-    ne::Vector3<Type> vect(-rhs.x, -rhs.y, -rhs.z);
+    ne::Math::Vector3<Type> vect(-rhs.x, -rhs.y, -rhs.z);
 
     return vect;
 }

@@ -20,9 +20,11 @@
 #include <memory>
 
 #include <SFML/Graphics.hpp>
+#include <NekoEngine/ECS/Coordinator.hpp>
+#include <NekoEngine/ECS/Components/Components.hpp>
 
 /**
- * @namespace NekoEngine::Graphics
+ * @namespace ne::Graphics
  */
 namespace ne::Graphics {
     /**
@@ -48,6 +50,8 @@ namespace ne::Graphics {
             void pollEvent() const;
 
             void display() const;
+
+            void drawPixel(ne::Transform& transform) const;
 
         private:
             Window();
