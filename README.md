@@ -6,14 +6,14 @@ Creating a R-Type like game in C++, with multiplayer Co-Op.
 
 > **Aurélien Schulz** aka [@Lisieshy](https://github.com/Lisieshy)
 
-> **Eliott Ferry** aka [@?](https://github.com/?)
+> **Eliott Ferry** aka [@EliottFerry](https://github.com/EliottFerry)
 
-> **Pierre Fricker** aka [@?](https://github.com/?)
+> **Pierre Fricker** aka [@Exy-tek](https://github.com/Exy-tek)
 
 > **Thomas Moreau** aka [@zoomzoomzen](https://github.com/zoomzoomzen)
 
-> **Tom Wederich** aka [@?](https://github.com/?)
+> **Tom Wederich** aka [@TheGorb](https://github.com/TheGorb)
 
 # Documentation
 
-Internal documentation generated with Doxygen.
+The documentation is generated using Doxygen. It uses the doxygen-awesome theme.
