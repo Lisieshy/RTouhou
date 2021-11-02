@@ -56,7 +56,7 @@ void ne::Graphics::Window::display() const {
     _wImpl->i_window.display();
 }
 
-void ne::Graphics::Window::drawPixel(ne::Transform& transform) const {
+void ne::Graphics::Window::drawRectangle(ne::Transform& transform, ne::Color& color) const {
     sf::RectangleShape pixel;
 
     pixel.setPosition(
@@ -72,7 +72,12 @@ void ne::Graphics::Window::drawPixel(ne::Transform& transform) const {
     );
 
     pixel.setFillColor(
-        sf::Color::Cyan
+        sf::Color {
+            color.r,
+            color.g,
+            color.b,
+            color.a
+        }
     );
 
     _wImpl->i_window.draw(pixel);

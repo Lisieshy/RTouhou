@@ -31,13 +31,14 @@ int main(void)
 
     ne::Scene testScene;
 
-    testScene.coordinator->registerComponent<ne::Transform, ne::Renderable>();
+    testScene.coordinator->registerComponent<ne::Transform, ne::Renderable, ne::Color>();
 
     auto RenderSystem = testScene.coordinator->registerSystem<ne::RenderSystem>(testScene.coordinator);
     {
         ne::Signature signature;
         signature.set(testScene.coordinator->getComponentType<ne::Transform>());
         signature.set(testScene.coordinator->getComponentType<ne::Renderable>());
+        signature.set(testScene.coordinator->getComponentType<ne::Color>());
         testScene.coordinator->setSystemSignature<ne::RenderSystem>(signature);
     }
 
@@ -70,6 +71,26 @@ int main(void)
     testScene.coordinator->addComponent(
         pixel2,
         ne::Renderable{}
+    );
+
+    testScene.coordinator->addComponent(
+        pixel1,
+        ne::Color{
+            255,
+            0,
+            0,
+            255
+        }
+    );
+
+    testScene.coordinator->addComponent(
+        pixel2,
+        ne::Color{
+            0,
+            255,
+            0,
+            255
+        }
     );
 
     while (ne::Graphics::Window::Get().isOpen()) {

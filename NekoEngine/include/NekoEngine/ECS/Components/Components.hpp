@@ -19,5 +19,6 @@
 #include "NekoEngine/ECS/Components/Transform.hpp"
 #include "NekoEngine/ECS/Components/Timer.hpp"
 #include "NekoEngine/ECS/Components/Renderable.hpp"
+#include "NekoEngine/ECS/Components/Color.hpp"
 
 #endif /* !COMPONENTS_HPP_ */
