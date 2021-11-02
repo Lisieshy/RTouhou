@@ -71,9 +71,13 @@ jobs:
 
       - name: Windows build compiled project
         if: ${{ matrix.config.os == 'windows-latest' }}
-        run: msbuild rtouhou.sln /t:rtouhou_client /p:Configuration="Release" /p:Platform="x64" /p:BuildProjectReferences=false
+        run: |
+          cd build
+          msbuild rtouhou.sln /t:rtouhou_client /p:Configuration="Release" /p:Platform="x64" /p:BuildProjectReferences=false
 
 
       - name: Ubuntu build compiled project
         if: ${{ matrix.config.os == 'ubuntu-latest' }}
-        run: make
+        run: |
+          cd build
+          make
