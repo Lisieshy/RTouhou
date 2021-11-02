@@ -56,6 +56,14 @@ void ne::Graphics::Window::display() const {
     _wImpl->i_window.display();
 }
 
+void ne::Graphics::Window::clear(ne::Math::Vector4f Color) {
+    _wImpl->i_window.clear(sf::Color(
+        Color.x,
+        Color.y,
+        Color.z,
+        Color.w
+    ));
+}
 void ne::Graphics::Window::drawRectangle(ne::Transform& transform, ne::Color& color) const {
     sf::RectangleShape pixel;
 

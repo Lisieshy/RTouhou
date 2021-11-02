@@ -78,6 +78,8 @@ namespace ne::Graphics {
              */
             void drawRectangle(ne::Transform& transform, ne::Color& color) const;
 
+            void clear(ne::Math::Vector4f Color);
+
         private:
             /**
              * @brief The window constructor.

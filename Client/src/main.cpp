@@ -87,7 +87,7 @@ int main(void)
         ne::Gravity{
             ne::Math::Vector3f {
                 0.0f,
-                0.0f,
+                1.0f,
                 0.0f
             }
         }
@@ -98,7 +98,7 @@ int main(void)
         ne::Gravity{
             ne::Math::Vector3f {
                 0.0f,
-                1.0f,
+                9.81f,
                 0.0f
             }
         }
@@ -161,6 +161,9 @@ int main(void)
     while (ne::Graphics::Window::Get().isOpen()) {
         auto startTime = std::chrono::high_resolution_clock::now();
         ne::Graphics::Window::Get().pollEvent();
+        ne::Graphics::Window::Get().clear(ne::Math::Vector4f{
+            0, 0, 0, 255
+        });
         RenderSystem->update();
         PhysicsSystem->update(dt);
         auto stopTime = std::chrono::high_resolution_clock::now();
