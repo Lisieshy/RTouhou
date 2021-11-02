@@ -24,7 +24,7 @@ void ne::RenderSystem::update()
     for (auto& entity : m_entities) {
         ne::Transform transform = coordinator->getComponent<ne::Transform>(entity);
         ne::Color color = coordinator->getComponent<ne::Color>(entity);
-        ne::Graphics::Window::Get().drawPixel(transform, color);
+        ne::Graphics::Window::Get().drawRectangle(transform, color);
     }
     ne::Graphics::Window::Get().display();
 }
