@@ -20,5 +20,7 @@
 #include "NekoEngine/ECS/Components/Timer.hpp"
 #include "NekoEngine/ECS/Components/Renderable.hpp"
 #include "NekoEngine/ECS/Components/Color.hpp"
+#include "NekoEngine/ECS/Components/RigidBody.hpp"
+#include "NekoEngine/ECS/Components/Gravity.hpp"
 
 #endif /* !COMPONENTS_HPP_ */

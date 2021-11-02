@@ -18,5 +18,6 @@
 
 #include "NekoEngine/ECS/Systems/TimerSystem.hpp"
 #include "NekoEngine/ECS/Systems/RenderSystem.hpp"
+#include "NekoEngine/ECS/Systems/PhysicsSystem.hpp"
 
 #endif /* !SYSTEMS_HPP_ */

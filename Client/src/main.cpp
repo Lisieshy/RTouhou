@@ -31,7 +31,7 @@ int main(void)
 
     ne::Scene testScene;
 
-    testScene.coordinator->registerComponent<ne::Transform, ne::Renderable, ne::Color>();
+    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color>();
 
     auto RenderSystem = testScene.coordinator->registerSystem<ne::RenderSystem>(testScene.coordinator);
     {
@@ -42,6 +42,15 @@ int main(void)
         testScene.coordinator->setSystemSignature<ne::RenderSystem>(signature);
     }
 
+    auto PhysicsSystem = testScene.coordinator->registerSystem<ne::PhysicsSystem>(testScene.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(testScene.coordinator->getComponentType<ne::Transform>());
+        signature.set(testScene.coordinator->getComponentType<ne::RigidBody>());
+        signature.set(testScene.coordinator->getComponentType<ne::Gravity>());
+        testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
+    }
+
     ne::EntityID pixel1 = testScene.coordinator->createEntity();
     ne::EntityID pixel2 = testScene.coordinator->createEntity();
 
@@ -50,16 +59,16 @@ int main(void)
         ne::Transform{
             ne::Math::Vector3f{0.f, 0.f, 0.f},
             ne::Math::Vector3f{0.f, 0.f, 0.f},
-            ne::Math::Vector3f{800.f, 600.f, 0.f}
+            ne::Math::Vector3f{10.f, 10.f, 0.f}
         }
     );
 
     testScene.coordinator->addComponent(
         pixel2,
         ne::Transform{
-            ne::Math::Vector3f{300.f, 50.f, 0.f},
+            ne::Math::Vector3f{250.f, 50.f, 0.f},
             ne::Math::Vector3f{0.f, 0.f, 0.f},
-            ne::Math::Vector3f{75.f, 75.f, 0.f}
+            ne::Math::Vector3f{10.f, 10.f, 0.f}
         }
     );
 
@@ -71,6 +80,60 @@ int main(void)
     testScene.coordinator->addComponent(
         pixel2,
         ne::Renderable{}
+    );
+
+    testScene.coordinator->addComponent(
+        pixel1,
+        ne::Gravity{
+            ne::Math::Vector3f {
+                0.0f,
+                0.0f,
+                0.0f
+            }
+        }
+    );
+
+    testScene.coordinator->addComponent(
+        pixel2,
+        ne::Gravity{
+            ne::Math::Vector3f {
+                0.0f,
+                1.0f,
+                0.0f
+            }
+        }
+    );
+
+    testScene.coordinator->addComponent(
+        pixel1,
+        ne::RigidBody {
+            ne::Math::Vector3f {
+                0.0f,
+                0.0f,
+                0.0f
+            },
+            ne::Math::Vector3f {
+                0.0f,
+                0.0f,
+                0.0f
+            }
+        }
+    );
+
+    testScene.coordinator->addComponent(
+        pixel2,
+        ne::RigidBody {
+            ne::Math::Vector3f {
+                0.0f,
+                0.0f,
+                0.0f
+            },
+            ne::Math::Vector3f {
+                0.0f,
+                0.0f,
+                0.0f
+            }
+        }
     );
 
     testScene.coordinator->addComponent(
@@ -92,10 +155,16 @@ int main(void)
             255
         }
     );
+
+    float dt = 0.0;
 
     while (ne::Graphics::Window::Get().isOpen()) {
+        auto startTime = std::chrono::high_resolution_clock::now();
         ne::Graphics::Window::Get().pollEvent();
         RenderSystem->update();
+        PhysicsSystem->update(dt);
+        auto stopTime = std::chrono::high_resolution_clock::now();
+        dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
     }
 
     // Scene.coordinator->addComponent(
