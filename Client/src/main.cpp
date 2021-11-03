@@ -70,7 +70,7 @@ int main(void)
         ne::Transform{
             ne::Math::Vector3f{250.f, 50.f, 0.f},
             ne::Math::Vector3f{0.f, 0.f, 0.f},
-            ne::Math::Vector3f{10.f, 10.f, 0.f}
+            ne::Math::Vector3f{100.f, 100.f, 0.f}
         }
     );
 
@@ -89,7 +89,7 @@ int main(void)
         ne::Gravity{
             ne::Math::Vector3f {
                 0.0f,
-                9.81f,
+                9.80f,
                 0.0f
             }
         }

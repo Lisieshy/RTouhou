@@ -20,7 +20,6 @@
 namespace ne::Graphics::Window {
     struct WImpl {
         sf::RenderWindow i_window;
-        sf::Event event;
     };
 }
 
@@ -42,9 +41,9 @@ bool ne::Graphics::Window::isOpen() {
 }
 
 void ne::Graphics::Window::pollEvent() {
-    while(impl->i_window.pollEvent(impl->event)) {
-        if (impl->event.type == sf::Event::Closed) {
-            impl->i_window.close();
+    for (auto event = sf::Event{}; impl->i_window.pollEvent(event);) {
+        if (event.type == sf::Event::Closed) {
+            close();
         }
     }
 }
@@ -53,12 +52,12 @@ void ne::Graphics::Window::display() {
     impl->i_window.display();
 }
 
-void ne::Graphics::Window::clear(ne::Math::Vector4f Color) {
+void ne::Graphics::Window::clear(ne::Color Color) {
     impl->i_window.clear(sf::Color(
-        Color.x,
-        Color.y,
-        Color.z,
-        Color.w
+        Color.r,
+        Color.g,
+        Color.b,
+        Color.a
     ));
 }
 

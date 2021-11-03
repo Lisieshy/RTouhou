@@ -54,7 +54,8 @@ namespace ne::Graphics::Window {
      */
     void drawRectangle(ne::Transform& transform, ne::Color& color);
 
-    void clear(ne::Math::Vector4f Color);
+
+    void clear(ne::Color color);
 }
 
 #endif /* !WINDOW_HPP_ */

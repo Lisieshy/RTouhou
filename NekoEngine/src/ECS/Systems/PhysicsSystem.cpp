@@ -18,6 +18,7 @@
 #include "NekoEngine/ECS/Components/Transform.hpp"
 #include "NekoEngine/ECS/Components/RigidBody.hpp"
 #include "NekoEngine/ECS/Components/Gravity.hpp"
+#include <iostream>
 
 void ne::PhysicsSystem::update(float dt)
 {
