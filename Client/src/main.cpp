@@ -136,10 +136,10 @@ int main(void)
     while (ne::Graphics::Window::isOpen()) {
         auto startTime = std::chrono::high_resolution_clock::now();
         ne::Graphics::Window::pollEvent();
-        // ne::Graphics::Window::clear(ne::Math::Vector4f{
-        //     0, 0, 0, 255
-        // });
-        // RenderSystem->update();
+        ne::Graphics::Window::clear(ne::Math::Vector4f{
+            0, 0, 0, 255
+        });
+        RenderSystem->update();
         PhysicsSystem->update(dt);
         auto stopTime = std::chrono::high_resolution_clock::now();
         dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();

@@ -16,7 +16,7 @@
 #ifndef WINDOW_HPP_
 #define WINDOW_HPP_
 
-// #include <NekoEngine/ECS/Components/Components.hpp>
+#include <NekoEngine/ECS/Components/Components.hpp>
 #include <NekoEngine/Math/Vector/Vector.hpp>
 
 /**
@@ -46,15 +46,15 @@ namespace ne::Graphics::Window {
      */
     void display();
 
-    // /**
-    //  * @brief Draw a rectangle.
-    //  * 
-    //  * @param transform The transform containing the rectangle's position, rotation and size.
-    //  * @param color The color to draw the rectangle in.
-    //  */
-    // void drawRectangle(ne::Transform& transform, ne::Color& color);
+    /**
+     * @brief Draw a rectangle.
+     * 
+     * @param transform The transform containing the rectangle's position, rotation and size.
+     * @param color The color to draw the rectangle in.
+     */
+    void drawRectangle(ne::Transform& transform, ne::Color& color);
 
-    // void clear(ne::Math::Vector4f Color);
+    void clear(ne::Math::Vector4f Color);
 }
 
 #endif /* !WINDOW_HPP_ */

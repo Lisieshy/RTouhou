@@ -53,38 +53,38 @@ void ne::Graphics::Window::display() {
     impl->i_window.display();
 }
 
-// void ne::Graphics::Window::clear(ne::Math::Vector4f Color) {
-//     impl->i_window.clear(sf::Color(
-//         Color.x,
-//         Color.y,
-//         Color.z,
-//         Color.w
-//     ));
-// }
+void ne::Graphics::Window::clear(ne::Math::Vector4f Color) {
+    impl->i_window.clear(sf::Color(
+        Color.x,
+        Color.y,
+        Color.z,
+        Color.w
+    ));
+}
 
-// void ne::Graphics::Window::drawRectangle(ne::Transform& transform, ne::Color& color) {
-//     sf::RectangleShape pixel;
+void ne::Graphics::Window::drawRectangle(ne::Transform& transform, ne::Color& color) {
+    sf::RectangleShape pixel;
 
-//     pixel.setPosition(
-//         transform.position.x,
-//         transform.position.y
-//     );
+    pixel.setPosition(
+        transform.position.x,
+        transform.position.y
+    );
 
-//     pixel.setSize(
-//         sf::Vector2f(
-//             transform.scale.x,
-//             transform.scale.y
-//         )
-//     );
+    pixel.setSize(
+        sf::Vector2f(
+            transform.scale.x,
+            transform.scale.y
+        )
+    );
 
-//     pixel.setFillColor(
-//         sf::Color {
-//             color.r,
-//             color.g,
-//             color.b,
-//             color.a
-//         }
-//     );
+    pixel.setFillColor(
+        sf::Color {
+            color.r,
+            color.g,
+            color.b,
+            color.a
+        }
+    );
 
-//     impl->i_window.draw(pixel);
-// }
+    impl->i_window.draw(pixel);
+}
