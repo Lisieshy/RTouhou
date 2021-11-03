@@ -45,6 +45,7 @@ jobs:
           sudo dpkg -i conan-ubuntu-64.deb
           conan profile new --detect default
           conan profile update settings.build_type=Release default
+          conan profile update settings.compiler.libcxx=libstdc++ default
           conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
           conan config set general.revisions_enabled=1
           mkdir build
@@ -57,7 +58,6 @@ jobs:
           pip install conan
           conan profile new --detect default
           conan profile update settings.build_type=Release default
-          conan profile update settings.compiler.libcxx=libstdc++ default
           conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
           conan config set general.revisions_enabled=1
           mkdir build
