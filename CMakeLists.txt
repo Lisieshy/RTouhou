@@ -10,6 +10,8 @@ project(
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(KEEP_RPATHS)
 
+find_package(Threads REQUIRED)
+
 file(COPY
     ${CMAKE_CURRENT_SOURCE_DIR}/resources
     DESTINATION
@@ -67,7 +69,7 @@ set(SOURCES_SERVER
 
 add_executable(rtouhou_client ${SOURCES_CLIENT})
 
-target_compile_features(rtouhou_client PUBLIC cxx_std_17)
+target_compile_features(rtouhou_client PUBLIC cxx_std_20)
 
 target_include_directories(rtouhou_client
     PRIVATE
@@ -76,6 +78,7 @@ target_include_directories(rtouhou_client
 
 target_link_libraries(
     rtouhou_client
+    Threads::Threads
     ${CONAN_LIBS}
 )
 

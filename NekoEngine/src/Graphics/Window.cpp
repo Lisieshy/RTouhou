@@ -13,80 +13,78 @@
  * @date        10/2021
  */
 
+#include <memory>
 #include "NekoEngine/Graphics/Window.hpp"
-#include "NekoEngine/ECS/Components/Components.hpp"
 #include <SFML/Graphics.hpp>
 
-struct ne::Graphics::Window::WImpl
-{
-    sf::RenderWindow i_window {
-        sf::VideoMode(800, 600),
-        "R-Touhou",
-        sf::Style::Default
+namespace ne::Graphics::Window {
+    struct WImpl {
+        sf::RenderWindow i_window;
+        sf::Event event;
     };
-    sf::Event event;
-};
-
-auto ne::Graphics::Window::Get() -> Window& {
-    static Window s_window;
-    return s_window;
 }
 
-ne::Graphics::Window::Window() : _wImpl(std::make_unique<ne::Graphics::Window::WImpl>()) {
-    _wImpl->i_window.setVerticalSyncEnabled(true);
+static std::unique_ptr<ne::Graphics::Window::WImpl> impl;
+
+void ne::Graphics::Window::open() {
+    impl = std::make_unique<ne::Graphics::Window::WImpl>();
+    impl->i_window.create(sf::VideoMode(800, 600), "NekoEngine");
+    impl->i_window.setVerticalSyncEnabled(true);
 }
 
-ne::Graphics::Window::~Window() {
-    _wImpl->i_window.close();
+void ne::Graphics::Window::close() {
+    impl->i_window.close();
+    impl.reset();
 }
 
-bool ne::Graphics::Window::isOpen() const {
-    return _wImpl->i_window.isOpen();
+bool ne::Graphics::Window::isOpen() {
+    return impl->i_window.isOpen();
 }
 
-void ne::Graphics::Window::pollEvent() const {
-    while(_wImpl->i_window.pollEvent(_wImpl->event)) {
-        if (_wImpl->event.type == sf::Event::Closed) {
-            _wImpl->i_window.close();
+void ne::Graphics::Window::pollEvent() {
+    while(impl->i_window.pollEvent(impl->event)) {
+        if (impl->event.type == sf::Event::Closed) {
+            impl->i_window.close();
         }
     }
 }
 
-void ne::Graphics::Window::display() const {
-    _wImpl->i_window.display();
+void ne::Graphics::Window::display() {
+    impl->i_window.display();
 }
 
-void ne::Graphics::Window::clear(ne::Math::Vector4f Color) {
-    _wImpl->i_window.clear(sf::Color(
-        Color.x,
-        Color.y,
-        Color.z,
-        Color.w
-    ));
-}
-void ne::Graphics::Window::drawRectangle(ne::Transform& transform, ne::Color& color) const {
-    sf::RectangleShape pixel;
+// void ne::Graphics::Window::clear(ne::Math::Vector4f Color) {
+//     impl->i_window.clear(sf::Color(
+//         Color.x,
+//         Color.y,
+//         Color.z,
+//         Color.w
+//     ));
+// }
 
-    pixel.setPosition(
-        transform.position.x,
-        transform.position.y
-    );
+// void ne::Graphics::Window::drawRectangle(ne::Transform& transform, ne::Color& color) {
+//     sf::RectangleShape pixel;
 
-    pixel.setSize(
-        sf::Vector2f(
-            transform.scale.x,
-            transform.scale.y
-        )
-    );
+//     pixel.setPosition(
+//         transform.position.x,
+//         transform.position.y
+//     );
 
-    pixel.setFillColor(
-        sf::Color {
-            color.r,
-            color.g,
-            color.b,
-            color.a
-        }
-    );
+//     pixel.setSize(
+//         sf::Vector2f(
+//             transform.scale.x,
+//             transform.scale.y
+//         )
+//     );
 
-    _wImpl->i_window.draw(pixel);
-}
+//     pixel.setFillColor(
+//         sf::Color {
+//             color.r,
+//             color.g,
+//             color.b,
+//             color.a
+//         }
+//     );
+
+//     impl->i_window.draw(pixel);
+// }

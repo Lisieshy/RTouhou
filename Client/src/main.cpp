@@ -13,10 +13,12 @@
  * @date        05/2021
  */
 
-#include "NekoEngine/NekoEngine.hpp"
-
+#include <NekoEngine/NekoEngine.hpp>
+#include <NekoEngine/Graphics/Window.hpp>
+#include <iostream>
 int main(void)
 {
+    ne::Graphics::Window::open();
     // ne::Scene Scene;
 
     // Scene.coordinator->registerComponent<ne::Transform, ne::Timer>();
@@ -83,38 +85,11 @@ int main(void)
     );
 
     testScene.coordinator->addComponent(
-        pixel1,
-        ne::Gravity{
-            ne::Math::Vector3f {
-                0.0f,
-                1.0f,
-                0.0f
-            }
-        }
-    );
-
-    testScene.coordinator->addComponent(
         pixel2,
         ne::Gravity{
             ne::Math::Vector3f {
                 0.0f,
                 9.81f,
-                0.0f
-            }
-        }
-    );
-
-    testScene.coordinator->addComponent(
-        pixel1,
-        ne::RigidBody {
-            ne::Math::Vector3f {
-                0.0f,
-                0.0f,
-                0.0f
-            },
-            ne::Math::Vector3f {
-                0.0f,
-                0.0f,
                 0.0f
             }
         }
@@ -158,16 +133,17 @@ int main(void)
 
     float dt = 0.0;
 
-    while (ne::Graphics::Window::Get().isOpen()) {
+    while (ne::Graphics::Window::isOpen()) {
         auto startTime = std::chrono::high_resolution_clock::now();
-        ne::Graphics::Window::Get().pollEvent();
-        ne::Graphics::Window::Get().clear(ne::Math::Vector4f{
-            0, 0, 0, 255
-        });
-        RenderSystem->update();
+        ne::Graphics::Window::pollEvent();
+        // ne::Graphics::Window::clear(ne::Math::Vector4f{
+        //     0, 0, 0, 255
+        // });
+        // RenderSystem->update();
         PhysicsSystem->update(dt);
         auto stopTime = std::chrono::high_resolution_clock::now();
         dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
+        std::cout << dt << std::endl;
     }
 
     // Scene.coordinator->addComponent(
@@ -232,5 +208,6 @@ int main(void)
     // }
     // printf("It should work.");
     // std::cin.get();
+    ne::Graphics::Window::close();
     return (0);
 }
