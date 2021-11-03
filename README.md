@@ -74,6 +74,9 @@ Once you have everything installed, follow these steps :
 
 7. You're done! The compiled binaries will be located in ./build/bin/ !
 
+If you're using WSL2, you can use both `linux.sh` and `windows.sh` to compile for both platforms, directly from Linux.<br>
+!! THIS REQUIRES TO HAVE WSL2 AND WINDOWS 11 !!
+
 # Documentation
 
 The documentation is generated using Doxygen. It uses the doxygen-awesome theme.
