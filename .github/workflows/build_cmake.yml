@@ -25,8 +25,8 @@ jobs:
             os: ubuntu-latest,
             artifact: "ubuntu_gcc.7z",
             build_type: "Release",
-            cc: "gcc",
-            cxx: "g++",
+            cc: "gcc-10",
+            cxx: "g++-10",
             archiver: "7z a",
             generators: "Unix Makefiles"
           }
@@ -44,7 +44,7 @@ jobs:
           wget https://github.com/conan-io/conan/releases/latest/download/conan-ubuntu-64.deb
           sudo dpkg -i conan-ubuntu-64.deb
           conan profile new --detect default
-          conan profile update settings.build_type=Release default
+          conan profile update settings.build_type=${{ matrix.config.build_type }} default
           conan profile update settings.compiler.libcxx=libstdc++ default
           conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
           conan config set general.revisions_enabled=1
@@ -57,7 +57,7 @@ jobs:
         run: |
           pip install conan
           conan profile new --detect default
-          conan profile update settings.build_type=Release default
+          conan profile update settings.build_type=${{ matrix.config.build_type }} default
           conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
           conan config set general.revisions_enabled=1
           mkdir build
@@ -74,7 +74,7 @@ jobs:
         if: ${{ matrix.config.os == 'windows-latest' }}
         run: |
           cd build
-          msbuild rtouhou.sln /t:rtouhou_client /p:Configuration="Release" /p:Platform="x64" /p:BuildProjectReferences=false
+          msbuild rtouhou.sln /t:rtouhou_client /p:Configuration="${{ matrix.config.build_type }}" /p:Platform="x64" /p:BuildProjectReferences=false
 
 
       - name: Ubuntu build compiled project
