@@ -254,7 +254,7 @@ Last thing to do is to now call the `PhysicsSystem->update()` function and passi
 And that's it! You're done setting it up.
 
 You can always go further, by editing this code a bit to add some randomness and an actual Render System could give a result like that!
-![Demo Gif](./docs_resources/nekoendingdemo.gif)
+![Demo Gif](./docs_resources/nekoenginedemo.gif)
 
 # Internal Documentation
 
