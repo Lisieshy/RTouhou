@@ -8,18 +8,19 @@
 /**
  * @file        Window.cpp
  * @brief       Contains the NekoEngine Window class implementation.
- * @details     This Window class acts as a wrapper of raylib's core module and aim's to simplify a lot of stuff.
+ * @details     The "Not a Singleton but actually kinda like one but it's not pattern".
  * @author      Aurélien Schulz (@Lisieshy)
  * @date        10/2021
  */
 
 #include <memory>
-#include "NekoEngine/Graphics/Window.hpp"
+#include <NekoEngine/Graphics/Window.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace ne::Graphics::Window {
     struct WImpl {
         sf::RenderWindow i_window;
+        bool shouldClose = false;
     };
 }
 
@@ -29,21 +30,27 @@ void ne::Graphics::Window::open() {
     impl = std::make_unique<ne::Graphics::Window::WImpl>();
     impl->i_window.create(sf::VideoMode(800, 600), "NekoEngine");
     impl->i_window.setVerticalSyncEnabled(true);
+    impl->shouldClose = false;
 }
 
 void ne::Graphics::Window::close() {
-    impl->i_window.close();
+    if (impl)
+        impl->i_window.close();
     impl.reset();
 }
 
+bool ne::Graphics::Window::shouldClose() {
+    return impl->shouldClose;
+}
+
 bool ne::Graphics::Window::isOpen() {
-    return impl->i_window.isOpen();
+    return impl && impl->i_window.isOpen();
 }
 
 void ne::Graphics::Window::pollEvent() {
     for (auto event = sf::Event{}; impl->i_window.pollEvent(event);) {
         if (event.type == sf::Event::Closed) {
-            close();
+            impl->shouldClose = true;
         }
     }
 }
@@ -52,13 +59,17 @@ void ne::Graphics::Window::display() {
     impl->i_window.display();
 }
 
-void ne::Graphics::Window::clear(ne::Color Color) {
+void ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char> Color) {
     impl->i_window.clear(sf::Color(
-        Color.r,
-        Color.g,
-        Color.b,
-        Color.a
+        Color.x,
+        Color.y,
+        Color.z,
+        Color.w
     ));
+}
+
+void ne::Graphics::Window::setTitle(std::string& title) {
+    impl->i_window.setTitle(title);
 }
 
 void ne::Graphics::Window::drawRectangle(ne::Transform& transform, ne::Color& color) {
