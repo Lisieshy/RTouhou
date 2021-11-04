@@ -196,6 +196,7 @@ Now, you only need one last thing, and that's to register the `PhysicsSystem` in
 
 Registering a System requires what we call a `ne::Signature`.<br>
 A signature is just a way of telling our system to iterate only over entities that belong to him.
+
 You don't want your Physics System accessing a `ne::RigidBody` on an entity that doesn't have one, that's why Systems need to know what kind of entity to look for in memory.
 
 Creating a System and a signature is done like this, using the Coordinator's `registerSystem` function :
@@ -223,7 +224,7 @@ Creating a System and a signature is done like this, using the Coordinator's `re
 
 With all that beefy code now done, you have created a Physics System that will only iterate over entities that matche this componentType signature.
 
-Now, to actually implement the PhysicsSystem update function.
+Now, to actually implement the PhysicsSystem update function :
 
 ```c++
 // PhysicsSystem.cpp
@@ -253,7 +254,7 @@ Last thing to do is to now call the `PhysicsSystem->update()` function and passi
 
 And that's it! You're done setting it up.
 
-You can always go further, by editing this code a bit to add some randomness and an actual Render System could give a result like that!
+You can always go further, by editing this code a bit to add some randomness and an actual Render System could get a result like that!
 ![Demo Gif](./docs_resources/nekoenginedemo.gif)
 
 # Internal Documentation
