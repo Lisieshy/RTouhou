@@ -13,10 +13,12 @@
  * @date        05/2021
  */
 
+// Pragma definition for Windows to remove the console window.
+#pragma comment(linker, "/SUBSYSTEM:windows")
+
 #include <NekoEngine/NekoEngine.hpp>
 #include <NekoEngine/Graphics/Window.hpp>
 #include <random>
-#include <iostream>
 #include <chrono>
 
 int main(void)

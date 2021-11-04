@@ -3,7 +3,7 @@
 [ -d ./windows ] || mkdir windows
 cd windows
 
-conan install .. --build=missing -pr=WindowsRelease
+conan.exe install .. --build=missing -pr=Release
 
 cmake.exe .. -DCMAKE_BUILD_TYPE=Release -G "Visual Studio 16 2019"
 
