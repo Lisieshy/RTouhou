@@ -88,7 +88,7 @@ Once you have your scene, you need to register the components to the Coordinator
 
 But first, you need components to use!<br>
 Components are as simple as it gets. They're only here to store data about the entities. Here are some example components.
-```c++
+```cpp
 // All files here are inside the namespace 'ne'.
 
 // Transform.hpp
@@ -137,7 +137,7 @@ After that, you're going to need some entities to play with.<br>
 Creating an entity is pretty simple, since every entity is just a single `ne::EntityID`.<br>
 Just call the Coordinator's `createEntity()` function, and store the resulting ID.<br>
 For example, let's say we want to create 10 entities, each with a Transform component, we'd do something like :
-```c++
+```cpp
 // Inside main function after having registered our components
 
     // Creating a std::vector of size 10
@@ -200,7 +200,7 @@ A signature is just a way of telling our system to iterate only over entities th
 You don't want your Physics System accessing a `ne::RigidBody` on an entity that doesn't have one, that's why Systems need to know what kind of entity to look for in memory.
 
 Creating a System and a signature is done like this, using the Coordinator's `registerSystem` function :
-```c++
+```cpp
     // Inside our main function, just after registering the Components.
     
     // Creating the PhysicsSystem using the registerSystem function.
@@ -226,7 +226,7 @@ With all that beefy code now done, you have created a Physics System that will o
 
 Now, to actually implement the PhysicsSystem update function :
 
-```c++
+```cpp
 // PhysicsSystem.cpp
 #include "PhysicsSystem.hpp"
 
