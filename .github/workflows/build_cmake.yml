@@ -25,8 +25,8 @@ jobs:
             os: ubuntu-latest,
             artifact: "ubuntu_gcc.7z",
             build_type: "Release",
-            cc: "gcc-10",
-            cxx: "g++-10",
+            cc: "gcc-11",
+            cxx: "g++-11",
             archiver: "7z a",
             generators: "Unix Makefiles"
           }
@@ -45,7 +45,7 @@ jobs:
           sudo dpkg -i conan-ubuntu-64.deb
           conan profile new --detect default
           conan profile update settings.build_type=${{ matrix.config.build_type }} default
-          conan profile update settings.compiler.libcxx=libstdc++ default
+          conan profile update settings.compiler.libcxx=libstdc++11 default
           conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
           conan config set general.revisions_enabled=1
           mkdir build
