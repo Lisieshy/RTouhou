@@ -1,3 +1,18 @@
+/*
+** EPITECH PROJECT, 2021
+** NyaLog
+** File description:
+** NyaLog
+*/
+
+/**
+ * @file        NyaLog.inl
+ * @brief       NyaLog logger implementation.
+ * @details     A simple logger made to be header only.
+ * @author      Aurélien Schulz (@Lisieshy)
+ * @date        05/11/2021
+ */
+
 #ifdef NYALOG_HPP_
 #ifndef NYALOG_INL_
 #define NYALOG_INL_
@@ -7,24 +22,35 @@
 #include <sstream>
 #include <chrono>
 #include <iomanip>
+#include <filesystem>
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
 
 inline nl::NyaLogSettings::NyaLogSettings() :
-    _path(""),
     _filename("nya"),
-    _overwrite(false),
     _file(true),
     _stdout(true)
 {
+    std::string log_path;
 
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+    _path = getenv("LOCALAPPDATA");
+    _path.append("\\rtouhou\\logs\\");
+#elif __linux__
+    _path = getenv("HOME");
+    _path.append("/.config/rtouhou/logs/");
+#endif
 }
 
 namespace nl {
     NyaLog nyalog{};
 }
 
-inline nl::NyaLog::NyaLog()
+inline nl::NyaLog::NyaLog() :
+    _init(false),
+    _mutex()
 {
-    _init = false;
 }
 
 inline nl::NyaLog::~NyaLog()
@@ -33,37 +59,37 @@ inline nl::NyaLog::~NyaLog()
         stop();
 }
 
-
 auto inline nl::NyaLog::init(
     const nl::NyaLogSettings& settings
 ) -> bool
 {
     _settings = settings;
 
-    // std::chrono::year_month_day today{std::chrono::system_clock::now()};
-    // std::chrono::hh_mm_ss hour{std::chrono::system_clock::now()};
+    const auto current_time_point {
+        std::chrono::system_clock::now()
+    };
+    const auto current_time {
+        std::chrono::system_clock::to_time_t (current_time_point)
+    };
+    const auto current_localtime {
+        *std::localtime (&current_time)
+    };
 
-    time_t theTime = time(nullptr);
-    struct tm* timeInfo = localtime(&theTime);
-
-    std::string format = "%Y%m%dT%H%M%SZ";
-
-    std::stringstream ss;
-    ss << std::put_time(timeInfo, format.c_str());
+    std::ostringstream stream;
+    stream << std::put_time (&current_localtime, "%F") << "";
 
     if (!_init) {
-        if (_settings._overwrite)
+        std::filesystem::create_directories(_settings._path);
+
+        if (_settings._file) {
             _ofs.open(
                 _settings._path +
-                _settings._filename
-            );
-        else
-            _ofs.open(
-                _settings._path +
-                ss.str() +
+                stream.str() +
                 "_" +
-                _settings._filename
+                _settings._filename,
+                std::ios::app
             );
+        }
         if (_ofs.is_open()) {
             _init = true;
             return true;
@@ -83,43 +109,74 @@ auto inline nl::NyaLog::stop(
     }
 }
 
-template<typename T>
-auto inline nl::NyaLog::operator<<(
-    T value
-) -> NyaLog&
+auto inline nl::NyaLog::printFormattedMessage(
+    std::string message
+) -> void
 {
-    if (_init) {
-        // std::chrono::year_month_day today{std::chrono::system_clock::now()};
-        // std::chrono::hh_mm_ss hour{std::chrono::system_clock::now()};
-        // std::chrono::milliseconds ms{std::chrono::system_clock::now()};
-
-        time_t theTime = time(nullptr);
-        struct tm* timeInfo = localtime(&theTime);
-
-        std::string format = "%FT%T%z";
-
-        std::stringstream ss;
-        ss << std::put_time(timeInfo, format.c_str());
-
-        std::string formatted = "[" + ss.str() + "] ";
-
-        if (_settings._file)
-            _ofs << formatted << value;
-        if (_settings._stdout)
-            std::cout << formatted << value;
-    }
-    return *this;
+    std::scoped_lock<std::mutex> lock {
+        _mutex
+    };
+    if (_settings._file)
+        _ofs << message << std::endl;
+    if (_settings._stdout)
+        std::cout << message << std::endl;
 }
 
-auto inline nl::NyaLog::operator<<(
-    std::ostream& (*f)(std::ostream&)
+auto inline nl::NyaLog::operator()(
+    nl::LogLevel level,
+    std::string message
 ) -> NyaLog&
 {
     if (_init) {
-        if (_settings._file)
-            _ofs << std::endl;
-        if (_settings._stdout)
-            std::cout << std::endl;
+        if (level <= _settings._level) {
+            const auto current_time_point {
+                std::chrono::system_clock::now()
+            };
+            const auto current_time {
+                std::chrono::system_clock::to_time_t (current_time_point)
+            };
+            const auto current_localtime {
+                *std::localtime (&current_time)
+            };
+            const auto current_time_since_epoch {
+                current_time_point.time_since_epoch()
+            };
+            const auto current_milliseconds {
+                std::chrono::duration_cast<std::chrono::milliseconds> (current_time_since_epoch).count() % 1000
+            };
+
+            std::ostringstream stream;
+            stream << std::put_time (&current_localtime, "%FT%T") << "." << std::setw (3) << std::setfill ('0') << current_milliseconds << "Z";
+
+            std::stringstream ss;
+            ss << "[" << stream.str() << "] ";
+            switch (level) {
+                case nl::LogLevel::INFO:
+                    ss << "\e[1;36m[INFO]\e[0m " << message;
+                    printFormattedMessage(ss.str());
+                    break;
+                case nl::LogLevel::DEBUG:
+                    ss << "\e[1;34m[DEBUG]\e[0m " << message;
+                    printFormattedMessage(ss.str());
+                    break;
+                case nl::LogLevel::WARNING:
+                    ss << "\e[1;33m[WARN]\e[0m " << message;
+                    printFormattedMessage(ss.str());
+                    break;
+                case nl::LogLevel::ERROR:
+                    ss << "\e[1;31m[ERROR]\e[0m " << message;
+                    printFormattedMessage(ss.str());
+                    break;
+                case nl::LogLevel::FATAL:
+                    ss << "\e[1;31m[CRIT]\e[0m " << message;
+                    printFormattedMessage(ss.str());
+                    break;
+                default:
+                    ss << "\e[1;36m[INFO]\e[0m " << message;
+                    printFormattedMessage(ss.str());
+                    break;
+            }
+        }
     }
     return *this;
 }

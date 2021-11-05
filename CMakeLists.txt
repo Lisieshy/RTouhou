@@ -14,7 +14,6 @@ conan_basic_setup(KEEP_RPATHS)
 
 find_package(Threads REQUIRED)
 
-
 file(COPY
     ${CMAKE_CURRENT_SOURCE_DIR}/resources
     DESTINATION
@@ -69,7 +68,6 @@ set(SOURCES_CLIENT
 set(SOURCES_SERVER
     ${NEKOENGINE_SOURCES}
 )
-
 
 add_executable(rtouhou_client ${SOURCES_CLIENT})
 

@@ -28,6 +28,7 @@ static std::unique_ptr<ne::Graphics::Window::WImpl> impl;
 
 void ne::Graphics::Window::open() {
     impl = std::make_unique<ne::Graphics::Window::WImpl>();
+    sf::err().rdbuf(nullptr); // Disabling SFML Error from showing.
     impl->i_window.create(sf::VideoMode(800, 600), "NekoEngine");
     impl->i_window.setVerticalSyncEnabled(true);
     impl->shouldClose = false;

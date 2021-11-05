@@ -7,8 +7,8 @@
 
 /**
  * @file        main.cpp
- * @brief       Basic main file to test functionalities.
- * @details     If this one ends up on production then it means we fucked up real hard somewhere. Great.
+ * @brief       Entrypoint.
+ * @details     Contains the entrypoint of the profram.
  * @author      Aurélien Schulz (@Lisieshy)
  * @date        05/2021
  */
@@ -20,19 +20,23 @@
 #include <NekoEngine/Graphics/Window.hpp>
 #include <random>
 #include <chrono>
+#include <sstream>
 
 #include <NyaLog/NyaLog.hpp>
 
-int main(void)
+auto main(
+    int argc,
+    char** argv
+) -> int
 {
     nl::NyaLogSettings settings;
     settings._filename = "nyalog.log";
-    settings._overwrite = false;
     settings._file = true;
     settings._stdout = true;
+    settings._level = nl::LogLevel::FATAL;
 
-    std::cout << nl::nyalog.init(settings) << std::endl;
-    nl::nyalog << "Testing logs." << std::endl;
+    nl::nyalog.init(settings);
+    nl::nyalog(nl::LogLevel::INFO, "R-Touhou! Configuring everything... Please wait!");
 
     ne::Graphics::Window::open();
 
@@ -118,6 +122,7 @@ int main(void)
         dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
     }
     ne::Graphics::Window::close();
+    nl::nyalog(nl::LogLevel::INFO, "Closing down...");
     nl::nyalog.stop();
     return (0);
 }

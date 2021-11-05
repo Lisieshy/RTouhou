@@ -19,11 +19,20 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <mutex>
 
 /**
  * @namespace nl
  */
 namespace nl {
+    enum class LogLevel {
+        INFO,
+        DEBUG,
+        WARNING,
+        ERROR,
+        FATAL
+    };
+
     /**
      * @class NyaLogSettings
      * @brief Class holding NyaLog settings.
@@ -31,7 +40,12 @@ namespace nl {
      */
     class NyaLogSettings {
         public:
-            // Path to the log file. Defaults to the working directory.
+            /**
+             * Path to the log file.
+             * On Windows, defaults to %LocalAppData%/rtouhou/logs
+             * On Linux, defaults to ~/.config/rtouhou/logs
+             * Must be a complete path, or it will be relative to the working directory.
+             */
             std::string _path;
 
             // Filename. Defaults to "nya".
@@ -45,6 +59,9 @@ namespace nl {
 
             // Enable logging to stdout ?
             bool _stdout;
+
+            // Default Logging Level.
+            LogLevel _level;
 
             /**
              * @brief Construct a new Nya Log Settings object.
@@ -83,19 +100,18 @@ namespace nl {
                 auto stop(
                 ) -> void;
 
-                template<typename T>
-                auto operator<<(
-                    T value
-                ) -> NyaLog&;
-
-                auto operator<<(
-                    std::ostream& (*f)(std::ostream&)
+                auto operator()(
+                    nl::LogLevel level,
+                    std::string message
                 ) -> NyaLog&;
 
             private:
                 NyaLogSettings _settings;
                 std::ofstream _ofs;
                 bool _init;
+                std::mutex _mutex;
+
+                void printFormattedMessage(std::string message);
         };
     }
 }
