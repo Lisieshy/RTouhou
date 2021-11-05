@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.20)
 
 project(
     rtouhou
@@ -7,10 +7,13 @@ project(
     LANGUAGES CXX
 )
 
+set(CMAKE_CXX_STANDARD 20)
+
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(KEEP_RPATHS)
 
 find_package(Threads REQUIRED)
+
 
 file(COPY
     ${CMAKE_CURRENT_SOURCE_DIR}/resources
@@ -67,13 +70,15 @@ set(SOURCES_SERVER
     ${NEKOENGINE_SOURCES}
 )
 
+
 add_executable(rtouhou_client ${SOURCES_CLIENT})
 
-target_compile_features(rtouhou_client PUBLIC cxx_std_20)
+target_compile_features(rtouhou_client PRIVATE cxx_std_20)
 
 target_include_directories(rtouhou_client
     PRIVATE
     ${PROJECT_SOURCE_DIR}/NekoEngine/include
+    ${PROJECT_SOURCE_DIR}/NyaLog/
 )
 
 target_link_libraries(

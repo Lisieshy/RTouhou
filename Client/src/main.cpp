@@ -21,8 +21,19 @@
 #include <random>
 #include <chrono>
 
+#include <NyaLog/NyaLog.hpp>
+
 int main(void)
 {
+    nl::NyaLogSettings settings;
+    settings._filename = "nyalog.log";
+    settings._overwrite = false;
+    settings._file = true;
+    settings._stdout = true;
+
+    std::cout << nl::nyalog.init(settings) << std::endl;
+    nl::nyalog << "Testing logs." << std::endl;
+
     ne::Graphics::Window::open();
 
     ne::Scene testScene;
@@ -107,5 +118,6 @@ int main(void)
         dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
     }
     ne::Graphics::Window::close();
+    nl::nyalog.stop();
     return (0);
 }
