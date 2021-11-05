@@ -24,9 +24,9 @@ You also obviously need g++ to compile the cpp code.
 
 Once you have everything installed, follow these steps :
 
-1. First of all, you need to create a new conan profile
+1. First of all, you need to create a new conan profile with name default, you can change it to whatever you want.
 
-        $ conan profile new --detect
+        $ conan profile new --detect default
 
 2. Then, edit the profile by opening the .conan/profiles folder in your home directory
 
@@ -38,7 +38,7 @@ Once you have everything installed, follow these steps :
 
         code C:/Users/<USERNAME>/.conan/profiles
 
-3. Edit the default profile (The one you created earlier just now!)<br>
+3. Edit the profile (The one you created just now!)<br>
    and change the `compiler.cxx=libstdc++` to `compiler.cxx=libstdc++11`.<br>
    You can also change the compiler version here to match the one you use on your PC.<br>
    You can also change the `build_type` variable to change between Debug, Release, MinSizeRel and RelWithDebInfo. Be sure to match the one you'll use with CMake in the next steps.<br>
@@ -57,12 +57,16 @@ Once you have everything installed, follow these steps :
         [build_requires]
         [env]
 
-4. Now, go back to the project and create the build directory by running
+4. Then, you need to add bincrafters remote for conan
+
+        $ conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
+
+5. Now, go back to the project and create the build directory by running
 
         $ mkdir build
         $ cd build
 
-5. Now run these commands to install the dependencies and configure the project
+6. Now run these commands to install the dependencies and configure the project
 
         $ conan install .. --build=missing
         /* Installing Dependencies, wait for a few minutes. */
@@ -70,9 +74,9 @@ Once you have everything installed, follow these steps :
         $ cmake .. -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles"
         $ make
 
-6. For Windows, you should use cmake-gui and select Visual Studio 16 2019 for the target.
+7. For Windows, you should use cmake-gui and select Visual Studio 16 2019 for the target.
 
-7. You're done! The compiled binaries will be located in ./build/bin/ !
+8. You're done! The compiled binaries will be located in ./build/bin/ !
 
 If you're using WSL2, you can use both `linux.sh` and `windows.sh` to compile for both platforms, directly from Linux.<br>
 !! THIS REQUIRES TO HAVE WSL2 AND WINDOWS 11 !!
