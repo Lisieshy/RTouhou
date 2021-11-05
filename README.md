@@ -18,7 +18,7 @@ Creating a R-Type like game in C++, with multiplayer Co-Op.
 
 First of all, you need [Conan](https://conan.io)
 
-Then, you need [CMake >=3.17](https://cmake.org)
+Then, you need [CMake >=3.20](https://cmake.org)
 
 You also obviously need g++ to compile the cpp code.
 
