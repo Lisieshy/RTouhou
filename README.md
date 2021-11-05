@@ -60,6 +60,7 @@ Once you have everything installed, follow these steps :
 4. Then, you need to add bincrafters remote for conan
 
         $ conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
+        $ conan config set general.revisions_enabled=1
 
 5. Now, go back to the project and create the build directory by running
 
