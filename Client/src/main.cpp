@@ -62,7 +62,7 @@ auto main(
         testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
     }
 
-    std::vector<ne::EntityID> entities(200);
+    std::vector<ne::EntityID> entities(500);
 
     std::random_device rd;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
@@ -70,16 +70,20 @@ auto main(
 
     std::random_device rd1;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen1(rd1()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_int_distribution<> distribColor(0, 255);
+    std::uniform_int_distribution<> distribColor(15, 235);
 
     std::random_device rd2;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen2(rd2()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_real_distribution<> distribGrav(0.f, 10.f);
+    std::uniform_real_distribution<> distribGrav(8.f, 10.f);
+
+    std::random_device rd3;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen3(rd3()); //Standard mersenne_twister_engine seeded with rd()
+    std::uniform_int_distribution<> distribY(0, 600);
 
     for (auto entity : entities) {
         entity = testScene.coordinator->createEntity();
         testScene.coordinator->addComponent(entity, ne::Transform{
-            ne::Math::Vector3f{static_cast<float>(distrib(gen)), 0.f, 0.f},
+            ne::Math::Vector3f{static_cast<float>(distrib(gen)), static_cast<float>(distribY(gen3)), 0.f},
             ne::Math::Vector3f{0.f, 0.f, 0.f},
             ne::Math::Vector3f{4.f, 4.f, 0.f}
         });
