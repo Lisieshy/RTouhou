@@ -27,13 +27,19 @@
 #include <ctime>
 #include <fstream>
 
-inline nl::NyaLogSettings::NyaLogSettings() :
-    _filename("nya"),
-    _file(true),
-    _stdout(true)
-{
-    std::string log_path;
+namespace nl {
+    NyaLog nyalog{};
+}
 
+inline nl::NyaLog::NyaLog() :
+    _init(false),
+    _mutex(),
+    _filename("nya"),
+    _overwrite(false),
+    _file(true),
+    _stdout(true),
+    _level(nl::LogLevel::INFO)
+{
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
     _path = getenv("LOCALAPPDATA");
     _path.append("\\rtouhou\\logs\\");
@@ -43,28 +49,79 @@ inline nl::NyaLogSettings::NyaLogSettings() :
 #endif
 }
 
-namespace nl {
-    NyaLog nyalog{};
-}
-
-inline nl::NyaLog::NyaLog() :
-    _init(false),
-    _mutex()
-{
-}
-
 inline nl::NyaLog::~NyaLog()
 {
     if (_init)
         stop();
 }
 
+auto inline nl::NyaLog::setPath(
+    std::string path
+) -> nl::NyaLog&
+{
+    _path = path;
+    return *this;
+}
+
+auto inline nl::NyaLog::setFilename(
+    std::string filename
+) -> nl::NyaLog&
+{
+    _filename = filename;
+    return *this;
+}
+
+auto inline nl::NyaLog::enableFileLogging(
+    bool enabled
+) -> nl::NyaLog&
+{
+    _file = enabled;
+    return *this;
+}
+
+auto inline nl::NyaLog::shouldOverwrite(
+    bool overwrite
+) -> nl::NyaLog&
+{
+    _overwrite = overwrite;
+    return *this;
+}
+
+auto inline nl::NyaLog::enableStdoutLogging(
+    bool enabled
+) -> nl::NyaLog&
+{
+    _stdout = enabled;
+    return *this;
+}
+
+auto inline nl::NyaLog::setLogLevel(
+    nl::LogLevel level
+) -> nl::NyaLog&
+{
+    _level = level;
+    return *this;
+}
+
+auto inline nl::NyaLog::setDateFormat(
+    std::string format
+) -> nl::NyaLog&
+{
+    _dateFormat = format;
+    return *this;
+}
+
+auto inline nl::NyaLog::setFilenameFormat(
+    std::string format
+) -> nl::NyaLog&
+{
+    _filenameFormat = format;
+    return *this;
+}
+
 auto inline nl::NyaLog::init(
-    const nl::NyaLogSettings& settings
 ) -> bool
 {
-    _settings = settings;
-
     const auto current_time_point {
         std::chrono::system_clock::now()
     };
@@ -76,17 +133,20 @@ auto inline nl::NyaLog::init(
     };
 
     std::ostringstream stream;
-    stream << std::put_time (&current_localtime, "%F") << "";
+    if (_filenameFormat.empty())
+        stream << std::put_time(&current_localtime, "%F");
+    else
+        stream << std::put_time(&current_localtime, _filenameFormat.c_str());
 
     if (!_init) {
-        std::filesystem::create_directories(_settings._path);
+        std::filesystem::create_directories(_path);
 
-        if (_settings._file) {
+        if (_file) {
             _ofs.open(
-                _settings._path +
+                _path +
                 stream.str() +
                 "_" +
-                _settings._filename,
+                _filename,
                 std::ios::app
             );
         }
@@ -116,9 +176,9 @@ auto inline nl::NyaLog::printFormattedMessage(
     std::scoped_lock<std::mutex> lock {
         _mutex
     };
-    if (_settings._file)
+    if (_file)
         _ofs << message << std::endl;
-    if (_settings._stdout)
+    if (_stdout)
         std::cout << message << std::endl;
 }
 
@@ -128,7 +188,9 @@ auto inline nl::NyaLog::operator()(
 ) -> NyaLog&
 {
     if (_init) {
-        if (level <= _settings._level) {
+        if (level <= _level) {
+            std::ostringstream formattedDate;
+
             const auto current_time_point {
                 std::chrono::system_clock::now()
             };
@@ -145,11 +207,13 @@ auto inline nl::NyaLog::operator()(
                 std::chrono::duration_cast<std::chrono::milliseconds> (current_time_since_epoch).count() % 1000
             };
 
-            std::ostringstream stream;
-            stream << std::put_time (&current_localtime, "%FT%T") << "." << std::setw (3) << std::setfill ('0') << current_milliseconds << "Z";
+            if (_dateFormat.empty())
+                formattedDate << std::put_time(&current_localtime, "[%FT%T]") << "." << std::setw(3) << std::setfill('0') << current_milliseconds << "Z";
+            else
+                formattedDate << std::put_time(&current_localtime, _dateFormat.c_str());
 
             std::stringstream ss;
-            ss << "[" << stream.str() << "] ";
+            ss << formattedDate.str();
             switch (level) {
                 case nl::LogLevel::INFO:
                     ss << "\e[1;36m[INFO]\e[0m " << message;

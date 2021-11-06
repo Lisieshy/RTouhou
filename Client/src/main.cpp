@@ -29,16 +29,9 @@ auto main(
     char** argv
 ) -> int
 {
-    nl::NyaLogSettings settings;
-    settings._filename = "nyalog.log";
-    settings._file = true;
-    settings._stdout = true;
-    settings._level = nl::LogLevel::FATAL;
-
-    nl::nyalog.init(settings);
+    nl::nyalog.init();
+    nl::nyalog.setLogLevel(nl::LogLevel::FATAL);
     nl::nyalog(nl::LogLevel::INFO, "R-Touhou! Configuring everything... Please wait!");
-
-    ne::Graphics::Window::open();
 
     ne::Scene testScene;
 
@@ -103,6 +96,8 @@ auto main(
         });
     }
 
+    ne::Graphics::Window::open();
+
     int fps = 0;
     auto oldTime = std::chrono::high_resolution_clock::now();
     float dt = 0.0f;
@@ -125,8 +120,8 @@ auto main(
         auto stopTime = std::chrono::high_resolution_clock::now();
         dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
     }
-    ne::Graphics::Window::close();
     nl::nyalog(nl::LogLevel::INFO, "Closing down...");
+    ne::Graphics::Window::close();
     nl::nyalog.stop();
     return (0);
 }
