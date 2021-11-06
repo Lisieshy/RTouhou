@@ -34,7 +34,7 @@ namespace nl {
 inline nl::NyaLog::NyaLog() :
     _init(false),
     _mutex(),
-    _filename("nya"),
+    _filename("nya.log"),
     _overwrite(false),
     _file(true),
     _stdout(true),
@@ -208,7 +208,7 @@ auto inline nl::NyaLog::operator()(
             };
 
             if (_dateFormat.empty())
-                formattedDate << std::put_time(&current_localtime, "[%FT%T]") << "." << std::setw(3) << std::setfill('0') << current_milliseconds << "Z";
+                formattedDate << std::put_time(&current_localtime, "[%FT%T") << "." << std::setw(3) << std::setfill('0') << current_milliseconds << "Z]";
             else
                 formattedDate << std::put_time(&current_localtime, _dateFormat.c_str());
 
