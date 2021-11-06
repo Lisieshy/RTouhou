@@ -32,7 +32,7 @@ auto main(
     nl::nyalog.init();
     nl::nyalog.setLogLevel(nl::LogLevel::FATAL);
     nl::nyalog(nl::LogLevel::INFO, "R-Touhou! Configuring everything... Please wait!");
-
+    nyalogTRACE(nl::LogLevel::DEBUG, "Testing...");
     ne::Scene testScene;
 
     testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color>();
@@ -55,7 +55,7 @@ auto main(
         testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
     }
 
-    std::vector<ne::EntityID> entities(500);
+    std::vector<ne::EntityID> entities(5000);
 
     std::random_device rd;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
@@ -94,6 +94,8 @@ auto main(
             static_cast<unsigned char>(distribColor(gen1)),
             255
         });
+        std::string message = "Entity[" + std::to_string(entity) + "]" + " created.";
+        nl::nyalog(nl::LogLevel::INFO, message);
     }
 
     ne::Graphics::Window::open();

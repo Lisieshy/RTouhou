@@ -26,6 +26,7 @@
  */
 namespace nl {
     enum class LogLevel {
+        NONE,
         INFO,
         DEBUG,
         WARNING,
@@ -164,8 +165,10 @@ namespace nl {
                 void printFormattedMessage(std::string message);
         };
     }
+#define nyalogTRACE(level, message) nl::nyalog(level, std::string{__FILE__ + ":" + std::to_string(__LINE__) + " " + message})
 }
 
 #include "NyaLog.inl"
+
 
 #endif /* !NYALOG_HPP_ */

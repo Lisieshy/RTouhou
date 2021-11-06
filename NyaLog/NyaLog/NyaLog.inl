@@ -188,7 +188,7 @@ auto inline nl::NyaLog::operator()(
 ) -> NyaLog&
 {
     if (_init) {
-        if (level <= _level) {
+        if (level <= _level && _level != nl::LogLevel::NONE) {
             std::ostringstream formattedDate;
 
             const auto current_time_point {
@@ -216,28 +216,41 @@ auto inline nl::NyaLog::operator()(
             ss << formattedDate.str();
             switch (level) {
                 case nl::LogLevel::INFO:
-                    ss << "\e[1;36m[INFO]\e[0m " << message;
+                    if (_file)
+                        ss << "[INFO] " << message;
+                    else 
+                        ss << "\e[1;36m[INFO]\e[0m " << message;
                     printFormattedMessage(ss.str());
                     break;
                 case nl::LogLevel::DEBUG:
-                    ss << "\e[1;34m[DEBUG]\e[0m " << message;
+                    if (_file)
+                        ss << "[DEBUG] " << message;
+                    else
+                        ss << "\e[1;34m[DEBUG]\e[0m " << message;
                     printFormattedMessage(ss.str());
                     break;
                 case nl::LogLevel::WARNING:
-                    ss << "\e[1;33m[WARN]\e[0m " << message;
+                    if (_file)
+                        ss << "[WARN] " << message;
+                    else
+                        ss << "\e[1;33m[WARN]\e[0m " << message;
                     printFormattedMessage(ss.str());
                     break;
                 case nl::LogLevel::ERROR:
-                    ss << "\e[1;31m[ERROR]\e[0m " << message;
+                    if (_file)
+                        ss << "[ERROR] " << message;
+                    else
+                        ss << "\e[1;31m[ERROR]\e[0m " << message;
                     printFormattedMessage(ss.str());
                     break;
                 case nl::LogLevel::FATAL:
-                    ss << "\e[1;31m[CRIT]\e[0m " << message;
+                    if (_file)
+                        ss << "[FATAL] " << message;
+                    else
+                        ss << "\e[1;31m[FATAL]\e[0m " << message;
                     printFormattedMessage(ss.str());
                     break;
                 default:
-                    ss << "\e[1;36m[INFO]\e[0m " << message;
-                    printFormattedMessage(ss.str());
                     break;
             }
         }
