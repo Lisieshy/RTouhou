@@ -1,6 +1,7 @@
 [requires]
 sfml/2.5.1@bincrafters/stable
 boost/1.77.0
+asio/1.20.0
 
 [options]
 sfml:graphics=True
