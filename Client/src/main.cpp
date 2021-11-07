@@ -32,7 +32,6 @@ auto main(
     nl::nyalog.init();
     nl::nyalog.setLogLevel(nl::LogLevel::FATAL);
     nl::nyalog(nl::LogLevel::INFO, "R-Touhou! Configuring everything... Please wait!");
-    nyalogTRACE(nl::LogLevel::DEBUG, "Testing...");
     ne::Scene testScene;
 
     testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color>();
