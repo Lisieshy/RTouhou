@@ -67,6 +67,7 @@ set(SOURCES_CLIENT
 
 set(SOURCES_SERVER
     ${NEKOENGINE_SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Server/src/main.cpp
 )
 
 add_executable(rtouhou_client ${SOURCES_CLIENT})
@@ -77,6 +78,7 @@ target_include_directories(rtouhou_client
     PRIVATE
     ${PROJECT_SOURCE_DIR}/NekoEngine/include
     ${PROJECT_SOURCE_DIR}/NyaLog/
+    ${PROJECT_SOURCE_DIR}/NyaNet/
 )
 
 target_link_libraries(
@@ -85,11 +87,19 @@ target_link_libraries(
     ${CONAN_LIBS}
 )
 
-# add_executable(rtouhou_server ${SOURCES_SERVER})
+add_executable(rtouhou_server ${SOURCES_SERVER})
 
-# target_compile_features(rtouhou_server PUBLIC cxx_std_17)
+target_compile_features(rtouhou_server PRIVATE cxx_std_20)
 
-# target_include_directories(rtouhou_server
-#     PRIVATE
-#     ${PROJECT_SOURCE_DIR}/include
-# )
+target_include_directories(rtouhou_server
+    PRIVATE
+    ${PROJECT_SOURCE_DIR}/NekoEngine/include
+    ${PROJECT_SOURCE_DIR}/NyaLog/
+    ${PROJECT_SOURCE_DIR}/NyaNet/
+)
+
+target_link_libraries(
+    rtouhou_server
+    Threads::Threads
+    ${CONAN_LIBS}
+)
