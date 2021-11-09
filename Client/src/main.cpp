@@ -121,6 +121,7 @@ auto main(
             ne::Graphics::Window::setTitle(title.append(std::to_string(fps) + " fps"));
             fps = 0;
         }
+        // c.PingServer();
         if (c.IsConnected()) {
             if (!c.Incoming().empty()) {
                 auto msg = c.Incoming().pop_front().msg;

@@ -17,42 +17,44 @@
 #include <NyaLog/NyaLog.hpp>
 #include <iostream>
 
-enum class CustomMsgTypes : uint32_t
-{
-    ServerAccept,
-    ServerDeny,
-    ServerPing,
-    MessageAll,
-    ServerMessage,
-};
+namespace rt {
+    enum class CustomMsgTypes : uint32_t
+    {
+        ServerAccept,
+        ServerDeny,
+        ServerPing,
+        MessageAll,
+        ServerMessage,
+    };
+}
 
-class CustomServer : public nn::IServer<CustomMsgTypes>
+class CustomServer : public nn::IServer<rt::CustomMsgTypes>
 {
     public:
-        CustomServer(uint16_t nPort) : nn::IServer<CustomMsgTypes>(nPort)
+        CustomServer(uint16_t nPort) : nn::IServer<rt::CustomMsgTypes>(nPort)
         {
         }
 
     protected:
-        virtual bool OnClientConnect(std::shared_ptr<nn::connection<CustomMsgTypes>> client)
+        virtual bool OnClientConnect(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client)
         {
-            nn::message<CustomMsgTypes> msg;
-            msg.header.id = CustomMsgTypes::ServerAccept;
+            nn::message<rt::CustomMsgTypes> msg;
+            msg.header.id = rt::CustomMsgTypes::ServerAccept;
             client->Send(msg);
             return true;
         }
 
-        virtual void OnClientDisconnect(std::shared_ptr<nn::connection<CustomMsgTypes>> client)
+        virtual void OnClientDisconnect(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client)
         {
             std::stringstream ss;
             ss << "Removing client [" << client->GetID() << "]";
             nl::nyalog(nl::LogLevel::Info, ss.str());
         }
 
-        virtual void OnMessage(std::shared_ptr<nn::connection<CustomMsgTypes>> client, nn::message<CustomMsgTypes> &msg)
+        virtual void OnMessage(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client, nn::message<rt::CustomMsgTypes> &msg)
         {
             switch (msg.header.id) {
-            case CustomMsgTypes::ServerPing:
+            case rt::CustomMsgTypes::ServerPing:
                 {
                     std::stringstream ss;
                     ss << "[" << client->GetID() << "]: Server Ping";
@@ -61,14 +63,14 @@ class CustomServer : public nn::IServer<CustomMsgTypes>
                     client->Send(msg);
                 }
             break;
-            case CustomMsgTypes::MessageAll:
+            case rt::CustomMsgTypes::MessageAll:
                 {
                     std::stringstream ss;
                     ss << "[" << client->GetID() << "]: Message All";
                     nl::nyalog(nl::LogLevel::Info, ss.str());
 
-                    nn::message<CustomMsgTypes> msg;
-                    msg.header.id = CustomMsgTypes::ServerMessage;
+                    nn::message<rt::CustomMsgTypes> msg;
+                    msg.header.id = rt::CustomMsgTypes::ServerMessage;
                     msg << client->GetID();
                     MessageAllClients(msg, client);
                 }

@@ -56,13 +56,16 @@ void ne::Graphics::Window::pollEvent(rt::CustomClient &client) {
             impl->shouldClose = true;
         }
         if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::Escape) {
-                impl->shouldClose = true;
-            }
-            if (event.key.code == sf::Keyboard::Key::A) {
+            nl::nyalog(nl::LogLevel::Info, "Pressed !");
+            if (event.key.code == sf::Keyboard::Key::Escape) {
                 client.PingServer();
             }
+            if (event.key.code == sf::Keyboard::Key::A) {
+                nl::nyalog(nl::LogLevel::Info, "Pressed A!");
+                client.PingServer();
+            }   
             if (event.key.code == sf::Keyboard::Key::Z) {
+                nl::nyalog(nl::LogLevel::Info, "Pressed Z!");
                 client.MessageAll();
             }
         }
