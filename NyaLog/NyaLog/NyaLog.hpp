@@ -26,12 +26,12 @@
  */
 namespace nl {
     enum class LogLevel {
-        NONE,
-        INFO,
-        DEBUG,
-        WARNING,
-        ERROR,
-        FATAL
+        None,
+        Info,
+        Debug,
+        Warning,
+        Error,
+        Fatal
     };
 
     namespace {

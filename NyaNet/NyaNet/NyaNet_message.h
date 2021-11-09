@@ -22,8 +22,8 @@ namespace nn {
         message_header<T> header{};
         std::vector<uint8_t> body{};
 
-        auto const size(
-        ) -> size_t
+        auto size(
+        ) -> size_t const
         {
             return sizeof(header) + body.size();
         }

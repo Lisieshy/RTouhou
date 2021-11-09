@@ -12,8 +12,6 @@
 #include "NyaNet_tsqueue.h"
 #include "NyaNet_message.h"
 
-#include <NyaLog/NyaLog.hpp>
-
 namespace nn {
     template<typename T>
     class connection : public std::enable_shared_from_this<connection<T>>
@@ -88,8 +86,8 @@ namespace nn {
                     );
             }
 
-            auto const IsConnected(
-            ) -> bool
+            auto IsConnected(
+            ) -> bool const
             {
                 return m_socket.is_open();
             }
@@ -111,7 +109,8 @@ namespace nn {
                 );
             }
 
-            auto const GetID()
+            auto GetID(
+            ) -> uint32_t const
             {
                 return id;
             }
@@ -142,7 +141,8 @@ namespace nn {
                         } else {
                             std::stringstream ss;
                             ss << "[SERVER] ID[" << id << "] Read Header Fail.";
-                            nl::nyalog(nl::LogLevel::ERROR, ss.str());
+                            nl::nyalog(nl::LogLevel::Error, ss.str());
+                            // std::cerr << ss.str() << std::endl;
                             m_socket.close();
                         }
                     }
@@ -167,7 +167,8 @@ namespace nn {
                         } else {
                             std::stringstream ss;
                             ss << "[SERVER] ID[" << id << "] Read Body Fail.";
-                            nl::nyalog(nl::LogLevel::ERROR, ss.str());
+                            nl::nyalog(nl::LogLevel::Error, ss.str());
+                            // std::cerr << ss.str() << std::endl;
                             m_socket.close();
                         }
                     }
@@ -198,7 +199,8 @@ namespace nn {
                         } else {
                             std::stringstream ss;
                             ss << "[SERVER] ID[" << id << "] Write Header Fail.";
-                            nl::nyalog(nl::LogLevel::ERROR, ss.str());
+                            nl::nyalog(nl::LogLevel::Error, ss.str());
+                            // std::cerr << ss.str() << std::endl;
                             m_socket.close();
                         }
                     }
@@ -226,7 +228,8 @@ namespace nn {
                         } else {
                             std::stringstream ss;
                             ss << "[SERVER] ID[" << id << "] Write Body Fail.";
-                            nl::nyalog(nl::LogLevel::ERROR, ss.str());
+                            nl::nyalog(nl::LogLevel::Error, ss.str());
+                            // std::cerr << ss.str() << std::endl;
                             m_socket.close();
                         }
                     }

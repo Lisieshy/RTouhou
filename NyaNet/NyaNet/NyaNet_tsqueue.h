@@ -18,31 +18,31 @@ namespace nn {
             tsqueue(const tsqueue<T>&) = delete;
             virtual ~tsqueue() { clear(); }
 
-            auto const front(
-            ) -> const T&
+            auto front(
+            ) -> T&
             {
                 std::scoped_lock lock(_mutex);
                 return _queue.front();
             }
 
-            auto const back(
-            ) -> const T&
+            auto back(
+            ) -> T&
             {
                 std::scoped_lock lock(_mutex);
                 return _queue.back();
             }
 
-            auto const push_front(
+            auto push_front(
                 const T& item
-            ) -> void
+            ) -> void const
             {
                 std::scoped_lock lock(_mutex);
                 _queue.emplace_front(std::move(item));
             }
 
-            auto const push_back(
+            auto push_back(
                 const T& item
-            ) -> void
+            ) -> void const
             {
                 std::scoped_lock lock(_mutex);
                 _queue.emplace_back(std::move(item));

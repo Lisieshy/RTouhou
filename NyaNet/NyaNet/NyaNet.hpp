@@ -8,6 +8,7 @@
 #ifndef NYANET_H_
 #define NYANET_H_
 
+#include <NyaLog/NyaLog.hpp>
 #include "NyaNet_common.h"
 #include "NyaNet_message.h"
 #include "NyaNet_tsqueue.h"

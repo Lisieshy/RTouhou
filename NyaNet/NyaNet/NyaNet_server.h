@@ -12,7 +12,6 @@
 #include "NyaNet_tsqueue.h"
 #include "NyaNet_message.h"
 #include "NyaNet_connection.h"
-#include <NyaLog/NyaLog.hpp>
 
 namespace nn {
     template<typename T>
@@ -49,10 +48,10 @@ namespace nn {
                 } catch (std::exception& e) {
                     std::stringstream ss;
                     ss << "[SERVER] Exception: " << e.what();
-                    nl::nyalog(nl::LogLevel::ERROR, ss.str());
+                    nl::nyalog(nl::LogLevel::Error, ss.str());
                     return false;
                 }
-                nl::nyalog(nl::LogLevel::INFO, "[SERVER] Started!");
+                nl::nyalog(nl::LogLevel::Info, "[SERVER] Started!");
                 return true;
             }
 
@@ -64,7 +63,7 @@ namespace nn {
                 if (m_threadContext.joinable())
                     m_threadContext.join();
 
-                nl::nyalog(nl::LogLevel::INFO, "[SERVER] Stopped!");
+                nl::nyalog(nl::LogLevel::Info, "[SERVER] Stopped!");
             }
 
             auto WaitForClientConnection(
@@ -79,7 +78,7 @@ namespace nn {
                             {
                                 std::stringstream ss;
                                 ss << "[SERVER] New Connection: " << socket.remote_endpoint();
-                                nl::nyalog(nl::LogLevel::INFO, ss.str());
+                                nl::nyalog(nl::LogLevel::Info, ss.str());
                             }
                             
                             std::shared_ptr<connection<T>> new_Connection = std::make_shared<connection<T>>(
@@ -94,14 +93,14 @@ namespace nn {
                                 m_qConnections.back()->ConnectToClient(nIDCounter++);
                                 std::stringstream ss;
                                 ss << "[SERVER] New Connection ID [" << m_qConnections.back()->GetID() << "] Approved";
-                                nl::nyalog(nl::LogLevel::INFO, ss.str());
+                                nl::nyalog(nl::LogLevel::Info, ss.str());
                             } else {
-                                nl::nyalog(nl::LogLevel::INFO, "[SERVER] Connection Denied!");
+                                nl::nyalog(nl::LogLevel::Info, "[SERVER] Connection Denied!");
                             }
                         } else {
                             std::stringstream ss;
                             ss << "[SERVER] New Connection Error: " << ec.message();
-                            nl::nyalog(nl::LogLevel::ERROR, ss.str());
+                            nl::nyalog(nl::LogLevel::Error, ss.str());
                         }
 
                         WaitForClientConnection();
@@ -194,14 +193,7 @@ namespace nn {
                 message<T>& msg
             ) -> void
             {
-                // switch (msg.header.id) {
-                //     case CustomMsgTypes::ServerPing:
-                //         std::stringstream ss;
-                //         ss << "[" << client->GetID() << "]: Server Ping";
-                //         nl::nyalog(nl::LogLevel::INFO, ss.str());
-                //         client->Send(msg);
-                //     break;
-                // }
+
             }
 
             tsqueue<owned_message<T>> m_qMessagesIn;

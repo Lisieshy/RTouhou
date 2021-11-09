@@ -46,7 +46,7 @@ class CustomServer : public nn::IServer<CustomMsgTypes>
         {
             std::stringstream ss;
             ss << "Removing client [" << client->GetID() << "]";
-            nl::nyalog(nl::LogLevel::INFO, ss.str());
+            nl::nyalog(nl::LogLevel::Info, ss.str());
         }
 
         virtual void OnMessage(std::shared_ptr<nn::connection<CustomMsgTypes>> client, nn::message<CustomMsgTypes> &msg)
@@ -56,7 +56,7 @@ class CustomServer : public nn::IServer<CustomMsgTypes>
                 {
                     std::stringstream ss;
                     ss << "[" << client->GetID() << "]: Server Ping";
-                    nl::nyalog(nl::LogLevel::INFO, ss.str());
+                    nl::nyalog(nl::LogLevel::Info, ss.str());
 
                     client->Send(msg);
                 }
@@ -65,7 +65,7 @@ class CustomServer : public nn::IServer<CustomMsgTypes>
                 {
                     std::stringstream ss;
                     ss << "[" << client->GetID() << "]: Message All";
-                    nl::nyalog(nl::LogLevel::INFO, ss.str());
+                    nl::nyalog(nl::LogLevel::Info, ss.str());
 
                     nn::message<CustomMsgTypes> msg;
                     msg.header.id = CustomMsgTypes::ServerMessage;
@@ -83,7 +83,7 @@ auto main(
 ) -> int {
     nl::nyalog.setFilename("Server.log");
     nl::nyalog.init();
-    nl::nyalog.setLogLevel(nl::LogLevel::FATAL);
+    nl::nyalog.setLogLevel(nl::LogLevel::Fatal);
 
     CustomServer server(60000);
 

@@ -64,36 +64,30 @@ auto main(
     char** argv
 ) -> int
 {
-    nl::nyalog.setLogLevel(nl::LogLevel::FATAL);
+    nl::nyalog.setLogLevel(nl::LogLevel::Fatal);
     nl::nyalog.init();
-    nl::nyalog(nl::LogLevel::INFO, "R-Touhou! Configuring everything... Please wait!");
+    nl::nyalog(nl::LogLevel::Info, "R-Touhou! Configuring everything... Please wait!");
 
     CustomClient c;
     c.Connect("127.0.0.1", 60000);
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "R-Touhou!");
 
-    while (window.isOpen())
-    {
+    while (window.isOpen()) {
         sf::Event event;
-        while (window.pollEvent(event))
-        {
+        while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
-
             if (event.type == sf::Event::KeyPressed) {
-                if (event.key.code == sf::Keyboard::Key::Escape)
+                if (event.key.code == sf::Keyboard::Escape)
                     window.close();
-                if (event.key.code == sf::Keyboard::Key::A) {
+                if (event.key.code == sf::Keyboard::A)
                     c.PingServer();
-                    nl::nyalog(nl::LogLevel::INFO, "Ping sent!");
-                }
-                if (event.key.code == sf::Keyboard::Key::Z) {
+                if (event.key.code == sf::Keyboard::Z)
                     c.MessageAll();
-                    nl::nyalog(nl::LogLevel::INFO, "Message All sent!");
-                }
             }
         }
+
         if (c.IsConnected()) {
             if (!c.Incoming().empty()) {
                 auto msg = c.Incoming().pop_front().msg;
@@ -101,7 +95,7 @@ auto main(
                 switch (msg.header.id) {
                     case CustomMsgTypes::ServerAccept:
                     {
-                        nl::nyalog(nl::LogLevel::INFO, "Server accepted connection!");
+                        nl::nyalog(nl::LogLevel::Info, "Server accepted connection!");
                     }
                     break;
                     case CustomMsgTypes::ServerPing:
@@ -109,22 +103,19 @@ auto main(
                         std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
                         std::chrono::system_clock::time_point then;
                         msg >> then;
-                        nl::nyalog(nl::LogLevel::INFO, "Server ping: " + std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(now - then).count()) + "ms");
+                        nl::nyalog(nl::LogLevel::Info, "Server ping: " + std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(now - then).count()) + "ms");
                     }
                     break;
                     case CustomMsgTypes::ServerMessage:
                     {
                         uint32_t clientID;
                         msg >> clientID;
-                        nl::nyalog(nl::LogLevel::INFO, "Hello from client " + std::to_string(clientID));
+                        nl::nyalog(nl::LogLevel::Info, "Hello from client " + std::to_string(clientID));
                     }
                     break;
                 }
             }
         }
-
-        window.clear(sf::Color::Black);
-        window.display();
     }
 
     // CustomClient c;

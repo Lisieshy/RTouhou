@@ -12,7 +12,6 @@
 #include "NyaNet_tsqueue.h"
 #include "NyaNet_message.h"
 #include "NyaNet_connection.h"
-#include <NyaLog/NyaLog.hpp>
 
 namespace nn {
     template<typename T>
@@ -50,7 +49,7 @@ namespace nn {
                 } catch (std::exception& e) {
                     std::stringstream ss;
                     ss << "IClient Exception: " << e.what();
-                    nl::nyalog(nl::LogLevel::FATAL, ss.str());
+                    nl::nyalog(nl::LogLevel::Fatal, ss.str());
                     return false;
                 }
                 return false;

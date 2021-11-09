@@ -38,7 +38,7 @@ inline nl::NyaLog::NyaLog() :
     _overwrite(false),
     _file(true),
     _stdout(true),
-    _level(nl::LogLevel::INFO)
+    _level(nl::LogLevel::Info)
 {
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
     _path = getenv("LOCALAPPDATA");
@@ -188,7 +188,7 @@ auto inline nl::NyaLog::operator()(
 ) -> NyaLog&
 {
     if (_init) {
-        if (level <= _level && _level != nl::LogLevel::NONE) {
+        if (level <= _level && _level != nl::LogLevel::None) {
             std::ostringstream formattedDate;
 
             const auto current_time_point {
@@ -215,35 +215,35 @@ auto inline nl::NyaLog::operator()(
             std::stringstream ss;
             ss << formattedDate.str();
             switch (level) {
-                case nl::LogLevel::INFO:
+                case nl::LogLevel::Info:
                     if (_file)
                         ss << "[INFO] " << message;
                     else 
                         ss << "\e[1;36m[INFO]\e[0m " << message;
                     printFormattedMessage(ss.str());
                     break;
-                case nl::LogLevel::DEBUG:
+                case nl::LogLevel::Debug:
                     if (_file)
                         ss << "[DEBUG] " << message;
                     else
                         ss << "\e[1;34m[DEBUG]\e[0m " << message;
                     printFormattedMessage(ss.str());
                     break;
-                case nl::LogLevel::WARNING:
+                case nl::LogLevel::Warning:
                     if (_file)
                         ss << "[WARN] " << message;
                     else
                         ss << "\e[1;33m[WARN]\e[0m " << message;
                     printFormattedMessage(ss.str());
                     break;
-                case nl::LogLevel::ERROR:
+                case nl::LogLevel::Error:
                     if (_file)
                         ss << "[ERROR] " << message;
                     else
                         ss << "\e[1;31m[ERROR]\e[0m " << message;
                     printFormattedMessage(ss.str());
                     break;
-                case nl::LogLevel::FATAL:
+                case nl::LogLevel::Fatal:
                     if (_file)
                         ss << "[FATAL] " << message;
                     else
