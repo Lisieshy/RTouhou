@@ -12,14 +12,6 @@
 
 namespace rt {
     // Defining what types of Messages the server will be capable of handling. THEY MUST BE THE EXACT SAME AS THE SERVER.
-    enum class CustomMsgTypes : uint32_t
-    {
-        ServerAccept,
-        ServerDeny,
-        ServerPing,
-        MessageAll,
-        ServerMessage,
-    };
 
     // Creating a CustomClient class that inherits from the NyaNet IClient Interface that holds everything together.
     // Supposedly no need to overwrite any functions, but you can do it if you want.

@@ -127,7 +127,7 @@ auto main(
                 auto msg = c.Incoming().pop_front().msg;
 
                 switch (msg.header.id) {
-                    case rt::CustomMsgTypes::ServerAccept:
+                    case rt::CustomMsgTypes::ServerAccept: 
                     {
                         nl::nyalog(nl::LogLevel::Info, "Server accepted connection!");
                     }

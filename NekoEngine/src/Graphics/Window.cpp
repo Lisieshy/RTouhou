@@ -57,8 +57,8 @@ void ne::Graphics::Window::pollEvent(rt::CustomClient &client) {
         }
         if (event.type == sf::Event::KeyPressed) {
             nl::nyalog(nl::LogLevel::Info, "Pressed !");
-            if (event.key.code == sf::Keyboard::Key::Escape) {
                 client.PingServer();
+            if (event.key.code == sf::Keyboard::Key::Escape) {
             }
             if (event.key.code == sf::Keyboard::Key::A) {
                 nl::nyalog(nl::LogLevel::Info, "Pressed A!");

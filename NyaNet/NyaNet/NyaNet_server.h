@@ -12,7 +12,17 @@
 #include "NyaNet_tsqueue.h"
 #include "NyaNet_message.h"
 #include "NyaNet_connection.h"
+namespace rt {
 
+    enum class CustomMsgTypes : uint32_t
+    {
+        ServerAccept,
+        ServerDeny,
+        ServerPing,
+        MessageAll,
+        ServerMessage,
+    };
+}
 namespace nn {
     template<typename T>
     class IServer {
@@ -163,6 +173,7 @@ namespace nn {
                 bool bWait = false
             ) -> void
             {
+                std::cout << "SALUT LES POTES" << std::endl;
                 if (bWait)
                     m_qMessagesIn.wait();
 
@@ -194,7 +205,16 @@ namespace nn {
                 message<T>& msg
             ) -> void
             {
-
+                std::cout << "OEGUBOAG" << std::endl;
+                switch (msg.header.id)
+                {
+                    case rt::CustomMsgTypes::ServerPing:
+                    {
+                        std::cout << "[" << client->GetID() << "]: Server Ping!\n";
+                        client->Send(msg);
+                    }
+                    break;
+                }
             }
 
             tsqueue<owned_message<T>> m_qMessagesIn;

@@ -38,6 +38,9 @@ namespace nn {
             {
                 std::scoped_lock lock(_mutex);
                 _queue.emplace_front(std::move(item));
+
+                std::unique_lock<std::mutex> ul(_mutexBlocking);
+                _cvBlocking.notify_one();
             }
 
             auto push_back(
@@ -46,6 +49,8 @@ namespace nn {
             {
                 std::scoped_lock lock(_mutex);
                 _queue.emplace_back(std::move(item));
+                std::unique_lock<std::mutex> ul(_mutexBlocking);
+                _cvBlocking.notify_one();
             }
 
             auto empty(

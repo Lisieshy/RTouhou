@@ -17,17 +17,6 @@
 #include <NyaLog/NyaLog.hpp>
 #include <iostream>
 
-namespace rt {
-    enum class CustomMsgTypes : uint32_t
-    {
-        ServerAccept,
-        ServerDeny,
-        ServerPing,
-        MessageAll,
-        ServerMessage,
-    };
-}
-
 class CustomServer : public nn::IServer<rt::CustomMsgTypes>
 {
     public:
