@@ -173,7 +173,6 @@ namespace nn {
                 bool bWait = false
             ) -> void
             {
-                std::cout << "SALUT LES POTES" << std::endl;
                 if (bWait)
                     m_qMessagesIn.wait();
 
@@ -205,7 +204,6 @@ namespace nn {
                 message<T>& msg
             ) -> void
             {
-                std::cout << "OEGUBOAG" << std::endl;
                 switch (msg.header.id)
                 {
                     case rt::CustomMsgTypes::ServerPing:
