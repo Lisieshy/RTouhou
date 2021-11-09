@@ -18,6 +18,7 @@
 
 #include "NekoEngine/ECS/Components/Components.hpp"
 #include "NekoEngine/Math/Vector/Vector.hpp"
+#include <include/CustomClient.hpp>
 
 /**
  * @namespace ne::Graphics::Window
@@ -54,7 +55,7 @@ namespace ne::Graphics::Window {
      * @brief Poll the window events.
      * This is where every event handling should be done.
      */
-    void pollEvent();
+    void pollEvent(rt::CustomClient &client);
 
     /**
      * @brief Display the window

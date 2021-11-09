@@ -137,9 +137,10 @@ namespace nn {
                 bool bInvalidClientExist = false;
 
                 for (auto& client : m_qConnections) {
-                    if (client != pIgnoreClient) {
-                        client->Send(msg);
-                    } else {
+                    if (client && client->IsConnected()) {
+                        if (client != pIgnoreClient)
+                            client->Send(msg);
+                    }  else {
                         OnClientDisconnect(client);
                         client.reset();
                         bInvalidClientExist = true;

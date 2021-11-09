@@ -20,12 +20,12 @@ namespace nn {
     template <typename T>
     struct message {
         message_header<T> header{};
-        std::vector<uint8_t> body{};
+        std::vector<uint8_t> body;
 
         auto size(
         ) -> size_t const
         {
-            return sizeof(header) + body.size();
+            return body.size();
         }
 
         auto friend operator<<(

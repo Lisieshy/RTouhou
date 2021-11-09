@@ -19,14 +19,14 @@ namespace nn {
             virtual ~tsqueue() { clear(); }
 
             auto front(
-            ) -> T&
+            ) -> T const&
             {
                 std::scoped_lock lock(_mutex);
                 return _queue.front();
             }
 
             auto back(
-            ) -> T&
+            ) -> T const&
             {
                 std::scoped_lock lock(_mutex);
                 return _queue.back();
@@ -34,7 +34,7 @@ namespace nn {
 
             auto push_front(
                 const T& item
-            ) -> void const
+            ) -> void
             {
                 std::scoped_lock lock(_mutex);
                 _queue.emplace_front(std::move(item));
@@ -42,7 +42,7 @@ namespace nn {
 
             auto push_back(
                 const T& item
-            ) -> void const
+            ) -> void
             {
                 std::scoped_lock lock(_mutex);
                 _queue.emplace_back(std::move(item));

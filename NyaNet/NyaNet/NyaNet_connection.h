@@ -62,8 +62,8 @@ namespace nn {
                         m_socket,
                         endpoints,
                         [this](
-                            const std::error_code ec,
-                            const asio::ip::tcp::endpoint& endpoint
+                            std::error_code ec,
+                            asio::ip::tcp::endpoint endpoint
                         ) {
                             if (!ec) {
                                 ReadHeader();
@@ -213,8 +213,8 @@ namespace nn {
                 asio::async_write(
                     m_socket,
                     asio::buffer(
-                        &m_qMessagesOut.front().header,
-                        sizeof(message_header<T>)
+                        m_qMessagesOut.front().body.data(),
+                        m_qMessagesOut.front().body.size()
                     ),
                     [this](
                         asio::error_code ec,

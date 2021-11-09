@@ -78,6 +78,7 @@ target_compile_features(rtouhou_client PRIVATE cxx_std_20)
 target_include_directories(rtouhou_client
     PRIVATE
     ${PROJECT_SOURCE_DIR}/NekoEngine/include
+    ${PROJECT_SOURCE_DIR}/Client/
     ${PROJECT_SOURCE_DIR}/NyaLog/
     ${PROJECT_SOURCE_DIR}/NyaNet/
 )
@@ -95,6 +96,7 @@ target_compile_features(rtouhou_server PRIVATE cxx_std_20)
 target_include_directories(rtouhou_server
     PRIVATE
     ${PROJECT_SOURCE_DIR}/NekoEngine/include
+    ${PROJECT_SOURCE_DIR}/Client/
     ${PROJECT_SOURCE_DIR}/NyaLog/
     ${PROJECT_SOURCE_DIR}/NyaNet/
 )

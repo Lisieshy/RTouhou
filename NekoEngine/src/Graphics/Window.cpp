@@ -16,6 +16,8 @@
 #include <memory>
 #include <NekoEngine/Graphics/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <NyaNet/NyaNet.hpp>
+#include <include/CustomClient.hpp>
 
 namespace ne::Graphics::Window {
     struct WImpl {
@@ -48,10 +50,21 @@ bool ne::Graphics::Window::isOpen() {
     return impl && impl->i_window.isOpen();
 }
 
-void ne::Graphics::Window::pollEvent() {
+void ne::Graphics::Window::pollEvent(rt::CustomClient &client) {
     for (auto event = sf::Event{}; impl->i_window.pollEvent(event);) {
         if (event.type == sf::Event::Closed) {
             impl->shouldClose = true;
+        }
+        if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::Escape) {
+                impl->shouldClose = true;
+            }
+            if (event.key.code == sf::Keyboard::Key::A) {
+                client.PingServer();
+            }
+            if (event.key.code == sf::Keyboard::Key::Z) {
+                client.MessageAll();
+            }
         }
     }
 }
