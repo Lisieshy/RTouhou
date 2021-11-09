@@ -12,17 +12,7 @@
 #include "NyaNet_tsqueue.h"
 #include "NyaNet_message.h"
 #include "NyaNet_connection.h"
-namespace rt {
-
-    enum class CustomMsgTypes : uint32_t
-    {
-        ServerAccept,
-        ServerDeny,
-        ServerPing,
-        MessageAll,
-        ServerMessage,
-    };
-}
+#include "../../Commons/CustomMsgTypes.hpp"
 namespace nn {
     template<typename T>
     class IServer {
