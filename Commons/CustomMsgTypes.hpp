@@ -8,5 +8,6 @@ namespace rt {
         ServerPing,
         MessageAll,
         ServerMessage,
+        SendData,
     };
 }

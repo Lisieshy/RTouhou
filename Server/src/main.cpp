@@ -13,9 +13,13 @@
  * @date        07/11/2021
  */
 
+#include <random>
+#include <chrono>
+#include <sstream>
+#include <iostream>
+#include <NekoEngine/NekoEngine.hpp>
 #include <NyaNet/NyaNet.hpp>
 #include <NyaLog/NyaLog.hpp>
-#include <iostream>
 
 class CustomServer : public nn::IServer<rt::CustomMsgTypes>
 {
@@ -79,10 +83,71 @@ auto main(
     CustomServer server(60000);
 
     server.Start();
+    ne::Scene testScene;
 
+    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color>();
+
+    auto RenderSystem = testScene.coordinator->registerSystem<ne::RenderSystem>(testScene.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(testScene.coordinator->getComponentType<ne::Transform>());
+        signature.set(testScene.coordinator->getComponentType<ne::Renderable>());
+        signature.set(testScene.coordinator->getComponentType<ne::Color>());
+        testScene.coordinator->setSystemSignature<ne::RenderSystem>(signature);
+    }
+
+    auto PhysicsSystem = testScene.coordinator->registerSystem<ne::PhysicsSystem>(testScene.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(testScene.coordinator->getComponentType<ne::Transform>());
+        signature.set(testScene.coordinator->getComponentType<ne::RigidBody>());
+        signature.set(testScene.coordinator->getComponentType<ne::Gravity>());
+        testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
+    }
+
+    std::vector<ne::EntityID> entities(1);
+
+    std::random_device rd;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+    std::uniform_int_distribution<> distrib(0, 800);
+
+    std::random_device rd1;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen1(rd1()); //Standard mersenne_twister_engine seeded with rd()
+    std::uniform_int_distribution<> distribColor(15, 235);
+
+    std::random_device rd2;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen2(rd2()); //Standard mersenne_twister_engine seeded with rd()
+    std::uniform_real_distribution<> distribGrav(8.f, 10.f);
+
+    std::random_device rd3;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen3(rd3()); //Standard mersenne_twister_engine seeded with rd()
+    std::uniform_int_distribution<> distribY(0, 600);
+
+    for (auto entity : entities) {
+        entity = testScene.coordinator->createEntity();
+        testScene.coordinator->addComponent(entity, ne::Transform{
+            ne::Math::Vector3f{static_cast<float>(distrib(gen)), static_cast<float>(distribY(gen3)), 0.f},
+            ne::Math::Vector3f{0.f, 0.f, 0.f},
+            ne::Math::Vector3f{4.f, 4.f, 0.f}
+        });
+        testScene.coordinator->addComponent(entity, ne::Gravity{
+            ne::Math::Vector3f{0.f, static_cast<float>(distribGrav(gen2)), 0.f}
+        });
+        testScene.coordinator->addComponent(entity, ne::RigidBody{
+            ne::Math::Vector3f{0.f, 0.f, 0.f},
+            ne::Math::Vector3f{0.f, 0.f, 0.f}
+        });
+        testScene.coordinator->addComponent(entity, ne::Renderable{});
+        testScene.coordinator->addComponent(entity, ne::Color{
+            static_cast<unsigned char>(distribColor(gen1)),
+            static_cast<unsigned char>(distribColor(gen1)),
+            static_cast<unsigned char>(distribColor(gen1)),
+            255
+        });
+    }
     while (1)
     {
-        server.Update(-1, true);
+        server.Update(-1, false);
     }
 
     nl::nyalog.stop();

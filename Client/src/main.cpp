@@ -132,6 +132,11 @@ auto main(
                         nl::nyalog(nl::LogLevel::Info, "Server accepted connection!");
                     }
                     break;
+                    case rt::CustomMsgTypes::SendData: 
+                    {
+                        nl::nyalog(nl::LogLevel::Info, "We just recieved data !");
+                    }
+                    break;
                     case rt::CustomMsgTypes::ServerPing:
                     {
                         std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
