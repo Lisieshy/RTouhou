@@ -108,15 +108,6 @@ namespace nn {
                 );
             }
 
-            auto SendDataToClients(
-            ) -> void
-            {
-                nn::message<rt::CustomMsgTypes> msg;
-                msg.header.id = rt::CustomMsgTypes::SendData;
-                // msg.body = data;
-                MessageAllClients(msg);
-            }
-
             auto MessageClient(
                 std::shared_ptr<connection<T>> client,
                 const message<T>& msg
@@ -172,7 +163,6 @@ namespace nn {
                 bool bWait = false
             ) -> void
             {
-                SendDataToClients();
                 if (bWait)
                     m_qMessagesIn.wait();
 

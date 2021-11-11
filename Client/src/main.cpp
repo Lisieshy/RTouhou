@@ -134,7 +134,9 @@ auto main(
                     break;
                     case rt::CustomMsgTypes::SendData: 
                     {
-                        nl::nyalog(nl::LogLevel::Info, "We just recieved data !");
+                        int entity;
+                        msg >> entity;
+                        nl::nyalog(nl::LogLevel::Info, std::to_string(entity));
                     }
                     break;
                     case rt::CustomMsgTypes::ServerPing:

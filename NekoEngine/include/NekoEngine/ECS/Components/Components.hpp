@@ -22,5 +22,6 @@
 #include "NekoEngine/ECS/Components/Color.hpp"
 #include "NekoEngine/ECS/Components/RigidBody.hpp"
 #include "NekoEngine/ECS/Components/Gravity.hpp"
+#include "NekoEngine/ECS/Components/Networkable.hpp"
 
 #endif /* !COMPONENTS_HPP_ */

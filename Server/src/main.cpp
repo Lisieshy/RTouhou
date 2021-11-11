@@ -21,14 +21,28 @@
 #include <NyaNet/NyaNet.hpp>
 #include <NyaLog/NyaLog.hpp>
 
-class CustomServer : public nn::IServer<rt::CustomMsgTypes>
+class CustomServer : public nn::IServer<rt::CustomMsgTypes>, public ne::System
 {
     public:
-        CustomServer(uint16_t nPort) : nn::IServer<rt::CustomMsgTypes>(nPort)
+        CustomServer(uint16_t nPort = 60000) : nn::IServer<rt::CustomMsgTypes>(nPort)
         {
         }
 
+        virtual auto SendDataToClients(
+        ) -> void
+        {
+            nn::message<rt::CustomMsgTypes> msg;
+            msg.header.id = rt::CustomMsgTypes::SendData;
+            // for (auto& entity : m_entities) {
+            //     auto& transform = coordinator->getComponent<ne::Transform>(entity);
+            //     auto& rigidBody = coordinator->getComponent<ne::RigidBody>(entity);
+            //     msg << entity;
+            // }
+            MessageAllClients(msg);
+        }
     protected:
+
+
         virtual bool OnClientConnect(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client)
         {
             nn::message<rt::CustomMsgTypes> msg;
@@ -80,21 +94,9 @@ auto main(
     nl::nyalog.init();
     nl::nyalog.setLogLevel(nl::LogLevel::Fatal);
 
-    CustomServer server(60000);
-
-    server.Start();
     ne::Scene testScene;
 
-    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color>();
-
-    auto RenderSystem = testScene.coordinator->registerSystem<ne::RenderSystem>(testScene.coordinator);
-    {
-        ne::Signature signature;
-        signature.set(testScene.coordinator->getComponentType<ne::Transform>());
-        signature.set(testScene.coordinator->getComponentType<ne::Renderable>());
-        signature.set(testScene.coordinator->getComponentType<ne::Color>());
-        testScene.coordinator->setSystemSignature<ne::RenderSystem>(signature);
-    }
+    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Networkable>();
 
     auto PhysicsSystem = testScene.coordinator->registerSystem<ne::PhysicsSystem>(testScene.coordinator);
     {
@@ -104,6 +106,17 @@ auto main(
         signature.set(testScene.coordinator->getComponentType<ne::Gravity>());
         testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
     }
+
+    auto NetworkSystem = testScene.coordinator->registerSystem<CustomServer>(testScene.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(testScene.coordinator->getComponentType<ne::Transform>());
+        signature.set(testScene.coordinator->getComponentType<ne::RigidBody>());
+        signature.set(testScene.coordinator->getComponentType<ne::Networkable>());
+        testScene.coordinator->setSystemSignature<CustomServer>(signature);
+    }
+
+    NetworkSystem->Start();
 
     std::vector<ne::EntityID> entities(1);
 
@@ -137,17 +150,11 @@ auto main(
             ne::Math::Vector3f{0.f, 0.f, 0.f},
             ne::Math::Vector3f{0.f, 0.f, 0.f}
         });
-        testScene.coordinator->addComponent(entity, ne::Renderable{});
-        testScene.coordinator->addComponent(entity, ne::Color{
-            static_cast<unsigned char>(distribColor(gen1)),
-            static_cast<unsigned char>(distribColor(gen1)),
-            static_cast<unsigned char>(distribColor(gen1)),
-            255
-        });
     }
     while (1)
     {
-        server.Update(-1, false);
+        NetworkSystem->SendDataToClients();
+        NetworkSystem->Update(10, false);
     }
 
     nl::nyalog.stop();
