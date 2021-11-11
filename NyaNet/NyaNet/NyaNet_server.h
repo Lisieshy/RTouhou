@@ -194,15 +194,7 @@ namespace nn {
                 message<T>& msg
             ) -> void
             {
-                switch (msg.header.id)
-                {
-                    case rt::CustomMsgTypes::ServerPing:
-                    {
-                        std::cout << "[" << client->GetID() << "]: Server Ping!\n";
-                        client->Send(msg);
-                    }
-                    break;
-                }
+
             }
 
             tsqueue<owned_message<T>> m_qMessagesIn;

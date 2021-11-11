@@ -21,7 +21,7 @@
 #include <NyaNet/NyaNet.hpp>
 #include <NyaLog/NyaLog.hpp>
 
-class CustomServer : public nn::IServer<rt::CustomMsgTypes>, public ne::System
+class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
 {
     public:
         CustomServer(uint16_t nPort = 60000) : nn::IServer<rt::CustomMsgTypes>(nPort)
@@ -33,11 +33,12 @@ class CustomServer : public nn::IServer<rt::CustomMsgTypes>, public ne::System
         {
             nn::message<rt::CustomMsgTypes> msg;
             msg.header.id = rt::CustomMsgTypes::SendData;
-            // for (auto& entity : m_entities) {
-            //     auto& transform = coordinator->getComponent<ne::Transform>(entity);
-            //     auto& rigidBody = coordinator->getComponent<ne::RigidBody>(entity);
-            //     msg << entity;
-            // }
+            // msg << 123456;
+            for (auto& entity : m_entities) {
+                auto& transform = coordinator->getComponent<ne::Transform>(entity);
+                auto& rigidBody = coordinator->getComponent<ne::RigidBody>(entity);
+                msg << transform;
+            }
             MessageAllClients(msg);
         }
     protected:
@@ -138,6 +139,7 @@ auto main(
 
     for (auto entity : entities) {
         entity = testScene.coordinator->createEntity();
+        testScene.coordinator->addComponent(entity, ne::Networkable{});
         testScene.coordinator->addComponent(entity, ne::Transform{
             ne::Math::Vector3f{static_cast<float>(distrib(gen)), static_cast<float>(distribY(gen3)), 0.f},
             ne::Math::Vector3f{0.f, 0.f, 0.f},
@@ -151,11 +153,26 @@ auto main(
             ne::Math::Vector3f{0.f, 0.f, 0.f}
         });
     }
-    while (1)
-    {
-        NetworkSystem->SendDataToClients();
-        NetworkSystem->Update(10, false);
+
+    auto oldTime = std::chrono::high_resolution_clock::now();
+    float dt = 0.0f;
+    int fps = 0;
+
+    while (1) {
+        auto startTime = std::chrono::high_resolution_clock::now();
+        fps++;
+        if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::milliseconds{ 20 }) {
+            oldTime = std::chrono::high_resolution_clock::now();
+            NetworkSystem->SendDataToClients();
+            fps = 0;
+        }
+        PhysicsSystem->update(dt);
+        NetworkSystem->Update(-1, false);
+        auto stopTime = std::chrono::high_resolution_clock::now();
+        dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
     }
+
+    NetworkSystem->Stop();
 
     nl::nyalog.stop();
     return 0;

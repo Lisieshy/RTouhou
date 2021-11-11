@@ -9,13 +9,14 @@
 #define CUSTOMCLIENT_HPP_
 
 #include <NyaNet/NyaNet.hpp>
+#include <NekoEngine/NekoEngine.hpp>
 
 namespace rt {
     // Defining what types of Messages the server will be capable of handling. THEY MUST BE THE EXACT SAME AS THE SERVER.
 
     // Creating a CustomClient class that inherits from the NyaNet IClient Interface that holds everything together.
     // Supposedly no need to overwrite any functions, but you can do it if you want.
-    class CustomClient : public nn::IClient<CustomMsgTypes>
+    class CustomClient : public ne::System, public nn::IClient<CustomMsgTypes>
     {
         public:
             // Basic function for handling ping.
@@ -39,6 +40,49 @@ namespace rt {
                 nn::message<CustomMsgTypes> msg;
                 msg.header.id = CustomMsgTypes::MessageAll;
                 Send(msg);
+            }
+
+            void OnMessage()
+            {
+                if (IsConnected()) {
+                    if (!Incoming().empty()) {
+                        auto msg = Incoming().pop_front().msg;
+
+                        switch (msg.header.id) {
+                            case rt::CustomMsgTypes::ServerAccept:
+                            {
+                                nl::nyalog(nl::LogLevel::Info, "Server accepted connection!");
+                            }
+                            break;
+                            case rt::CustomMsgTypes::SendData:
+                            {
+                                ne::Transform receivedEntity;
+                                msg >> receivedEntity;
+                                nl::nyalog(nl::LogLevel::Info, std::to_string(receivedEntity.position.y));
+                                for (auto& entity : m_entities) {
+                                    auto& t = coordinator->getComponent<ne::Transform>(entity);
+                                    t.position = receivedEntity.position;
+                                }
+                            }
+                            break;
+                            case rt::CustomMsgTypes::ServerPing:
+                            {
+                                std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+                                std::chrono::system_clock::time_point then;
+                                msg >> then;
+                                nl::nyalog(nl::LogLevel::Info, "Server ping: " + std::to_string(std::chrono::duration<double>(now - then).count()) + "s");
+                            }
+                            break;
+                            case rt::CustomMsgTypes::ServerMessage:
+                            {
+                                uint32_t clientID;
+                                msg >> clientID;
+                                nl::nyalog(nl::LogLevel::Info, "Hello from client " + std::to_string(clientID));
+                            }
+                            break;
+                        }
+                    }
+                }
             }
     };
 }

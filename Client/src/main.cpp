@@ -34,8 +34,8 @@ auto main(
     nl::nyalog.init();
     nl::nyalog(nl::LogLevel::Info, "R-Touhou! Configuring everything... Please wait!");
 
-    rt::CustomClient c;
-    c.Connect("127.0.0.1", 60000);
+    // rt::CustomClient c;
+    // c.Connect("127.0.0.1", 60000);
 
     ne::Scene testScene;
 
@@ -59,7 +59,17 @@ auto main(
         testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
     }
 
-    std::vector<ne::EntityID> entities(500);
+    auto ClientSystem = testScene.coordinator->registerSystem<rt::CustomClient>(testScene.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(testScene.coordinator->getComponentType<ne::Transform>());
+        signature.set(testScene.coordinator->getComponentType<ne::Renderable>());
+        testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
+    }
+
+    ClientSystem->Connect("127.0.0.1", 60000);
+
+    std::vector<ne::EntityID> entities(1);
 
     std::random_device rd;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
@@ -80,12 +90,9 @@ auto main(
     for (auto entity : entities) {
         entity = testScene.coordinator->createEntity();
         testScene.coordinator->addComponent(entity, ne::Transform{
-            ne::Math::Vector3f{static_cast<float>(distrib(gen)), static_cast<float>(distribY(gen3)), 0.f},
+            ne::Math::Vector3f{0.f, 0.f, 0.f},
             ne::Math::Vector3f{0.f, 0.f, 0.f},
             ne::Math::Vector3f{4.f, 4.f, 0.f}
-        });
-        testScene.coordinator->addComponent(entity, ne::Gravity{
-            ne::Math::Vector3f{0.f, static_cast<float>(distribGrav(gen2)), 0.f}
         });
         testScene.coordinator->addComponent(entity, ne::RigidBody{
             ne::Math::Vector3f{0.f, 0.f, 0.f},
@@ -109,53 +116,18 @@ auto main(
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
         auto startTime = std::chrono::high_resolution_clock::now();
-        ne::Graphics::Window::pollEvent(c);
+        ne::Graphics::Window::pollEvent(ClientSystem);
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
         RenderSystem->update();
-        PhysicsSystem->update(dt);
+        // PhysicsSystem->update(dt);
+        ClientSystem->OnMessage();
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";
             oldTime = std::chrono::high_resolution_clock::now();
             ne::Graphics::Window::setTitle(title.append(std::to_string(fps) + " fps"));
             fps = 0;
-        }
-        // c.PingServer();
-        if (c.IsConnected()) {
-            if (!c.Incoming().empty()) {
-                auto msg = c.Incoming().pop_front().msg;
-
-                switch (msg.header.id) {
-                    case rt::CustomMsgTypes::ServerAccept: 
-                    {
-                        nl::nyalog(nl::LogLevel::Info, "Server accepted connection!");
-                    }
-                    break;
-                    case rt::CustomMsgTypes::SendData: 
-                    {
-                        int entity;
-                        msg >> entity;
-                        nl::nyalog(nl::LogLevel::Info, std::to_string(entity));
-                    }
-                    break;
-                    case rt::CustomMsgTypes::ServerPing:
-                    {
-                        std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-                        std::chrono::system_clock::time_point then;
-                        msg >> then;
-                        nl::nyalog(nl::LogLevel::Info, "Server ping: " + std::to_string(std::chrono::duration<double>(now - then).count()) + "s");
-                    }
-                    break;
-                    case rt::CustomMsgTypes::ServerMessage:
-                    {
-                        uint32_t clientID;
-                        msg >> clientID;
-                        nl::nyalog(nl::LogLevel::Info, "Hello from client " + std::to_string(clientID));
-                    }
-                    break;
-                }
-            }
         }
         auto stopTime = std::chrono::high_resolution_clock::now();
         dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
