@@ -14,7 +14,7 @@
  */
 
 // Pragma definition for Windows to remove the console window.
-#pragma comment(linker, "/SUBSYSTEM:windows")
+// #pragma comment(linker, "/SUBSYSTEM:windows")
 
 #include <NekoEngine/NekoEngine.hpp>
 #include <NekoEngine/Graphics/Window.hpp>
@@ -64,6 +64,7 @@ auto main(
         ne::Signature signature;
         signature.set(testScene.coordinator->getComponentType<ne::Transform>());
         signature.set(testScene.coordinator->getComponentType<ne::Renderable>());
+        signature.set(testScene.coordinator->getComponentType<ne::Color>());
         testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
     }
 
@@ -71,21 +72,9 @@ auto main(
 
     std::vector<ne::EntityID> entities(1);
 
-    std::random_device rd;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_int_distribution<> distrib(0, 800);
-
     std::random_device rd1;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen1(rd1()); //Standard mersenne_twister_engine seeded with rd()
     std::uniform_int_distribution<> distribColor(15, 235);
-
-    std::random_device rd2;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen2(rd2()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_real_distribution<> distribGrav(8.f, 10.f);
-
-    std::random_device rd3;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen3(rd3()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_int_distribution<> distribY(0, 600);
 
     for (auto entity : entities) {
         entity = testScene.coordinator->createEntity();
@@ -99,12 +88,7 @@ auto main(
             ne::Math::Vector3f{0.f, 0.f, 0.f}
         });
         testScene.coordinator->addComponent(entity, ne::Renderable{});
-        testScene.coordinator->addComponent(entity, ne::Color{
-            static_cast<unsigned char>(distribColor(gen1)),
-            static_cast<unsigned char>(distribColor(gen1)),
-            static_cast<unsigned char>(distribColor(gen1)),
-            255
-        });
+        testScene.coordinator->addComponent(entity, ne::Color{});
     }
 
     ne::Graphics::Window::open();
@@ -121,7 +105,6 @@ auto main(
             0, 0, 0, 255
         });
         RenderSystem->update();
-        // PhysicsSystem->update(dt);
         ClientSystem->OnMessage();
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";

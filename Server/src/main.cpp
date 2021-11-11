@@ -34,13 +34,15 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
             nn::message<rt::CustomMsgTypes> msg;
             msg.header.id = rt::CustomMsgTypes::SendData;
             // msg << 123456;
-            for (auto& entity : m_entities) {
-                auto& transform = coordinator->getComponent<ne::Transform>(entity);
-                auto& rigidBody = coordinator->getComponent<ne::RigidBody>(entity);
-                msg << transform;
+            for (auto &entity : m_entities) {
+                auto &transform = coordinator->getComponent<ne::Transform>(entity);
+                auto &rigidBody = coordinator->getComponent<ne::RigidBody>(entity);
+                auto &color = coordinator->getComponent<ne::Color>(entity);
+                msg << transform << color;
             }
             MessageAllClients(msg);
         }
+
     protected:
 
 
@@ -97,7 +99,7 @@ auto main(
 
     ne::Scene testScene;
 
-    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Networkable>();
+    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Networkable, ne::Color>();
 
     auto PhysicsSystem = testScene.coordinator->registerSystem<ne::PhysicsSystem>(testScene.coordinator);
     {
@@ -113,11 +115,10 @@ auto main(
         ne::Signature signature;
         signature.set(testScene.coordinator->getComponentType<ne::Transform>());
         signature.set(testScene.coordinator->getComponentType<ne::RigidBody>());
+        signature.set(testScene.coordinator->getComponentType<ne::Color>());
         signature.set(testScene.coordinator->getComponentType<ne::Networkable>());
         testScene.coordinator->setSystemSignature<CustomServer>(signature);
     }
-
-    NetworkSystem->Start();
 
     std::vector<ne::EntityID> entities(1);
 
@@ -152,7 +153,15 @@ auto main(
             ne::Math::Vector3f{0.f, 0.f, 0.f},
             ne::Math::Vector3f{0.f, 0.f, 0.f}
         });
+        testScene.coordinator->addComponent(entity, ne::Color{
+            static_cast<uint8_t>(distribColor(gen1)),
+            static_cast<uint8_t>(distribColor(gen1)),
+            static_cast<uint8_t>(distribColor(gen1)),
+            255
+        });
     }
+
+    NetworkSystem->Start();
 
     auto oldTime = std::chrono::high_resolution_clock::now();
     float dt = 0.0f;
