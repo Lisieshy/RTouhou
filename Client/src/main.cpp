@@ -24,6 +24,7 @@
 
 #include <NyaLog/NyaLog.hpp>
 #include <include/CustomClient.hpp>
+#include "../../Ennemies/EnnemiesFactory.hpp"
 
 auto main(
     int argc,
@@ -60,8 +61,8 @@ auto main(
     }
 
     std::vector<ne::EntityID> entities(10);
-
-    std::random_device rd;  //Will be used to obtain a seed for the random number engine
+    ne::EnnemiesFactory fact;
+    /*std::random_device rd;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
     std::uniform_int_distribution<> distrib(0, 800);
 
@@ -75,11 +76,17 @@ auto main(
 
     std::random_device rd3;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen3(rd3()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_int_distribution<> distribY(0, 600);
+    std::uniform_int_distribution<> distribY(0, 600);*/
 
     for (auto entity : entities) {
         entity = testScene.coordinator->createEntity();
-        testScene.coordinator->addComponent(entity, ne::Transform{
+        std::shared_ptr<ne::Ennemies> test = fact.createEnnemies("BasicPlane");
+        testScene.coordinator->addComponent(entity, test.get()->getGravity());
+        testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
+        testScene.coordinator->addComponent(entity, test.get()->getTransform());
+        testScene.coordinator->addComponent(entity, ne::Renderable{});
+        testScene.coordinator->addComponent(entity, test.get()->getColor());
+        /*testScene.coordinator->addComponent(entity, ne::Transform{
             ne::Math::Vector3f{static_cast<float>(distrib(gen)), static_cast<float>(distribY(gen3)), 0.f},
             ne::Math::Vector3f{0.f, 0.f, 0.f},
             ne::Math::Vector3f{4.f, 4.f, 0.f}
@@ -97,7 +104,7 @@ auto main(
             static_cast<unsigned char>(distribColor(gen1)),
             static_cast<unsigned char>(distribColor(gen1)),
             255
-        });
+        });*/
     }
 
     ne::Graphics::Window::open();

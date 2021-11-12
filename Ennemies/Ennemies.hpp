@@ -25,14 +25,14 @@ namespace ne {
             ne::RigidBody getRigidBody();
 
             ne::Color getColor();
-        protected:
-        private:
             ne::HitPoint hp;
             ne::Transform trans;
             ne::Gravity grav;
             ne::RigidBody rigid;
             ne::Renderable render;
             ne::Color temp;
+        protected:
+        private:
     };
 }
 

@@ -16,12 +16,15 @@ ne::EnnemiesFactory::~EnnemiesFactory()
 {
 }
 
-void ne::EnnemiesFactory::createEnnemies(const std::string &name)
+std::unique_ptr<ne::Ennemies> ne::EnnemiesFactory::createEnnemies(const std::string &name)
 {
-    _create[name];
+    fact ptr;
+
+    ptr = _create[name];
+    return (this->*ptr)(name);
 }
 
-void ne::EnnemiesFactory::createBasicPlane(const std::string &name) const noexcept
+std::unique_ptr<ne::Ennemies> ne::EnnemiesFactory::createBasicPlane(const std::string &name) const noexcept
 {
-    
+    return ((std::unique_ptr<ne::Ennemies>)new BasicPlane());
 }
