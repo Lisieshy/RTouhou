@@ -23,5 +23,5 @@ void ne::EnnemiesFactory::createEnnemies(const std::string &name)
 
 void ne::EnnemiesFactory::createBasicPlane(const std::string &name) const noexcept
 {
-
+    
 }
