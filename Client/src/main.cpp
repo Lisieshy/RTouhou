@@ -59,7 +59,7 @@ auto main(
         testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
     }
 
-    std::vector<ne::EntityID> entities(500);
+    std::vector<ne::EntityID> entities(10);
 
     std::random_device rd;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
@@ -85,10 +85,10 @@ auto main(
             ne::Math::Vector3f{4.f, 4.f, 0.f}
         });
         testScene.coordinator->addComponent(entity, ne::Gravity{
-            ne::Math::Vector3f{0.f, static_cast<float>(distribGrav(gen2)), 0.f}
+            ne::Math::Vector3f{0.f, 0.f, 0.f}
         });
         testScene.coordinator->addComponent(entity, ne::RigidBody{
-            ne::Math::Vector3f{0.f, 0.f, 0.f},
+            ne::Math::Vector3f{-14.f, 0.f, 0.f},
             ne::Math::Vector3f{0.f, 0.f, 0.f}
         });
         testScene.coordinator->addComponent(entity, ne::Renderable{});

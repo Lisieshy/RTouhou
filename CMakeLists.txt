@@ -26,6 +26,12 @@ set(NEKOENGINE_GRAPHICS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/Graphics/Window.cpp
 )
 
+set(NEKOENNEMIES_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/Ennemies.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesFactory.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/BasicPlane.cpp
+)
+
 set(NEKOENGINE_ECS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/EntityManager.cpp
 )
@@ -59,6 +65,7 @@ set(NEKOENGINE_SOURCES
     ${NEKOENGINE_COMPONENTS_SOURCES}
     ${NEKOENGINE_SCENES_SOURCES}
     ${NEKOENGINE_NEKOEXCEPTION_SOURCES}
+    ${NEKOENNEMIES_SOURCES}
 )
 
 set(SOURCES_CLIENT
@@ -81,6 +88,7 @@ target_include_directories(rtouhou_client
     ${PROJECT_SOURCE_DIR}/Client/
     ${PROJECT_SOURCE_DIR}/NyaLog/
     ${PROJECT_SOURCE_DIR}/NyaNet/
+    ${PROJECT_SOURCE_DIR}/Ennemies/
 )
 
 target_link_libraries(
