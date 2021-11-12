@@ -25,12 +25,15 @@ namespace ne {
             ne::RigidBody getRigidBody();
 
             ne::Color getColor();
+
+            ne::Skin getSkin();
             ne::HitPoint hp;
             ne::Transform trans;
             ne::Gravity grav;
             ne::RigidBody rigid;
             ne::Renderable render;
             ne::Color temp;
+            ne::Skin skin;
         protected:
         private:
     };

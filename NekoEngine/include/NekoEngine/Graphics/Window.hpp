@@ -83,6 +83,12 @@ namespace ne::Graphics::Window {
      * @param color A vector containing the colors.
      */
     void clear(ne::Math::Vector4<unsigned char> color);
+
+    /**
+     * @brief Draw a Sprite
+     * @param spr Sprite to draw
+     */
+    void draw(sf::Sprite spr); 
 }
 
 #endif /* !WINDOW_HPP_ */

@@ -86,6 +86,7 @@ auto main(
         testScene.coordinator->addComponent(entity, test.get()->getTransform());
         testScene.coordinator->addComponent(entity, ne::Renderable{});
         testScene.coordinator->addComponent(entity, test.get()->getColor());
+        //testScene.coordinator->addComponent(entity, test.get()->getSkin());
         /*testScene.coordinator->addComponent(entity, ne::Transform{
             ne::Math::Vector3f{static_cast<float>(distrib(gen)), static_cast<float>(distribY(gen3)), 0.f},
             ne::Math::Vector3f{0.f, 0.f, 0.f},

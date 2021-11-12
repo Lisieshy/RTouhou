@@ -39,3 +39,8 @@ ne::Color ne::Ennemies::getColor()
 {
     return (temp);
 }
+
+ne::Skin ne::Ennemies::getSkin()
+{
+    return (skin);
+}

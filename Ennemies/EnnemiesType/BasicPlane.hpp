@@ -5,6 +5,7 @@
 ** BasicPlane
 */
 #include "../Ennemies.hpp"
+#include "SFML/Graphics.hpp"
 #include <random>
 #include <sstream>
 
@@ -16,7 +17,6 @@ namespace ne {
         public:
             BasicPlane();
             ~BasicPlane();
-
         protected:
         private:
     };
