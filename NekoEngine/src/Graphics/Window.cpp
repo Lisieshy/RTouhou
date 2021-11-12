@@ -115,8 +115,3 @@ void ne::Graphics::Window::drawRectangle(ne::Transform& transform, ne::Color& co
 
     impl->i_window.draw(pixel);
 }
-
-void ne::Graphics::Window::draw(sf::Sprite spr)
-{
-    impl->i_window.draw(spr);
-}
