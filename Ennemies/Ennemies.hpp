@@ -27,6 +27,7 @@ namespace ne {
             ne::Color getColor();
 
             ne::Skin getSkin();
+
             ne::HitPoint hp;
             ne::Transform trans;
             ne::Gravity grav;

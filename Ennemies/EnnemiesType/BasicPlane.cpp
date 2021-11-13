@@ -24,7 +24,7 @@ ne::BasicPlane::BasicPlane()
     rigid.velocity = ne::Math::Vector3f{0.f, 0.f, 0.f};
     temp = { 255, 255, 255, 255 };
     if (!skin.texture.loadFromFile("Ennemies/Assets/TouhouBasicMob.png", sf::IntRect(0, 0, 32, 32)))
-        throw std::runtime_error("Error when charging basic mob skin");
+        throw std::runtime_error("Error when charging basic plane skin");
     skin.sprite.setTexture(skin.texture);
 }
 
