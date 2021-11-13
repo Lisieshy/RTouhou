@@ -4,6 +4,7 @@
 ** File description:
 ** Skin
 */
+
 #include <SFML/Graphics.hpp>
 #ifndef SKIN_HPP_
 #define SKIN_HPP_
@@ -12,7 +13,7 @@ namespace ne {
     class Skin {
         public:
             sf::Sprite sprite;
-            sf::Texture texture;
+            sf::Texture *texture;
     };
 }
 

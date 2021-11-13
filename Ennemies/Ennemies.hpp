@@ -28,6 +28,8 @@ namespace ne {
 
             ne::Skin getSkin();
 
+            void setSkin();
+
             ne::HitPoint hp;
             ne::Transform trans;
             ne::Gravity grav;

@@ -23,5 +23,4 @@
 #include "NekoEngine/ECS/Components/RigidBody.hpp"
 #include "NekoEngine/ECS/Components/Gravity.hpp"
 #include "NekoEngine/ECS/Components/Skin.hpp"
-
 #endif /* !COMPONENTS_HPP_ */

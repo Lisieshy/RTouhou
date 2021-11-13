@@ -17,7 +17,7 @@
 #include "NekoEngine/ECS/Systems/RenderSystem.hpp"
 #include "NekoEngine/ECS/Components/Transform.hpp"
 #include "NekoEngine/ECS/Components/Color.hpp"
-
+#include "NekoEngine/ECS/Components/Skin.hpp"
 #include "NekoEngine/Graphics/Window.hpp"
 
 void ne::RenderSystem::update()
