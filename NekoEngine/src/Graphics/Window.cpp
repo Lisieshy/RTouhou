@@ -115,3 +115,9 @@ void ne::Graphics::Window::drawRectangle(ne::Transform& transform, ne::Color& co
 
     impl->i_window.draw(pixel);
 }
+
+void ne::Graphics::Window::draw(ne::Skin skin, ne::Transform transform)
+{
+    skin.sprite.move({transform.position.x, transform.position.y});
+    impl->i_window.draw(skin.sprite);
+}

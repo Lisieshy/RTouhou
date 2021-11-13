@@ -83,6 +83,14 @@ namespace ne::Graphics::Window {
      * @param color A vector containing the colors.
      */
     void clear(ne::Math::Vector4<unsigned char> color);
+
+    /**
+     * @brief Draw the skin given as parameters
+     * 
+     * @param skin Contain skin and texture
+     * @param transform Contain position of the sprite
+     */
+    void draw(ne::Skin skin, ne::Transform transform);
 }
 
 #endif /* !WINDOW_HPP_ */

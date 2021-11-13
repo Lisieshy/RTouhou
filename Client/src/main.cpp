@@ -40,7 +40,7 @@ auto main(
 
     ne::Scene testScene;
 
-    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color>();
+    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin>();
 
     auto RenderSystem = testScene.coordinator->registerSystem<ne::RenderSystem>(testScene.coordinator);
     {
@@ -48,6 +48,7 @@ auto main(
         signature.set(testScene.coordinator->getComponentType<ne::Transform>());
         signature.set(testScene.coordinator->getComponentType<ne::Renderable>());
         signature.set(testScene.coordinator->getComponentType<ne::Color>());
+        signature.set(testScene.coordinator->getComponentType<ne::Skin>());
         testScene.coordinator->setSystemSignature<ne::RenderSystem>(signature);
     }
 
@@ -59,6 +60,8 @@ auto main(
         signature.set(testScene.coordinator->getComponentType<ne::Gravity>());
         testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
     }
+
+
 
     std::vector<ne::EntityID> entities(10);
     ne::EnnemiesFactory fact;
@@ -81,12 +84,12 @@ auto main(
     for (auto entity : entities) {
         entity = testScene.coordinator->createEntity();
         std::shared_ptr<ne::Ennemies> test = fact.createEnnemies("BasicPlane");
+        testScene.coordinator->addComponent(entity, test.get()->getTransform());
         testScene.coordinator->addComponent(entity, test.get()->getGravity());
         testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
-        testScene.coordinator->addComponent(entity, test.get()->getTransform());
         testScene.coordinator->addComponent(entity, ne::Renderable{});
         testScene.coordinator->addComponent(entity, test.get()->getColor());
-        //testScene.coordinator->addComponent(entity, test.get()->getSkin());
+        testScene.coordinator->addComponent(entity, test.get()->getSkin());
         /*testScene.coordinator->addComponent(entity, ne::Transform{
             ne::Math::Vector3f{static_cast<float>(distrib(gen)), static_cast<float>(distribY(gen3)), 0.f},
             ne::Math::Vector3f{0.f, 0.f, 0.f},
