@@ -45,7 +45,7 @@ namespace rt {
             void OnMessage()
             {
                 if (IsConnected()) {
-                    if (!Incoming().empty()) {
+                    while (!Incoming().empty()) {
                         auto msg = Incoming().pop_front().msg;
 
                         switch (msg.header.id) {
@@ -58,13 +58,16 @@ namespace rt {
                             {
                                 ne::Transform receivedEntity;
                                 ne::Color receivedColor;
-                                msg >> receivedColor >> receivedEntity;
-                                nl::nyalog(nl::LogLevel::Info, "Transform.x : " + std::to_string(receivedEntity.position.x) + " Transform.y : " + std::to_string(receivedEntity.position.y) + " Color.r : " + std::to_string(receivedColor.r) + " Color.g : " + std::to_string(receivedColor.g) + " Color.b : " + std::to_string(receivedColor.b) + " Color.a : " + std::to_string(receivedColor.a));
+                                ne::Uid receivedUid;
+                                msg >> receivedUid >> receivedColor >> receivedEntity;
                                 for (auto& entity : m_entities) {
-                                    auto& t = coordinator->getComponent<ne::Transform>(entity);
-                                    auto& c = coordinator->getComponent<ne::Color>(entity);
-                                    t = receivedEntity;
-                                    c = receivedColor;
+                                    if (receivedUid.uid == coordinator->getComponent<ne::Uid>(entity).uid) {
+                                        auto& t = coordinator->getComponent<ne::Transform>(entity);
+                                        auto& c = coordinator->getComponent<ne::Color>(entity);
+                                        t = receivedEntity;
+                                        c = receivedColor;
+                                        nl::nyalog(nl::LogLevel::Info, "The entity id received is : " + std::to_string(receivedUid.uid) + " and the color of the entity is : " + std::to_string(c.r) + "/" + std::to_string(c.g) + "/" + std::to_string(c.b));
+                                    }
                                 }
                             }
                             break;

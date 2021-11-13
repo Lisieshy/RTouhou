@@ -33,14 +33,21 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
         {
             nn::message<rt::CustomMsgTypes> msg;
             msg.header.id = rt::CustomMsgTypes::SendData;
-            // msg << 123456;
             for (auto &entity : m_entities) {
                 auto &transform = coordinator->getComponent<ne::Transform>(entity);
                 auto &rigidBody = coordinator->getComponent<ne::RigidBody>(entity);
                 auto &color = coordinator->getComponent<ne::Color>(entity);
-                msg << transform << color;
+                auto &uid = coordinator->getComponent<ne::Uid>(entity);
+                msg << transform << color << uid;
+                MessageAllClients(msg);
+                // nl::nyalog(nl::LogLevel::Info, "The entity id sended is : " + std::to_string(uid.uid) + " and the color of the entity is : " + std::to_string(color.r) + "/" + std::to_string(color.g) + "/" + std::to_string(color.b));
             }
-            MessageAllClients(msg);
+            // std::vector<ne::Transform> transforms;
+            // for (auto &entity : m_entities) {
+            //     transforms.push_back(coordinator->getComponent<ne::Transform>(entity));
+            // }
+            // msg << transforms;
+            // MessageAllClients(msg);
         }
 
     protected:
@@ -96,10 +103,10 @@ auto main(
     nl::nyalog.setFilename("Server.log");
     nl::nyalog.init();
     nl::nyalog.setLogLevel(nl::LogLevel::Fatal);
-
+    uint32_t entityID = 0;
     ne::Scene testScene;
 
-    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Networkable, ne::Color>();
+    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Networkable, ne::Color, ne::Uid>();
 
     auto PhysicsSystem = testScene.coordinator->registerSystem<ne::PhysicsSystem>(testScene.coordinator);
     {
@@ -120,7 +127,7 @@ auto main(
         testScene.coordinator->setSystemSignature<CustomServer>(signature);
     }
 
-    std::vector<ne::EntityID> entities(1);
+    std::vector<ne::EntityID> entities(10);
 
     std::random_device rd;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
@@ -159,6 +166,8 @@ auto main(
             static_cast<uint8_t>(distribColor(gen1)),
             255
         });
+        testScene.coordinator->addComponent(entity, ne::Uid{entityID});
+        entityID++;
     }
 
     NetworkSystem->Start();

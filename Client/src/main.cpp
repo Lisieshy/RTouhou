@@ -39,7 +39,7 @@ auto main(
 
     ne::Scene testScene;
 
-    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color>();
+    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Uid>();
 
     auto RenderSystem = testScene.coordinator->registerSystem<ne::RenderSystem>(testScene.coordinator);
     {
@@ -70,12 +70,12 @@ auto main(
 
     ClientSystem->Connect("127.0.0.1", 60000);
 
-    std::vector<ne::EntityID> entities(1);
+    std::vector<ne::EntityID> entities(10);
 
     std::random_device rd1;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen1(rd1()); //Standard mersenne_twister_engine seeded with rd()
     std::uniform_int_distribution<> distribColor(15, 235);
-
+    uint32_t entityID = 0;
     for (auto entity : entities) {
         entity = testScene.coordinator->createEntity();
         testScene.coordinator->addComponent(entity, ne::Transform{
@@ -89,6 +89,8 @@ auto main(
         });
         testScene.coordinator->addComponent(entity, ne::Renderable{});
         testScene.coordinator->addComponent(entity, ne::Color{});
+        testScene.coordinator->addComponent(entity, ne::Uid{entityID});
+        entityID++;
     }
 
     ne::Graphics::Window::open();
