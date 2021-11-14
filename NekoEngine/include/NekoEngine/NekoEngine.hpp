@@ -28,6 +28,7 @@
 // NekoECS includes
 #include "NekoEngine/ECS/Coordinator.hpp"
 #include "NekoEngine/Scenes/Scene.hpp"
+
 // NekoECS Components and systems includes
 #include "NekoEngine/ECS/Components/Components.hpp"
 #include "NekoEngine/ECS/Systems/Systems.hpp"

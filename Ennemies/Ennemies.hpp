@@ -37,6 +37,7 @@ namespace ne {
             ne::Renderable render;
             ne::Color temp;
             ne::Skin skin;
+            ne::Hostile hostile;
         protected:
         private:
     };
