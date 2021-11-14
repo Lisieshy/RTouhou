@@ -63,7 +63,8 @@ auto main(
 
 
 
-    std::vector<ne::EntityID> entities(10);
+    std::vector<ne::EntityID> entities(25);
+    int i = 0;
     ne::EnnemiesFactory fact;
     /*std::random_device rd;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
@@ -83,32 +84,26 @@ auto main(
 
     for (auto entity : entities) {
         entity = testScene.coordinator->createEntity();
-        std::shared_ptr<ne::Ennemies> test = fact.createEnnemies("BasicPlane");
+        std::shared_ptr<ne::Ennemies> test;
+
+        if (i < 5)
+            test = fact.createEnnemies("BasicPlane");
+        else if (i < 10)
+            test = fact.createEnnemies("DarkBlue");
+        else if (i < 15)
+            test = fact.createEnnemies("GreenFerry");
+        else if (i < 20)
+            test = fact.createEnnemies("OrangeFerry");
+        else
+            test = fact.createEnnemies("WhiteFerry");
+
         testScene.coordinator->addComponent(entity, test.get()->getTransform());
         testScene.coordinator->addComponent(entity, test.get()->getGravity());
         testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
         testScene.coordinator->addComponent(entity, ne::Renderable{});
         testScene.coordinator->addComponent(entity, test.get()->getColor());
         testScene.coordinator->addComponent(entity, test.get()->getSkin());
-        /*testScene.coordinator->addComponent(entity, ne::Transform{
-            ne::Math::Vector3f{static_cast<float>(distrib(gen)), static_cast<float>(distribY(gen3)), 0.f},
-            ne::Math::Vector3f{0.f, 0.f, 0.f},
-            ne::Math::Vector3f{4.f, 4.f, 0.f}
-        });
-        testScene.coordinator->addComponent(entity, ne::Gravity{
-            ne::Math::Vector3f{0.f, 0.f, 0.f}
-        });
-        testScene.coordinator->addComponent(entity, ne::RigidBody{
-            ne::Math::Vector3f{-14.f, 0.f, 0.f},
-            ne::Math::Vector3f{0.f, 0.f, 0.f}
-        });
-        testScene.coordinator->addComponent(entity, ne::Renderable{});
-        testScene.coordinator->addComponent(entity, ne::Color{
-            static_cast<unsigned char>(distribColor(gen1)),
-            static_cast<unsigned char>(distribColor(gen1)),
-            static_cast<unsigned char>(distribColor(gen1)),
-            255
-        });*/
+        i++;
     }
 
     ne::Graphics::Window::open();

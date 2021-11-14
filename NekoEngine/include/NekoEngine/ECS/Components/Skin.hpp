@@ -13,7 +13,7 @@ namespace ne {
     class Skin {
         public:
             sf::Sprite sprite;
-            sf::Texture *texture;
+            sf::Texture texture;
     };
 }
 
