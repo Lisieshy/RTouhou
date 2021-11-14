@@ -5,6 +5,9 @@
 ** BasicWhiteBullets
 */
 #include "Bullets/Bullets.hpp"
+#include "SFML/Graphics.hpp"
+#include <random>
+#include <sstream>
 #ifndef BASICWHITEBULLETS_HPP_
 #define BASICWHITEBULLETS_HPP_
 
