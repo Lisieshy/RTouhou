@@ -50,23 +50,22 @@ bool ne::Graphics::Window::isOpen() {
     return impl && impl->i_window.isOpen();
 }
 
-void ne::Graphics::Window::pollEvent(rt::CustomClient &client) {
+void ne::Graphics::Window::pollEvent(std::shared_ptr<rt::CustomClient> client) {
     for (auto event = sf::Event{}; impl->i_window.pollEvent(event);) {
         if (event.type == sf::Event::Closed) {
             impl->shouldClose = true;
         }
         if (event.type == sf::Event::KeyPressed) {
-            nl::nyalog(nl::LogLevel::Info, "Pressed !");
-                client.PingServer();
             if (event.key.code == sf::Keyboard::Key::Escape) {
+                impl->shouldClose = true;
             }
             if (event.key.code == sf::Keyboard::Key::A) {
                 nl::nyalog(nl::LogLevel::Info, "Pressed A!");
-                client.PingServer();
+                client->PingServer();
             }   
             if (event.key.code == sf::Keyboard::Key::Z) {
                 nl::nyalog(nl::LogLevel::Info, "Pressed Z!");
-                client.MessageAll();
+                client->MessageAll();
             }
         }
     }

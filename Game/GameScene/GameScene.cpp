@@ -35,7 +35,7 @@ void ne::GameScene::GameLoop()
 
 void ne::GameScene::InitScene()
 {
-    Game.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin>();
+    Game.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid>();
 
     RenderSystem = Game.coordinator->registerSystem<ne::RenderSystem>(Game.coordinator);
     {
@@ -56,42 +56,54 @@ void ne::GameScene::InitScene()
         Game.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
     }
 
-    int i = 0;
+    ClientSystem = Game.coordinator->registerSystem<rt::CustomClient>(Game.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(Game.coordinator->getComponentType<ne::Transform>());
+        signature.set(Game.coordinator->getComponentType<ne::Renderable>());
+        signature.set(Game.coordinator->getComponentType<ne::Color>());
+        Game.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
+    }
+
+    ClientSystem->Connect("127.0.0.1", 60000);
+
     for (auto entity : entities) {
         entity = Game.coordinator->createEntity();
         std::shared_ptr<ne::Ennemies> test;
         std::shared_ptr<ne::Bullets> bull;
 
-        if (i < 5)
+        if (entityID < 5)
             test = fact.createEnnemies("BasicPlane");
-        else if (i < 10)
+        else if (entityID < 10)
             test = fact.createEnnemies("DarkBlue");
-        else if (i < 15)
+        else if (entityID < 15)
             test = fact.createEnnemies("GreenFerry");
-        else if (i < 20)
+        else if (entityID < 20)
             test = fact.createEnnemies("OrangeFerry");
-        else if (i < 25)
+        else if (entityID < 25)
             test = fact.createEnnemies("WhiteFerry");
         else
             bull = bullets.createBullets("BasicWhiteBullets");
         
-        if (i < 25) {
+        if (entityID < 25) {
             Game.coordinator->addComponent(entity, test.get()->getTransform());
             Game.coordinator->addComponent(entity, test.get()->getGravity());
             Game.coordinator->addComponent(entity, test.get()->getRigidBody());
             Game.coordinator->addComponent(entity, ne::Renderable{});
             Game.coordinator->addComponent(entity, test.get()->getColor());
             Game.coordinator->addComponent(entity, test.get()->getSkin());
+            Game.coordinator->addComponent(entity, ne::Uid{ entityID });
         } else {
             Game.coordinator->addComponent(entity, bull.get()->getTransform());
             Game.coordinator->addComponent(entity, bull.get()->getGravity());
             Game.coordinator->addComponent(entity, bull.get()->getRigidBody());
             Game.coordinator->addComponent(entity, ne::Renderable{});
             Game.coordinator->addComponent(entity, bull.get()->getColor());
-            Game.coordinator->addComponent(entity, bull.get()->getSkin());            
+            Game.coordinator->addComponent(entity, bull.get()->getSkin());
+            Game.coordinator->addComponent(entity, ne::Uid{ entityID });           
         }
-        i++;
-        if (i == 30)
+        entityID++;
+        if (entityID == 30)
             break;
     }
 }

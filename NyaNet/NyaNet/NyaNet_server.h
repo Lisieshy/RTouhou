@@ -90,7 +90,7 @@ namespace nn {
 
                             if (OnClientConnect(new_Connection)) {
                                 m_qConnections.push_back(std::move(new_Connection));
-                                m_qConnections.back()->ConnectToClient(nIDCounter++);
+                                m_qConnections.back()->ConnectToClient(this, nIDCounter++);
                                 std::stringstream ss;
                                 ss << "[SERVER] New Connection ID [" << m_qConnections.back()->GetID() << "] Approved";
                                 nl::nyalog(nl::LogLevel::Info, ss.str());
@@ -174,6 +174,7 @@ namespace nn {
                 }
             }
 
+
         protected:
             auto virtual OnClientConnect(
                 std::shared_ptr<connection<T>> client
@@ -194,15 +195,14 @@ namespace nn {
                 message<T>& msg
             ) -> void
             {
-                switch (msg.header.id)
-                {
-                    case rt::CustomMsgTypes::ServerPing:
-                    {
-                        std::cout << "[" << client->GetID() << "]: Server Ping!\n";
-                        client->Send(msg);
-                    }
-                    break;
-                }
+
+            }
+        public:
+            auto virtual OnClientValidated(
+                std::shared_ptr<connection<T>> client
+            ) -> void
+            {
+
             }
 
             tsqueue<owned_message<T>> m_qMessagesIn;

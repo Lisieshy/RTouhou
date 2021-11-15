@@ -14,7 +14,7 @@
  */
 
 // Pragma definition for Windows to remove the console window.
-#pragma comment(linker, "/SUBSYSTEM:windows")
+// #pragma comment(linker, "/SUBSYSTEM:windows")
 
 #include <NekoEngine/NekoEngine.hpp>
 #include <NekoEngine/Graphics/Window.hpp>
@@ -37,9 +37,6 @@ auto main(
     nl::nyalog.init();
     nl::nyalog(nl::LogLevel::Info, "R-Touhou! Configuring everything... Please wait!");
 
-    rt::CustomClient c;
-    c.Connect("127.0.0.1", 60000);
-
     std::vector<ne::EntityID> entities(1000);
     ne::GameScene Game(entities);
     Game.InitScene();
@@ -52,46 +49,17 @@ auto main(
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
         auto startTime = std::chrono::high_resolution_clock::now();
-        ne::Graphics::Window::pollEvent(c);
+        ne::Graphics::Window::pollEvent(Game.ClientSystem);
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
         Game.RenderSystem->update();
-        Game.PhysicsSystem->update(dt);
+        Game.ClientSystem->OnMessage();
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";
             oldTime = std::chrono::high_resolution_clock::now();
             ne::Graphics::Window::setTitle(title.append(std::to_string(fps) + " fps"));
             fps = 0;
-        }
-        // c.PingServer();
-        if (c.IsConnected()) {
-            if (!c.Incoming().empty()) {
-                auto msg = c.Incoming().pop_front().msg;
-
-                switch (msg.header.id) {
-                    case rt::CustomMsgTypes::ServerAccept: 
-                    {
-                        nl::nyalog(nl::LogLevel::Info, "Server accepted connection!");
-                    }
-                    break;
-                    case rt::CustomMsgTypes::ServerPing:
-                    {
-                        std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-                        std::chrono::system_clock::time_point then;
-                        msg >> then;
-                        nl::nyalog(nl::LogLevel::Info, "Server ping: " + std::to_string(std::chrono::duration<double>(now - then).count()) + "s");
-                    }
-                    break;
-                    case rt::CustomMsgTypes::ServerMessage:
-                    {
-                        uint32_t clientID;
-                        msg >> clientID;
-                        nl::nyalog(nl::LogLevel::Info, "Hello from client " + std::to_string(clientID));
-                    }
-                    break;
-                }
-            }
         }
         auto stopTime = std::chrono::high_resolution_clock::now();
         dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();

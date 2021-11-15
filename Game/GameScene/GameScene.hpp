@@ -20,6 +20,7 @@ namespace ne {
 
             std::shared_ptr<ne::RenderSystem> RenderSystem;
             std::shared_ptr<ne::PhysicsSystem> PhysicsSystem;
+            std::shared_ptr<rt::CustomClient> ClientSystem;
 
             ne::Scene Game;
 
@@ -27,6 +28,8 @@ namespace ne {
 
             ne::EnnemiesFactory fact;
             ne::BulletsFactory bullets;
+
+            uint32_t entityID = 0;
         protected:
         private:
 
