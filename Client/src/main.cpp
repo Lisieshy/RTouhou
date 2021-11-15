@@ -39,18 +39,8 @@ auto main(
     c.Connect("127.0.0.1", 60000);
 
     ne::Scene testScene;
-    ne::Scene menuScene;
-    menuScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin>();
     testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin>();
 
-    auto Rendering = menuScene.coordinator->registerSystem<ne::RenderSystem>(menuScene.coordinator);
-    {
-        ne::Signature sign;
-        sign.set(menuScene.coordinator->getComponentType<ne::Transform>());
-        sign.set(menuScene.coordinator->getComponentType<ne::Renderable>());
-        sign.set(menuScene.coordinator->getComponentType<ne::Color>());
-        sign.set(menuScene.coordinator->getComponentType<ne::Skin>());
-    }
     auto RenderSystem = testScene.coordinator->registerSystem<ne::RenderSystem>(testScene.coordinator);
     {
         ne::Signature signature;
@@ -59,15 +49,6 @@ auto main(
         signature.set(testScene.coordinator->getComponentType<ne::Color>());
         signature.set(testScene.coordinator->getComponentType<ne::Skin>());
         testScene.coordinator->setSystemSignature<ne::RenderSystem>(signature);
-    }
-
-    auto PhysicsSystem = menuScene.coordinator->registerSystem<ne::PhysicsSystem>(menuScene.coordinator);
-    {
-        ne::Signature signature;
-        signature.set(menuScene.coordinator->getComponentType<ne::RigidBody>());
-        signature.set(menuScene.coordinator->getComponentType<ne::Transform>());
-        signature.set(menuScene.coordinator->getComponentType<ne::Gravity>());
-        menuScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
     }
 
 
@@ -91,13 +72,6 @@ auto main(
     std::mt19937 gen3(rd3()); //Standard mersenne_twister_engine seeded with rd()
     std::uniform_int_distribution<> distribY(0, 600);*/
 
-    auto entity = menuScene.coordinator->createEntity();
-    ne::Menu menu;
-    menuScene.coordinator->addComponent(entity, menu.getTransform());
-    menuScene.coordinator->addComponent(entity, menu.getGravity());
-    menuScene.coordinator->addComponent(entity, menu.getRigidBody());
-    menuScene.coordinator->addComponent(entity, menu.getColor());
-    menuScene.coordinator->addComponent(entity, menu.getSkin());
     // for (auto entity : entities) {
         // entity = testScene.coordinator->createEntity();
         // std::shared_ptr<ne::Ennemies> test;
@@ -127,16 +101,18 @@ auto main(
     int fps = 0;
     auto oldTime = std::chrono::high_resolution_clock::now();
     float dt = 0.0f;
-
+    ne::Menu menu;
+    ne::Scene menuScene = menu.getScene();
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
+        menu.Rendering.get()->update();
+        menu.PhysicsSystem.get()->update(dt);
+
         auto startTime = std::chrono::high_resolution_clock::now();
         ne::Graphics::Window::pollEvent(c);
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
-        Rendering->update();
-        PhysicsSystem->update(dt);
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";
             oldTime = std::chrono::high_resolution_clock::now();

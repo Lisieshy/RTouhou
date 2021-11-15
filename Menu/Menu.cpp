@@ -51,3 +51,30 @@ ne::Skin ne::Menu::getSkin()
     return (skin);
 }
 
+ne::Scene ne::Menu::getScene()
+{
+    scene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin>();
+    Rendering = scene.coordinator->registerSystem<ne::RenderSystem>(scene.coordinator);
+    {
+        ne::Signature sign;
+        sign.set(scene.coordinator->getComponentType<ne::Transform>());
+        sign.set(scene.coordinator->getComponentType<ne::Renderable>());
+        sign.set(scene.coordinator->getComponentType<ne::Color>());
+        sign.set(scene.coordinator->getComponentType<ne::Skin>());
+    }
+    PhysicsSystem = scene.coordinator->registerSystem<ne::PhysicsSystem>(scene.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(scene.coordinator->getComponentType<ne::RigidBody>());
+        signature.set(scene.coordinator->getComponentType<ne::Transform>());
+        signature.set(scene.coordinator->getComponentType<ne::Gravity>());
+        scene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
+    }
+    auto entity = scene.coordinator->createEntity();
+    scene.coordinator->addComponent(entity, getTransform());
+    scene.coordinator->addComponent(entity, getGravity());
+    scene.coordinator->addComponent(entity, getRigidBody());
+    scene.coordinator->addComponent(entity, getColor());
+    scene.coordinator->addComponent(entity, getSkin());
+    return (scene);
+}
