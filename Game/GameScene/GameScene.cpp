@@ -55,10 +55,8 @@ void ne::GameScene::InitScene()
         signature.set(Game.coordinator->getComponentType<ne::Gravity>());
         Game.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
     }
-    int i = 0;
-    ne::EnnemiesFactory fact;
-    ne::BulletsFactory bullets;
 
+    int i = 0;
     for (auto entity : entities) {
         entity = Game.coordinator->createEntity();
         std::shared_ptr<ne::Ennemies> test;

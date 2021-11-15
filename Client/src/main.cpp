@@ -58,7 +58,6 @@ auto main(
         });
         Game.RenderSystem->update();
         Game.PhysicsSystem->update(dt);
-
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";
             oldTime = std::chrono::high_resolution_clock::now();

@@ -24,8 +24,12 @@ namespace ne {
             ne::Scene Game;
 
             std::vector<ne::EntityID> entities;
+
+            ne::EnnemiesFactory fact;
+            ne::BulletsFactory bullets;
         protected:
         private:
+
     };
 }
 
