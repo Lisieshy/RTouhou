@@ -40,7 +40,7 @@ auto main(
     std::vector<ne::EntityID> entities(1000);
     ne::GameScene Game(entities);
     Game.InitScene();
-
+    uint32_t ID = Game.getEntity();
     ne::Graphics::Window::open();
 
     int fps = 0;
@@ -53,6 +53,9 @@ auto main(
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
+        Game.GameLoop(dt);
+        ID = Game.EnnemiesLoopSystem->update(dt, ID);
+        Game.setEntity(ID);
         Game.RenderSystem->update();
         Game.ClientSystem->OnMessage();
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {

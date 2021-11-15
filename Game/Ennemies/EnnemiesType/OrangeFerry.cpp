@@ -26,6 +26,8 @@ ne::OrangeFerry::OrangeFerry()
     if (!skin.texture.loadFromFile("Game/Ennemies/Assets/TouhouBasicMob.png", sf::IntRect(0, 138, 32, 32)))
         throw std::runtime_error("Error loading Ennemies/Assets/TouhouBasicMob.png file");
     skin.sprite.setTexture(skin.texture);
+    TimeToShoot = 2.0f;
+    BasicTime = 2.0f;
 }
 
 ne::OrangeFerry::~OrangeFerry()

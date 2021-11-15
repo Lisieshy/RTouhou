@@ -26,6 +26,8 @@ ne::DarkBlueFerry::DarkBlueFerry()
     if (!skin.texture.loadFromFile("Game/Ennemies/Assets/TouhouBasicMob.png", sf::IntRect(0, 32, 32, 32)))
         throw std::runtime_error("Error loading Ennemies/Assets/TouhouBasicMob.png file");
     skin.sprite.setTexture(skin.texture);
+    TimeToShoot = 4.0f;
+    BasicTime = 4.0f;
 }
 
 ne::DarkBlueFerry::~DarkBlueFerry()

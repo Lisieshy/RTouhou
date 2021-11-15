@@ -25,4 +25,6 @@ ne::whiteFerry::whiteFerry()
     if (!skin.texture.loadFromFile("Game/Ennemies/Assets/TouhouBasicMob.png", sf::IntRect(0, 170, 32, 32)))
         throw std::runtime_error("Error loading Ennemies/Assets/TouhouBasicMob.png file");
     skin.sprite.setTexture(skin.texture);
+    TimeToShoot = 1.0f;
+    BasicTime = 1.0f;
 }

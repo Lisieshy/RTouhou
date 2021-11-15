@@ -26,6 +26,8 @@ ne::GreenFerry::GreenFerry()
     if (!skin.texture.loadFromFile("Game/Ennemies/Assets/TouhouBasicMob.png", sf::IntRect(0, 64, 32, 32)))
         throw std::runtime_error("Error loading Ennemies/Assets/TouhouBasicMob.png file");
     skin.sprite.setTexture(skin.texture);
+    TimeToShoot = 3.0f;
+    BasicTime = 3.0f;
 }
 
 ne::GreenFerry::~GreenFerry()

@@ -30,6 +30,8 @@ namespace ne {
 
             void setSkin();
 
+            bool isShooting(float dt);
+
             ne::HitPoint hp;
             ne::Transform trans;
             ne::Gravity grav;
@@ -38,6 +40,9 @@ namespace ne {
             ne::Color temp;
             ne::Skin skin;
             ne::Hostile hostile;
+
+            float TimeToShoot;
+            float BasicTime;
         protected:
         private:
     };

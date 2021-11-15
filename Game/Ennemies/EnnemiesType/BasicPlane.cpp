@@ -26,6 +26,8 @@ ne::BasicPlane::BasicPlane()
     if (!skin.texture.loadFromFile("Game/Ennemies/Assets/TouhouBasicMob.png", sf::IntRect(0, 0, 32, 32)))
         throw std::runtime_error("Error loading Ennemies/Assets/TouhouBasicMob.png file");
     skin.sprite.setTexture(skin.texture);
+    TimeToShoot = 5.0f;
+    BasicTime = 5.0f;
 }
 
 ne::BasicPlane::~BasicPlane()

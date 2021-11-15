@@ -44,3 +44,12 @@ ne::Skin ne::Ennemies::getSkin()
 {
     return (skin);
 }
+
+bool ne::Ennemies::isShooting(float dt)
+{
+    TimeToShoot -= dt;
+    if (TimeToShoot <= 0.0f) {
+        TimeToShoot = BasicTime;
+        return true;
+    } return false;
+}
