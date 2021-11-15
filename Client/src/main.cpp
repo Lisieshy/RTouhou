@@ -14,7 +14,7 @@
  */
 
 // Pragma definition for Windows to remove the console window.
-#pragma comment(linker, "/SUBSYSTEM:windows")
+// #pragma comment(linker, "/SUBSYSTEM:windows")
 
 #include <NekoEngine/NekoEngine.hpp>
 #include <NekoEngine/Graphics/Window.hpp>
@@ -35,12 +35,12 @@ auto main(
     nl::nyalog.init();
     nl::nyalog(nl::LogLevel::Info, "R-Touhou! Configuring everything... Please wait!");
 
-    rt::CustomClient c;
-    c.Connect("127.0.0.1", 60000);
+    // rt::CustomClient c;
+    // c.Connect("127.0.0.1", 60000);
 
     ne::Scene testScene;
 
-    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin>();
+    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid>();
 
     auto RenderSystem = testScene.coordinator->registerSystem<ne::RenderSystem>(testScene.coordinator);
     {
@@ -63,23 +63,35 @@ auto main(
 
 
 
-    std::vector<ne::EntityID> entities(10);
+    // std::random_device rd;  //Will be used to obtain a seed for the random number engine
+    // std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+    // std::uniform_int_distribution<> distrib(0, 800);
+    std::vector<ne::EntityID> entities(100);
     ne::EnnemiesFactory fact;
-    /*std::random_device rd;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_int_distribution<> distrib(0, 800);
+    auto ClientSystem = testScene.coordinator->registerSystem<rt::CustomClient>(testScene.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(testScene.coordinator->getComponentType<ne::Transform>());
+        signature.set(testScene.coordinator->getComponentType<ne::Renderable>());
+        signature.set(testScene.coordinator->getComponentType<ne::Color>());
+        testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
+    }
 
-    std::random_device rd1;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen1(rd1()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_int_distribution<> distribColor(15, 235);
+    ClientSystem->Connect("127.0.0.1", 60000);
 
-    std::random_device rd2;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen2(rd2()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_real_distribution<> distribGrav(8.f, 10.f);
+    // std::vector<ne::EntityID> entities(10);
 
-    std::random_device rd3;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen3(rd3()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_int_distribution<> distribY(0, 600);*/
+    // std::random_device rd1;  //Will be used to obtain a seed for the random number engine
+    // std::mt19937 gen1(rd1()); //Standard mersenne_twister_engine seeded with rd()
+    // std::uniform_int_distribution<> distribColor(15, 235);
+
+    // std::random_device rd2;  //Will be used to obtain a seed for the random number engine
+    // std::mt19937 gen2(rd2()); //Standard mersenne_twister_engine seeded with rd()
+    // std::uniform_real_distribution<> distribGrav(8.f, 10.f);
+
+    // std::random_device rd3;  //Will be used to obtain a seed for the random number engine
+    // std::mt19937 gen3(rd3()); //Standard mersenne_twister_engine seeded with rd()
+    // std::uniform_int_distribution<> distribY(0, 600);
 
     for (auto entity : entities) {
         entity = testScene.coordinator->createEntity();
@@ -90,6 +102,10 @@ auto main(
         testScene.coordinator->addComponent(entity, ne::Renderable{});
         testScene.coordinator->addComponent(entity, test.get()->getColor());
         testScene.coordinator->addComponent(entity, test.get()->getSkin());
+        testScene.coordinator->addComponent(entity, ne::Color{});
+        testScene.coordinator->addComponent(entity, ne::Uid{entityID});
+        entityID++;
+    }
         /*testScene.coordinator->addComponent(entity, ne::Transform{
             ne::Math::Vector3f{static_cast<float>(distrib(gen)), static_cast<float>(distribY(gen3)), 0.f},
             ne::Math::Vector3f{0.f, 0.f, 0.f},
@@ -97,6 +113,14 @@ auto main(
         });
         testScene.coordinator->addComponent(entity, ne::Gravity{
             ne::Math::Vector3f{0.f, 0.f, 0.f}
+        });
+    uint32_t entityID = 0;
+    for (auto entity : entities) {
+        entity = testScene.coordinator->createEntity();
+        testScene.coordinator->addComponent(entity, ne::Transform{
+            ne::Math::Vector3f{0.f, 0.f, 0.f},
+            ne::Math::Vector3f{0.f, 0.f, 0.f},
+            ne::Math::Vector3f{4.f, 4.f, 0.f}
         });
         testScene.coordinator->addComponent(entity, ne::RigidBody{
             ne::Math::Vector3f{-14.f, 0.f, 0.f},
@@ -109,7 +133,6 @@ auto main(
             static_cast<unsigned char>(distribColor(gen1)),
             255
         });*/
-    }
 
     ne::Graphics::Window::open();
 
@@ -120,46 +143,17 @@ auto main(
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
         auto startTime = std::chrono::high_resolution_clock::now();
-        ne::Graphics::Window::pollEvent(c);
+        ne::Graphics::Window::pollEvent(ClientSystem);
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
         RenderSystem->update();
-        PhysicsSystem->update(dt);
+        ClientSystem->OnMessage();
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";
             oldTime = std::chrono::high_resolution_clock::now();
             ne::Graphics::Window::setTitle(title.append(std::to_string(fps) + " fps"));
             fps = 0;
-        }
-        // c.PingServer();
-        if (c.IsConnected()) {
-            if (!c.Incoming().empty()) {
-                auto msg = c.Incoming().pop_front().msg;
-
-                switch (msg.header.id) {
-                    case rt::CustomMsgTypes::ServerAccept: 
-                    {
-                        nl::nyalog(nl::LogLevel::Info, "Server accepted connection!");
-                    }
-                    break;
-                    case rt::CustomMsgTypes::ServerPing:
-                    {
-                        std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-                        std::chrono::system_clock::time_point then;
-                        msg >> then;
-                        nl::nyalog(nl::LogLevel::Info, "Server ping: " + std::to_string(std::chrono::duration<double>(now - then).count()) + "s");
-                    }
-                    break;
-                    case rt::CustomMsgTypes::ServerMessage:
-                    {
-                        uint32_t clientID;
-                        msg >> clientID;
-                        nl::nyalog(nl::LogLevel::Info, "Hello from client " + std::to_string(clientID));
-                    }
-                    break;
-                }
-            }
         }
         auto stopTime = std::chrono::high_resolution_clock::now();
         dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();

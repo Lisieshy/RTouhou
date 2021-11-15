@@ -55,7 +55,7 @@ namespace ne::Graphics::Window {
      * @brief Poll the window events.
      * This is where every event handling should be done.
      */
-    void pollEvent(rt::CustomClient &client);
+    void pollEvent(std::shared_ptr<rt::CustomClient> client);
 
     /**
      * @brief Display the window
