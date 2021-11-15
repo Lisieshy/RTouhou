@@ -112,7 +112,6 @@ auto main(
         testScene.coordinator->addComponent(entity, ne::Renderable{});
         testScene.coordinator->addComponent(entity, test.get()->getColor());
         testScene.coordinator->addComponent(entity, test.get()->getSkin());
-        testScene.coordinator->addComponent(entity, ne::Color{});
         testScene.coordinator->addComponent(entity, ne::Uid{entityID});
         entityID++;
     }

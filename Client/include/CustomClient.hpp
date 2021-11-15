@@ -57,16 +57,16 @@ namespace rt {
                             case rt::CustomMsgTypes::SendData:
                             {
                                 ne::Transform receivedEntity;
-                                ne::Color receivedColor;
+                                ne::Color receivedColor{0,0,0,255};
                                 ne::Uid receivedUid;
-                                msg >> receivedUid >> receivedColor >> receivedEntity;
+                                msg >> receivedUid >> receivedEntity;
                                 for (auto& entity : m_entities) {
                                     if (receivedUid.uid == coordinator->getComponent<ne::Uid>(entity).uid) {
+                                        nl::nyalog(nl::LogLevel::Info, "The entity id received is : " + std::to_string(receivedUid.uid) + " and the position of the entity is : " + std::to_string(receivedEntity.position.x) + "/" + std::to_string(receivedEntity.position.y) + "/" + std::to_string(receivedEntity.position.z));
                                         auto& t = coordinator->getComponent<ne::Transform>(entity);
                                         auto& c = coordinator->getComponent<ne::Color>(entity);
                                         t = receivedEntity;
                                         c = receivedColor;
-                                        // nl::nyalog(nl::LogLevel::Info, "The entity id received is : " + std::to_string(receivedUid.uid) + " and the color of the entity is : " + std::to_string(c.r) + "/" + std::to_string(c.g) + "/" + std::to_string(c.b));
                                     }
                                 }
                             }

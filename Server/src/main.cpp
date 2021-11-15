@@ -20,6 +20,8 @@
 #include <NekoEngine/NekoEngine.hpp>
 #include <NyaNet/NyaNet.hpp>
 #include <NyaLog/NyaLog.hpp>
+#include "../../Ennemies/EnnemiesFactory.hpp"
+
 
 class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
 {
@@ -36,19 +38,10 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
             for (auto &entity : m_entities) {
                 auto &transform = coordinator->getComponent<ne::Transform>(entity);
                 auto &rigidBody = coordinator->getComponent<ne::RigidBody>(entity);
-                auto &color = coordinator->getComponent<ne::Color>(entity);
                 auto &uid = coordinator->getComponent<ne::Uid>(entity);
-                auto &skin = coordinator->getComponent<ne::Skin>(entity);
-                msg << skin << transform << color << uid;
+                msg << transform << uid;
                 MessageAllClients(msg);
-                // nl::nyalog(nl::LogLevel::Info, "The entity id sended is : " + std::to_string(uid.uid) + " and the color of the entity is : " + std::to_string(color.r) + "/" + std::to_string(color.g) + "/" + std::to_string(color.b));
             }
-            // std::vector<ne::Transform> transforms;
-            // for (auto &entity : m_entities) {
-            //     transforms.push_back(coordinator->getComponent<ne::Transform>(entity));
-            // }
-            // msg << transforms;
-            // MessageAllClients(msg);
         }
 
     protected:
@@ -123,27 +116,35 @@ auto main(
         ne::Signature signature;
         signature.set(testScene.coordinator->getComponentType<ne::Transform>());
         signature.set(testScene.coordinator->getComponentType<ne::RigidBody>());
-        signature.set(testScene.coordinator->getComponentType<ne::Color>());
         signature.set(testScene.coordinator->getComponentType<ne::Networkable>());
         testScene.coordinator->setSystemSignature<CustomServer>(signature);
     }
 
-    std::vector<ne::EntityID> entities(100);
+    std::vector<ne::EntityID> entities(25);
     ne::EnnemiesFactory fact;
 
     for (auto entity : entities) {
-        if (entityID <= 10) {
-            entity = testScene.coordinator->createEntity();
-            std::shared_ptr<ne::Ennemies> test = fact.createEnnemies("BasicPlane");
-            testScene.coordinator->addComponent(entity, test.get()->getTransform());
-            testScene.coordinator->addComponent(entity, test.get()->getGravity());
-            testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
-            testScene.coordinator->addComponent(entity, ne::Renderable{});
-            testScene.coordinator->addComponent(entity, test.get()->getColor());
-            testScene.coordinator->addComponent(entity, test.get()->getSkin());
-            testScene.coordinator->addComponent(entity, ne::Color{});
-            testScene.coordinator->addComponent(entity, ne::Uid{entityID});
-        }
+        entity = testScene.coordinator->createEntity();
+        std::shared_ptr<ne::Ennemies> test;
+
+        if (entityID < 5)
+            test = fact.createEnnemies("BasicPlane");
+        else if (entityID < 10)
+            test = fact.createEnnemies("DarkBlue");
+        else if (entityID < 15)
+            test = fact.createEnnemies("GreenFerry");
+        else if (entityID < 20)
+            test = fact.createEnnemies("OrangeFerry");
+        else
+            test = fact.createEnnemies("WhiteFerry");
+
+        testScene.coordinator->addComponent(entity, test.get()->getTransform());
+        testScene.coordinator->addComponent(entity, test.get()->getGravity());
+        testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
+        // testScene.coordinator->addComponent(entity, test.get()->getColor());
+        // testScene.coordinator->addComponent(entity, test.get()->getSkin());
+        testScene.coordinator->addComponent(entity, ne::Networkable{});
+        testScene.coordinator->addComponent(entity, ne::Uid{entityID});
         entityID++;
     }
     // std::random_device rd;  //Will be used to obtain a seed for the random number engine
