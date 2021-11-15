@@ -8,13 +8,25 @@
 #ifndef GAMESCENE_HPP_
 #define GAMESCENE_HPP_
 
-class GameScene {
-    public:
-        GameScene();
-        ~GameScene();
+namespace ne {
+    class GameScene {
+        public:
+            GameScene(std::vector<ne::EntityID> Entity);
+            ~GameScene();
 
-    protected:
-    private:
-};
+            void GameLoop();
+
+            void InitScene();
+
+            std::shared_ptr<ne::RenderSystem> RenderSystem;
+            std::shared_ptr<ne::PhysicsSystem> PhysicsSystem;
+
+            ne::Scene Game;
+
+            std::vector<ne::EntityID> entities;
+        protected:
+        private:
+    };
+}
 
 #endif /* !GAMESCENE_HPP_ */

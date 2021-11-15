@@ -35,6 +35,9 @@ set(NEKOENNEMIES_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Game/Ennemies/EnnemiesType/OrangeFerry.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Game/Ennemies/EnnemiesType/whiteFerry.cpp
 )
+set(NEKOGAME_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/GameScene/GameScene.cpp
+)
 
 set(NEKOBULLETS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Game/Bullets/Bullets.cpp
@@ -77,6 +80,7 @@ set(NEKOENGINE_SOURCES
     ${NEKOENGINE_NEKOEXCEPTION_SOURCES}
     ${NEKOENNEMIES_SOURCES}
     ${NEKOBULLETS_SOURCES}
+    ${NEKOGAME_SOURCES}
 )
 
 set(SOURCES_CLIENT

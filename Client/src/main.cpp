@@ -26,6 +26,7 @@
 #include <include/CustomClient.hpp>
 #include "../../Game/Ennemies/EnnemiesFactory.hpp"
 #include "../../Game/Bullets/BulletsFactory.hpp"
+#include "../../Game/GameScene/GameScene.hpp"
 
 auto main(
     int argc,
@@ -39,78 +40,15 @@ auto main(
     rt::CustomClient c;
     c.Connect("127.0.0.1", 60000);
 
-    ne::Scene testScene;
-
-    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin>();
-
-    auto RenderSystem = testScene.coordinator->registerSystem<ne::RenderSystem>(testScene.coordinator);
-    {
-        ne::Signature signature;
-        signature.set(testScene.coordinator->getComponentType<ne::Transform>());
-        signature.set(testScene.coordinator->getComponentType<ne::Renderable>());
-        signature.set(testScene.coordinator->getComponentType<ne::Color>());
-        signature.set(testScene.coordinator->getComponentType<ne::Skin>());
-        testScene.coordinator->setSystemSignature<ne::RenderSystem>(signature);
-    }
-
-    auto PhysicsSystem = testScene.coordinator->registerSystem<ne::PhysicsSystem>(testScene.coordinator);
-    {
-        ne::Signature signature;
-        signature.set(testScene.coordinator->getComponentType<ne::Transform>());
-        signature.set(testScene.coordinator->getComponentType<ne::RigidBody>());
-        signature.set(testScene.coordinator->getComponentType<ne::Gravity>());
-        testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
-    }
-
     std::vector<ne::EntityID> entities(1000);
-    int i = 0;
-    ne::EnnemiesFactory fact;
-    ne::BulletsFactory bullets;
-
-    for (auto entity : entities) {
-        entity = testScene.coordinator->createEntity();
-        std::shared_ptr<ne::Ennemies> test;
-        std::shared_ptr<ne::Bullets> bull;
-
-        if (i < 5)
-            test = fact.createEnnemies("BasicPlane");
-        else if (i < 10)
-            test = fact.createEnnemies("DarkBlue");
-        else if (i < 15)
-            test = fact.createEnnemies("GreenFerry");
-        else if (i < 20)
-            test = fact.createEnnemies("OrangeFerry");
-        else if (i < 25)
-            test = fact.createEnnemies("WhiteFerry");
-        else
-            bull = bullets.createBullets("BasicWhiteBullets");
-        
-        if (i < 25) {
-            testScene.coordinator->addComponent(entity, test.get()->getTransform());
-            testScene.coordinator->addComponent(entity, test.get()->getGravity());
-            testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
-            testScene.coordinator->addComponent(entity, ne::Renderable{});
-            testScene.coordinator->addComponent(entity, test.get()->getColor());
-            testScene.coordinator->addComponent(entity, test.get()->getSkin());
-        } else {
-            testScene.coordinator->addComponent(entity, bull.get()->getTransform());
-            testScene.coordinator->addComponent(entity, bull.get()->getGravity());
-            testScene.coordinator->addComponent(entity, bull.get()->getRigidBody());
-            testScene.coordinator->addComponent(entity, ne::Renderable{});
-            testScene.coordinator->addComponent(entity, bull.get()->getColor());
-            testScene.coordinator->addComponent(entity, bull.get()->getSkin());            
-        }
-        i++;
-        if (i == 30)
-            break;
-    }
+    ne::GameScene Game(entities);
+    Game.InitScene();
 
     ne::Graphics::Window::open();
 
     int fps = 0;
     auto oldTime = std::chrono::high_resolution_clock::now();
     float dt = 0.0f;
-
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
         auto startTime = std::chrono::high_resolution_clock::now();
@@ -118,8 +56,9 @@ auto main(
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
-        RenderSystem->update();
-        PhysicsSystem->update(dt);
+        Game.RenderSystem->update();
+        Game.PhysicsSystem->update(dt);
+
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";
             oldTime = std::chrono::high_resolution_clock::now();
