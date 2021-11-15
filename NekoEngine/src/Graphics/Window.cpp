@@ -36,6 +36,14 @@ void ne::Graphics::Window::open() {
     impl->shouldClose = false;
 }
 
+ne::Math::Vector2u ne::Graphics::Window::getWindow()
+{
+    ne::Math::Vector2u vect;
+    vect.x = impl->i_window.getSize().x;
+    vect.y = impl->i_window.getSize().y;
+    return(vect);
+}
+
 void ne::Graphics::Window::close() {
     if (impl)
         impl->i_window.close();

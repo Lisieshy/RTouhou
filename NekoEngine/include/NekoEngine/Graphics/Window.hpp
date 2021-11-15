@@ -91,6 +91,7 @@ namespace ne::Graphics::Window {
      * @param transform Contain position of the sprite
      */
     void draw(ne::Skin skin, ne::Transform transform);
+    ne::Math::Vector2u getWindow();
 }
 
 #endif /* !WINDOW_HPP_ */

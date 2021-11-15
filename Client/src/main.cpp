@@ -26,6 +26,7 @@
 #include <include/CustomClient.hpp>
 #include "../../Ennemies/EnnemiesFactory.hpp"
 #include "../../Menu/Menu.hpp"
+#include "../../Menu/Buttons.hpp"
 auto main(
     int argc,
     char** argv
@@ -56,46 +57,6 @@ auto main(
     std::vector<ne::EntityID> entities(25);
     int i = 0;
     ne::EnnemiesFactory fact;
-    /*std::random_device rd;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_int_distribution<> distrib(0, 800);
-
-    std::random_device rd1;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen1(rd1()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_int_distribution<> distribColor(15, 235);
-
-    std::random_device rd2;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen2(rd2()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_real_distribution<> distribGrav(8.f, 10.f);
-
-    std::random_device rd3;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen3(rd3()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_int_distribution<> distribY(0, 600);*/
-
-    // for (auto entity : entities) {
-        // entity = testScene.coordinator->createEntity();
-        // std::shared_ptr<ne::Ennemies> test;
-// 
-        // if (i < 5)
-            // test = fact.createEnnemies("BasicPlane");
-        // else if (i < 10)
-            // test = fact.createEnnemies("DarkBlue");
-        // else if (i < 15)
-            // test = fact.createEnnemies("GreenFerry");
-        // else if (i < 20)
-            // test = fact.createEnnemies("OrangeFerry");
-        // else
-            // test = fact.createEnnemies("WhiteFerry");
-// 
-        // testScene.coordinator->addComponent(entity, test.get()->getTransform());
-        // testScene.coordinator->addComponent(entity, test.get()->getGravity());
-        // testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
-        // testScene.coordinator->addComponent(entity, ne::Renderable{});
-        // testScene.coordinator->addComponent(entity, test.get()->getColor());
-        // testScene.coordinator->addComponent(entity, test.get()->getSkin());
-        // i++;
-    // }
-
     ne::Graphics::Window::open();
 
     int fps = 0;
@@ -103,6 +64,7 @@ auto main(
     float dt = 0.0f;
     ne::Menu menu;
     ne::Scene menuScene = menu.getScene();
+    ne::Buttons butt("Play", "Play", ne::Graphics::Window::getWindow());
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
         menu.Rendering.get()->update();

@@ -37,7 +37,9 @@ set(NEKOENNEMIES_SOURCES
 )
 
 set(NEKOMENU_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Menu.cpp)
+    ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Menu.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Buttons.cpp
+)
 
 set(NEKOENGINE_ECS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/EntityManager.cpp
