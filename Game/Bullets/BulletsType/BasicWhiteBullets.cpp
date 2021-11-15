@@ -17,12 +17,12 @@ ne::BasicWhiteBullets::BasicWhiteBullets()
     std::uniform_int_distribution<> distribY(0, 600);
     transform.position = ne::Math::Vector3f{static_cast<float>(distrib(gen)), static_cast<float>(distribY(gen3)), 0.f},
     transform.rotation = ne::Math::Vector3f{0.f, 0.f, 0.f};
-    transform.scale = ne::Math::Vector3f{4.f, 4.f, 0.f};
+    transform.scale = ne::Math::Vector3f{12.f, 14.f, 0.f};
     gravity.force = ne::Math::Vector3f{0.f, 20.f, 0.f};
     rigidbody.acceleration = ne::Math::Vector3f{0.f, 0.f, 0.f};
     rigidbody.velocity = ne::Math::Vector3f{0.f, 0.f, 0.f};
     colors = { 122, 122, 122, 122 };
-    if (!skin.texture.loadFromFile("Bullets/Assets/bullets.png", sf::IntRect(7, 71, 12, 14)))
+    if (!skin.texture.loadFromFile("Game/Bullets/Assets/bullets.png", sf::IntRect(7, 71, 12, 14)))
         throw std::runtime_error("Error loading Bullets/Assets/bullets.png file");
     skin.sprite.setTexture(skin.texture);
 }

@@ -24,8 +24,8 @@
 
 #include <NyaLog/NyaLog.hpp>
 #include <include/CustomClient.hpp>
-#include "../../Ennemies/EnnemiesFactory.hpp"
-#include "../../Bullets/BulletsFactory.hpp"
+#include "../../Game/Ennemies/EnnemiesFactory.hpp"
+#include "../../Game/Bullets/BulletsFactory.hpp"
 
 auto main(
     int argc,
@@ -62,7 +62,7 @@ auto main(
         testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
     }
 
-    std::vector<ne::EntityID> entities(30);
+    std::vector<ne::EntityID> entities(1000);
     int i = 0;
     ne::EnnemiesFactory fact;
     ne::BulletsFactory bullets;
@@ -101,6 +101,8 @@ auto main(
             testScene.coordinator->addComponent(entity, bull.get()->getSkin());            
         }
         i++;
+        if (i == 30)
+            break;
     }
 
     ne::Graphics::Window::open();
