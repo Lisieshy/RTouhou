@@ -30,6 +30,10 @@ set(NEKOENNEMIES_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/Ennemies.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesFactory.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/BasicPlane.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/DarkBlueFerry.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/GreenFerry.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/OrangeFerry.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/whiteFerry.cpp
 )
 
 set(NEKOENGINE_ECS_SOURCES

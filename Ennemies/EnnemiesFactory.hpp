@@ -9,7 +9,8 @@
 #include <exception>
 #include "../NekoEngine/include/NekoEngine/NekoEngine.hpp"
 #include "Ennemies.hpp"
-#include "EnnemiesType/BasicPlane.hpp"
+#include "EnnemiesType/EnnemiesTypeInclude.hpp"
+
 #ifndef ENNEMIESFACTORY_HPP_
 #define ENNEMIESFACTORY_HPP_
 
@@ -23,6 +24,10 @@ namespace ne {
         private:
             std::map<std::string, std::unique_ptr<ne::Ennemies>(ne::EnnemiesFactory::*)(const std::string &name) const>  _create;
             std::unique_ptr<ne::Ennemies> createBasicPlane(const std::string &name) const noexcept;
+            std::unique_ptr<ne::Ennemies> createDarkBlueFerry(const std::string &name) const noexcept;
+            std::unique_ptr<ne::Ennemies> createGreenFerry(const std::string &name) const noexcept;
+            std::unique_ptr<ne::Ennemies> createOrangeFerry(const std::string &name) const noexcept;
+            std::unique_ptr<ne::Ennemies> createWhiteFerry(const std::string &name) const noexcept;
     };
 }
 using fact = std::unique_ptr<ne::Ennemies>(ne::EnnemiesFactory::*)(const std::string &name) const;

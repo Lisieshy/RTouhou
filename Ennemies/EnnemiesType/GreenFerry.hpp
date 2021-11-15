@@ -2,24 +2,24 @@
 ** EPITECH PROJECT, 2021
 ** B-CPP-501-NCY-5-1-rtype-aurelien.schulz
 ** File description:
-** BasicPlane
+** GreenFerry
 */
 #include "../Ennemies.hpp"
 #include "SFML/Graphics.hpp"
 #include <random>
 #include <sstream>
 
-#ifndef BASICPLANE_HPP_
-#define BASICPLANE_HPP_
+#ifndef GREENFERRY_HPP_
+#define GREENFERRY_HPP_
 
 namespace ne {
-    class BasicPlane : public Ennemies {
+    class GreenFerry : public Ennemies {
         public:
-            BasicPlane();
-            ~BasicPlane();
+            GreenFerry();
+            ~GreenFerry();
+
         protected:
         private:
     };
 }
-
-#endif /* !BASICPLANE_HPP_ */
+#endif /* !GREENFERRY_HPP_ */

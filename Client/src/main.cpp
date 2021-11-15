@@ -63,10 +63,8 @@ auto main(
 
 
 
-    // std::random_device rd;  //Will be used to obtain a seed for the random number engine
-    // std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
-    // std::uniform_int_distribution<> distrib(0, 800);
-    std::vector<ne::EntityID> entities(100);
+    std::vector<ne::EntityID> entities(25);
+    uint32_t entityID = 0;
     ne::EnnemiesFactory fact;
     auto ClientSystem = testScene.coordinator->registerSystem<rt::CustomClient>(testScene.coordinator);
     {
@@ -95,7 +93,19 @@ auto main(
 
     for (auto entity : entities) {
         entity = testScene.coordinator->createEntity();
-        std::shared_ptr<ne::Ennemies> test = fact.createEnnemies("BasicPlane");
+        std::shared_ptr<ne::Ennemies> test;
+
+        if (entityID < 5)
+            test = fact.createEnnemies("BasicPlane");
+        else if (entityID < 10)
+            test = fact.createEnnemies("DarkBlue");
+        else if (entityID < 15)
+            test = fact.createEnnemies("GreenFerry");
+        else if (entityID < 20)
+            test = fact.createEnnemies("OrangeFerry");
+        else
+            test = fact.createEnnemies("WhiteFerry");
+
         testScene.coordinator->addComponent(entity, test.get()->getTransform());
         testScene.coordinator->addComponent(entity, test.get()->getGravity());
         testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
