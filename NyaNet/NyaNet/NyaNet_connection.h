@@ -13,6 +13,10 @@
 #include "NyaNet_message.h"
 
 namespace nn {
+    
+    template <typename T>
+    class IServer;
+
     template<typename T>
     class connection : public std::enable_shared_from_this<connection<T>>
     {
@@ -34,6 +38,17 @@ namespace nn {
                 m_qMessagesIn(qIn)
             {
                 m_nOwnerType = parent;
+
+                if (m_nOwnerType == owner::server) {
+                    m_nHandshakeOut = uint64_t(std::chrono::system_clock::now().time_since_epoch().count());
+
+                    m_nHandshakeCheck = scramble(m_nHandshakeOut);
+                }
+                else {
+                    m_nHandshakeIn = 0;
+                    m_nHandshakeOut = 0;
+
+                }
             }
 
             virtual ~connection()
@@ -42,13 +57,16 @@ namespace nn {
             }
 
             auto ConnectToClient(
+                nn::IServer<T>* server,
                 uint32_t uid = 0
             ) -> void
             {
                 if (m_nOwnerType == owner::server) {
                     if (m_socket.is_open()) {
                         id = uid;
-                        ReadHeader();
+                        WriteValidation();
+                        ReadValidation(server);
+                        // ReadHeader();
                     }
                 }
             }
@@ -66,7 +84,8 @@ namespace nn {
                             asio::ip::tcp::endpoint endpoint
                         ) {
                             if (!ec) {
-                                ReadHeader();
+                                ReadValidation();
+                                // ReadHeader();
                             }
                         }
                     );
@@ -254,6 +273,61 @@ namespace nn {
                 ReadHeader();
             }
 
+            uint64_t scramble(uint64_t nInput)
+            {
+                uint64_t out = nInput ^ 0xDEADBEEFC0DECAFE;
+                out = (out & 0xF0F0F0F0F0F0F0) >> 4 | (out & 0x0F0F0F0F0F0F0F) << 4;
+                return out ^ 0xC0DEFACE12345678;
+            }
+
+            auto WriteValidation(
+            ) -> void
+            {
+                asio::async_write(m_socket, asio::buffer(&m_nHandshakeOut, sizeof(uint64_t)),
+                [this](std::error_code ec, std::size_t length)
+                {
+                    if (!ec) {
+                        if (m_nOwnerType == owner::client)
+                            ReadHeader();
+                    }
+                    else {
+                        m_socket.close();
+                    }
+                });
+            }
+
+            auto ReadValidation(
+                nn::IServer<T>* server = nullptr
+            ) -> void
+            {
+                asio::async_read(m_socket, asio::buffer(&m_nHandshakeIn, sizeof(uint64_t)),
+                [this, server](std::error_code ec, std::size_t length)
+                {
+                    if (!ec) {
+                        if (m_nOwnerType == owner::server) {
+                            if (m_nHandshakeIn == m_nHandshakeCheck) {
+                                nl::nyalog(nl::LogLevel::Info, "Client Validated");
+                                server->OnClientValidated(this->shared_from_this());
+
+                                ReadHeader();
+                            }
+                            else {
+                                nl::nyalog(nl::LogLevel::Info, "Client didn't passed validation test");
+                                m_socket.close();
+                            }
+                        }
+                        else {
+                            m_nHandshakeOut = scramble(m_nHandshakeIn);
+
+                            WriteValidation();
+                        }
+                    }
+                    else {
+                        nl::nyalog(nl::LogLevel::Info, "Client Disconnected in ReadValidation");
+                        m_socket.close();
+                    }
+                });
+            }
         protected:
             asio::ip::tcp::socket m_socket;
 
@@ -267,6 +341,10 @@ namespace nn {
             owner m_nOwnerType = owner::server;
 
             uint32_t id = 0;
+
+            uint64_t m_nHandshakeOut = 0;
+            uint64_t m_nHandshakeIn = 0;
+            uint64_t m_nHandshakeCheck = 0;
     };
 }
 
