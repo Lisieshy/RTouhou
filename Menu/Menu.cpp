@@ -6,17 +6,16 @@
 */
 
 #include "Menu.hpp"
+#include "Buttons.hpp"
 
-ne::Menu::Menu()
+ne::Menu::Menu(std::vector<ne::EntityID> entity)
 {
+    entities = entity;
     if (!skin.texture.loadFromFile("resources/menu.png"))
         throw std::runtime_error("Error, couldn't load resources/bg.jpg");
-    grav.force = ne::Math::Vector3f(0.f,0.f,0.f);
     transf.position = ne::Math::Vector3f{0.f, 0.f, 0.f};
     transf.rotation = ne::Math::Vector3f{0.f, 0.f, 0.f};
     transf.scale = ne::Math::Vector3f{0.f, 0.f, 0.f};
-    rigid.acceleration = ne::Math::Vector3f{0.f, 0.f, 0.f};
-    rigid.velocity = ne::Math::Vector3f{0.f, 0.f, 0.f};
     skin.sprite.setTexture(skin.texture);
     skin.sprite.setScale({1.5, 1.5});
     temp = {0, 0, 0, 0};
@@ -53,7 +52,7 @@ ne::Skin ne::Menu::getSkin()
 
 ne::Scene ne::Menu::getScene()
 {
-    scene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin>();
+    scene.coordinator->registerComponent<ne::Transform, ne::Renderable, ne::Color, ne::Skin>();
     Rendering = scene.coordinator->registerSystem<ne::RenderSystem>(scene.coordinator);
     {
         ne::Signature sign;
@@ -62,19 +61,27 @@ ne::Scene ne::Menu::getScene()
         sign.set(scene.coordinator->getComponentType<ne::Color>());
         sign.set(scene.coordinator->getComponentType<ne::Skin>());
     }
-    PhysicsSystem = scene.coordinator->registerSystem<ne::PhysicsSystem>(scene.coordinator);
-    {
-        ne::Signature signature;
-        signature.set(scene.coordinator->getComponentType<ne::RigidBody>());
-        signature.set(scene.coordinator->getComponentType<ne::Transform>());
-        signature.set(scene.coordinator->getComponentType<ne::Gravity>());
-        scene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
+    std::vector<ne::Buttons> usine;
+    usine.push_back(ne::Buttons("Start", "resources/button_start.png",
+    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4)));
+    usine.push_back(ne::Buttons("Settings", "resources/button_settings.png",
+    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 2)));
+    usine.push_back(ne::Buttons("Quit", "resources/button_quit.png",
+    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4 * 3)));
+    size_t i = 0;
+    auto gorboulut = scene.coordinator->createEntity();
+    scene.coordinator->addComponent(gorboulut, getTransform());
+    scene.coordinator->addComponent(gorboulut, getColor());
+    scene.coordinator->addComponent(gorboulut, getSkin());
+    for (auto entity: entities) {
+        entity = scene.coordinator->createEntity();
+        std::cout << usine.at(i).getName() << std::endl;
+        scene.coordinator->addComponent(entity, usine.at(i).getTransform());
+        scene.coordinator->addComponent(entity, usine.at(i).getColor());
+        scene.coordinator->addComponent(entity, usine.at(i).getSkin());
+        i++;
+        if (usine.size() == i)
+            break;
     }
-    auto entity = scene.coordinator->createEntity();
-    scene.coordinator->addComponent(entity, getTransform());
-    scene.coordinator->addComponent(entity, getGravity());
-    scene.coordinator->addComponent(entity, getRigidBody());
-    scene.coordinator->addComponent(entity, getColor());
-    scene.coordinator->addComponent(entity, getSkin());
     return (scene);
 }

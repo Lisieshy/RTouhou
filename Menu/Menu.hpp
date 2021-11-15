@@ -12,7 +12,7 @@
 namespace ne {
     class Menu {
         public:
-            Menu();
+            Menu(std::vector<ne::EntityID> entity);
             ~Menu();
 
             ne::Transform getTransform();
@@ -24,6 +24,7 @@ namespace ne {
             std::shared_ptr<ne::PhysicsSystem> PhysicsSystem;
             std::shared_ptr<ne::RenderSystem> Rendering;
 
+            std::vector<ne::EntityID> entities;
             ne::Transform transf;
             ne::Gravity grav;
             ne::RigidBody rigid;

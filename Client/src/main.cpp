@@ -39,37 +39,18 @@ auto main(
     rt::CustomClient c;
     c.Connect("127.0.0.1", 60000);
 
-    ne::Scene testScene;
-    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin>();
-
-    auto RenderSystem = testScene.coordinator->registerSystem<ne::RenderSystem>(testScene.coordinator);
-    {
-        ne::Signature signature;
-        signature.set(testScene.coordinator->getComponentType<ne::Transform>());
-        signature.set(testScene.coordinator->getComponentType<ne::Renderable>());
-        signature.set(testScene.coordinator->getComponentType<ne::Color>());
-        signature.set(testScene.coordinator->getComponentType<ne::Skin>());
-        testScene.coordinator->setSystemSignature<ne::RenderSystem>(signature);
-    }
-
-
-
-    std::vector<ne::EntityID> entities(25);
+    std::vector<ne::EntityID> entities(3);
     int i = 0;
     ne::EnnemiesFactory fact;
     ne::Graphics::Window::open();
-
     int fps = 0;
     auto oldTime = std::chrono::high_resolution_clock::now();
     float dt = 0.0f;
-    ne::Menu menu;
+    ne::Menu menu(entities);
     ne::Scene menuScene = menu.getScene();
-    ne::Buttons butt("Play", "Play", ne::Graphics::Window::getWindow());
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
         menu.Rendering.get()->update();
-        menu.PhysicsSystem.get()->update(dt);
-
         auto startTime = std::chrono::high_resolution_clock::now();
         ne::Graphics::Window::pollEvent(c);
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
