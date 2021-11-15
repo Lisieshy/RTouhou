@@ -23,11 +23,13 @@ namespace ne {
 
             ne::Skin getSkin();
 
+            ne::Color getColor();
             ne::Transform transform;
             ne::Gravity gravity;
             ne::RigidBody rigidbody;
             ne::Renderable renderable;
             ne::Skin skin;
+            ne::Color colors;
         protected:
         private:
     };

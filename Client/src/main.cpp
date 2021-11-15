@@ -25,6 +25,7 @@
 #include <NyaLog/NyaLog.hpp>
 #include <include/CustomClient.hpp>
 #include "../../Ennemies/EnnemiesFactory.hpp"
+#include "../../Bullets/BulletsFactory.hpp"
 
 auto main(
     int argc,
@@ -61,30 +62,15 @@ auto main(
         testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
     }
 
-
-
-    std::vector<ne::EntityID> entities(25);
+    std::vector<ne::EntityID> entities(30);
     int i = 0;
     ne::EnnemiesFactory fact;
-    /*std::random_device rd;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_int_distribution<> distrib(0, 800);
-
-    std::random_device rd1;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen1(rd1()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_int_distribution<> distribColor(15, 235);
-
-    std::random_device rd2;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen2(rd2()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_real_distribution<> distribGrav(8.f, 10.f);
-
-    std::random_device rd3;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen3(rd3()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_int_distribution<> distribY(0, 600);*/
+    ne::BulletsFactory bullets;
 
     for (auto entity : entities) {
         entity = testScene.coordinator->createEntity();
         std::shared_ptr<ne::Ennemies> test;
+        std::shared_ptr<ne::Bullets> bull;
 
         if (i < 5)
             test = fact.createEnnemies("BasicPlane");
@@ -94,15 +80,26 @@ auto main(
             test = fact.createEnnemies("GreenFerry");
         else if (i < 20)
             test = fact.createEnnemies("OrangeFerry");
-        else
+        else if (i < 25)
             test = fact.createEnnemies("WhiteFerry");
-
-        testScene.coordinator->addComponent(entity, test.get()->getTransform());
-        testScene.coordinator->addComponent(entity, test.get()->getGravity());
-        testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
-        testScene.coordinator->addComponent(entity, ne::Renderable{});
-        testScene.coordinator->addComponent(entity, test.get()->getColor());
-        testScene.coordinator->addComponent(entity, test.get()->getSkin());
+        else
+            bull = bullets.createBullets("BasicWhiteBullets");
+        
+        if (i < 25) {
+            testScene.coordinator->addComponent(entity, test.get()->getTransform());
+            testScene.coordinator->addComponent(entity, test.get()->getGravity());
+            testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
+            testScene.coordinator->addComponent(entity, ne::Renderable{});
+            testScene.coordinator->addComponent(entity, test.get()->getColor());
+            testScene.coordinator->addComponent(entity, test.get()->getSkin());
+        } else {
+            testScene.coordinator->addComponent(entity, bull.get()->getTransform());
+            testScene.coordinator->addComponent(entity, bull.get()->getGravity());
+            testScene.coordinator->addComponent(entity, bull.get()->getRigidBody());
+            testScene.coordinator->addComponent(entity, ne::Renderable{});
+            testScene.coordinator->addComponent(entity, bull.get()->getColor());
+            testScene.coordinator->addComponent(entity, bull.get()->getSkin());            
+        }
         i++;
     }
 

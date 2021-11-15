@@ -18,7 +18,7 @@ ne::BulletsFactory::~BulletsFactory()
 
 std::unique_ptr<ne::Bullets> ne::BulletsFactory::createBullets(const std::string &name)
 {
-    fact ptr;
+    BulletsFact ptr;
 
     ptr = _create[name];
     return (this->*ptr)(name);

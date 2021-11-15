@@ -34,3 +34,8 @@ ne::Skin ne::Bullets::getSkin()
 {
     return (skin);
 }
+
+ne::Color ne::Bullets::getColor()
+{
+    return (colors);
+}

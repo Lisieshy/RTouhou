@@ -36,6 +36,12 @@ set(NEKOENNEMIES_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/whiteFerry.cpp
 )
 
+set(NEKOBULLETS_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Bullets/Bullets.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Bullets/BulletsType/BasicWhiteBullets.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Bullets/BulletsFactory.cpp
+)
+
 set(NEKOENGINE_ECS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/EntityManager.cpp
 )
@@ -70,6 +76,7 @@ set(NEKOENGINE_SOURCES
     ${NEKOENGINE_SCENES_SOURCES}
     ${NEKOENGINE_NEKOEXCEPTION_SOURCES}
     ${NEKOENNEMIES_SOURCES}
+    ${NEKOBULLETS_SOURCES}
 )
 
 set(SOURCES_CLIENT
