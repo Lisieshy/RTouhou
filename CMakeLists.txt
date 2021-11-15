@@ -36,6 +36,9 @@ set(NEKOENNEMIES_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/whiteFerry.cpp
 )
 
+set(NEKOMENU_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Menu.cpp)
+
 set(NEKOENGINE_ECS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/EntityManager.cpp
 )
@@ -70,6 +73,7 @@ set(NEKOENGINE_SOURCES
     ${NEKOENGINE_SCENES_SOURCES}
     ${NEKOENGINE_NEKOEXCEPTION_SOURCES}
     ${NEKOENNEMIES_SOURCES}
+    ${NEKOMENU_SOURCES}
 )
 
 set(SOURCES_CLIENT
@@ -93,6 +97,7 @@ target_include_directories(rtouhou_client
     ${PROJECT_SOURCE_DIR}/NyaLog/
     ${PROJECT_SOURCE_DIR}/NyaNet/
     ${PROJECT_SOURCE_DIR}/Ennemies/
+    ${PROJECT_SOURCE_DIR}/Menu/
 )
 
 target_link_libraries(

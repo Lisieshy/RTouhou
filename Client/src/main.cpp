@@ -25,7 +25,7 @@
 #include <NyaLog/NyaLog.hpp>
 #include <include/CustomClient.hpp>
 #include "../../Ennemies/EnnemiesFactory.hpp"
-
+#include "../../Menu/Menu.hpp"
 auto main(
     int argc,
     char** argv
@@ -39,9 +39,18 @@ auto main(
     c.Connect("127.0.0.1", 60000);
 
     ne::Scene testScene;
-
+    ne::Scene menuScene;
+    menuScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin>();
     testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin>();
 
+    auto Rendering = menuScene.coordinator->registerSystem<ne::RenderSystem>(menuScene.coordinator);
+    {
+        ne::Signature sign;
+        sign.set(menuScene.coordinator->getComponentType<ne::Transform>());
+        sign.set(menuScene.coordinator->getComponentType<ne::Renderable>());
+        sign.set(menuScene.coordinator->getComponentType<ne::Color>());
+        sign.set(menuScene.coordinator->getComponentType<ne::Skin>());
+    }
     auto RenderSystem = testScene.coordinator->registerSystem<ne::RenderSystem>(testScene.coordinator);
     {
         ne::Signature signature;
@@ -52,13 +61,13 @@ auto main(
         testScene.coordinator->setSystemSignature<ne::RenderSystem>(signature);
     }
 
-    auto PhysicsSystem = testScene.coordinator->registerSystem<ne::PhysicsSystem>(testScene.coordinator);
+    auto PhysicsSystem = menuScene.coordinator->registerSystem<ne::PhysicsSystem>(menuScene.coordinator);
     {
         ne::Signature signature;
-        signature.set(testScene.coordinator->getComponentType<ne::Transform>());
-        signature.set(testScene.coordinator->getComponentType<ne::RigidBody>());
-        signature.set(testScene.coordinator->getComponentType<ne::Gravity>());
-        testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
+        signature.set(menuScene.coordinator->getComponentType<ne::RigidBody>());
+        signature.set(menuScene.coordinator->getComponentType<ne::Transform>());
+        signature.set(menuScene.coordinator->getComponentType<ne::Gravity>());
+        menuScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
     }
 
 
@@ -82,29 +91,36 @@ auto main(
     std::mt19937 gen3(rd3()); //Standard mersenne_twister_engine seeded with rd()
     std::uniform_int_distribution<> distribY(0, 600);*/
 
-    for (auto entity : entities) {
-        entity = testScene.coordinator->createEntity();
-        std::shared_ptr<ne::Ennemies> test;
-
-        if (i < 5)
-            test = fact.createEnnemies("BasicPlane");
-        else if (i < 10)
-            test = fact.createEnnemies("DarkBlue");
-        else if (i < 15)
-            test = fact.createEnnemies("GreenFerry");
-        else if (i < 20)
-            test = fact.createEnnemies("OrangeFerry");
-        else
-            test = fact.createEnnemies("WhiteFerry");
-
-        testScene.coordinator->addComponent(entity, test.get()->getTransform());
-        testScene.coordinator->addComponent(entity, test.get()->getGravity());
-        testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
-        testScene.coordinator->addComponent(entity, ne::Renderable{});
-        testScene.coordinator->addComponent(entity, test.get()->getColor());
-        testScene.coordinator->addComponent(entity, test.get()->getSkin());
-        i++;
-    }
+    auto entity = menuScene.coordinator->createEntity();
+    ne::Menu menu;
+    menuScene.coordinator->addComponent(entity, menu.getTransform());
+    menuScene.coordinator->addComponent(entity, menu.getGravity());
+    menuScene.coordinator->addComponent(entity, menu.getRigidBody());
+    menuScene.coordinator->addComponent(entity, menu.getColor());
+    menuScene.coordinator->addComponent(entity, menu.getSkin());
+    // for (auto entity : entities) {
+        // entity = testScene.coordinator->createEntity();
+        // std::shared_ptr<ne::Ennemies> test;
+// 
+        // if (i < 5)
+            // test = fact.createEnnemies("BasicPlane");
+        // else if (i < 10)
+            // test = fact.createEnnemies("DarkBlue");
+        // else if (i < 15)
+            // test = fact.createEnnemies("GreenFerry");
+        // else if (i < 20)
+            // test = fact.createEnnemies("OrangeFerry");
+        // else
+            // test = fact.createEnnemies("WhiteFerry");
+// 
+        // testScene.coordinator->addComponent(entity, test.get()->getTransform());
+        // testScene.coordinator->addComponent(entity, test.get()->getGravity());
+        // testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
+        // testScene.coordinator->addComponent(entity, ne::Renderable{});
+        // testScene.coordinator->addComponent(entity, test.get()->getColor());
+        // testScene.coordinator->addComponent(entity, test.get()->getSkin());
+        // i++;
+    // }
 
     ne::Graphics::Window::open();
 
@@ -119,7 +135,7 @@ auto main(
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
-        RenderSystem->update();
+        Rendering->update();
         PhysicsSystem->update(dt);
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";
