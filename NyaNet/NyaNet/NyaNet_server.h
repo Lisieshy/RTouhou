@@ -12,7 +12,7 @@
 #include "NyaNet_tsqueue.h"
 #include "NyaNet_message.h"
 #include "NyaNet_connection.h"
-
+#include "../../Commons/CustomMsgTypes.hpp"
 namespace nn {
     template<typename T>
     class IServer {
@@ -90,7 +90,7 @@ namespace nn {
 
                             if (OnClientConnect(new_Connection)) {
                                 m_qConnections.push_back(std::move(new_Connection));
-                                m_qConnections.back()->ConnectToClient(nIDCounter++);
+                                m_qConnections.back()->ConnectToClient(this, nIDCounter++);
                                 std::stringstream ss;
                                 ss << "[SERVER] New Connection ID [" << m_qConnections.back()->GetID() << "] Approved";
                                 nl::nyalog(nl::LogLevel::Info, ss.str());
@@ -174,6 +174,7 @@ namespace nn {
                 }
             }
 
+
         protected:
             auto virtual OnClientConnect(
                 std::shared_ptr<connection<T>> client
@@ -192,6 +193,13 @@ namespace nn {
             auto virtual OnMessage(
                 std::shared_ptr<connection<T>> client,
                 message<T>& msg
+            ) -> void
+            {
+
+            }
+        public:
+            auto virtual OnClientValidated(
+                std::shared_ptr<connection<T>> client
             ) -> void
             {
 

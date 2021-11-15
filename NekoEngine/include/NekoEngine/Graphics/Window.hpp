@@ -55,7 +55,7 @@ namespace ne::Graphics::Window {
      * @brief Poll the window events.
      * This is where every event handling should be done.
      */
-    void pollEvent(rt::CustomClient &client);
+    void pollEvent(std::shared_ptr<rt::CustomClient> client);
 
     /**
      * @brief Display the window
@@ -83,6 +83,14 @@ namespace ne::Graphics::Window {
      * @param color A vector containing the colors.
      */
     void clear(ne::Math::Vector4<unsigned char> color);
+
+    /**
+     * @brief Draw the skin given as parameters
+     * 
+     * @param skin Contain skin and texture
+     * @param transform Contain position of the sprite
+     */
+    void draw(ne::Skin skin, ne::Transform transform);
 }
 
 #endif /* !WINDOW_HPP_ */

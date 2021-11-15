@@ -17,7 +17,7 @@
 #include "NekoEngine/ECS/Systems/RenderSystem.hpp"
 #include "NekoEngine/ECS/Components/Transform.hpp"
 #include "NekoEngine/ECS/Components/Color.hpp"
-
+#include "NekoEngine/ECS/Components/Skin.hpp"
 #include "NekoEngine/Graphics/Window.hpp"
 
 void ne::RenderSystem::update()
@@ -25,7 +25,9 @@ void ne::RenderSystem::update()
     for (auto& entity : m_entities) {
         auto& transform = coordinator->getComponent<ne::Transform>(entity);
         auto& color = coordinator->getComponent<ne::Color>(entity);
-        ne::Graphics::Window::drawRectangle(transform, color);
+        auto& spr = coordinator->getComponent<ne::Skin>(entity);
+        //ne::Graphics::Window::drawRectangle(transform, color);
+        ne::Graphics::Window::draw(spr, transform);
     }
     ne::Graphics::Window::display();
 }

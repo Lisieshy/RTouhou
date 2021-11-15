@@ -15,15 +15,25 @@ conan_basic_setup(KEEP_RPATHS)
 
 find_package(Threads REQUIRED)
 
-file(COPY
-    ${CMAKE_CURRENT_SOURCE_DIR}/resources
-    DESTINATION
-    ${CMAKE_CURRENT_BINARY_DIR}
-)
+# file(COPY
+#     ${CMAKE_CURRENT_SOURCE_DIR}/
+#     DESTINATION
+#     ${CMAKE_CURRENT_BINARY_DIR}/Assets/
+# )
 
 set(NEKOENGINE_GRAPHICS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/Graphics/NekoWindowException.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/Graphics/Window.cpp
+)
+
+set(NEKOENNEMIES_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/Ennemies.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesFactory.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/BasicPlane.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/DarkBlueFerry.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/GreenFerry.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/OrangeFerry.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/whiteFerry.cpp
 )
 
 set(NEKOENGINE_ECS_SOURCES
@@ -59,6 +69,7 @@ set(NEKOENGINE_SOURCES
     ${NEKOENGINE_COMPONENTS_SOURCES}
     ${NEKOENGINE_SCENES_SOURCES}
     ${NEKOENGINE_NEKOEXCEPTION_SOURCES}
+    ${NEKOENNEMIES_SOURCES}
 )
 
 set(SOURCES_CLIENT
@@ -81,6 +92,7 @@ target_include_directories(rtouhou_client
     ${PROJECT_SOURCE_DIR}/Client/
     ${PROJECT_SOURCE_DIR}/NyaLog/
     ${PROJECT_SOURCE_DIR}/NyaNet/
+    ${PROJECT_SOURCE_DIR}/Ennemies/
 )
 
 target_link_libraries(

@@ -15,6 +15,7 @@
 
 #include "NekoEngine/ECS/EntityManager.hpp"
 #include "NekoEngine/NekoException/NekoException.hpp"
+#include <iostream>
 
 ne::EntityManager::EntityManager()
 {

@@ -16,12 +16,9 @@
 #ifndef RENDERABLE_HPP_
 #define RENDERABLE_HPP_
 
-#include "NekoEngine/Math/Vector/Vector.hpp"
-
-
 namespace ne {
     class Renderable {
     };
 }
 
-#endif /* !TRANSFORM_HPP_ */
+#endif /* !RENDERABLE_HPP_ */
