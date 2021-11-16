@@ -1,27 +1,27 @@
 /*
 ** EPITECH PROJECT, 2021
-** PhysicsSystem
+** PatternSystem
 ** File description:
-** PhysicsSystem
+** PatternSystem
 */
 
 /**
- * @file        PhysicsSystem.cpp
+ * @file        PatternSystem.cpp
  * @brief       Physics System class implementation
  * @details     ECS are fun, ECS are life.
- * @author      Aurélien Schulz (@Lisieshy)
- * @date        02/11/2021
+ * @author      Eliott Ferry (@Gidorah)
+ * @date        16/11/2021
  */
 
 #include "NekoEngine/ECS/Coordinator.hpp"
-#include "NekoEngine/ECS/Systems/PhysicsSystem.hpp"
+#include "NekoEngine/ECS/Systems/PatternSystem.hpp"
 #include "NekoEngine/ECS/Components/Transform.hpp"
 #include "NekoEngine/ECS/Components/RigidBody.hpp"
-#include "NekoEngine/ECS/Components/Gravity.hpp"
+#include "NekoEngine/ECS/Components/Patterns.hpp"
 #include <iostream>
 #include <random>
 
-void ne::PhysicsSystem::update(float dt)
+void ne::PatternSystem::update(float dt)
 {
     std::random_device rd;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
@@ -30,16 +30,24 @@ void ne::PhysicsSystem::update(float dt)
     for (auto& entity : m_entities) {
         auto& transform = coordinator->getComponent<ne::Transform>(entity);
         auto& rigidbody = coordinator->getComponent<ne::RigidBody>(entity);
-        auto const& gravity = coordinator->getComponent<ne::Gravity>(entity);
+        auto& pattern = coordinator->getComponent<ne::Patterns>(entity);
 
-        transform.position += rigidbody.velocity * dt;
-        rigidbody.velocity += gravity.force * dt;
+        pattern.updatePos(transform, dt);
         if (transform.position.y > 600) {
             transform.position.y = 0;
             transform.position.x = static_cast<float>(distrib(gen));
         }
-        if (rigidbody.velocity.y > 100) {
-            rigidbody.velocity.y = 100;
+        if (transform.position.y <= 0) {
+            transform.position.y = 600;
+            transform.position.x = static_cast<float>(distrib(gen));
+        }
+        if (transform.position.x <= 0) {
+            transform.position.x = 800;
+            transform.position.y = static_cast<float>(distrib(gen));
+        }
+        if (transform.position.x > 800) {
+            transform.position.y = 0;
+            transform.position.x = static_cast<float>(distrib(gen));
         }
     }
 }

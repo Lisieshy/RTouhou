@@ -40,7 +40,7 @@ auto main(
 
     ne::Scene testScene;
 
-    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid>();
+    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Patterns>();
 
     auto RenderSystem = testScene.coordinator->registerSystem<ne::RenderSystem>(testScene.coordinator);
     {
@@ -52,13 +52,13 @@ auto main(
         testScene.coordinator->setSystemSignature<ne::RenderSystem>(signature);
     }
 
-    auto PhysicsSystem = testScene.coordinator->registerSystem<ne::PhysicsSystem>(testScene.coordinator);
+    auto PhysicsSystem = testScene.coordinator->registerSystem<ne::PatternSystem>(testScene.coordinator);
     {
         ne::Signature signature;
         signature.set(testScene.coordinator->getComponentType<ne::Transform>());
         signature.set(testScene.coordinator->getComponentType<ne::RigidBody>());
-        signature.set(testScene.coordinator->getComponentType<ne::Gravity>());
-        testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
+        signature.set(testScene.coordinator->getComponentType<ne::Patterns>());
+        testScene.coordinator->setSystemSignature<ne::PatternSystem>(signature);
     }
 
 
@@ -72,7 +72,7 @@ auto main(
         signature.set(testScene.coordinator->getComponentType<ne::Transform>());
         signature.set(testScene.coordinator->getComponentType<ne::Renderable>());
         signature.set(testScene.coordinator->getComponentType<ne::Color>());
-        testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
+        testScene.coordinator->setSystemSignature<ne::PatternSystem>(signature);
     }
 
     ClientSystem->Connect("127.0.0.1", 60000);
