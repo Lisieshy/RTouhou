@@ -18,6 +18,12 @@ namespace ne {
             GreenFerry();
             ~GreenFerry();
 
+            virtual ne::Transform getTransform();
+            virtual ne::Gravity getGravity();
+            virtual ne::RigidBody getRigidBody();
+            virtual ne::Color getColor();
+            virtual ne::Skin getSkin();
+            virtual ne::Alien getAlien();
         protected:
         private:
     };

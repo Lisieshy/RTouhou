@@ -18,6 +18,9 @@
 
 namespace ne {
     class Alien {
+        public:
+            float TimeToShoot;
+            float BasicTime;
     };
 }
 

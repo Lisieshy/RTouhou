@@ -16,33 +16,19 @@ namespace ne {
             Ennemies();
             ~Ennemies();
 
-            ne::HitPoint getHitPoint();
+            virtual ne::Transform getTransform() = 0;
 
-            ne::Transform getTransform();
+            virtual ne::Gravity getGravity() = 0;
 
-            ne::Gravity getGravity();
+            virtual ne::RigidBody getRigidBody() = 0;
 
-            ne::RigidBody getRigidBody();
+            virtual ne::Color getColor() = 0;
 
-            ne::Color getColor();
+            virtual ne::Skin getSkin() = 0;
 
-            ne::Skin getSkin();
+            virtual ne::Alien getAlien() = 0;
 
             void setSkin();
-
-            bool isShooting(float dt);
-
-            ne::HitPoint hp;
-            ne::Transform trans;
-            ne::Gravity grav;
-            ne::RigidBody rigid;
-            ne::Renderable render;
-            ne::Color temp;
-            ne::Skin skin;
-            ne::Hostile hostile;
-
-            float TimeToShoot;
-            float BasicTime;
         protected:
         private:
     };
