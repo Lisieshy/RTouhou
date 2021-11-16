@@ -21,8 +21,8 @@ ne::BasicWhiteBullets::BasicWhiteBullets()
     gravity.force = ne::Math::Vector3f{0.f, 20.f, 0.f};
     rigidbody.acceleration = ne::Math::Vector3f{0.f, 0.f, 0.f};
     rigidbody.velocity = ne::Math::Vector3f{0.f, 0.f, 0.f};
-    if (!skin.texture.loadFromFile("Bullets/Assets/bullets.png", sf::IntRect(7, 71, 12, 16)))
-        throw std::runtime_error("Error loading Bullets/Assets/bullets.png file");
+    if (!skin.texture.loadFromFile("resources/Bullets/bullets.png", sf::IntRect(7, 71, 12, 16)))
+        throw std::runtime_error("Error loading resources/Bullets/bullets.png file");
     skin.sprite.setTexture(skin.texture);
 }
 

@@ -15,11 +15,11 @@ conan_basic_setup(KEEP_RPATHS)
 
 find_package(Threads REQUIRED)
 
-# file(COPY
-#     ${CMAKE_CURRENT_SOURCE_DIR}/
-#     DESTINATION
-#     ${CMAKE_CURRENT_BINARY_DIR}/Assets/
-# )
+file(COPY
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources
+    DESTINATION
+    ${CMAKE_CURRENT_BINARY_DIR}/
+)
 
 set(NEKOENGINE_GRAPHICS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/Graphics/NekoWindowException.cpp

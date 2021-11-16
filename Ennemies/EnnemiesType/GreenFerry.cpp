@@ -23,8 +23,8 @@ ne::GreenFerry::GreenFerry()
     rigid.acceleration = ne::Math::Vector3f{-140.f, 0.f, 0.f};
     rigid.velocity = ne::Math::Vector3f{0.f, 0.f, 0.f};
     temp = { 255, 255, 255, 255 };
-    if (!skin.texture.loadFromFile("Ennemies/Assets/TouhouBasicMob.png", sf::IntRect(0, 64, 32, 32)))
-        throw std::runtime_error("Error loading Ennemies/Assets/TouhouBasicMob.png file");
+    if (!skin.texture.loadFromFile("resources/Ennemies/TouhouBasicMob.png", sf::IntRect(0, 64, 32, 32)))
+        throw std::runtime_error("Error loading resources/Ennemies/TouhouBasicMob.png file");
     skin.sprite.setTexture(skin.texture);
 }
 
