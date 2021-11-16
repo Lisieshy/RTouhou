@@ -90,9 +90,9 @@ void ne::GameScene::InitScene()
         std::shared_ptr<ne::Ennemies> test;
 
         if (entityID < 5)
-            test = fact.createEnnemies("OrangeFerry");
-        else if (entityID < 10)
             test = fact.createEnnemies("BasicPlane");
+        else if (entityID < 10)
+            test = fact.createEnnemies("OrangeFerry");
         else if (entityID < 15)
             test = fact.createEnnemies("GreenFerry");
         else if (entityID < 20)

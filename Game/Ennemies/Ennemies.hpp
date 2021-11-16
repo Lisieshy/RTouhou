@@ -16,21 +16,27 @@ namespace ne {
             Ennemies();
             ~Ennemies();
 
-            virtual ne::Transform getTransform() = 0;
+            ne::Transform getTransform();
+            ne::Gravity getGravity();
+            ne::RigidBody getRigidBody();
+            ne::Color getColor();
+            ne::Skin getSkin();
+            ne::Alien getAlien();
 
-            virtual ne::Gravity getGravity() = 0;
-
-            virtual ne::RigidBody getRigidBody() = 0;
-
-            virtual ne::Color getColor() = 0;
-
-            virtual ne::Skin getSkin() = 0;
-
-            virtual ne::Alien getAlien() = 0;
-
-            void setSkin();
+            void setTransform(ne::Transform trans);
+            void setGravity(ne::Gravity grav);
+            void setColor(ne::Color col);
+            void setSkin(ne::Skin sk);
+            void setRigitBody(ne::RigidBody rigid);
+            void setAlien(ne::Alien ali);
         protected:
         private:
+            ne::Transform transform;
+            ne::Gravity gravity;
+            ne::RigidBody rigidbody;
+            ne::Color color;
+            ne::Skin skin;
+            ne::Alien alien;
     };
 }
 

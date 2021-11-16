@@ -16,7 +16,6 @@ uint32_t ne::GameEnnemiesLoop::update(float dt, uint32_t ID)
         auto& EnnemiesAlien = coordinator->getComponent<ne::Alien>(entity);
         auto& EnnemiesPos = coordinator->getComponent<ne::Transform>(entity);
         EnnemiesAlien.TimeToShoot -= dt;
-        std::cout << coordinator->getComponent<ne::Alien>(entity).TimeToShoot << " : Here is the time before shoot" << std::endl;
         if (EnnemiesAlien.TimeToShoot <= 0) {
             auto NewEntity = coordinator->createEntity();
             std::shared_ptr<ne::Bullets> bull;

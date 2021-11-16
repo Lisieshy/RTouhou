@@ -16,7 +16,6 @@ namespace ne {
         public:
             BasicWhiteBullets();
             ~BasicWhiteBullets();
-
         protected:
         private:
     };
