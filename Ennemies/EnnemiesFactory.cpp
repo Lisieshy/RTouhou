@@ -30,6 +30,7 @@ std::unique_ptr<ne::Ennemies> ne::EnnemiesFactory::createEnnemies(const std::str
 
 std::unique_ptr<ne::Ennemies> ne::EnnemiesFactory::createBasicPlane(const std::string &name) const noexcept
 {
+    // return std::make_unique<ne::Ennemies>();
     return ((std::unique_ptr<ne::Ennemies>)new BasicPlane());
 }
 

@@ -6,6 +6,8 @@
 */
 #include "HitPoint.hpp"
 #include "../NekoEngine/include/NekoEngine/NekoEngine.hpp"
+#include <../NekoEngine/include/NekoEngine/Math/Vector/Vector.hpp>
+#include <functional>
 
 #ifndef ENNEMIES_HPP_
 #define ENNEMIES_HPP_
@@ -28,7 +30,10 @@ namespace ne {
 
             ne::Skin getSkin();
 
+            ne::Patterns& getPattern();
+
             void setSkin();
+            void setPattern(std::function<ne::Math::Vector3f()>);
 
             ne::HitPoint hp;
             ne::Transform trans;
@@ -40,6 +45,7 @@ namespace ne {
             ne::Hostile hostile;
         protected:
         private:
+            ne::Patterns pat;
     };
 }
 

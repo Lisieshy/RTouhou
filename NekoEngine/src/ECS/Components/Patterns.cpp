@@ -21,15 +21,13 @@
 #include <iostream>
 
 namespace ne {
-    // ne::Patterns::Patterns()
-    // {
-
-    // }
-
-    void ne::Patterns::updatePos(ne::Transform &pos, float dt)
+    ne::Math::Vector3f ne::Patterns::rightToLeftPattern()
     {
-        pos.position.x -= 10 * dt;
-        // pos.y -= 10 * dt;
+        return(ne::Math::Vector3f{-10.f, 0.f, 0.f});
+    }
+    ne::Math::Vector3f ne::Patterns::leftToRightPattern()
+    {
+        return(ne::Math::Vector3f{10.f, 0.f, 0.f});
     }
 
     ne::Patterns::~Patterns()

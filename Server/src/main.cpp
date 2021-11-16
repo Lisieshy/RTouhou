@@ -95,8 +95,8 @@ auto main(
     char **argv
 ) -> int {
     nl::nyalog.setFilename("Server.log");
-    nl::nyalog.init();
     nl::nyalog.setLogLevel(nl::LogLevel::Fatal);
+    nl::nyalog.init();
     uint32_t entityID = 0;
     ne::Scene testScene;
 
@@ -120,7 +120,7 @@ auto main(
         testScene.coordinator->setSystemSignature<CustomServer>(signature);
     }
 
-    std::vector<ne::EntityID> entities(25);
+    std::vector<ne::EntityID> entities(10);
     ne::EnnemiesFactory fact;
 
     for (auto entity : entities) {
@@ -139,7 +139,7 @@ auto main(
             test = fact.createEnnemies("WhiteFerry");
 
         testScene.coordinator->addComponent(entity, test.get()->getTransform());
-        testScene.coordinator->addComponent(entity, ne::Patterns{});
+        testScene.coordinator->addComponent(entity, test.get()->getPattern());
         testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
         // testScene.coordinator->addComponent(entity, test.get()->getColor());
         // testScene.coordinator->addComponent(entity, test.get()->getSkin());
@@ -197,12 +197,12 @@ auto main(
     while (1) {
         auto startTime = std::chrono::high_resolution_clock::now();
         fps++;
+        PatternSystem->update(dt);
         if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::milliseconds{ 20 }) {
             oldTime = std::chrono::high_resolution_clock::now();
             NetworkSystem->SendDataToClients();
             fps = 0;
         }
-        PatternSystem->update(dt);
         NetworkSystem->Update(-1, false);
         auto stopTime = std::chrono::high_resolution_clock::now();
         dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();

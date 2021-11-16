@@ -18,6 +18,7 @@
 #include "NekoEngine/ECS/Components/Transform.hpp"
 #include "NekoEngine/ECS/Components/RigidBody.hpp"
 #include "NekoEngine/ECS/Components/Patterns.hpp"
+#include <NyaLog/NyaLog.hpp>
 #include <iostream>
 #include <random>
 
@@ -31,22 +32,22 @@ void ne::PatternSystem::update(float dt)
         auto& transform = coordinator->getComponent<ne::Transform>(entity);
         auto& rigidbody = coordinator->getComponent<ne::RigidBody>(entity);
         auto& pattern = coordinator->getComponent<ne::Patterns>(entity);
-
-        pattern.updatePos(transform, dt);
-        if (transform.position.y > 600) {
-            transform.position.y = 0;
+        transform.position += pattern.patternFunc() * dt;
+        std::cout << "Detla : " << std::to_string(transform.position.x) << std::endl;
+        if (transform.position.y > 600.f) {
+            transform.position.y = 0.f;
             transform.position.x = static_cast<float>(distrib(gen));
         }
-        if (transform.position.y <= 0) {
-            transform.position.y = 600;
+        if (transform.position.y <= 0.f) {
+            transform.position.y = 600.f;
             transform.position.x = static_cast<float>(distrib(gen));
         }
-        if (transform.position.x <= 0) {
-            transform.position.x = 800;
+        if (transform.position.x <= 0.f) {
+            transform.position.x = 800.f;
             transform.position.y = static_cast<float>(distrib(gen));
         }
-        if (transform.position.x > 800) {
-            transform.position.y = 0;
+        if (transform.position.x > 800.f) {
+            transform.position.y = 0.f;
             transform.position.x = static_cast<float>(distrib(gen));
         }
     }

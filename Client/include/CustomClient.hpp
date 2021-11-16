@@ -45,6 +45,7 @@ namespace rt {
             void OnMessage()
             {
                 if (IsConnected()) {
+                    nl::nyalog(nl::LogLevel::Info, "Number of message : " + std::to_string(Incoming().count()));
                     while (!Incoming().empty()) {
                         auto msg = Incoming().pop_front().msg;
 
@@ -60,9 +61,10 @@ namespace rt {
                                 ne::Color receivedColor{0,0,0,255};
                                 ne::Uid receivedUid;
                                 msg >> receivedUid >> receivedEntity;
+
                                 for (auto& entity : m_entities) {
                                     if (receivedUid.uid == coordinator->getComponent<ne::Uid>(entity).uid) {
-                                        nl::nyalog(nl::LogLevel::Info, "The entity id received is : " + std::to_string(receivedUid.uid) + " and the position of the entity is : " + std::to_string(receivedEntity.position.x) + "/" + std::to_string(receivedEntity.position.y) + "/" + std::to_string(receivedEntity.position.z));
+                                        // nl::nyalog(nl::LogLevel::Info, "The entity id received is : " + std::to_string(receivedUid.uid) + " and the position of the entity is : " + std::to_string(receivedEntity.position.x) + "/" + std::to_string(receivedEntity.position.y) + "/" + std::to_string(receivedEntity.position.z));
                                         auto& t = coordinator->getComponent<ne::Transform>(entity);
                                         auto& c = coordinator->getComponent<ne::Color>(entity);
                                         t = receivedEntity;

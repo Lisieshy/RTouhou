@@ -63,7 +63,7 @@ auto main(
 
 
 
-    std::vector<ne::EntityID> entities(25);
+    std::vector<ne::EntityID> entities(10);
     uint32_t entityID = 0;
     ne::EnnemiesFactory fact;
     auto ClientSystem = testScene.coordinator->registerSystem<rt::CustomClient>(testScene.coordinator);

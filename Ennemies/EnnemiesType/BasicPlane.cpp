@@ -10,6 +10,7 @@
 ne::BasicPlane::BasicPlane()
 {
     getHitPoint().setHp(1);
+    ne::Patterns pattern;
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> distrib(0, 800);
@@ -23,6 +24,7 @@ ne::BasicPlane::BasicPlane()
     rigid.acceleration = ne::Math::Vector3f{-140.f, 0.f, 0.f};
     rigid.velocity = ne::Math::Vector3f{0.f, 0.f, 0.f};
     temp = { 255, 255, 255, 255 };
+    setPattern(std::bind(&ne::Patterns::rightToLeftPattern, &this->getPattern()));
     if (!skin.texture.loadFromFile("Ennemies/Assets/TouhouBasicMob.png", sf::IntRect(0, 0, 32, 32)))
         throw std::runtime_error("Error loading Ennemies/Assets/TouhouBasicMob.png file");
     skin.sprite.setTexture(skin.texture);

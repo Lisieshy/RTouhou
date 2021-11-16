@@ -15,6 +15,16 @@ ne::Ennemies::~Ennemies()
 {
 }
 
+void ne::Ennemies::setPattern(std::function<ne::Math::Vector3f()> func)
+{
+    pat.patternFunc = func;
+}
+
+ne::Patterns& ne::Ennemies::getPattern()
+{
+    return (pat);
+}
+
 ne::HitPoint ne::Ennemies::getHitPoint()
 {
     return (hp);
