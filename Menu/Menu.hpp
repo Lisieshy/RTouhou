@@ -21,16 +21,9 @@ namespace ne {
             ne::Color getColor();
             ne::Skin getSkin();
             ne::Scene getScene();
-            std::shared_ptr<ne::PhysicsSystem> PhysicsSystem;
             std::shared_ptr<ne::RenderSystem> Rendering;
 
             std::vector<ne::EntityID> entities;
-            ne::Transform transf;
-            ne::Gravity grav;
-            ne::RigidBody rigid;
-            ne::Renderable render;
-            ne::Color temp;
-            ne::Skin skin;
             ne::Scene scene;
         protected:
         private:

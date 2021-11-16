@@ -23,6 +23,7 @@ namespace ne::Graphics::Window {
     struct WImpl {
         sf::RenderWindow i_window;
         bool shouldClose = false;
+        bool isClicked = false;
     };
 }
 
@@ -77,11 +78,18 @@ void ne::Graphics::Window::pollEvent(rt::CustomClient &client) {
                 client.MessageAll();
             }
         }
+        impl->isClicked = false;
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            impl->isClicked = true;
     }
 }
 
 void ne::Graphics::Window::display() {
     impl->i_window.display();
+}
+
+bool ne::Graphics::Window::isClicked() {
+    return (impl->isClicked);
 }
 
 void ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char> Color) {

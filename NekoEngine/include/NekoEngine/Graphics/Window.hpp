@@ -91,7 +91,18 @@ namespace ne::Graphics::Window {
      * @param transform Contain position of the sprite
      */
     void draw(ne::Skin skin, ne::Transform transform);
+    
+    /**
+     * @brief Get the window's size
+     * @return The window's size on a ne::Math::Vector2u
+     */
     ne::Math::Vector2u getWindow();
+    
+    /**
+     * @brief Get the clicked state
+     * @return The clicked state
+     */
+    bool isClicked();
 }
 
 #endif /* !WINDOW_HPP_ */

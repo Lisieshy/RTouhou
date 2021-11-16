@@ -11,14 +11,7 @@
 ne::Menu::Menu(std::vector<ne::EntityID> entity)
 {
     entities = entity;
-    if (!skin.texture.loadFromFile("resources/menu.png"))
-        throw std::runtime_error("Error, couldn't load resources/bg.jpg");
-    transf.position = ne::Math::Vector3f{0.f, 0.f, 0.f};
-    transf.rotation = ne::Math::Vector3f{0.f, 0.f, 0.f};
-    transf.scale = ne::Math::Vector3f{0.f, 0.f, 0.f};
-    skin.sprite.setTexture(skin.texture);
-    skin.sprite.setScale({1.5, 1.5});
-    temp = {0, 0, 0, 0};
+
 }
 
 ne::Menu::~Menu()
@@ -27,26 +20,40 @@ ne::Menu::~Menu()
 
 ne::Transform ne::Menu::getTransform()
 {
+    ne::Transform transf;
+
+    transf.position = ne::Math::Vector3f{0.f, 0.f, 0.f};
+    transf.rotation = ne::Math::Vector3f{0.f, 0.f, 0.f};
+    transf.scale = ne::Math::Vector3f{0.f, 0.f, 0.f};
     return (transf);
 }
 
 ne::Gravity ne::Menu::getGravity()
 {
+    ne::Gravity grav;
     return (grav);
 }
 
 ne::RigidBody ne::Menu::getRigidBody()
 {
+    ne::RigidBody rigid;
     return (rigid);
 }
 
 ne::Color ne::Menu::getColor()
 {
+    ne::Color temp;
+    temp = {0, 0, 0, 0};
     return (temp);
 }
 
 ne::Skin ne::Menu::getSkin()
 {
+    ne::Skin skin;
+    if (!skin.texture.loadFromFile("resources/menu.png"))
+        throw std::runtime_error("Error, couldn't load resources/bg.jpg");
+    skin.sprite.setTexture(skin.texture);
+    skin.sprite.setScale({1.5, 1.5});
     return (skin);
 }
 
