@@ -5,6 +5,7 @@
 ** Bullets
 */
 #include "../NekoEngine/include/NekoEngine/NekoEngine.hpp"
+#include "../GlobalTexture/GlobalTexture.hpp"
 
 #ifndef BULLETS_HPP_
 #define BULLETS_HPP_
@@ -16,20 +17,23 @@ namespace ne {
             ~Bullets();
 
             ne::Transform getTransform();
-
             ne::Gravity getGravity();
-
             ne::RigidBody getRigidBody();
-
+            ne::Color getColor();
             ne::Skin getSkin();
 
+            void setTransform(ne::Transform trans);
+            void setGravity(ne::Gravity grav);
+            void setColor(ne::Color col);
+            void setSkin(ne::Skin sk);
+            void setRigitBody(ne::RigidBody rigid);
+        protected:
+        private:
             ne::Transform transform;
             ne::Gravity gravity;
             ne::RigidBody rigidbody;
-            ne::Renderable renderable;
+            ne::Color color;
             ne::Skin skin;
-        protected:
-        private:
     };
 }
 

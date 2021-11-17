@@ -24,7 +24,10 @@
 
 #include <NyaLog/NyaLog.hpp>
 #include <include/CustomClient.hpp>
-#include "../../Ennemies/EnnemiesFactory.hpp"
+#include "../../Game/Ennemies/EnnemiesFactory.hpp"
+#include "../../Game/Bullets/BulletsFactory.hpp"
+#include "../../Game/GameScene/GameScene.hpp"
+#include "../../Game/GlobalTexture/GlobalTexture.hpp"
 
 auto main(
     int argc,
@@ -35,129 +38,27 @@ auto main(
     nl::nyalog.init();
     nl::nyalog(nl::LogLevel::Info, "R-Touhou! Configuring everything... Please wait!");
 
-    // rt::CustomClient c;
-    // c.Connect("127.0.0.1", 60000);
-
-    ne::Scene testScene;
-
-    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Patterns>();
-
-    auto RenderSystem = testScene.coordinator->registerSystem<ne::RenderSystem>(testScene.coordinator);
-    {
-        ne::Signature signature;
-        signature.set(testScene.coordinator->getComponentType<ne::Transform>());
-        signature.set(testScene.coordinator->getComponentType<ne::Renderable>());
-        signature.set(testScene.coordinator->getComponentType<ne::Color>());
-        signature.set(testScene.coordinator->getComponentType<ne::Skin>());
-        testScene.coordinator->setSystemSignature<ne::RenderSystem>(signature);
-    }
-
-    auto PhysicsSystem = testScene.coordinator->registerSystem<ne::PatternSystem>(testScene.coordinator);
-    {
-        ne::Signature signature;
-        signature.set(testScene.coordinator->getComponentType<ne::Transform>());
-        signature.set(testScene.coordinator->getComponentType<ne::RigidBody>());
-        signature.set(testScene.coordinator->getComponentType<ne::Patterns>());
-        testScene.coordinator->setSystemSignature<ne::PatternSystem>(signature);
-    }
-
-
-
-    std::vector<ne::EntityID> entities(10);
-    uint32_t entityID = 0;
-    ne::EnnemiesFactory fact;
-    auto ClientSystem = testScene.coordinator->registerSystem<rt::CustomClient>(testScene.coordinator);
-    {
-        ne::Signature signature;
-        signature.set(testScene.coordinator->getComponentType<ne::Transform>());
-        signature.set(testScene.coordinator->getComponentType<ne::Renderable>());
-        signature.set(testScene.coordinator->getComponentType<ne::Color>());
-        testScene.coordinator->setSystemSignature<ne::PatternSystem>(signature);
-    }
-
-    ClientSystem->Connect("127.0.0.1", 60000);
-
-    // std::vector<ne::EntityID> entities(10);
-
-    // std::random_device rd1;  //Will be used to obtain a seed for the random number engine
-    // std::mt19937 gen1(rd1()); //Standard mersenne_twister_engine seeded with rd()
-    // std::uniform_int_distribution<> distribColor(15, 235);
-
-    // std::random_device rd2;  //Will be used to obtain a seed for the random number engine
-    // std::mt19937 gen2(rd2()); //Standard mersenne_twister_engine seeded with rd()
-    // std::uniform_real_distribution<> distribGrav(8.f, 10.f);
-
-    // std::random_device rd3;  //Will be used to obtain a seed for the random number engine
-    // std::mt19937 gen3(rd3()); //Standard mersenne_twister_engine seeded with rd()
-    // std::uniform_int_distribution<> distribY(0, 600);
-
-    for (auto entity : entities) {
-        entity = testScene.coordinator->createEntity();
-        std::shared_ptr<ne::Ennemies> test;
-
-        if (entityID < 5)
-            test = fact.createEnnemies("BasicPlane");
-        else if (entityID < 10)
-            test = fact.createEnnemies("DarkBlue");
-        else if (entityID < 15)
-            test = fact.createEnnemies("GreenFerry");
-        else if (entityID < 20)
-            test = fact.createEnnemies("OrangeFerry");
-        else
-            test = fact.createEnnemies("WhiteFerry");
-
-        testScene.coordinator->addComponent(entity, test.get()->getTransform());
-        testScene.coordinator->addComponent(entity, test.get()->getGravity());
-        testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
-        testScene.coordinator->addComponent(entity, ne::Renderable{});
-        testScene.coordinator->addComponent(entity, test.get()->getColor());
-        testScene.coordinator->addComponent(entity, test.get()->getSkin());
-        testScene.coordinator->addComponent(entity, ne::Uid{entityID});
-        entityID++;
-    }
-        /*testScene.coordinator->addComponent(entity, ne::Transform{
-            ne::Math::Vector3f{static_cast<float>(distrib(gen)), static_cast<float>(distribY(gen3)), 0.f},
-            ne::Math::Vector3f{0.f, 0.f, 0.f},
-            ne::Math::Vector3f{4.f, 4.f, 0.f}
-        });
-        testScene.coordinator->addComponent(entity, ne::Gravity{
-            ne::Math::Vector3f{0.f, 0.f, 0.f}
-        });
-    uint32_t entityID = 0;
-    for (auto entity : entities) {
-        entity = testScene.coordinator->createEntity();
-        testScene.coordinator->addComponent(entity, ne::Transform{
-            ne::Math::Vector3f{0.f, 0.f, 0.f},
-            ne::Math::Vector3f{0.f, 0.f, 0.f},
-            ne::Math::Vector3f{4.f, 4.f, 0.f}
-        });
-        testScene.coordinator->addComponent(entity, ne::RigidBody{
-            ne::Math::Vector3f{-14.f, 0.f, 0.f},
-            ne::Math::Vector3f{0.f, 0.f, 0.f}
-        });
-        testScene.coordinator->addComponent(entity, ne::Renderable{});
-        testScene.coordinator->addComponent(entity, ne::Color{
-            static_cast<unsigned char>(distribColor(gen1)),
-            static_cast<unsigned char>(distribColor(gen1)),
-            static_cast<unsigned char>(distribColor(gen1)),
-            255
-        });*/
-
+    std::vector<ne::EntityID> entities(1000);
+    ne::GameScene Game(entities);
+    Game.InitScene();
+    uint32_t ID = Game.getEntity();
     ne::Graphics::Window::open();
 
     int fps = 0;
     auto oldTime = std::chrono::high_resolution_clock::now();
     float dt = 0.0f;
-
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
         auto startTime = std::chrono::high_resolution_clock::now();
-        ne::Graphics::Window::pollEvent(ClientSystem);
+        ne::Graphics::Window::pollEvent(Game.ClientSystem);
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
-        RenderSystem->update();
-        ClientSystem->OnMessage();
+        Game.GameLoop(dt);
+        ID = Game.EnnemiesLoopSystem->update(dt, ID);
+        Game.setEntity(ID);
+        Game.RenderSystem->update();
+        Game.ClientSystem->OnMessage();
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";
             oldTime = std::chrono::high_resolution_clock::now();

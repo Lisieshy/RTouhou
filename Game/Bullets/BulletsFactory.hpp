@@ -5,7 +5,7 @@
 ** BulletsFactory
 */
 #include "Bullets.hpp"
-#include "Bullets/BulletsType/BulletsTypeInclude.hpp"
+#include "BulletsType/BulletsTypeInclude.hpp"
 #ifndef BULLETSFACTORY_HPP_
 #define BULLETSFACTORY_HPP_
 
@@ -21,6 +21,6 @@ namespace ne {
             std::unique_ptr<ne::Bullets> createBasicWhiteBullets(const std::string &name) const noexcept;
     };
 }
-using fact = std::unique_ptr<ne::Bullets>(ne::BulletsFactory::*)(const std::string &name) const;
+using BulletsFact = std::unique_ptr<ne::Bullets>(ne::BulletsFactory::*)(const std::string &name) const;
 
 #endif /* !BULLETSFACTORY_HPP_ */

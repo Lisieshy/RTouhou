@@ -18,7 +18,7 @@ ne::BulletsFactory::~BulletsFactory()
 
 std::unique_ptr<ne::Bullets> ne::BulletsFactory::createBullets(const std::string &name)
 {
-    fact ptr;
+    BulletsFact ptr;
 
     ptr = _create[name];
     return (this->*ptr)(name);
@@ -26,5 +26,5 @@ std::unique_ptr<ne::Bullets> ne::BulletsFactory::createBullets(const std::string
 
 std::unique_ptr<ne::Bullets> ne::BulletsFactory::createBasicWhiteBullets(const std::string &name) const noexcept
 {
-    return ((std::unique_ptr<ne::Bullets>)new BasicWhiteBullets());
+    return (std::make_unique<ne::Bullets>(BasicWhiteBullets()));
 }

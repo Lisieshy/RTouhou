@@ -2,24 +2,23 @@
 ** EPITECH PROJECT, 2021
 ** B-CPP-501-NCY-5-1-rtype-aurelien.schulz
 ** File description:
-** GreenFerry
+** OrangeFerry
 */
 #include "../Ennemies.hpp"
 #include "SFML/Graphics.hpp"
 #include <random>
 #include <sstream>
 
-#ifndef GREENFERRY_HPP_
-#define GREENFERRY_HPP_
+#ifndef ORANGEFERRY_HPP_
+#define ORANGEFERRY_HPP_
 
 namespace ne {
-    class GreenFerry : public Ennemies {
+    class OrangeFerry : public Ennemies {
         public:
-            GreenFerry();
-            ~GreenFerry();
-
+            OrangeFerry();
+            ~OrangeFerry();
         protected:
         private:
     };
 }
-#endif /* !GREENFERRY_HPP_ */
+#endif /* !ORANGEFERRY_HPP_ */

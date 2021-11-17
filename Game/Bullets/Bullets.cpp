@@ -30,7 +30,37 @@ ne::RigidBody ne::Bullets::getRigidBody()
     return (rigidbody);
 }
 
+ne::Color ne::Bullets::getColor()
+{
+    return (color);
+}
+
 ne::Skin ne::Bullets::getSkin()
 {
     return (skin);
+}
+
+void ne::Bullets::setRigitBody(ne::RigidBody rigid)
+{
+    rigidbody = rigid;
+}
+
+void ne::Bullets::setTransform(ne::Transform trans)
+{
+    transform = trans;
+}
+
+void ne::Bullets::setGravity(ne::Gravity grav)
+{
+    gravity = grav;
+}
+
+void ne::Bullets::setColor(ne::Color col)
+{
+    color = col;
+}
+
+void ne::Bullets::setSkin(ne::Skin sk)
+{
+    skin = sk;
 }

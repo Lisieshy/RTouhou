@@ -8,6 +8,7 @@
 #include "../NekoEngine/include/NekoEngine/NekoEngine.hpp"
 #include <../NekoEngine/include/NekoEngine/Math/Vector/Vector.hpp>
 #include <functional>
+#include "../GlobalTexture/GlobalTexture.hpp"
 
 #ifndef ENNEMIES_HPP_
 #define ENNEMIES_HPP_
@@ -18,34 +19,31 @@ namespace ne {
             Ennemies();
             ~Ennemies();
 
-            ne::HitPoint getHitPoint();
-
             ne::Transform getTransform();
-
             ne::Gravity getGravity();
-
             ne::RigidBody getRigidBody();
-
             ne::Color getColor();
-
             ne::Skin getSkin();
-
             ne::Patterns& getPattern();
+            ne::Alien getAlien();
 
-            void setSkin();
+
+            void setTransform(ne::Transform trans);
+            void setGravity(ne::Gravity grav);
+            void setColor(ne::Color col);
+            void setSkin(ne::Skin sk);
+            void setRigitBody(ne::RigidBody rigid);
+            void setAlien(ne::Alien ali);
             void setPattern(std::function<ne::Math::Vector3f()>);
-
-            ne::HitPoint hp;
-            ne::Transform trans;
-            ne::Gravity grav;
-            ne::RigidBody rigid;
-            ne::Renderable render;
-            ne::Color temp;
-            ne::Skin skin;
-            ne::Hostile hostile;
         protected:
         private:
             ne::Patterns pat;
+            ne::Transform transform;
+            ne::Gravity gravity;
+            ne::RigidBody rigidbody;
+            ne::Color color;
+            ne::Skin skin;
+            ne::Alien alien;
     };
 }
 

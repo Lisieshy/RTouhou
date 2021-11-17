@@ -20,8 +20,7 @@
 #include <NekoEngine/NekoEngine.hpp>
 #include <NyaNet/NyaNet.hpp>
 #include <NyaLog/NyaLog.hpp>
-#include "../../Ennemies/EnnemiesFactory.hpp"
-
+#include "../../Game/Ennemies/EnnemiesFactory.hpp"
 
 class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
 {

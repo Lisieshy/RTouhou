@@ -4,7 +4,7 @@
 ** File description:
 ** BasicWhiteBullets
 */
-#include "Bullets/Bullets.hpp"
+#include "../Bullets.hpp"
 #include "SFML/Graphics.hpp"
 #include <random>
 #include <sstream>
@@ -16,7 +16,6 @@ namespace ne {
         public:
             BasicWhiteBullets();
             ~BasicWhiteBullets();
-
         protected:
         private:
     };

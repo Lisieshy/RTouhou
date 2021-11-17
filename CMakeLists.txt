@@ -27,13 +27,24 @@ set(NEKOENGINE_GRAPHICS_SOURCES
 )
 
 set(NEKOENNEMIES_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/Ennemies.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesFactory.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/BasicPlane.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/DarkBlueFerry.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/GreenFerry.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/OrangeFerry.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ennemies/EnnemiesType/whiteFerry.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/Ennemies/Ennemies.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/Ennemies/EnnemiesFactory.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/Ennemies/EnnemiesType/BasicPlane.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/Ennemies/EnnemiesType/DarkBlueFerry.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/Ennemies/EnnemiesType/GreenFerry.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/Ennemies/EnnemiesType/OrangeFerry.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/Ennemies/EnnemiesType/whiteFerry.cpp
+)
+set(NEKOGAME_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/GameScene/GameScene.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/GameScene/GameEnnemiesLoop.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/GlobalTexture/GlobalTexture.cpp
+)
+
+set(NEKOBULLETS_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/Bullets/Bullets.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/Bullets/BulletsType/BasicWhiteBullets.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/Bullets/BulletsFactory.cpp
 )
 
 set(NEKOENGINE_ECS_SOURCES
@@ -71,6 +82,8 @@ set(NEKOENGINE_SOURCES
     ${NEKOENGINE_SCENES_SOURCES}
     ${NEKOENGINE_NEKOEXCEPTION_SOURCES}
     ${NEKOENNEMIES_SOURCES}
+    ${NEKOBULLETS_SOURCES}
+    ${NEKOGAME_SOURCES}
 )
 
 set(SOURCES_CLIENT
@@ -93,7 +106,7 @@ target_include_directories(rtouhou_client
     ${PROJECT_SOURCE_DIR}/Client/
     ${PROJECT_SOURCE_DIR}/NyaLog/
     ${PROJECT_SOURCE_DIR}/NyaNet/
-    ${PROJECT_SOURCE_DIR}/Ennemies/
+    ${PROJECT_SOURCE_DIR}/Game/
 )
 
 target_link_libraries(
