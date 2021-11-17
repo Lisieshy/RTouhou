@@ -10,11 +10,23 @@
 #include <sstream>
 #ifndef BASICWHITEBULLETS_HPP_
 #define BASICWHITEBULLETS_HPP_
-
+/**
+ * @namespace ne
+ */
 namespace ne {
+    /**
+     * @class BasicWhiteBullets from Bullets
+     */
     class BasicWhiteBullets : public Bullets {
         public:
+            /**
+             * @brief Constructor
+             */
             BasicWhiteBullets();
+
+            /**
+             * @brief Destructor
+             */
             ~BasicWhiteBullets();
         protected:
         private:

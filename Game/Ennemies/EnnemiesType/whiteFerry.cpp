@@ -35,7 +35,7 @@ ne::whiteFerry::whiteFerry()
     setColor(temp);
 
     ne::Skin skin;
-    skin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("Game/Ennemies/Assets/TouhouBasicMob.png"));
+    skin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Ennemies/TouhouBasicMob.png"));
     skin.sprite.setTextureRect(sf::IntRect(0, 170, 32, 32));
     setSkin(skin);
 

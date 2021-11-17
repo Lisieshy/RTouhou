@@ -41,4 +41,3 @@ uint32_t ne::GameEnnemiesLoop::update(float dt, uint32_t ID)
     }
     return (ID);
 }
-

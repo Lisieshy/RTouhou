@@ -36,7 +36,7 @@ ne::BasicWhiteBullets::BasicWhiteBullets()
     setColor(temp);
 
     ne::Skin skin;
-    skin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("Game/Bullets/Assets/bullets.png"));
+    skin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Bullets/bullets.png"));
     skin.sprite.setTextureRect(sf::IntRect(102, 39, 14, 15));
     setSkin(skin);
 }
