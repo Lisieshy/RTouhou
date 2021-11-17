@@ -59,10 +59,39 @@ namespace ne {
              */
             ne::Color getColor();
 
+            /**
+             * @brief Set the Transform object
+             * 
+             * @param ne::Transform 
+             */
             void setTransform(ne::Transform trans);
+
+            /**
+             * @brief Set the Gravity object
+             * 
+             * @param ne::Gravity 
+             */
             void setGravity(ne::Gravity grav);
+
+            /**
+             * @brief Set the Color object
+             * 
+             * @param ne::Color 
+             */
             void setColor(ne::Color col);
+
+            /**
+             * @brief Set the Skin object
+             * 
+             * @param ne::Skin 
+             */
             void setSkin(ne::Skin sk);
+
+            /**
+             * @brief Set the Rigit Body object
+             * 
+             * @param ne::RigidBody 
+             */
             void setRigitBody(ne::RigidBody rigid);
         protected:
         private:

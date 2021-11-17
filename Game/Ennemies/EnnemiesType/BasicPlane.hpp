@@ -12,10 +12,23 @@
 #ifndef BASICPLANE_HPP_
 #define BASICPLANE_HPP_
 
+/**
+ * @namespace ne
+ * 
+ */
 namespace ne {
     class BasicPlane : public Ennemies {
         public:
+            /**
+             * @brief Construct a new Basic Plane object
+             * 
+             */
             BasicPlane();
+
+            /**
+             * @brief Destroy the Basic Plane object
+             * 
+             */
             ~BasicPlane();
         protected:
         private:

@@ -12,10 +12,23 @@
 #ifndef DARKBLUEFERRY_HPP_
 #define DARKBLUEFERRY_HPP_
 
+/**
+ * @namespace ne
+ * 
+ */
 namespace ne {
     class DarkBlueFerry : public Ennemies {
         public:
+            /**
+             * @brief Construct a new Dark Blue Ferry object
+             * 
+             */
             DarkBlueFerry();
+
+            /**
+             * @brief Destroy the Dark Blue Ferry object
+             * 
+             */
             ~DarkBlueFerry();
         protected:
         private:

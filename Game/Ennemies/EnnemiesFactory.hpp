@@ -14,11 +14,31 @@
 #ifndef ENNEMIESFACTORY_HPP_
 #define ENNEMIESFACTORY_HPP_
 
+/**
+ * @namespace ne
+ * 
+ */
 namespace ne {
     class EnnemiesFactory {
         public:
+            /**
+             * @brief Construct a new Ennemies Factory object
+             * 
+             */
             EnnemiesFactory();
+
+            /**
+             * @brief Destroy the Ennemies Factory object
+             * 
+             */
             ~EnnemiesFactory();
+
+            /**
+             * @brief Create a Ennemies object
+             * 
+             * @param std::string 
+             * @return std::unique_ptr<ne::Ennemies> 
+             */
             std::unique_ptr<ne::Ennemies> createEnnemies(const std::string &name);
         protected:
         private:

@@ -12,10 +12,23 @@
 #ifndef ORANGEFERRY_HPP_
 #define ORANGEFERRY_HPP_
 
+/**
+ * @namespace ne
+ * 
+ */
 namespace ne {
     class OrangeFerry : public Ennemies {
         public:
+            /**
+             * @brief Construct a new Orange Ferry object
+             * 
+             */
             OrangeFerry();
+
+            /**
+             * @brief Destroy the Orange Ferry object
+             * 
+             */
             ~OrangeFerry();
         protected:
         private:

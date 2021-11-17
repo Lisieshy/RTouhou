@@ -13,6 +13,13 @@
 namespace ne {
     class GameEnnemiesLoop : public ne::System {
         public:
+            /**
+             * @brief 
+             * 
+             * @param float dt (time)
+             * @param float ID (Ennemies ID) 
+             * @return uint32_t 
+             */
             uint32_t update(float dt, uint32_t ID);
     };  
 }

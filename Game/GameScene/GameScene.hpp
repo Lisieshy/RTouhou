@@ -14,7 +14,17 @@
 namespace ne {
     class GameScene {
         public:
+            /**
+             * @brief Construct a new Game Scene object
+             * 
+             * @param Entity 
+             */
             GameScene(std::vector<ne::EntityID> Entity);
+
+            /**
+             * @brief Destroy the Game Scene object
+             * 
+             */
             ~GameScene();
 
             void GameLoop(float dt);

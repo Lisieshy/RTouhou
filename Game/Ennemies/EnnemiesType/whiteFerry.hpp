@@ -12,10 +12,23 @@
 #ifndef WHITEFERRY_HPP_
 #define WHITEFERRY_HPP_
 
+/**
+ * @namespace ne
+ * 
+ */
 namespace ne {
     class whiteFerry : public Ennemies {
         public:
+            /**
+             * @brief Construct a new white Ferry object
+             * 
+             */
             whiteFerry();
+
+            /**
+             * @brief Destroy the white Ferry object
+             * 
+             */
             ~whiteFerry();
         protected:
         private:

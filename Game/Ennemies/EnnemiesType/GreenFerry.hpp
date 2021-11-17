@@ -12,10 +12,23 @@
 #ifndef GREENFERRY_HPP_
 #define GREENFERRY_HPP_
 
+/**
+ * @namespace ne
+ * 
+ */
 namespace ne {
     class GreenFerry : public Ennemies {
         public:
+            /**
+             * @brief Construct a new Green Ferry object
+             * 
+             */
             GreenFerry();
+
+            /**
+             * @brief Destroy the Green Ferry object
+             * 
+             */
             ~GreenFerry();
         protected:
         private:
