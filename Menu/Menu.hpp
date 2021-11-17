@@ -22,6 +22,7 @@ namespace ne {
             ne::Skin getSkin();
             ne::Scene getScene();
             std::shared_ptr<ne::RenderSystem> Rendering;
+            std::shared_ptr<ne::MouseSystem> MouseSys;
 
             std::vector<ne::EntityID> entities;
             ne::Scene scene;

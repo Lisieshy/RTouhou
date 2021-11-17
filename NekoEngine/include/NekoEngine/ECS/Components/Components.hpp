@@ -24,5 +24,6 @@
 #include "NekoEngine/ECS/Components/Gravity.hpp"
 #include "NekoEngine/ECS/Components/Skin.hpp"
 #include "NekoEngine/ECS/Components/Hostile.hpp"
+#include "NekoEngine/ECS/Components/But.hpp"
 
 #endif /* !COMPONENTS_HPP_ */

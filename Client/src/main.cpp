@@ -51,6 +51,7 @@ auto main(
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
         menu.Rendering.get()->update();
+        menu.MouseSys.get()->update();
         auto startTime = std::chrono::high_resolution_clock::now();
         ne::Graphics::Window::pollEvent(c);
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{

@@ -7,18 +7,20 @@
 
 #include "Buttons.hpp"
 
-ne::Buttons::Buttons(const std::string &_name, const std::string &text, ne::Math::Vector2u pos)
+ne::Buttons::Buttons(const std::string &_name, const std::string &text, ne::Math::Vector2u pos, ne::Math::Vector4u rect)
 {
+    _rect = rect;
     name = _name;
+    _text = text;
     if (!skin.texture.loadFromFile(text))
         throw std::runtime_error("Error, couldn't load " + text);
     skin.sprite.setTexture(skin.texture);
+    skin.sprite.setTextureRect(sf::IntRect(rect.x, rect.y, rect.z, rect.w));
     skin.sprite.setScale({1.5, 1.5});
-    std::cout << skin.sprite.getPosition().x << skin.sprite.getPosition().y << skin.sprite.getGlobalBounds().height << skin.sprite.getGlobalBounds().width << std::endl;
-
     transf.position = ne::Math::Vector3f{static_cast<float>(pos.x) - skin.texture.getSize().x / 2, static_cast<float>(pos.y), 0.f};
     transf.rotation = ne::Math::Vector3f{0.f, 0.f, 0.f};
     transf.scale = ne::Math::Vector3f{0.f, 0.f, 0.f};
+    std::cout << skin.sprite.getTextureRect().width << std::endl;
     // sf::Text _text;
     // sf::Font font;
     // font.loadFromFile("resources/arial.ttf");
@@ -29,6 +31,16 @@ ne::Buttons::Buttons(const std::string &_name, const std::string &text, ne::Math
 ne::Buttons::~Buttons()
 {
 }
+
+void ne::Buttons::setState(bool state)
+{
+    std::cout << _text << std::endl;
+    if (state == true)
+        skin.sprite.setTextureRect(sf::IntRect(_rect.x - 72, _rect.y, _rect.z, _rect.w));
+    else    
+        skin.sprite.setTextureRect(sf::IntRect(_rect.x, _rect.y, _rect.z, _rect.w));
+}
+
 
 
 ne::Transform ne::Buttons::getTransform()

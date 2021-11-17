@@ -103,6 +103,7 @@ namespace ne::Graphics::Window {
      * @return The clicked state
      */
     bool isClicked();
+    ne::Math::Vector2i getMousePosition();
 }
 
 #endif /* !WINDOW_HPP_ */

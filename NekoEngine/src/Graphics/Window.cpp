@@ -79,8 +79,9 @@ void ne::Graphics::Window::pollEvent(rt::CustomClient &client) {
             }
         }
         impl->isClicked = false;
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        if (event.mouseButton.button == sf::Mouse::Left) {
             impl->isClicked = true;
+        }
     }
 }
 
@@ -137,4 +138,12 @@ void ne::Graphics::Window::draw(ne::Skin skin, ne::Transform transform)
     skin.sprite.move({transform.position.x, transform.position.y});
     skin.sprite.setTexture(skin.texture);
     impl->i_window.draw(skin.sprite);
+}
+
+ne::Math::Vector2i ne::Graphics::Window::getMousePosition()
+{
+    ne::Math::Vector2i mouse;
+    mouse.x = sf::Mouse::getPosition(impl->i_window).x;
+    mouse.y = sf::Mouse::getPosition(impl->i_window).y;
+    return (mouse);
 }
