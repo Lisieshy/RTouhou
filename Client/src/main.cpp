@@ -27,6 +27,7 @@
 #include "../../Game/Ennemies/EnnemiesFactory.hpp"
 #include "../../Game/Bullets/BulletsFactory.hpp"
 #include "../../Game/GameScene/GameScene.hpp"
+#include "../../Game/GlobalTexture/GlobalTexture.hpp"
 
 auto main(
     int argc,

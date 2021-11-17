@@ -36,9 +36,8 @@ ne::BasicWhiteBullets::BasicWhiteBullets()
     setColor(temp);
 
     ne::Skin skin;
-    if (!skin.texture.loadFromFile("Game/Bullets/Assets/bullets.png", sf::IntRect(7, 71, 12, 14)))
-        throw std::runtime_error("Error loading Ennemies/Assets/TouhouBasicMob.png file");
-    skin.sprite.setTexture(skin.texture);
+    skin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("Game/Bullets/Assets/bullets.png"));
+    skin.sprite.setTextureRect(sf::IntRect(102, 39, 14, 15));
     setSkin(skin);
 }
 

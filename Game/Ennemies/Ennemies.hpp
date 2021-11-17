@@ -6,6 +6,7 @@
 */
 #include "HitPoint.hpp"
 #include "../NekoEngine/include/NekoEngine/NekoEngine.hpp"
+#include "../GlobalTexture/GlobalTexture.hpp"
 
 #ifndef ENNEMIES_HPP_
 #define ENNEMIES_HPP_

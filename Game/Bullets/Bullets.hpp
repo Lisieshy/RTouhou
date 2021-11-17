@@ -5,6 +5,7 @@
 ** Bullets
 */
 #include "../NekoEngine/include/NekoEngine/NekoEngine.hpp"
+#include "../GlobalTexture/GlobalTexture.hpp"
 
 #ifndef BULLETS_HPP_
 #define BULLETS_HPP_

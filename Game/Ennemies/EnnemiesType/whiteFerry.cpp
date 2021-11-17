@@ -35,9 +35,8 @@ ne::whiteFerry::whiteFerry()
     setColor(temp);
 
     ne::Skin skin;
-    if (!skin.texture.loadFromFile("Game/Ennemies/Assets/TouhouBasicMob.png", sf::IntRect(0, 138, 32, 32)))
-        throw std::runtime_error("Error loading Ennemies/Assets/TouhouBasicMob.png file");
-    skin.sprite.setTexture(skin.texture);
+    skin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("Game/Ennemies/Assets/TouhouBasicMob.png"));
+    skin.sprite.setTextureRect(sf::IntRect(0, 170, 32, 32));
     setSkin(skin);
 
     ne::Alien alienShot;

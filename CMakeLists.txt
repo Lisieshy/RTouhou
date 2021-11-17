@@ -38,6 +38,7 @@ set(NEKOENNEMIES_SOURCES
 set(NEKOGAME_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Game/GameScene/GameScene.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Game/GameScene/GameEnnemiesLoop.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/GlobalTexture/GlobalTexture.cpp
 )
 
 set(NEKOBULLETS_SOURCES

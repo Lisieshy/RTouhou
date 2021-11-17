@@ -16,7 +16,7 @@ ne::BasicPlane::BasicPlane()
     std::uniform_int_distribution<> distrib(0, 800);
     std::uniform_int_distribution<> distribY(0, 600);
 
-    ne::Transform transform;
+    ne::Transform transform;    
     transform.position = ne::Math::Vector3f{static_cast<float>(distrib(gen)), static_cast<float>(distribY(gen3)), 0.f},
     transform.rotation = ne::Math::Vector3f{0.f, 0.f, 0.f};
     transform.scale = ne::Math::Vector3f{32.f, 32.f, 0.f};
@@ -36,9 +36,8 @@ ne::BasicPlane::BasicPlane()
     setColor(temp);
 
     ne::Skin skin;
-    if (!skin.texture.loadFromFile("Game/Ennemies/Assets/TouhouBasicMob.png", sf::IntRect(0, 138, 32, 32)))
-        throw std::runtime_error("Error loading Ennemies/Assets/TouhouBasicMob.png file");
-    skin.sprite.setTexture(skin.texture);
+    skin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("Game/Ennemies/Assets/TouhouBasicMob.png"));
+    skin.sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
     setSkin(skin);
 
     ne::Alien alienShot;
