@@ -42,7 +42,7 @@ ne::Color ne::Setting::getColor()
     return (temp);   
 }
 
-ne::Skin ne::Menu::getSkin()
+ne::Skin ne::Setting::getSkin()
 {
     ne::Skin skin;
     if (!skin.texture.loadFromFile("resources/menu.png"))
@@ -54,7 +54,7 @@ ne::Skin ne::Menu::getSkin()
 
 ne::Scene ne::Setting::getScene()
 {
-        scene.coordinator->registerComponent<ne::Transform, ne::Renderable, ne::Color, ne::Skin, ne::But>();
+    scene.coordinator->registerComponent<ne::Transform, ne::Renderable, ne::Color, ne::Skin, ne::But>();
     Rendering = scene.coordinator->registerSystem<ne::RenderSystem>(scene.coordinator);
     {
         ne::Signature sign;
@@ -72,12 +72,10 @@ ne::Scene ne::Setting::getScene()
         scene.coordinator->setSystemSignature<ne::MouseSystem>(signature);
     }
     std::vector<ne::Buttons> usine;
-    usine.push_back(ne::Buttons("Start", "resources/button_start.png",
-    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4), ne::Math::Vector4u(0, 0, 72, 12)));
-    usine.push_back(ne::Buttons("Setting", "resources/button_settings.png",
-    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 2), ne::Math::Vector4u(0,0,72,12)));
-    usine.push_back(ne::Buttons("Quit", "resources/button_quit.png",
-    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4 * 3), ne::Math::Vector4u(72,0,72,12)));
+    usine.push_back(ne::Buttons("Sound_on", "resources/button_sound_on.png",
+    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 4 * 3, ne::Graphics::Window::getWindow().y / 4)));
+    usine.push_back(ne::Buttons("Sound_off", "resources/button_sound_off.png",
+    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 4, ne::Graphics::Window::getWindow().y / 4)));
     size_t i = 0;
     auto gorboulut = scene.coordinator->createEntity();
     scene.coordinator->addComponent(gorboulut, getTransform());

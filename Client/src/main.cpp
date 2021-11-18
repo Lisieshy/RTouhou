@@ -27,6 +27,8 @@
 #include "../../Ennemies/EnnemiesFactory.hpp"
 #include "../../Menu/Menu.hpp"
 #include "../../Menu/Buttons.hpp"
+#include "../../Menu/Setting.hpp"
+
 auto main(
     int argc,
     char** argv
@@ -46,12 +48,16 @@ auto main(
     int fps = 0;
     auto oldTime = std::chrono::high_resolution_clock::now();
     float dt = 0.0f;
-    ne::Menu menu(entities);
-    ne::Scene menuScene = menu.getScene();
+    //ne::Menu menu(entities);
+    //ne::Scene menuScene = menu.getScene();
+    ne::Setting sett(entities);
+    ne::Scene settScene = sett.getScene();
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
-        menu.Rendering.get()->update();
-        menu.MouseSys.get()->update();
+        sett.Rendering.get()->update();
+        sett.MouseSys.get()->update();
+        //menu.Rendering.get()->update();
+        //menu.MouseSys.get()->update();
         auto startTime = std::chrono::high_resolution_clock::now();
         ne::Graphics::Window::pollEvent(c);
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
