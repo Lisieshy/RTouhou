@@ -24,7 +24,6 @@ namespace ne {
         public:
             sf::Sprite sprite;
             sf::Texture texture;
-            std::string name;
     };
 }
 

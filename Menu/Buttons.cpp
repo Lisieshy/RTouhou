@@ -17,7 +17,7 @@ ne::Buttons::Buttons(const std::string &_name, const std::string &text, ne::Math
     skin.sprite.setTexture(skin.texture);
     skin.sprite.setTextureRect(sf::IntRect(rect.x, rect.y, rect.z, rect.w));
     skin.sprite.setScale({1.5, 1.5});
-    skin.name = _name;
+    but.name = _name;
     _pos.x = pos.x - skin.texture.getSize().x / 2;
     _pos.y = pos.y;
     transf.position = ne::Math::Vector3f{static_cast<float>(pos.x) - skin.texture.getSize().x / 2, static_cast<float>(pos.y), 0.f};
@@ -48,8 +48,8 @@ void ne::Buttons::setState(bool state)
 
 ne::Transform ne::Buttons::getTransform()
 {
-    transf.position.x = _pos.x;
-    transf.position.y = _pos.y;
+    transf.position.x *= ne::Graphics::Window::getScale().x;
+    transf.position.y *= ne::Graphics::Window::getScale().y;
     return (transf);
 }
 
@@ -85,4 +85,9 @@ ne::Scene ne::Buttons::getScene()
 std::string ne::Buttons::getName()
 {
     return (name);
+}
+
+ne::But ne::Buttons::getBut()
+{
+    return (but);
 }

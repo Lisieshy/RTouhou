@@ -104,6 +104,7 @@ namespace ne::Graphics::Window {
      */
     bool isClicked();
     ne::Math::Vector2i getMousePosition();
+    ne::Math::Vector2f getScale();
 }
 
 #endif /* !WINDOW_HPP_ */

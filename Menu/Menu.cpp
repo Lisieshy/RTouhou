@@ -63,12 +63,14 @@ ne::Scene ne::Menu::getScene()
         sign.set(scene.coordinator->getComponentType<ne::Renderable>());
         sign.set(scene.coordinator->getComponentType<ne::Color>());
         sign.set(scene.coordinator->getComponentType<ne::Skin>());
+        //scene.coordinator->setSystemSignature<ne::RenderSystem>(sign);
     }
     MouseSys = scene.coordinator->registerSystem<ne::MouseSystem>(scene.coordinator);
     {
         ne::Signature signature;
         signature.set(scene.coordinator->getComponentType<ne::But>());
         signature.set(scene.coordinator->getComponentType<ne::Transform>());
+        scene.coordinator->setSystemSignature<ne::MouseSystem>(signature);
     }
     std::vector<ne::Buttons> usine;
     usine.push_back(ne::Buttons("Start", "resources/button_start_test.png",
@@ -87,8 +89,7 @@ ne::Scene ne::Menu::getScene()
         scene.coordinator->addComponent(entity, usine.at(i).getTransform());
         scene.coordinator->addComponent(entity, usine.at(i).getColor());
         scene.coordinator->addComponent(entity, usine.at(i).getSkin());
-        scene.coordinator->addComponent(entity, ne::But());
-
+        scene.coordinator->addComponent(entity, usine.at(i).getBut());
         i++;
         if (usine.size() == i)
             break;

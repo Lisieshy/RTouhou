@@ -41,7 +41,9 @@ namespace ne {
             void setState(bool state);
             std::shared_ptr<ne::RenderSystem> Rendering;
             std::string getName();
+            ne::But getBut();
 
+            ne::But but;
             ne::Math::Vector3f _pos;
             ne::Math::Vector4u _rect;
             std::string _text;

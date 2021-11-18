@@ -37,6 +37,14 @@ void ne::Graphics::Window::open() {
     impl->shouldClose = false;
 }
 
+ne::Math::Vector2f ne::Graphics::Window::getScale()
+{
+    ne::Math::Vector2f _scale;
+    _scale.x = (impl->i_window.getSize().x / 800.0f);
+    _scale.y = (impl->i_window.getSize().y / 600.0f);
+    return (_scale);
+}
+
 ne::Math::Vector2u ne::Graphics::Window::getWindow()
 {
     ne::Math::Vector2u vect;

@@ -10,6 +10,8 @@
 
 namespace ne {
     class But {
+        public:
+            std::string name;
     };
 }
 
