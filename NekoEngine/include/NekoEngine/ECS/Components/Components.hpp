@@ -26,6 +26,7 @@
 #include "NekoEngine/ECS/Components/Networkable.hpp"
 #include "NekoEngine/ECS/Components/Uid.hpp"
 #include "NekoEngine/ECS/Components/Hostile.hpp"
+#include "NekoEngine/ECS/Components/Patterns.hpp"
 #include "NekoEngine/ECS/Components/Alien.hpp"
 
 #endif /* !COMPONENTS_HPP_ */

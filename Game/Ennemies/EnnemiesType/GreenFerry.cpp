@@ -44,6 +44,8 @@ ne::GreenFerry::GreenFerry()
     alienShot.TimeToShoot = 2.f;
     alienShot.BasicTime = 2.f;
     setAlien(alienShot);
+
+    setPattern(std::bind(&ne::Patterns::leftToRightPattern, &this->getPattern()));
 }
 
 ne::GreenFerry::~GreenFerry()

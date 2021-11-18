@@ -44,6 +44,8 @@ ne::BasicPlane::BasicPlane()
     alienShot.TimeToShoot = 2.f;
     alienShot.BasicTime = 2.f;
     setAlien(alienShot);
+
+    setPattern(std::bind(&ne::Patterns::rightToLeftPattern, &this->getPattern()));
 }
 
 ne::BasicPlane::~BasicPlane()

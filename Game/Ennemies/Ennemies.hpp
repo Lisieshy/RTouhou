@@ -4,8 +4,18 @@
 ** File description:
 ** Ennemies
 */
+
+/**
+ * @file        Ennemmies.hpp
+ * @brief       Ennemies class
+ * @author      Tom Wederich (@TheGorb)
+ * @date        18/11/2021
+ */
+
 #include "HitPoint.hpp"
 #include "../NekoEngine/include/NekoEngine/NekoEngine.hpp"
+#include <../NekoEngine/include/NekoEngine/Math/Vector/Vector.hpp>
+#include <functional>
 #include "../GlobalTexture/GlobalTexture.hpp"
 
 #ifndef ENNEMIES_HPP_
@@ -73,6 +83,13 @@ namespace ne {
             ne::Alien getAlien();
 
             /**
+             * @brief Get the Pattern object
+             * 
+             * @return ne::Patterns& 
+             */
+            ne::Patterns& getPattern();
+
+            /**
              * @brief Set the Transform object
              * 
              * @param ne::Transform 
@@ -113,8 +130,16 @@ namespace ne {
              * @param ne::Alien 
              */
             void setAlien(ne::Alien ali);
+
+            /**
+             * @brief Set the Pattern object
+             * 
+             * @param std::function<ne::Math::Vector3f()>
+             */
+            void setPattern(std::function<ne::Math::Vector3f()>);
         protected:
         private:
+            ne::Patterns pat;
             ne::Transform transform;
             ne::Gravity gravity;
             ne::RigidBody rigidbody;

@@ -44,6 +44,8 @@ ne::DarkBlueFerry::DarkBlueFerry()
     alienShot.TimeToShoot = 2.f;
     alienShot.BasicTime = 2.f;
     setAlien(alienShot);
+
+    setPattern(std::bind(&ne::Patterns::leftToRightPattern, &this->getPattern()));
 }
 
 ne::DarkBlueFerry::~DarkBlueFerry()

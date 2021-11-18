@@ -40,6 +40,11 @@ ne::Skin ne::Bullets::getSkin()
     return (skin);
 }
 
+ne::Patterns& ne::Bullets::getPattern()
+{
+    return (pat);
+}
+
 void ne::Bullets::setRigitBody(ne::RigidBody rigid)
 {
     rigidbody = rigid;
@@ -63,4 +68,9 @@ void ne::Bullets::setColor(ne::Color col)
 void ne::Bullets::setSkin(ne::Skin sk)
 {
     skin = sk;
+}
+
+void ne::Bullets::setPattern(std::function<ne::Math::Vector3f()> func)
+{
+    pat.patternFunc = func;
 }

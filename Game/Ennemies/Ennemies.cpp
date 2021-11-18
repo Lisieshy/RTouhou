@@ -25,6 +25,11 @@ ne::Gravity ne::Ennemies::getGravity()
     return (gravity);
 }
 
+ne::Patterns& ne::Ennemies::getPattern()
+{
+    return (pat);
+}
+
 ne::RigidBody ne::Ennemies::getRigidBody()
 {
     return (rigidbody);
@@ -73,4 +78,9 @@ void ne::Ennemies::setSkin(ne::Skin sk)
 void ne::Ennemies::setAlien(ne::Alien ali)
 {
     alien = ali;
+}
+
+void ne::Ennemies::setPattern(std::function<ne::Math::Vector3f()> func)
+{
+    pat.patternFunc = func;
 }

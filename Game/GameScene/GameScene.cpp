@@ -57,13 +57,13 @@ void ne::GameScene::InitScene()
         Game.coordinator->setSystemSignature<ne::RenderSystem>(signature);
     }
 
-    PhysicsSystem = Game.coordinator->registerSystem<ne::PhysicsSystem>(Game.coordinator);
+    PatternSystem = Game.coordinator->registerSystem<ne::PatternSystem>(Game.coordinator);
     {
         ne::Signature signature;
         signature.set(Game.coordinator->getComponentType<ne::Transform>());
         signature.set(Game.coordinator->getComponentType<ne::RigidBody>());
         signature.set(Game.coordinator->getComponentType<ne::Gravity>());
-        Game.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
+        Game.coordinator->setSystemSignature<ne::PatternSystem>(signature);
     }
 
     ClientSystem = Game.coordinator->registerSystem<rt::CustomClient>(Game.coordinator);
@@ -72,7 +72,7 @@ void ne::GameScene::InitScene()
         signature.set(Game.coordinator->getComponentType<ne::Transform>());
         signature.set(Game.coordinator->getComponentType<ne::Renderable>());
         signature.set(Game.coordinator->getComponentType<ne::Color>());
-        Game.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
+        Game.coordinator->setSystemSignature<ne::PatternSystem>(signature);
     }
 
     EnnemiesLoopSystem = Game.coordinator->registerSystem<ne::GameEnnemiesLoop>(Game.coordinator);

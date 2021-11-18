@@ -39,6 +39,8 @@ ne::BasicWhiteBullets::BasicWhiteBullets()
     skin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Bullets/bullets.png"));
     skin.sprite.setTextureRect(sf::IntRect(102, 39, 14, 15));
     setSkin(skin);
+
+    setPattern(std::bind(&ne::Patterns::topToBotPattern, &this->getPattern()));
 }
 
 ne::BasicWhiteBullets::~BasicWhiteBullets()

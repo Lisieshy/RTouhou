@@ -4,10 +4,19 @@
 ** File description:
 ** BasicWhiteBullets
 */
+
+/**
+ * @file        BasicWhiteBullets.hpp
+ * @brief       Tier 1 bullets class
+ * @author      Tom Wederich (@TheGorb)
+ * @date        18/11/2021
+ */
+
 #include "../Bullets.hpp"
 #include "SFML/Graphics.hpp"
 #include <random>
 #include <sstream>
+
 #ifndef BASICWHITEBULLETS_HPP_
 #define BASICWHITEBULLETS_HPP_
 /**

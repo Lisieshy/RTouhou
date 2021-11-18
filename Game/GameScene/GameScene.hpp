@@ -5,6 +5,13 @@
 ** GameScene
 */
 
+/**
+ * @file        GameScene.hpp
+ * @brief       Scene that manage the game
+ * @author      Tom Wederich (@TheGorb)
+ * @date        18/11/2021
+ */
+
 #include <unordered_map>
 #include "GameEnnemiesLoop.hpp"
 
@@ -38,7 +45,7 @@ namespace ne {
             std::unordered_map<uint32_t, std::shared_ptr<ne::Ennemies>> EnnemiesAlive;
 
             std::shared_ptr<ne::RenderSystem> RenderSystem;
-            std::shared_ptr<ne::PhysicsSystem> PhysicsSystem;
+            std::shared_ptr<ne::PatternSystem> PatternSystem;
             std::shared_ptr<rt::CustomClient> ClientSystem;
             std::shared_ptr<ne::GameEnnemiesLoop> EnnemiesLoopSystem;
 

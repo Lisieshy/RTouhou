@@ -54,11 +54,12 @@ set(NEKOENGINE_ECS_SOURCES
 set(NEKOENGINE_SYSTEMS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/TimerSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/RenderSystem.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/PhysicsSystem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/PatternSystem.cpp
 )
 
 set(NEKOENGINE_COMPONENTS_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Components/Timer.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Components/Timer.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Components/Patterns.cpp
 )
 
 set(NEKOENGINE_SCENES_SOURCES

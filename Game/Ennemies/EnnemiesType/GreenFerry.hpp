@@ -4,6 +4,14 @@
 ** File description:
 ** GreenFerry
 */
+
+/**
+ * @file        GreenFerry.hpp
+ * @brief       Tier 3 ennemie
+ * @author      Tom Wederich (@TheGorb)
+ * @date        18/11/2021
+ */
+
 #include "../Ennemies.hpp"
 #include "SFML/Graphics.hpp"
 #include <random>

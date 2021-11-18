@@ -4,6 +4,14 @@
 ** File description:
 ** BulletsFactory
 */
+
+/**
+ * @file        BulletsFactory.hpp
+ * @brief       Factory to create all bullets
+ * @author      Tom Wederich (@TheGorb)
+ * @date        18/11/2021
+ */
+
 #include "Bullets.hpp"
 #include "BulletsType/BulletsTypeInclude.hpp"
 #ifndef BULLETSFACTORY_HPP_

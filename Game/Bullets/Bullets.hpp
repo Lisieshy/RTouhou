@@ -4,8 +4,18 @@
 ** File description:
 ** Bullets
 */
+
+/**
+ * @file        Bullets.hpp
+ * @brief       Bullets class
+ * @author      Tom Wederich (@TheGorb)
+ * @date        18/11/2021
+ */
+
+
 #include "../NekoEngine/include/NekoEngine/NekoEngine.hpp"
 #include "../GlobalTexture/GlobalTexture.hpp"
+#include <../NekoEngine/include/NekoEngine/Math/Vector/Vector.hpp>
 
 #ifndef BULLETS_HPP_
 #define BULLETS_HPP_
@@ -60,6 +70,13 @@ namespace ne {
             ne::Color getColor();
 
             /**
+             * @brief Get the Pattern object
+             * 
+             * @return ne::Patterns& 
+             */
+            ne::Patterns& getPattern();
+
+            /**
              * @brief Set the Transform object
              * 
              * @param ne::Transform 
@@ -93,6 +110,13 @@ namespace ne {
              * @param ne::RigidBody 
              */
             void setRigitBody(ne::RigidBody rigid);
+
+            /**
+             * @brief Set the Pattern object
+             * 
+             * @param std::function<ne::Math::Vector3f()>
+             */
+            void setPattern(std::function<ne::Math::Vector3f()>);
         protected:
         private:
             ne::Transform transform;
@@ -100,6 +124,7 @@ namespace ne {
             ne::RigidBody rigidbody;
             ne::Color color;
             ne::Skin skin;
+            ne::Patterns pat;
     };
 }
 

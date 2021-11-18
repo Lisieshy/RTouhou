@@ -5,6 +5,13 @@
 ** GameEnnemiesLoop
 */
 
+/**
+ * @file        GameEnnemiesLoop.hpp
+ * @brief       System for ennemies shoot
+ * @author      Tom Wederich (@TheGorb)
+ * @date        18/11/2021
+ */
+
 #ifndef GAMEENNEMIESLOOP_HPP_
 #define GAMEENNEMIESLOOP_HPP_
 

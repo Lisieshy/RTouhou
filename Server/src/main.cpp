@@ -94,20 +94,20 @@ auto main(
     char **argv
 ) -> int {
     nl::nyalog.setFilename("Server.log");
-    nl::nyalog.init();
     nl::nyalog.setLogLevel(nl::LogLevel::Fatal);
+    nl::nyalog.init();
     uint32_t entityID = 0;
     ne::Scene testScene;
 
-    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Networkable, ne::Color, ne::Uid, ne::Skin>();
+    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Networkable, ne::Color, ne::Uid, ne::Skin, ne::Patterns>();
 
-    auto PhysicsSystem = testScene.coordinator->registerSystem<ne::PhysicsSystem>(testScene.coordinator);
+    auto PatternSystem = testScene.coordinator->registerSystem<ne::PatternSystem>(testScene.coordinator);
     {
         ne::Signature signature;
         signature.set(testScene.coordinator->getComponentType<ne::Transform>());
         signature.set(testScene.coordinator->getComponentType<ne::RigidBody>());
-        signature.set(testScene.coordinator->getComponentType<ne::Gravity>());
-        testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
+        signature.set(testScene.coordinator->getComponentType<ne::Patterns>());
+        testScene.coordinator->setSystemSignature<ne::PatternSystem>(signature);
     }
 
     auto NetworkSystem = testScene.coordinator->registerSystem<CustomServer>(testScene.coordinator);
@@ -119,7 +119,7 @@ auto main(
         testScene.coordinator->setSystemSignature<CustomServer>(signature);
     }
 
-    std::vector<ne::EntityID> entities(25);
+    std::vector<ne::EntityID> entities(10);
     ne::EnnemiesFactory fact;
 
     for (auto entity : entities) {
@@ -138,7 +138,7 @@ auto main(
             test = fact.createEnnemies("WhiteFerry");
 
         testScene.coordinator->addComponent(entity, test.get()->getTransform());
-        testScene.coordinator->addComponent(entity, test.get()->getGravity());
+        testScene.coordinator->addComponent(entity, test.get()->getPattern());
         testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
         // testScene.coordinator->addComponent(entity, test.get()->getColor());
         // testScene.coordinator->addComponent(entity, test.get()->getSkin());
@@ -196,12 +196,12 @@ auto main(
     while (1) {
         auto startTime = std::chrono::high_resolution_clock::now();
         fps++;
+        PatternSystem->update(dt);
         if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::milliseconds{ 20 }) {
             oldTime = std::chrono::high_resolution_clock::now();
             NetworkSystem->SendDataToClients();
             fps = 0;
         }
-        PhysicsSystem->update(dt);
         NetworkSystem->Update(-1, false);
         auto stopTime = std::chrono::high_resolution_clock::now();
         dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();

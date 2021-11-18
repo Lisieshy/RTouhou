@@ -5,6 +5,13 @@
 ** GlobalTexture
 */
 
+/**
+ * @file        GlobalTexture.hpp
+ * @brief       Global library for texture loading
+ * @author      Tom Wederich (@TheGorb) And Archo (@g_devoil)
+ * @date        18/11/2021
+ */
+
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
 #include "AbsctractLibrary.hpp"

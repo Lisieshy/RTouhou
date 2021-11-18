@@ -4,6 +4,14 @@
 ** File description:
 ** OrangeFerry
 */
+
+/**
+ * @file        OrangeFerry.hpp
+ * @brief       Tier 4 ennemie
+ * @author      Tom Wederich (@TheGorb)
+ * @date        18/11/2021
+ */
+
 #include "../Ennemies.hpp"
 #include "SFML/Graphics.hpp"
 #include <random>

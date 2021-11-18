@@ -7,4 +7,4 @@ conan install .. --build=missing -pr=default
 
 cmake .. -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles"
 
-make -j18
+make -j4

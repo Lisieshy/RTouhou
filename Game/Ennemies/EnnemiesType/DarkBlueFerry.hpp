@@ -4,6 +4,14 @@
 ** File description:
 ** DarkBlueFerry
 */
+
+/**
+ * @file        DarkBlueFerry.hpp
+ * @brief       Tier 2 ennemie
+ * @author      Tom Wederich (@TheGorb)
+ * @date        18/11/2021
+ */
+
 #include "../Ennemies.hpp"
 #include "SFML/Graphics.hpp"
 #include <random>

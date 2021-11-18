@@ -4,6 +4,14 @@
 ** File description:
 ** whiteFerry
 */
+
+/**
+ * @file        whiteFerry.hpp
+ * @brief       Tier 5 ennemie
+ * @author      Tom Wederich (@TheGorb)
+ * @date        18/11/2021
+ */
+
 #include "../Ennemies.hpp"
 #include "SFML/Graphics.hpp"
 #include <random>

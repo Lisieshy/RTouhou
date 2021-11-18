@@ -4,6 +4,14 @@
 ** File description:
 ** EnnemiesFactory
 */
+
+/**
+ * @file        EnnemiesFactory.hpp
+ * @brief       Factory to create Ennemies
+ * @author      Tom Wederich (@TheGorb)
+ * @date        18/11/2021
+ */
+
 #include <memory>
 #include <map>
 #include <exception>

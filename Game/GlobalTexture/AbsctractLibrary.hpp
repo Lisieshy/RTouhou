@@ -4,6 +4,14 @@
 ** File description:
 ** AbsctractLibrary
 */
+
+/**
+ * @file        AbsctractLibrary.hpp
+ * @brief       Abstract library to load only one time eact texture
+ * @author      Tom Wederich (@TheGorb) And Archo (@g_devoil)
+ * @date        18/11/2021
+ */
+
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
 
