@@ -41,8 +41,8 @@ ne::Math::Vector3f ne::Patterns::leftToRightCirclePattern()
 {
     static double angle = 0;
     angle += 0.00001;
-    double x = cos(angle) * 110 ;
-    double y = sin(angle) * 90;
+    float x = cos(angle) * 110 ;
+    float y = sin(angle) * 90;
     x += 50;
     y += 0;
 
@@ -53,8 +53,8 @@ ne::Math::Vector3f ne::Patterns::rightToLeftCirclePattern()
 {
     static double angle = 0;
     angle += 0.00001;
-    double x = cos(angle) * 110;
-    double y = sin(angle) * 90;
+    float x = cos(angle) * 110;
+    float y = sin(angle) * 90;
     x -= 50;
     y += 0;
 
@@ -65,8 +65,8 @@ ne::Math::Vector3f ne::Patterns::topToBotCirclePattern()
 {
     static double angle = 0;
     angle += 0.00001;
-    double x = cos(angle) * 90;
-    double y = sin(angle) * 90;
+    float x = cos(angle) * 110;
+    float y = sin(angle) * 90;
     x += 0;
     y += 50;
 
@@ -94,7 +94,7 @@ ne::Math::Vector3f ne::Patterns::leftToRightSnakePattern()
     angle += 0.00004;
 
     float x = originX + cos(angle) * 0;
-    float y = originY + cos(angle) * 75;
+    float y = originY + cos(angle) * 110;
 
     return(ne::Math::Vector3f{x, y, 0.f});
 }
@@ -107,7 +107,7 @@ ne::Math::Vector3f ne::Patterns::rightToLeftSnakePattern()
     angle += 0.00004;
 
     float x = originX + cos(angle) * 0;
-    float y = originY + cos(angle) * 75;
+    float y = originY + cos(angle) * 110;
 
     return(ne::Math::Vector3f{x, y, 0.f});
 }
