@@ -22,7 +22,7 @@ namespace ne {
              * @param text Text of the button
              * @param pos Position of the button
              */
-            Buttons(const std::string &name, const std::string &text, ne::Math::Vector2u pos, ne::Math::Vector4u rect);
+            Buttons(const std::string &name, const std::string &text, ne::Math::Vector2u pos);
             
             /**
              * @brief Destructor
@@ -38,17 +38,11 @@ namespace ne {
             ne::Color getColor();
             ne::Skin getSkin();
             ne::Scene getScene();
-            void setState(bool state);
             std::shared_ptr<ne::RenderSystem> Rendering;
-            std::string getName();
             ne::But getBut();
 
             ne::But but;
-            ne::Math::Vector3f _pos;
-            ne::Math::Vector4u _rect;
-            std::string _text;
             ne::Transform transf;
-            std::string name;
             ne::Skin skin;
             ne::Scene scene;
         protected:

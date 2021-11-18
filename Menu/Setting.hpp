@@ -1,19 +1,19 @@
 /*
 ** EPITECH PROJECT, 2021
-** Menu.hpp
+** Setting.hpp
 ** File description:
-** Menu.hpp
+** Setting.hpp
 */
 #include "../NekoEngine/include/NekoEngine/NekoEngine.hpp"
 
-#ifndef MENU_HPP
-#define MENU_HPP
+#ifndef SETTING_HPP
+#define SETTING_HPP
 
 namespace ne {
-    class Menu {
+    class Setting {
         public:
-            Menu(std::vector<ne::EntityID> entity);
-            ~Menu();
+            Setting(std::vector<ne::EntityID> entity);
+            ~Setting();
 
             ne::Transform getTransform();
             ne::Gravity getGravity();
@@ -24,11 +24,12 @@ namespace ne {
 
             std::shared_ptr<ne::RenderSystem> Rendering;
             std::shared_ptr<ne::MouseSystem> MouseSys;
-            
+
             std::vector<ne::EntityID> entities;
             ne::Scene scene;
         protected:
         private:
     };
 }
-#endif /* !MENU_HPP */
+
+#endif /* !SETTING_HPP */

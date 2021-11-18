@@ -1,46 +1,45 @@
 /*
 ** EPITECH PROJECT, 2021
-** Menu.cpp
+** Setting.cpp
 ** File description:
-** Menu.cpp
+** Setting.cpp
 */
 
-#include "Menu.hpp"
+#include "Setting.hpp"
 #include "Buttons.hpp"
 
-ne::Menu::Menu(std::vector<ne::EntityID> entity)
+ne::Setting::Setting(std::vector<ne::EntityID> entity)
 {
     entities = entity;
-
 }
 
-ne::Menu::~Menu()
+ne::Setting::~Setting()
 {
 }
 
-ne::Transform ne::Menu::getTransform()
+ne::Transform ne::Setting::getTransform()
 {
     ne::Transform transf;
     return (transf);
 }
 
-ne::Gravity ne::Menu::getGravity()
+ne::Gravity ne::Setting::getGravity()
 {
     ne::Gravity grav;
     return (grav);
 }
 
-ne::RigidBody ne::Menu::getRigidBody()
+ne::RigidBody ne::Setting::getRigidBody()
 {
     ne::RigidBody rigid;
     return (rigid);
 }
 
-ne::Color ne::Menu::getColor()
+ne::Color ne::Setting::getColor()
 {
     ne::Color temp;
     temp = {0, 0, 0, 0};
-    return (temp);
+    return (temp);   
 }
 
 ne::Skin ne::Menu::getSkin()
@@ -53,9 +52,9 @@ ne::Skin ne::Menu::getSkin()
     return (skin);
 }
 
-ne::Scene ne::Menu::getScene()
+ne::Scene ne::Setting::getScene()
 {
-    scene.coordinator->registerComponent<ne::Transform, ne::Renderable, ne::Color, ne::Skin, ne::But>();
+        scene.coordinator->registerComponent<ne::Transform, ne::Renderable, ne::Color, ne::Skin, ne::But>();
     Rendering = scene.coordinator->registerSystem<ne::RenderSystem>(scene.coordinator);
     {
         ne::Signature sign;
@@ -74,11 +73,11 @@ ne::Scene ne::Menu::getScene()
     }
     std::vector<ne::Buttons> usine;
     usine.push_back(ne::Buttons("Start", "resources/button_start_test.png",
-    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4)));
+    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4), ne::Math::Vector4u(0, 0, 72, 12)));
     usine.push_back(ne::Buttons("Setting", "resources/button_settings_test.png",
-    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 2)));
+    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 2), ne::Math::Vector4u(0,0,72,12)));
     usine.push_back(ne::Buttons("Quit", "resources/button_quit_test.png",
-    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4 * 3)));
+    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4 * 3), ne::Math::Vector4u(72,0,72,12)));
     size_t i = 0;
     auto gorboulut = scene.coordinator->createEntity();
     scene.coordinator->addComponent(gorboulut, getTransform());
