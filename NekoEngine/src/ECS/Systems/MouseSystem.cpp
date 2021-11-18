@@ -24,7 +24,7 @@ void ne::MouseSystem::update()
                 rect.left = 72;
                 skin.sprite.setTextureRect(sf::IntRect(rect.left, skin.sprite.getTextureRect().top, skin.sprite.getTextureRect().width, skin.sprite.getTextureRect().height));
         }
-        if (mouse.x >= transform.position.x && mouse.x <= transform.position.x + skin.texture.getSize().x * skin.sprite.getScale().x / 2 && mouse.y >= transform.position.y && mouse.y <= transform.position.y + skin.texture.getSize().y * skin.sprite.getScale().y && transform.position.x != 0) {
+        if (mouse.x >= (transform.position.x * ne::Graphics::Window::getScale().x )&& mouse.x <= ((transform.position.x + skin.texture.getSize().x * skin.sprite.getScale().x / 2) * ne::Graphics::Window::getScale().x) && mouse.y >= (transform.position.y * ne::Graphics::Window::getScale().y) && mouse.y <= (transform.position.y + skin.texture.getSize().y * skin.sprite.getScale().y) * ne::Graphics::Window::getScale().y && transform.position.x != 0) {
             if (skin.sprite.getTextureRect().left > 0)
                 skin.sprite.setTextureRect(sf::IntRect(skin.sprite.getTextureRect().left - 72, skin.sprite.getTextureRect().top, skin.sprite.getTextureRect().width, skin.sprite.getTextureRect().height));
             if (ne::Graphics::Window::isClicked()) {

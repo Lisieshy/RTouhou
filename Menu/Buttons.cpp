@@ -23,7 +23,6 @@ ne::Buttons::Buttons(const std::string &_name, const std::string &text, ne::Math
     transf.position = ne::Math::Vector3f{static_cast<float>(pos.x) - skin.texture.getSize().x / 2, static_cast<float>(pos.y), 0.f};
     transf.rotation = ne::Math::Vector3f{0.f, 0.f, 0.f};
     transf.scale = ne::Math::Vector3f{static_cast<float>(ne::Graphics::Window::getWindow().x), static_cast<float>(ne::Graphics::Window::getWindow().y), 0.f};
-    std::cout << skin.sprite.getTextureRect().width << std::endl;
     // sf::Text _text;
     // sf::Font font;
     // font.loadFromFile("resources/arial.ttf");
