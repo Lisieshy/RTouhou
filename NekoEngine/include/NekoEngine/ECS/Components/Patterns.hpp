@@ -33,6 +33,14 @@ namespace ne {
 
             ne::Math::Vector3f rightToLeftPattern();
             ne::Math::Vector3f leftToRightPattern();
+            ne::Math::Vector3f topToBotPattern();
+            ne::Math::Vector3f leftToRightCirclePattern();
+            ne::Math::Vector3f rightToLeftCirclePattern();
+            ne::Math::Vector3f topToBotCirclePattern();
+            ne::Math::Vector3f topToBotSnakePattern();
+            ne::Math::Vector3f leftToRightSnakePattern();
+            ne::Math::Vector3f rightToLeftSnakePattern();
+            ne::Math::Vector3f topToBotAndBackPattern();
             std::function<ne::Math::Vector3f()> patternFunc;
     };
 }
