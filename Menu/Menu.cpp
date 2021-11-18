@@ -71,9 +71,9 @@ ne::Scene ne::Menu::getScene()
         signature.set(scene.coordinator->getComponentType<ne::Transform>());
     }
     std::vector<ne::Buttons> usine;
-    usine.push_back(ne::Buttons("Start", "resources/button_start.png",
+    usine.push_back(ne::Buttons("Start", "resources/button_start_test.png",
     ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4), ne::Math::Vector4u(0, 0, 72, 12)));
-    usine.push_back(ne::Buttons("Settings", "resources/button_settings.png",
+    usine.push_back(ne::Buttons("Setting", "resources/button_settings_test.png",
     ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 2), ne::Math::Vector4u(0,0,72,12)));
     usine.push_back(ne::Buttons("Quit", "resources/button_quit_test.png",
     ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4 * 3), ne::Math::Vector4u(72,0,72,12)));
