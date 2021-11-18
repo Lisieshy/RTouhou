@@ -41,8 +41,8 @@ ne::BasicPlane::BasicPlane()
     setSkin(skin);
 
     ne::Alien alienShot;
-    alienShot.TimeToShoot = 2.f;
-    alienShot.BasicTime = 2.f;
+    alienShot.TimeToShoot = 5.f;
+    alienShot.BasicTime = 5.f;
     setAlien(alienShot);
 
     setPattern(std::bind(&ne::Patterns::rightToLeftPattern, &this->getPattern()));

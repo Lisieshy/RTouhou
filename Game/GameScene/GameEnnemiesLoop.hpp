@@ -16,6 +16,9 @@
 #define GAMEENNEMIESLOOP_HPP_
 
 #include "NekoEngine/ECS/System.hpp"
+#include "NekoEngine/ECS/Components/Alien.hpp"
+#include "../Game/Ennemies/Ennemies.hpp"
+#include "../Game/Bullets/BulletsFactory.hpp"
 
 namespace ne {
     class GameEnnemiesLoop : public ne::System {
@@ -28,6 +31,8 @@ namespace ne {
              * @return uint32_t 
              */
             uint32_t update(float dt, uint32_t ID);
+
+            void createBullet(ne::Transform EnnemiesPos, uint32_t ID);
     };  
 }
 

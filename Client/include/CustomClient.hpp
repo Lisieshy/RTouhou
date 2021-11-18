@@ -45,7 +45,6 @@ namespace rt {
             void OnMessage()
             {
                 if (IsConnected()) {
-                    nl::nyalog(nl::LogLevel::Info, "Number of message : " + std::to_string(Incoming().count()));
                     while (!Incoming().empty()) {
                         auto msg = Incoming().pop_front().msg;
 

@@ -32,7 +32,7 @@ void ne::PatternSystem::update(float dt)
         auto& transform = coordinator->getComponent<ne::Transform>(entity);
         auto& rigidbody = coordinator->getComponent<ne::RigidBody>(entity);
         auto& pattern = coordinator->getComponent<ne::Patterns>(entity);
-        transform.position += pattern.patternFunc() * dt;
+        transform.position += pattern.patternFunc() * (dt / 2);
         if (transform.position.y > 600.f) {
             transform.position.y = 0.f;
             transform.position.x = static_cast<float>(distrib(gen));
