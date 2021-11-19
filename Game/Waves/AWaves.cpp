@@ -18,7 +18,6 @@ ne::AWaves::~AWaves()
 bool ne::AWaves::IsWaveFinished(float dt)
 {
     WaveTime -= dt;
-    std::cout << "WAVE TIME = " << WaveTime << std::endl;
     if (WaveTime <= 0)
         return true;
     return false;

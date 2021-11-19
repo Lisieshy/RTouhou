@@ -116,11 +116,14 @@ namespace rt {
                                     }
                                 }
                                 if (!_found) {
-                                    if (receivedType == ne::EntityType::Type::WhiteBullets) {
                                         auto newEntity = coordinator->createEntity();
                                         std::shared_ptr<ne::Bullets> bulletsCreated;
-
-                                        bulletsCreated = bullets.createBullets("BasicWhiteBullets");
+                                        if (receivedType == ne::EntityType::Type::WhiteBullets)
+                                            bulletsCreated = bullets.createBullets("BasicWhiteBullets");
+                                        else if (receivedType == ne::EntityType::Type::Tier2Bullets)
+                                            bulletsCreated = bullets.createBullets("Tier2Bullets");
+                                        else
+                                            bulletsCreated = bullets.createBullets("Tier3Bullets");                                        
                                         bulletsCreated.get()->setTransform(receivedEntity);
                                         bulletsCreated.get()->setType(receivedType);
                                         coordinator->addComponent(newEntity, receivedEntity);
@@ -131,7 +134,6 @@ namespace rt {
                                         coordinator->addComponent(newEntity, ne::Uid{ receivedUid });
                                         coordinator->addComponent(newEntity, bulletsCreated.get()->getType());
                                         coordinator->addComponent(newEntity, bulletsCreated.get()->getPattern());
-                                    }
                                 }
                             }
                             break;

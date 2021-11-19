@@ -51,6 +51,7 @@ void ne::GameScene::InitScene(uint32_t &entityID)
         ne::Signature signature;
         signature.set(Game.coordinator->getComponentType<ne::Alien>());
         signature.set(Game.coordinator->getComponentType<ne::Transform>());
+        signature.set(Game.coordinator->getComponentType<ne::EntityType::Type>());
         Game.coordinator->setSystemSignature<ne::GameEnnemiesLoop>(signature);
     }
 

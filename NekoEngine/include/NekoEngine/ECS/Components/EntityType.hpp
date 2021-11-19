@@ -18,6 +18,8 @@ namespace ne {
                 OrangeEnnemy,
                 WhiteEnnemy,
                 WhiteBullets, 
+                Tier2Bullets,
+                Tier3Bullets,
                 Bullets,
                 Bonus,
                 Player

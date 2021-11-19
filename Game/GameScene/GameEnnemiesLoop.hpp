@@ -32,7 +32,7 @@ namespace ne {
              */
             void update(float dt, uint32_t& ID);
 
-            void createBullet(ne::Transform& EnnemiesPos, uint32_t& ID);
+            void createBullet(ne::Transform& EnnemiesPos, uint32_t& ID, ne::EntityType::Type& EnnemiesType);
     };  
 }
 
