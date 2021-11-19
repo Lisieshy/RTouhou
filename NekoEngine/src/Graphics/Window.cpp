@@ -59,12 +59,12 @@ void ne::Graphics::Window::pollEvent(std::shared_ptr<rt::CustomClient> client) {
             if (event.key.code == sf::Keyboard::Key::Escape) {
                 impl->shouldClose = true;
             }
-            if (event.key.code == sf::Keyboard::Key::A) {
-                nl::nyalog(nl::LogLevel::Info, "Pressed A!");
+            if (event.key.code == sf::Keyboard::Key::P) {
+                nl::nyalog(nl::LogLevel::Info, "Pressed P!");
                 client->PingServer();
             }   
-            if (event.key.code == sf::Keyboard::Key::Z) {
-                nl::nyalog(nl::LogLevel::Info, "Pressed Z!");
+            if (event.key.code == sf::Keyboard::Key::M) {
+                nl::nyalog(nl::LogLevel::Info, "Pressed M!");
                 client->MessageAll();
             }
         }

@@ -18,8 +18,9 @@
 #include "../../Game/Ennemies/EnnemiesFactory.hpp"
 #include "../../Game/Bullets/BulletsFactory.hpp"
 #include "GameScene.hpp"
+#include <include/Controller.hpp>
 
-ne::GameScene::GameScene(std::vector<ne::EntityID> Entity)
+ne::GameScene::GameScene(std::vector<ne::EntityID>& Entity)
 {
     entities = Entity;
 }
@@ -45,7 +46,7 @@ uint32_t ne::GameScene::getEntity()
 
 void ne::GameScene::InitScene()
 {
-    Game.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::EntityType::Type, ne::Patterns>();
+    Game.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, rt::Controller, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::EntityType::Type, ne::Patterns>();
 
     RenderSystem = Game.coordinator->registerSystem<ne::RenderSystem>(Game.coordinator);
     {
@@ -62,7 +63,7 @@ void ne::GameScene::InitScene()
         ne::Signature signature;
         signature.set(Game.coordinator->getComponentType<ne::Transform>());
         signature.set(Game.coordinator->getComponentType<ne::RigidBody>());
-        signature.set(Game.coordinator->getComponentType<ne::Gravity>());
+        signature.set(Game.coordinator->getComponentType<ne::Patterns>());
         Game.coordinator->setSystemSignature<ne::PatternSystem>(signature);
     }
 
@@ -83,7 +84,43 @@ void ne::GameScene::InitScene()
         Game.coordinator->setSystemSignature<ne::GameEnnemiesLoop>(signature);
     }
 
+    PlayerSystem = Game.coordinator->registerSystem<rt::PlayerSystem>(Game.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(Game.coordinator->getComponentType<ne::Transform>());
+        signature.set(Game.coordinator->getComponentType<ne::RigidBody>());
+        signature.set(Game.coordinator->getComponentType<rt::Controller>());
+        signature.set(Game.coordinator->getComponentType<ne::Renderable>());
+        signature.set(Game.coordinator->getComponentType<ne::Color>());
+        signature.set(Game.coordinator->getComponentType<ne::Skin>());
+        Game.coordinator->setSystemSignature<rt::PlayerSystem>(signature);
+    }
+
     ClientSystem->Connect("127.0.0.1", 60000);
+
+    ne::EntityID player = Game.coordinator->createEntity();
+
+    ne::Skin playerSkin;
+    playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Ennemies/TouhouBasicMob.png"));
+    playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
+
+    Game.coordinator->addComponent(player, rt::Controller{
+        .type = rt::ControlType::KEYBOARD,
+        .up = sf::Keyboard::Key::Z,
+        .down = sf::Keyboard::Key::S,
+        .left = sf::Keyboard::Key::Q,
+        .right = sf::Keyboard::Key::D,
+        .shoot = sf::Keyboard::Key::Space,
+        .speed = 20.f,
+        .deadzone = 50
+    });
+    Game.coordinator->addComponent(player, ne::Transform{});
+    Game.coordinator->addComponent(player, ne::RigidBody{});
+    Game.coordinator->addComponent(player, ne::Renderable{});
+    Game.coordinator->addComponent(player, ne::Color{ 255, 255, 255, 255 });
+    Game.coordinator->addComponent(player, playerSkin);
+    Game.coordinator->addComponent(player, ne::Uid{1500});
+
 
     // for (auto entity : entities) {
     //     entity = Game.coordinator->createEntity();

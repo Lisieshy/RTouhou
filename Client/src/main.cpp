@@ -55,6 +55,7 @@ auto main(
             0, 0, 0, 255
         });
         Game.GameLoop(dt);
+        Game.PlayerSystem->update(dt);
         ID = Game.EnnemiesLoopSystem->update(dt, ID);
         Game.setEntity(ID);
         Game.RenderSystem->update();

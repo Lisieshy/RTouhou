@@ -14,6 +14,7 @@
 
 #include <unordered_map>
 #include "GameEnnemiesLoop.hpp"
+#include <include/PlayerSystem.hpp>
 
 #ifndef GAMESCENE_HPP_
 #define GAMESCENE_HPP_
@@ -26,7 +27,7 @@ namespace ne {
              * 
              * @param Entity 
              */
-            GameScene(std::vector<ne::EntityID> Entity);
+            GameScene(std::vector<ne::EntityID>& Entity);
 
             /**
              * @brief Destroy the Game Scene object
@@ -48,6 +49,7 @@ namespace ne {
             std::shared_ptr<ne::PatternSystem> PatternSystem;
             std::shared_ptr<rt::CustomClient> ClientSystem;
             std::shared_ptr<ne::GameEnnemiesLoop> EnnemiesLoopSystem;
+            std::shared_ptr<rt::PlayerSystem> PlayerSystem;
 
             ne::Scene Game;
 
