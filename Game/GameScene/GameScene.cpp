@@ -87,6 +87,7 @@ void ne::GameScene::InitScene()
         Game.coordinator->addComponent(entity, test.get()->getAlien());
         Game.coordinator->addComponent(entity, test.get()->getType());
         Game.coordinator->addComponent(entity, ne::Networkable{});
+        Game.coordinator->addComponent(entity, test.get()->getPattern());
         entityID++;
         if (entityID == 10)
             break;
