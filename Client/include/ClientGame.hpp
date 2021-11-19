@@ -12,6 +12,8 @@
 #include "NekoEngine/ECS/Components/Alien.hpp"
 #include "../../Game/Ennemies/Ennemies.hpp"
 #include "../../Game/Bullets/BulletsFactory.hpp"
+#include "PlayerSystem.hpp"
+#include "NekoEngine/NekoEngine.hpp"
 
 namespace ne {
     class ClientGame {
@@ -21,6 +23,7 @@ namespace ne {
 
             std::shared_ptr<ne::RenderSystem> RenderSystem;
             std::shared_ptr<rt::CustomClient> ClientSystem;
+            std::shared_ptr<rt::PlayerSystem> PlayerSystem;
 
             ne::Scene ClientGameScene;
         protected:
