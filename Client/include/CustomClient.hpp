@@ -10,6 +10,8 @@
 
 #include <NyaNet/NyaNet.hpp>
 #include <NekoEngine/NekoEngine.hpp>
+#include "../../Game/Ennemies/EnnemiesFactory.hpp"
+#include "../../Game/Bullets/BulletsFactory.hpp"
 
 namespace rt {
     // Defining what types of Messages the server will be capable of handling. THEY MUST BE THE EXACT SAME AS THE SERVER.
@@ -54,21 +56,79 @@ namespace rt {
                                 nl::nyalog(nl::LogLevel::Info, "Server accepted connection!");
                             }
                             break;
-                            case rt::CustomMsgTypes::SendData:
+                            case rt::CustomMsgTypes::SendEnnemies:
                             {
+                                bool _found = false;
                                 ne::Transform receivedEntity;
-                                ne::Color receivedColor{0,0,0,255};
                                 ne::Uid receivedUid;
-                                msg >> receivedUid >> receivedEntity;
+                                ne::EntityType::Type receivedType;
+                                msg >> receivedType >> receivedUid >> receivedEntity;
+
                                 for (auto& entity : m_entities) {
+                                    std::cout << "Here is the received UID : " << receivedUid.uid << std::endl;
                                     if (receivedUid.uid == coordinator->getComponent<ne::Uid>(entity).uid) {
-                                        nl::nyalog(nl::LogLevel::Info, "The entity id received is : " + std::to_string(receivedUid.uid) + " and the position of the entity is : " + std::to_string(receivedEntity.position.x) + "/" + std::to_string(receivedEntity.position.y) + "/" + std::to_string(receivedEntity.position.z));
+                                        std::cout << "On update l'entitée : " << entity << std::endl;
+                                        _found = true;
                                         auto& t = coordinator->getComponent<ne::Transform>(entity);
-                                        auto& c = coordinator->getComponent<ne::Color>(entity);
                                         t = receivedEntity;
-                                        c = receivedColor;
                                     }
                                 }
+                                if (!_found) {
+                                    auto newEntity = coordinator->createEntity();
+                                    std::shared_ptr<ne::Ennemies> test;
+                                    if (receivedType == ne::EntityType::Type::BasicEnnemy) {
+                                        test = fact.createEnnemies("BasicPlane");
+                                        std::cout << "On CREE un BASIC plane" << std::endl;
+                                    }
+                                    if (receivedType == ne::EntityType::Type::DarkEnnemy) {
+                                        test = fact.createEnnemies("DarkBlue");
+                                        std::cout << "On CREE un DARK plane" << std::endl;
+                                    }
+                                    if (receivedType == ne::EntityType::Type::GreenEnnemy) {
+                                        test = fact.createEnnemies("GreenFerry");
+                                        std::cout << "On CREE un GREEN plane" << std::endl;
+                                    }
+                                    if (receivedType == ne::EntityType::Type::OrangeEnnemy) {
+                                        test = fact.createEnnemies("OrangeFerry");
+                                        std::cout << "On CREE un ORANGE plane" << std::endl;
+                                    }
+                                    if (receivedType == ne::EntityType::Type::WhiteEnnemy) {
+                                        test = fact.createEnnemies("WhiteFerry");
+                                        std::cout << "On CREE un WHITE plane" << std::endl;
+                                    }
+                                    test.get()->setTransform(receivedEntity);
+                                    test.get()->setType(receivedType);
+                                    coordinator->addComponent(newEntity, receivedEntity);
+                                    coordinator->addComponent(newEntity, test.get()->getRigidBody());
+                                    coordinator->addComponent(newEntity, ne::Renderable{});
+                                    coordinator->addComponent(newEntity, test.get()->getColor());
+                                    coordinator->addComponent(newEntity, test.get()->getSkin());
+                                    coordinator->addComponent(newEntity, ne::Uid{ receivedUid });
+                                    coordinator->addComponent(newEntity, test.get()->getAlien());
+                                    coordinator->addComponent(newEntity, test.get()->getType());
+                                    coordinator->addComponent(newEntity, test.get()->getPattern());
+                                }
+                            }
+                            break;
+                            case rt::CustomMsgTypes::SendBullets:
+                            {
+                                bool _found = false;
+                                ne::Transform receivedEntity;
+                                ne::Uid receivedUid;
+                                ne::EntityType::Type receivedType;
+                                msg >> receivedType >> receivedUid >> receivedEntity;
+
+                                for (auto& entity : m_entities) {
+                                    if (receivedUid.uid == coordinator->getComponent<ne::Uid>(entity).uid) {
+                                        _found = true;
+                                        auto& t = coordinator->getComponent<ne::Transform>(entity);
+                                        t = receivedEntity;
+                                    }
+                                }
+                            }
+                            break;
+                            case rt::CustomMsgTypes::SendData:
+                            {
                             }
                             break;
                             case rt::CustomMsgTypes::ServerPing:
@@ -90,6 +150,9 @@ namespace rt {
                     }
                 }
             }
+        private:
+            ne::EnnemiesFactory fact;
+            ne::BulletsFactory bullets;
     };
 }
 

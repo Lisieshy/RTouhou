@@ -20,8 +20,7 @@
 #include <NekoEngine/NekoEngine.hpp>
 #include <NyaNet/NyaNet.hpp>
 #include <NyaLog/NyaLog.hpp>
-#include "../../Ennemies/EnnemiesFactory.hpp"
-
+#include "../../Game/Ennemies/EnnemiesFactory.hpp"
 
 class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
 {
@@ -34,13 +33,38 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
         ) -> void
         {
             nn::message<rt::CustomMsgTypes> msg;
-            msg.header.id = rt::CustomMsgTypes::SendData;
             for (auto &entity : m_entities) {
-                auto &transform = coordinator->getComponent<ne::Transform>(entity);
-                auto &rigidBody = coordinator->getComponent<ne::RigidBody>(entity);
-                auto &uid = coordinator->getComponent<ne::Uid>(entity);
-                msg << transform << uid;
-                MessageAllClients(msg);
+                if (coordinator->getComponent<ne::EntityType::Type>(entity) <= ne::EntityType::Type::WhiteEnnemy) {
+                    // if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::BasicEnnemy) {
+                    //     std::cout << "On recoit un BASIC plane" << std::endl;
+                    // }
+                    // if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::DarkEnnemy) {
+                    //     std::cout << "On recoit un DARK plane" << std::endl;
+                    // }
+                    // if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::GreenEnnemy) {
+                    //     std::cout << "On recoit un GREEN plane" << std::endl;
+                    // }
+                    // if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::OrangeEnnemy) {
+                    //     std::cout << "On recoit un ORANGE plane" << std::endl;
+                    // }
+                    // if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::WhiteEnnemy) {
+                    //     std::cout << "On recoit un WHITE plane" << std::endl;
+                    // }
+                    msg.header.id = rt::CustomMsgTypes::SendEnnemies;
+                    auto &transform = coordinator->getComponent<ne::Transform>(entity);
+                    auto &uid = coordinator->getComponent<ne::Uid>(entity);
+                    auto &type = coordinator->getComponent<ne::EntityType::Type>(entity);
+                    msg << transform << uid << type;
+                    MessageAllClients(msg);
+                }
+                else if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::Bullets) {
+                    msg.header.id = rt::CustomMsgTypes::SendBullets;
+                    auto &transform = coordinator->getComponent<ne::Transform>(entity);
+                    auto &uid = coordinator->getComponent<ne::Uid>(entity);
+                    auto &type = coordinator->getComponent<ne::EntityType::Type>(entity);
+                    msg << transform << uid << type;
+                    MessageAllClients(msg);
+                }
             }
         }
 
@@ -95,20 +119,20 @@ auto main(
     char **argv
 ) -> int {
     nl::nyalog.setFilename("Server.log");
-    nl::nyalog.init();
     nl::nyalog.setLogLevel(nl::LogLevel::Fatal);
+    nl::nyalog.init();
     uint32_t entityID = 0;
     ne::Scene testScene;
 
-    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Networkable, ne::Color, ne::Uid, ne::Skin>();
+    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::Networkable, ne::EntityType::Type, ne::Patterns>();
 
-    auto PhysicsSystem = testScene.coordinator->registerSystem<ne::PhysicsSystem>(testScene.coordinator);
+    auto PatternSystem = testScene.coordinator->registerSystem<ne::PatternSystem>(testScene.coordinator);
     {
         ne::Signature signature;
         signature.set(testScene.coordinator->getComponentType<ne::Transform>());
         signature.set(testScene.coordinator->getComponentType<ne::RigidBody>());
-        signature.set(testScene.coordinator->getComponentType<ne::Gravity>());
-        testScene.coordinator->setSystemSignature<ne::PhysicsSystem>(signature);
+        signature.set(testScene.coordinator->getComponentType<ne::Patterns>());
+        testScene.coordinator->setSystemSignature<ne::PatternSystem>(signature);
     }
 
     auto NetworkSystem = testScene.coordinator->registerSystem<CustomServer>(testScene.coordinator);
@@ -130,21 +154,24 @@ auto main(
         if (entityID < 5)
             test = fact.createEnnemies("BasicPlane");
         else if (entityID < 10)
-            test = fact.createEnnemies("DarkBlue");
+            test = fact.createEnnemies("OrangeFerry");
         else if (entityID < 15)
             test = fact.createEnnemies("GreenFerry");
         else if (entityID < 20)
-            test = fact.createEnnemies("OrangeFerry");
-        else
+            test = fact.createEnnemies("DarkBlue");
+        else if (entityID < 25)
             test = fact.createEnnemies("WhiteFerry");
 
-        testScene.coordinator->addComponent(entity, test.get()->getTransform());
-        testScene.coordinator->addComponent(entity, test.get()->getGravity());
-        testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
-        // testScene.coordinator->addComponent(entity, test.get()->getColor());
-        // testScene.coordinator->addComponent(entity, test.get()->getSkin());
-        testScene.coordinator->addComponent(entity, ne::Networkable{});
-        testScene.coordinator->addComponent(entity, ne::Uid{entityID});
+        if (entityID < 25) {
+            testScene.coordinator->addComponent(entity, test.get()->getTransform());
+            testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
+            testScene.coordinator->addComponent(entity, test.get()->getSkin());
+            testScene.coordinator->addComponent(entity, ne::Uid{ entityID });
+            testScene.coordinator->addComponent(entity, test.get()->getAlien());
+            testScene.coordinator->addComponent(entity, test.get()->getType());
+            testScene.coordinator->addComponent(entity, test.get()->getPattern());
+            testScene.coordinator->addComponent(entity, ne::Networkable{});
+        }
         entityID++;
     }
     // std::random_device rd;  //Will be used to obtain a seed for the random number engine
@@ -197,12 +224,12 @@ auto main(
     while (1) {
         auto startTime = std::chrono::high_resolution_clock::now();
         fps++;
+        PatternSystem->update(dt);
         if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::milliseconds{ 20 }) {
             oldTime = std::chrono::high_resolution_clock::now();
             NetworkSystem->SendDataToClients();
             fps = 0;
         }
-        PhysicsSystem->update(dt);
         NetworkSystem->Update(-1, false);
         auto stopTime = std::chrono::high_resolution_clock::now();
         dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
