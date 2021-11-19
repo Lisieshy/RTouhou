@@ -15,6 +15,7 @@
 
 #include "../NekoEngine/include/NekoEngine/NekoEngine.hpp"
 #include "../GlobalTexture/GlobalTexture.hpp"
+#include <../NekoEngine/include/NekoEngine/ECS/Components/Components.hpp>
 #include <../NekoEngine/include/NekoEngine/Math/Vector/Vector.hpp>
 
 #ifndef BULLETS_HPP_
@@ -77,6 +78,13 @@ namespace ne {
             ne::Patterns& getPattern();
 
             /**
+             * @brief Get the Type object
+             * 
+             * @return ne::EntityType::Type&
+             */
+            ne::EntityType::Type& getType();
+
+            /**
              * @brief Set the Transform object
              * 
              * @param ne::Transform 
@@ -117,6 +125,13 @@ namespace ne {
              * @param std::function<ne::Math::Vector3f()>
              */
             void setPattern(std::function<ne::Math::Vector3f()>);
+
+            /**
+             * @brief Set the Type object
+             * 
+             * @param ne::EntityType::Type 
+             */
+            void setType(ne::EntityType::Type newType);
         protected:
         private:
             ne::Transform transform;
@@ -125,6 +140,7 @@ namespace ne {
             ne::Color color;
             ne::Skin skin;
             ne::Patterns pat;
+            ne::EntityType::Type Type;
     };
 }
 

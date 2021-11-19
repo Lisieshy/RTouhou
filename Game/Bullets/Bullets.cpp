@@ -45,6 +45,11 @@ ne::Patterns& ne::Bullets::getPattern()
     return (pat);
 }
 
+ne::EntityType::Type& ne::Bullets::getType()
+{
+    return (Type);
+}
+
 void ne::Bullets::setRigitBody(ne::RigidBody rigid)
 {
     rigidbody = rigid;
@@ -73,4 +78,9 @@ void ne::Bullets::setSkin(ne::Skin sk)
 void ne::Bullets::setPattern(std::function<ne::Math::Vector3f()> func)
 {
     pat.patternFunc = func;
+}
+
+void ne::Bullets::setType(ne::EntityType::Type newType)
+{
+    Type = newType;
 }

@@ -42,9 +42,7 @@ namespace ne {
 
             void GameLoop(float dt);
 
-            void InitScene();
-
-            void setEntity(uint32_t ID);
+            void InitScene(uint32_t &entityID);
 
             std::unordered_map<uint32_t, std::shared_ptr<ne::Ennemies>> EnnemiesAlive;
 

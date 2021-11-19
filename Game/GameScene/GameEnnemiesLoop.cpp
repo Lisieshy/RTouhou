@@ -8,7 +8,7 @@
 #include "GameEnnemiesLoop.hpp"
 
 
-uint32_t ne::GameEnnemiesLoop::update(float dt, uint32_t ID)
+void ne::GameEnnemiesLoop::update(float dt, uint32_t& ID)
 {
     for (auto &entity : m_entities) {
         auto& EnnemiesAlien = coordinator->getComponent<ne::Alien>(entity);
@@ -20,10 +20,9 @@ uint32_t ne::GameEnnemiesLoop::update(float dt, uint32_t ID)
             ID++;
         }
     }
-    return (ID);
 }
 
-void ne::GameEnnemiesLoop::createBullet(ne::Transform EnnemiesPos, uint32_t ID)
+void ne::GameEnnemiesLoop::createBullet(ne::Transform& EnnemiesPos, uint32_t& ID)
 {
     auto NewEntity = coordinator->createEntity();
     std::shared_ptr<ne::Bullets> bull;
@@ -41,7 +40,7 @@ void ne::GameEnnemiesLoop::createBullet(ne::Transform EnnemiesPos, uint32_t ID)
     coordinator->addComponent(NewEntity, bull.get()->getGravity());
     coordinator->addComponent(NewEntity, bull.get()->getRigidBody());
     coordinator->addComponent(NewEntity, ne::Renderable{});
-    coordinator->addComponent(NewEntity, bull.get()->getSkin());
-    coordinator->addComponent(NewEntity, bull.get()->getColor());
+    coordinator->addComponent(NewEntity, bull.get()->getType());
     coordinator->addComponent(NewEntity, ne::Uid { ID });
+    coordinator->addComponent(NewEntity, ne::Networkable{});
 }

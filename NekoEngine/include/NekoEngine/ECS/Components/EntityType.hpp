@@ -17,6 +17,7 @@ namespace ne {
                 GreenEnnemy,
                 OrangeEnnemy,
                 WhiteEnnemy,
+                WhiteBullets, 
                 Bullets,
                 Bonus,
                 Player

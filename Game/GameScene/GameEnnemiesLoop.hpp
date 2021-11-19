@@ -30,9 +30,9 @@ namespace ne {
              * @param float ID (Ennemies ID) 
              * @return uint32_t 
              */
-            uint32_t update(float dt, uint32_t ID);
+            void update(float dt, uint32_t& ID);
 
-            void createBullet(ne::Transform EnnemiesPos, uint32_t ID);
+            void createBullet(ne::Transform& EnnemiesPos, uint32_t& ID);
     };  
 }
 

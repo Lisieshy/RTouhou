@@ -32,12 +32,7 @@ void ne::GameScene::GameLoop(float dt)
 
 }
 
-void ne::GameScene::setEntity(uint32_t ID)
-{
-    entityID = ID;
-}
-
-void ne::GameScene::InitScene()
+void ne::GameScene::InitScene(uint32_t &entityID)
 {
     Game.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::Networkable, ne::EntityType::Type, ne::Patterns>();
 

@@ -35,7 +35,7 @@ auto main(
     std::vector<ne::EntityID> entities(1000);
     ne::GameScene Game(entities);
     ne::EnnemiesFactory fact;
-    Game.InitScene();
+    Game.InitScene(entityID);
 
     /*for (auto entity : entities) {
         entity = Game.Game.coordinator->createEntity();
@@ -65,6 +65,7 @@ auto main(
     while (1) {
         auto startTime = std::chrono::high_resolution_clock::now();
         fps++;
+        Game.EnnemiesLoopSystem->update(dt, entityID);
         Game.PatternSystem->update(dt);
         if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::milliseconds{ 20 }) {
             oldTime = std::chrono::high_resolution_clock::now();
