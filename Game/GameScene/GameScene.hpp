@@ -19,6 +19,7 @@
 #include "../../Game/Ennemies/EnnemiesFactory.hpp"
 #include "../../Game/Bullets/BulletsFactory.hpp"
 #include "../../Server/src/CustomServer.cpp"
+#include <include/PlayerSystem.hpp>
 
 #ifndef GAMESCENE_HPP_
 #define GAMESCENE_HPP_
@@ -50,6 +51,7 @@ namespace ne {
             std::shared_ptr<ne::PatternSystem> PatternSystem;
             std::shared_ptr<ne::GameEnnemiesLoop> EnnemiesLoopSystem;
             std::shared_ptr<CustomServer> NetworkSystem;
+            std::shared_ptr<rt::PlayerSystem> PlayerSystem;
 
             ne::Scene Game;
 

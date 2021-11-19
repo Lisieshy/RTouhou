@@ -51,14 +51,6 @@ auto main(
             test = fact.createEnnemies("DarkBlue");
         else if (entityID < 25)
             test = fact.createEnnemies("WhiteFerry");
-
-        Game.Game.coordinator->addComponent(entity, test.get()->getTransform());
-        Game.Game.coordinator->addComponent(entity, test.get()->getRigidBody());
-        Game.Game.coordinator->addComponent(entity, test.get()->getSkin());
-        Game.Game.coordinator->addComponent(entity, ne::Uid{ entityID });
-        Game.Game.coordinator->addComponent(entity, test.get()->getAlien());
-        Game.Game.coordinator->addComponent(entity, test.get()->getType());
-        Game.Game.coordinator->addComponent(entity, ne::Networkable{});
         entityID++;
         if (entityID == 25)
             break;

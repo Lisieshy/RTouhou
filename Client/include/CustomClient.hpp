@@ -65,6 +65,7 @@ namespace rt {
                                 msg >> receivedType >> receivedUid >> receivedEntity;
 
                                 for (auto& entity : m_entities) {
+                                    std::cout << "Here is the received UID : " << receivedUid.uid << std::endl;
                                     if (receivedUid.uid == coordinator->getComponent<ne::Uid>(entity).uid) {
                                         std::cout << "On update l'entitée : " << entity << std::endl;
                                         _found = true;
@@ -105,6 +106,7 @@ namespace rt {
                                     coordinator->addComponent(newEntity, ne::Uid{ receivedUid });
                                     coordinator->addComponent(newEntity, test.get()->getAlien());
                                     coordinator->addComponent(newEntity, test.get()->getType());
+                                    coordinator->addComponent(newEntity, test.get()->getPattern());
                                 }
                             }
                             break;
