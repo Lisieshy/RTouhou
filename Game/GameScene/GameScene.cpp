@@ -45,7 +45,7 @@ uint32_t ne::GameScene::getEntity()
 
 void ne::GameScene::InitScene()
 {
-    Game.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::EntityType::Type>();
+    Game.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::EntityType::Type, ne::Patterns>();
 
     RenderSystem = Game.coordinator->registerSystem<ne::RenderSystem>(Game.coordinator);
     {

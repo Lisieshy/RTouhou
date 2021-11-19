@@ -35,21 +35,21 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
             nn::message<rt::CustomMsgTypes> msg;
             for (auto &entity : m_entities) {
                 if (coordinator->getComponent<ne::EntityType::Type>(entity) <= ne::EntityType::Type::WhiteEnnemy) {
-                    if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::BasicEnnemy) {
-                        std::cout << "On recoit un BASIC plane" << std::endl;
-                    }
-                    if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::DarkEnnemy) {
-                        std::cout << "On recoit un DARK plane" << std::endl;
-                    }
-                    if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::GreenEnnemy) {
-                        std::cout << "On recoit un GREEN plane" << std::endl;
-                    }
-                    if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::OrangeEnnemy) {
-                        std::cout << "On recoit un ORANGE plane" << std::endl;
-                    }
-                    if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::WhiteEnnemy) {
-                        std::cout << "On recoit un WHITE plane" << std::endl;
-                    }
+                    // if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::BasicEnnemy) {
+                    //     std::cout << "On recoit un BASIC plane" << std::endl;
+                    // }
+                    // if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::DarkEnnemy) {
+                    //     std::cout << "On recoit un DARK plane" << std::endl;
+                    // }
+                    // if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::GreenEnnemy) {
+                    //     std::cout << "On recoit un GREEN plane" << std::endl;
+                    // }
+                    // if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::OrangeEnnemy) {
+                    //     std::cout << "On recoit un ORANGE plane" << std::endl;
+                    // }
+                    // if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::WhiteEnnemy) {
+                    //     std::cout << "On recoit un WHITE plane" << std::endl;
+                    // }
                     msg.header.id = rt::CustomMsgTypes::SendEnnemies;
                     auto &transform = coordinator->getComponent<ne::Transform>(entity);
                     auto &uid = coordinator->getComponent<ne::Uid>(entity);
@@ -169,6 +169,7 @@ auto main(
             testScene.coordinator->addComponent(entity, ne::Uid{ entityID });
             testScene.coordinator->addComponent(entity, test.get()->getAlien());
             testScene.coordinator->addComponent(entity, test.get()->getType());
+            testScene.coordinator->addComponent(entity, test.get()->getPattern());
             testScene.coordinator->addComponent(entity, ne::Networkable{});
         }
         entityID++;
