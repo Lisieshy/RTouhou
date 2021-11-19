@@ -123,7 +123,6 @@ namespace rt {
                                         auto newEntity = coordinator->createEntity();
                                         std::shared_ptr<ne::Bullets> bulletsCreated;
 
-                                        std::cout << "BULLET CREATED" << std::endl;
                                         bulletsCreated = bullets.createBullets("BasicWhiteBullets");
                                         bulletsCreated.get()->setTransform(receivedEntity);
                                         bulletsCreated.get()->setType(receivedType);

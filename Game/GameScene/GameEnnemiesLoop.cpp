@@ -43,4 +43,5 @@ void ne::GameEnnemiesLoop::createBullet(ne::Transform& EnnemiesPos, uint32_t& ID
     coordinator->addComponent(NewEntity, bull.get()->getType());
     coordinator->addComponent(NewEntity, ne::Uid { ID });
     coordinator->addComponent(NewEntity, ne::Networkable{});
+    coordinator->addComponent(NewEntity, bull.get()->getPattern());
 }

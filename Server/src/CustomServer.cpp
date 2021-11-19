@@ -54,7 +54,6 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
                     auto &uid = coordinator->getComponent<ne::Uid>(entity);
                     auto &type = coordinator->getComponent<ne::EntityType::Type>(entity);
                     msg << transform << uid << type;
-                    std::cout << "We are sending bullet n°" << entity << std::endl;
                     MessageAllClients(msg);
                 }
             }
