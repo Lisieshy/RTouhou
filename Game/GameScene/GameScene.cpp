@@ -27,9 +27,9 @@ ne::GameScene::~GameScene()
 {
 }
 
-void ne::GameScene::GameLoop(float dt)
+void ne::GameScene::GameLoop(float& dt, uint32_t& ID)
 {
-
+    Wave.WaveLoop(dt, ID, Game.coordinator);
 }
 
 void ne::GameScene::InitScene(uint32_t &entityID)
@@ -63,7 +63,7 @@ void ne::GameScene::InitScene(uint32_t &entityID)
         Game.coordinator->setSystemSignature<CustomServer>(signature);
     }
     
-    for (auto entity : entities) {
+    /*for (auto entity : entities) {
         entity = Game.coordinator->createEntity();
         std::shared_ptr<ne::Ennemies> test;
 
@@ -88,6 +88,6 @@ void ne::GameScene::InitScene(uint32_t &entityID)
         entityID++;
         if (entityID == 10)
             break;
-    }
+    }*/
 
 }

@@ -7,33 +7,9 @@
 
 #include "Waves1.hpp"
 
-ne::Waves1::Waves1(uint32_t ID, std::shared_ptr<ne::Coordinator> coordinator)
+ne::Waves1::Waves1()
 {
-    ne::Transform trans;
 
-    trans.rotation = {0.f, 0.f, 0.f};
-    trans.scale = {0.f, 0.f, 0.f};
-    for (int y = 0; y < 3; y++) {
-        for (int i = 0; i < 7; i++) {
-            std::shared_ptr<ne::Ennemies> ennemies;
-            auto NewEntity = coordinator->createEntity();
-
-            trans.position.x = 25;
-            trans.position.y = y * 50;
-            trans.position.x += 120 * i;
-            trans.position.z = 0;
-            ennemies = factory.createEnnemies("BasicPlane");
-            coordinator->addComponent(NewEntity, trans);
-            coordinator->addComponent(NewEntity, ennemies.get()->getGravity());
-            coordinator->addComponent(NewEntity, ennemies.get()->getRigidBody());
-            coordinator->addComponent(NewEntity, ne::Renderable{});
-            coordinator->addComponent(NewEntity, ennemies.get()->getSkin());
-            coordinator->addComponent(NewEntity, ennemies.get()->getColor());
-            coordinator->addComponent(NewEntity, ne::Uid { ID });
-            coordinator->addComponent(NewEntity, ennemies.get()->getAlien());
-            coordinator->addComponent(NewEntity, ne::Networkable{});  
-        }
-    }
 }
 
 ne::Waves1::~Waves1()
@@ -41,3 +17,33 @@ ne::Waves1::~Waves1()
 
 }
 
+void ne::Waves1::LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coordinator)
+{
+    ne::Transform trans;
+
+    trans.rotation = {0.f, 0.f, 0.f};
+    trans.scale = {0.f, 0.f, 0.f};
+    trans.position.y = 1;
+    for (int y = 0; y < 3; y++) {
+        trans.position.y += 50;
+        for (int i = 0; i < 7; i++) {
+            std::shared_ptr<ne::Ennemies> ennemies;
+            auto NewEntity = coordinator->createEntity();
+
+            trans.position.x = 25;
+            trans.position.x += 120 * i;
+            trans.position.z = 0;
+            ennemies = factory.createEnnemies("BasicPlane");
+            coordinator->addComponent(NewEntity, trans);
+            coordinator->addComponent(NewEntity, ennemies.get()->getGravity());
+            coordinator->addComponent(NewEntity, ennemies.get()->getRigidBody());
+            coordinator->addComponent(NewEntity, ne::Renderable{});
+            coordinator->addComponent(NewEntity, ne::Uid { ID });
+            coordinator->addComponent(NewEntity, ennemies.get()->getAlien());
+            coordinator->addComponent(NewEntity, ne::Networkable{});  
+            coordinator->addComponent(NewEntity, ennemies.get()->getType());  
+            coordinator->addComponent(NewEntity, ennemies.get()->getPattern());  
+            ID++;
+        }
+    }
+}

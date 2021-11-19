@@ -37,25 +37,6 @@ auto main(
     ne::EnnemiesFactory fact;
     Game.InitScene(entityID);
 
-    /*for (auto entity : entities) {
-        entity = Game.Game.coordinator->createEntity();
-        std::shared_ptr<ne::Ennemies> test;
-
-        if (entityID < 5)
-            test = fact.createEnnemies("BasicPlane");
-        else if (entityID < 10)
-            test = fact.createEnnemies("OrangeFerry");
-        else if (entityID < 15)
-            test = fact.createEnnemies("GreenFerry");
-        else if (entityID < 20)
-            test = fact.createEnnemies("DarkBlue");
-        else if (entityID < 25)
-            test = fact.createEnnemies("WhiteFerry");
-        entityID++;
-        if (entityID == 25)
-            break;
-    }*/
-
     Game.NetworkSystem->Start();
 
     auto oldTime = std::chrono::high_resolution_clock::now();
@@ -65,6 +46,7 @@ auto main(
     while (1) {
         auto startTime = std::chrono::high_resolution_clock::now();
         fps++;
+        Game.GameLoop(dt, entityID);
         Game.EnnemiesLoopSystem->update(dt, entityID);
         Game.PatternSystem->update(dt);
         if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::milliseconds{ 20 }) {

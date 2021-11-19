@@ -60,7 +60,7 @@ ne::ClientGame::ClientGame()
     ClientGameScene.coordinator->addComponent(player, ne::Renderable{});
     ClientGameScene.coordinator->addComponent(player, ne::Color{ 255, 255, 255, 255 });
     ClientGameScene.coordinator->addComponent(player, playerSkin);
-    ClientGameScene.coordinator->addComponent(player, ne::Uid{1500});
+    ClientGameScene.coordinator->addComponent(player, ne::  Uid{1500});
     ClientSystem->Connect("127.0.0.1", 60000);
 
     music.openFromFile("resources/Music_SoundEffect/MainGameMusic.ogg");

@@ -48,7 +48,7 @@ ne::BasicPlane::BasicPlane()
     ne::EntityType::Type newType = ne::EntityType::Type::BasicEnnemy;
     setType(newType);
 
-    setPattern(std::bind(&ne::Patterns::rightToLeftPattern, &this->getPattern()));
+    setPattern(std::bind(&ne::Patterns::topToBotPattern, &this->getPattern()));
 }
 
 ne::BasicPlane::~BasicPlane()

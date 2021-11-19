@@ -19,6 +19,7 @@
 #include "../../Game/Ennemies/EnnemiesFactory.hpp"
 #include "../../Game/Bullets/BulletsFactory.hpp"
 #include "../../Server/src/CustomServer.cpp"
+#include "../Waves/Wave.hpp"
 #include <include/PlayerSystem.hpp>
 
 #ifndef GAMESCENE_HPP_
@@ -40,7 +41,7 @@ namespace ne {
              */
             ~GameScene();
 
-            void GameLoop(float dt);
+            void GameLoop(float& dt, u_int32_t& ID);
 
             void InitScene(uint32_t &entityID);
 
@@ -59,6 +60,8 @@ namespace ne {
             ne::BulletsFactory bullets;
 
             uint32_t entityID = 0;
+
+            ne::Wave Wave;
         protected:
         private:
     };
