@@ -16,9 +16,6 @@ namespace ne {
             ~Menu();
 
             ne::Transform getTransform();
-            ne::Gravity getGravity();
-            ne::RigidBody getRigidBody();
-            ne::Color getColor();
             ne::Skin getSkin();
             ne::Scene getScene();
 

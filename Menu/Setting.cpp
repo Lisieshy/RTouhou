@@ -23,25 +23,6 @@ ne::Transform ne::Setting::getTransform()
     return (transf);
 }
 
-ne::Gravity ne::Setting::getGravity()
-{
-    ne::Gravity grav;
-    return (grav);
-}
-
-ne::RigidBody ne::Setting::getRigidBody()
-{
-    ne::RigidBody rigid;
-    return (rigid);
-}
-
-ne::Color ne::Setting::getColor()
-{
-    ne::Color temp;
-    temp = {0, 0, 0, 0};
-    return (temp);   
-}
-
 ne::Skin ne::Setting::getSkin()
 {
     ne::Skin skin;
@@ -54,15 +35,13 @@ ne::Skin ne::Setting::getSkin()
 
 ne::Scene ne::Setting::getScene()
 {
-    scene.coordinator->registerComponent<ne::Transform, ne::Renderable, ne::Color, ne::Skin, ne::But>();
+    scene.coordinator->registerComponent<ne::Transform, ne::Renderable, ne::Skin, ne::But>();
     Rendering = scene.coordinator->registerSystem<ne::RenderSystem>(scene.coordinator);
     {
         ne::Signature sign;
         sign.set(scene.coordinator->getComponentType<ne::Transform>());
         sign.set(scene.coordinator->getComponentType<ne::Renderable>());
-        sign.set(scene.coordinator->getComponentType<ne::Color>());
         sign.set(scene.coordinator->getComponentType<ne::Skin>());
-        //scene.coordinator->setSystemSignature<ne::RenderSystem>(sign);
     }
     MouseSys = scene.coordinator->registerSystem<ne::MouseSystem>(scene.coordinator);
     {
@@ -79,7 +58,6 @@ ne::Scene ne::Setting::getScene()
     size_t i = 0;
     auto gorboulut = scene.coordinator->createEntity();
     scene.coordinator->addComponent(gorboulut, getTransform());
-    scene.coordinator->addComponent(gorboulut, getColor());
     scene.coordinator->addComponent(gorboulut, getSkin());
     for (auto entity: entities) {
         entity = scene.coordinator->createEntity();
