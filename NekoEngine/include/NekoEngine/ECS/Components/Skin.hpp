@@ -5,6 +5,16 @@
 ** Skin
 */
 
+
+/**
+ * @file        Skin.hpp
+ * @brief       Skin component
+ * @details     ECS are fun, ECS are life.
+ * @author      Tom Wederich (@TheGorb)
+ * @date        13/11/2021
+ */
+
+
 #include <SFML/Graphics.hpp>
 #ifndef SKIN_HPP_
 #define SKIN_HPP_

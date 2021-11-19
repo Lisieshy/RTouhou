@@ -24,6 +24,9 @@
 
 #include <NyaLog/NyaLog.hpp>
 #include <include/CustomClient.hpp>
+#include "../../Menu/Menu.hpp"
+#include "../../Menu/Buttons.hpp"
+#include "../../Menu/Setting.hpp"
 #include "../include/ClientGame.hpp"
 #include "../../Game/Ennemies/EnnemiesFactory.hpp"
 #include "../../Game/Bullets/BulletsFactory.hpp"
@@ -39,13 +42,19 @@ auto main(
     nl::nyalog.init();
     nl::nyalog(nl::LogLevel::Info, "R-Touhou! Configuring everything... Please wait!");
 
+    rt::CustomClient c;
+    c.Connect("127.0.0.1", 60000);
+
     std::vector<ne::EntityID> entities(1000);
+    int i = 0;
     ne::ClientGame ClientGame;
     ne::Graphics::Window::open();
-
     int fps = 0;
     auto oldTime = std::chrono::high_resolution_clock::now();
     float dt = 0.0f;
+    //ne::Menu menu(entities);
+    ne::Setting sett(entities);
+    sett.InitScene();
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
         auto startTime = std::chrono::high_resolution_clock::now();
@@ -53,10 +62,13 @@ auto main(
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
-        ClientGame.RenderSystem->update();
-        ClientGame.ClientSystem->OnMessage();
-        ClientGame.PlayerSystem->update(dt);
-
+        sett.RenderBackground->update();
+        sett.MouseSys->update();
+        sett.TextSys->update();
+        sett.Rendering->update();
+//        sett.Rendering->update();
+        //ClientGame.ClientSystem->OnMessage();
+        //ClientGame.PlayerSystem->update(dt);
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";
             oldTime = std::chrono::high_resolution_clock::now();
