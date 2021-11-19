@@ -8,5 +8,9 @@ namespace rt {
         ServerPing,
         MessageAll,
         ServerMessage,
+        SendData,
+        
+        SendEnnemies,
+        SendBullets,
     };
 }

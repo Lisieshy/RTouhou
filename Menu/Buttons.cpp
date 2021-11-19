@@ -9,9 +9,8 @@
 
 ne::Buttons::Buttons(const std::string &_name, const std::string &path, ne::Math::Vector2u pos)
 {
-    if (!skin.texture.loadFromFile(path))
-        throw std::runtime_error("Error, couldn't load " + path);
-    skin.sprite.setTexture(skin.texture);
+    skin.texture = ne::GlobalTexture::Instance().GetData(path);
+    skin.sprite.setTexture(ne::GlobalTexture::Instance().GetData(path));
     skin.sprite.setTextureRect(sf::IntRect(0, 0, skin.texture.getSize().x / 2, skin.texture.getSize().y));
     skin.sprite.setScale({1.5, 1.5});
     but.name = _name;

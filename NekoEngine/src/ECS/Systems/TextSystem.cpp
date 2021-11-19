@@ -16,8 +16,6 @@ void ne::TextSystem::update()
         auto& transform = coordinator->getComponent<ne::Transform>(entity);
         auto& text = coordinator->getComponent<ne::Textinfo>(entity);
         ne::Graphics::Window::draw(text);
-        std::cout << "yo" << std::endl;
     }
-    std::cout << "segv" << std::endl;
     ne::Graphics::Window::display();
 }

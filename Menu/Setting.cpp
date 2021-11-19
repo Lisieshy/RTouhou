@@ -27,20 +27,19 @@ ne::Transform ne::Setting::getTransform()
 ne::Skin ne::Setting::getSkin()
 {
     ne::Skin skin;
-    if (!skin.texture.loadFromFile("resources/menu.png"))
-        throw std::runtime_error("Error, couldn't load resources/bg.jpg");
-    skin.sprite.setTexture(skin.texture);
+    skin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/menu.png"));
     skin.sprite.setScale({1.5, 1.5});
     return (skin);
 }
 
-ne::Scene ne::Setting::getScene()
+void ne::Setting::InitScene()
 {
     scene.coordinator->registerComponent<ne::Transform, ne::Renderable, ne::Skin, ne::But, ne::Textinfo>();
     Rendering = scene.coordinator->registerSystem<ne::RenderSystem>(scene.coordinator);
     {
         ne::Signature sign;
         sign.set(scene.coordinator->getComponentType<ne::Transform>());
+        sign.set(scene.coordinator->getComponentType<ne::Renderable>());
         sign.set(scene.coordinator->getComponentType<ne::Skin>());
         scene.coordinator->setSystemSignature<ne::RenderSystem>(sign); 
     }
@@ -68,17 +67,21 @@ ne::Scene ne::Setting::getScene()
     auto gorboulut = scene.coordinator->createEntity();
     scene.coordinator->addComponent(gorboulut, getTransform());
     scene.coordinator->addComponent(gorboulut, getSkin());
+    scene.coordinator->addComponent(gorboulut, ne::Renderable{});
+
     auto gorb = scene.coordinator->createEntity();
     scene.coordinator->addComponent(gorb, my_text.getTransform());
     scene.coordinator->addComponent(gorb, my_text.getTextInfo());
+    scene.coordinator->addComponent(gorb, ne::Renderable{});
+
     for (auto entity: entities) {
         entity = scene.coordinator->createEntity();
         scene.coordinator->addComponent(entity, usine.at(i).getTransform());
         scene.coordinator->addComponent(entity, usine.at(i).getSkin());
         scene.coordinator->addComponent(entity, usine.at(i).getBut());
+        scene.coordinator->addComponent(entity, ne::Renderable{});
         i++;
         if (usine.size() == i)
             break;
     }
-    return (scene);
 }

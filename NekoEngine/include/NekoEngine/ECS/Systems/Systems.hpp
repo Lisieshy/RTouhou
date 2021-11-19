@@ -18,8 +18,8 @@
 
 #include "NekoEngine/ECS/Systems/TimerSystem.hpp"
 #include "NekoEngine/ECS/Systems/RenderSystem.hpp"
-#include "NekoEngine/ECS/Systems/PhysicsSystem.hpp"
 #include "NekoEngine/ECS/Systems/MouseSystem.hpp"
 #include "NekoEngine/ECS/Systems/TextSystem.hpp"
+#include "NekoEngine/ECS/Systems/PatternSystem.hpp"
 
 #endif /* !SYSTEMS_HPP_ */

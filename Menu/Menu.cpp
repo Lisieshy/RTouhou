@@ -21,9 +21,7 @@ ne::Menu::~Menu()
 ne::Skin ne::Menu::getSkin()
 {
     ne::Skin skin;
-    if (!skin.texture.loadFromFile("resources/menu.png"))
-        throw std::runtime_error("Error, couldn't load resources/bg.jpg");
-    skin.sprite.setTexture(skin.texture);
+    skin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/menu.png"));
     skin.sprite.setScale({1.5, 1.5});
     return (skin);
 }

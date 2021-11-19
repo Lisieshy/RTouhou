@@ -17,7 +17,7 @@ namespace ne {
 
             ne::Transform getTransform();
             ne::Skin getSkin();
-            ne::Scene getScene();
+            void InitScene();
 
             std::shared_ptr<ne::RenderSystem> Rendering;
             std::shared_ptr<ne::MouseSystem> MouseSys;

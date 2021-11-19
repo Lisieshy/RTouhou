@@ -67,23 +67,22 @@ bool ne::Graphics::Window::isOpen() {
     return impl && impl->i_window.isOpen();
 }
 
-void ne::Graphics::Window::pollEvent(rt::CustomClient &client) {
+void ne::Graphics::Window::pollEvent(std::shared_ptr<rt::CustomClient> client) {
     for (auto event = sf::Event{}; impl->i_window.pollEvent(event);) {
         if (event.type == sf::Event::Closed) {
             impl->shouldClose = true;
         }
         if (event.type == sf::Event::KeyPressed) {
-            nl::nyalog(nl::LogLevel::Info, "Pressed !");
-                client.PingServer();
             if (event.key.code == sf::Keyboard::Key::Escape) {
+                impl->shouldClose = true;
             }
-            if (event.key.code == sf::Keyboard::Key::A) {
-                nl::nyalog(nl::LogLevel::Info, "Pressed A!");
-                client.PingServer();
+            if (event.key.code == sf::Keyboard::Key::P) {
+                nl::nyalog(nl::LogLevel::Info, "Pressed P!");
+                client->PingServer();
             }   
-            if (event.key.code == sf::Keyboard::Key::Z) {
-                nl::nyalog(nl::LogLevel::Info, "Pressed Z!");
-                client.MessageAll();
+            if (event.key.code == sf::Keyboard::Key::M) {
+                nl::nyalog(nl::LogLevel::Info, "Pressed M!");
+                client->MessageAll();
             }
         }
         impl->isClicked = false;
@@ -144,7 +143,6 @@ void ne::Graphics::Window::drawRectangle(ne::Transform& transform, ne::Color& co
 void ne::Graphics::Window::draw(ne::Skin skin, ne::Transform transform)
 {
     skin.sprite.move({transform.position.x, transform.position.y});
-    skin.sprite.setTexture(skin.texture);
     impl->i_window.draw(skin.sprite);
 }
 

@@ -13,77 +13,70 @@
  * @date        07/11/2021
  */
 
+#include <random>
+#include <chrono>
+#include <sstream>
+#include <iostream>
+#include <NekoEngine/NekoEngine.hpp>
 #include <NyaNet/NyaNet.hpp>
 #include <NyaLog/NyaLog.hpp>
-#include <iostream>
-
-class CustomServer : public nn::IServer<rt::CustomMsgTypes>
-{
-    public:
-        CustomServer(uint16_t nPort) : nn::IServer<rt::CustomMsgTypes>(nPort)
-        {
-        }
-
-    protected:
-        virtual bool OnClientConnect(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client)
-        {
-            nn::message<rt::CustomMsgTypes> msg;
-            msg.header.id = rt::CustomMsgTypes::ServerAccept;
-            client->Send(msg);
-            return true;
-        }
-
-        virtual void OnClientDisconnect(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client)
-        {
-            std::stringstream ss;
-            ss << "Removing client [" << client->GetID() << "]";
-            nl::nyalog(nl::LogLevel::Info, ss.str());
-        }
-
-        virtual void OnMessage(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client, nn::message<rt::CustomMsgTypes> &msg)
-        {
-            switch (msg.header.id) {
-            case rt::CustomMsgTypes::ServerPing:
-                {
-                    std::stringstream ss;
-                    ss << "[" << client->GetID() << "]: Server Ping";
-                    nl::nyalog(nl::LogLevel::Info, ss.str());
-
-                    client->Send(msg);
-                }
-            break;
-            case rt::CustomMsgTypes::MessageAll:
-                {
-                    std::stringstream ss;
-                    ss << "[" << client->GetID() << "]: Message All";
-                    nl::nyalog(nl::LogLevel::Info, ss.str());
-
-                    nn::message<rt::CustomMsgTypes> msg;
-                    msg.header.id = rt::CustomMsgTypes::ServerMessage;
-                    msg << client->GetID();
-                    MessageAllClients(msg, client);
-                }
-            break;
-            }
-        }
-};
+#include "../../Game/Ennemies/EnnemiesFactory.hpp"
+#include "../../Game/GameScene/GameScene.hpp"
 
 auto main(
     int argc,
     char **argv
 ) -> int {
     nl::nyalog.setFilename("Server.log");
-    nl::nyalog.init();
     nl::nyalog.setLogLevel(nl::LogLevel::Fatal);
+    nl::nyalog.init();
+    uint32_t entityID = 0;
 
-    CustomServer server(60000);
+    std::vector<ne::EntityID> entities(1000);
+    ne::GameScene Game(entities);
+    ne::EnnemiesFactory fact;
+    Game.InitScene();
 
-    server.Start();
+    /*for (auto entity : entities) {
+        entity = Game.Game.coordinator->createEntity();
+        std::shared_ptr<ne::Ennemies> test;
 
-    while (1)
-    {
-        server.Update(-1, true);
+        if (entityID < 5)
+            test = fact.createEnnemies("BasicPlane");
+        else if (entityID < 10)
+            test = fact.createEnnemies("OrangeFerry");
+        else if (entityID < 15)
+            test = fact.createEnnemies("GreenFerry");
+        else if (entityID < 20)
+            test = fact.createEnnemies("DarkBlue");
+        else if (entityID < 25)
+            test = fact.createEnnemies("WhiteFerry");
+        entityID++;
+        if (entityID == 25)
+            break;
+    }*/
+
+    Game.NetworkSystem->Start();
+
+    auto oldTime = std::chrono::high_resolution_clock::now();
+    float dt = 0.0f;
+    int fps = 0;
+
+    while (1) {
+        auto startTime = std::chrono::high_resolution_clock::now();
+        fps++;
+        Game.PatternSystem->update(dt);
+        if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::milliseconds{ 20 }) {
+            oldTime = std::chrono::high_resolution_clock::now();
+            Game.NetworkSystem->SendDataToClients();
+            fps = 0;
+        }
+        Game.NetworkSystem->Update(-1, false);
+        auto stopTime = std::chrono::high_resolution_clock::now();
+        dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
     }
+
+    Game.NetworkSystem->Stop();
 
     nl::nyalog.stop();
     return 0;
