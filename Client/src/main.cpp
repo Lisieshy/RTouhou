@@ -24,6 +24,7 @@
 
 #include <NyaLog/NyaLog.hpp>
 #include <include/CustomClient.hpp>
+#include "../include/ClientGame.hpp"
 #include "../../Game/Ennemies/EnnemiesFactory.hpp"
 #include "../../Game/Bullets/BulletsFactory.hpp"
 #include "../../Game/GameScene/GameScene.hpp"
@@ -39,9 +40,7 @@ auto main(
     nl::nyalog(nl::LogLevel::Info, "R-Touhou! Configuring everything... Please wait!");
 
     std::vector<ne::EntityID> entities(1000);
-    ne::GameScene Game(entities);
-    Game.InitScene();
-    uint32_t ID = Game.getEntity();
+    ne::ClientGame ClientGame;
     ne::Graphics::Window::open();
 
     int fps = 0;
@@ -50,16 +49,14 @@ auto main(
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
         auto startTime = std::chrono::high_resolution_clock::now();
-        ne::Graphics::Window::pollEvent(Game.ClientSystem);
+        ne::Graphics::Window::pollEvent(ClientGame.ClientSystem);
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
-        Game.GameLoop(dt);
+        ClientGame.RenderSystem->update();
+        ClientGame.ClientSystem->OnMessage();
         Game.PlayerSystem->update(dt);
-        ID = Game.EnnemiesLoopSystem->update(dt, ID);
-        Game.setEntity(ID);
-        Game.RenderSystem->update();
-        Game.ClientSystem->OnMessage();
+
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";
             oldTime = std::chrono::high_resolution_clock::now();

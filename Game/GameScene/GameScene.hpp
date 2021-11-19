@@ -13,7 +13,12 @@
  */
 
 #include <unordered_map>
+#include <NekoEngine/NekoEngine.hpp>
+#include <NyaNet/NyaNet.hpp>
 #include "GameEnnemiesLoop.hpp"
+#include "../../Game/Ennemies/EnnemiesFactory.hpp"
+#include "../../Game/Bullets/BulletsFactory.hpp"
+#include "../../Server/src/CustomServer.cpp"
 #include <include/PlayerSystem.hpp>
 
 #ifndef GAMESCENE_HPP_
@@ -27,7 +32,7 @@ namespace ne {
              * 
              * @param Entity 
              */
-            GameScene(std::vector<ne::EntityID>& Entity);
+            GameScene(std::vector<ne::EntityID> &);
 
             /**
              * @brief Destroy the Game Scene object
@@ -41,14 +46,11 @@ namespace ne {
 
             void setEntity(uint32_t ID);
 
-            uint32_t getEntity();
-
             std::unordered_map<uint32_t, std::shared_ptr<ne::Ennemies>> EnnemiesAlive;
 
-            std::shared_ptr<ne::RenderSystem> RenderSystem;
             std::shared_ptr<ne::PatternSystem> PatternSystem;
-            std::shared_ptr<rt::CustomClient> ClientSystem;
             std::shared_ptr<ne::GameEnnemiesLoop> EnnemiesLoopSystem;
+            std::shared_ptr<CustomServer> NetworkSystem;
             std::shared_ptr<rt::PlayerSystem> PlayerSystem;
 
             ne::Scene Game;
@@ -59,7 +61,6 @@ namespace ne {
             ne::BulletsFactory bullets;
 
             uint32_t entityID = 0;
-            size_t a = 99;
         protected:
         private:
     };
