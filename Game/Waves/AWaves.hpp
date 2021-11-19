@@ -18,7 +18,7 @@ namespace ne {
             bool IsWaveFinished(float dt);
             void LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coordinator);
 
-            float WaveTime = 30.0f;
+            float WaveTime = 15.0f;
         protected:
         private:
     };

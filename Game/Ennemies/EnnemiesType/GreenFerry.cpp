@@ -48,7 +48,7 @@ ne::GreenFerry::GreenFerry()
     ne::EntityType::Type newType = ne::EntityType::Type::GreenEnnemy;
     setType(newType);
 
-    setPattern(std::bind(&ne::Patterns::leftToRightPattern, &this->getPattern()));
+    setPattern(std::bind(&ne::Patterns::rightToLeftPattern, &this->getPattern()));
 }
 
 ne::GreenFerry::~GreenFerry()

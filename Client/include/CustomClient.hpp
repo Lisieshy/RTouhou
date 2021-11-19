@@ -63,11 +63,8 @@ namespace rt {
                                 ne::Uid receivedUid;
                                 ne::EntityType::Type receivedType;
                                 msg >> receivedType >> receivedUid >> receivedEntity;
-
-                                    std::cout << "Entity n°" << receivedUid.uid << std::endl;
                                 for (auto& entity : m_entities) {
                                     if (receivedUid.uid == coordinator->getComponent<ne::Uid>(entity).uid) {
-                                        std::cout << "On update l'entitée : " << entity << std::endl;
                                         _found = true;
                                         auto& t = coordinator->getComponent<ne::Transform>(entity);
                                         t = receivedEntity;

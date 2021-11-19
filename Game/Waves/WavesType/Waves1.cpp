@@ -23,9 +23,9 @@ void ne::Waves1::LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coo
 
     trans.rotation = {0.f, 0.f, 0.f};
     trans.scale = {0.f, 0.f, 0.f};
-    trans.position.y = 1;
+    trans.position.y = 0;
     for (int y = 0; y < 3; y++) {
-        trans.position.y += 50;
+        trans.position.y += 40;
         for (int i = 0; i < 7; i++) {
             std::shared_ptr<ne::Ennemies> ennemies;
             auto NewEntity = coordinator->createEntity();

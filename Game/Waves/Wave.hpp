@@ -17,7 +17,9 @@ namespace ne {
             ~Wave();
             void WaveLoop(float& dt, uint32_t& ID, std::shared_ptr<ne::Coordinator>& coordinator);
 
-            float time;
+            ne::Waves1 firstWave;
+            ne::Waves2 secondWave;
+            ne::Waves3 ThirdWave;
         protected:
         private:
     };

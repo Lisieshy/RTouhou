@@ -39,7 +39,7 @@ auto main(
     nl::nyalog.init();
     nl::nyalog(nl::LogLevel::Info, "R-Touhou! Configuring everything... Please wait!");
 
-    std::vector<ne::EntityID> entities(1000);
+    std::vector<ne::EntityID> entities(10000);
     ne::ClientGame ClientGame;
     ne::Graphics::Window::open();
 

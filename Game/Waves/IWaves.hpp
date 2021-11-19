@@ -9,6 +9,7 @@
 #define IWAVES_HPP_
 
 #include "NekoEngine/ECS/System.hpp"
+#include <iostream>
 
 namespace ne {
     class IWaves {

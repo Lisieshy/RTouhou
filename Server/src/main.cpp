@@ -32,7 +32,7 @@ auto main(
     nl::nyalog.init();
     uint32_t entityID = 0;
 
-    std::vector<ne::EntityID> entities(1000);
+    std::vector<ne::EntityID> entities(10000);
     ne::GameScene Game(entities);
     ne::EnnemiesFactory fact;
     Game.InitScene(entityID);

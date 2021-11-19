@@ -6,3 +6,5 @@
 */
 
 #include "Waves1.hpp"
+#include "Waves2.hpp"
+#include "Waves3.hpp"
