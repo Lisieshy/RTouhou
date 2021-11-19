@@ -15,6 +15,7 @@
 #include "HitPoint.hpp"
 #include "../NekoEngine/include/NekoEngine/NekoEngine.hpp"
 #include <../NekoEngine/include/NekoEngine/Math/Vector/Vector.hpp>
+#include <../NekoEngine/include/NekoEngine/ECS/Components/Components.hpp>
 #include <functional>
 #include "../GlobalTexture/GlobalTexture.hpp"
 
@@ -43,44 +44,44 @@ namespace ne {
             /**
              * @brief Get the Transform object
              * 
-             * @return ne::Transform 
+             * @return ne::Transform& 
              */
-            ne::Transform getTransform();
+            ne::Transform& getTransform();
 
             /**
              * @brief Get the Gravity object
              * 
-             * @return ne::Gravity 
+             * @return ne::Gravity& 
              */
-            ne::Gravity getGravity();
+            ne::Gravity& getGravity();
 
             /**
              * @brief Get the Rigid Body object
              * 
-             * @return ne::RigidBody 
+             * @return ne::RigidBody& 
              */
-            ne::RigidBody getRigidBody();
+            ne::RigidBody& getRigidBody();
 
             /**
              * @brief Get the Color object
              * 
-             * @return ne::Color 
+             * @return ne::Color& 
              */
-            ne::Color getColor();
+            ne::Color& getColor();
 
             /**
              * @brief Get the Skin object
              * 
-             * @return ne::Skin 
+             * @return ne::Skin&
              */
-            ne::Skin getSkin();
+            ne::Skin& getSkin();
 
             /**
              * @brief Get the Alien object
              * 
-             * @return ne::Alien 
+             * @return ne::Alien&
              */
-            ne::Alien getAlien();
+            ne::Alien& getAlien();
 
             /**
              * @brief Get the Pattern object
@@ -88,6 +89,13 @@ namespace ne {
              * @return ne::Patterns& 
              */
             ne::Patterns& getPattern();
+
+            /**
+             * @brief Get the Type object
+             * 
+             * @return ne::EntityType::Type& 
+             */
+            ne::EntityType::Type& getType();
 
             /**
              * @brief Set the Transform object
@@ -137,6 +145,13 @@ namespace ne {
              * @param std::function<ne::Math::Vector3f()>
              */
             void setPattern(std::function<ne::Math::Vector3f()>);
+
+            /**
+             * @brief Set the Type of the object
+             * 
+             * @param ne::EntityType::Type
+             */
+            void setType(ne::EntityType::Type);
         protected:
         private:
             ne::Patterns pat;
@@ -146,6 +161,7 @@ namespace ne {
             ne::Color color;
             ne::Skin skin;
             ne::Alien alien;
+            ne::EntityType::Type type;
     };
 }
 

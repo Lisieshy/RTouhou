@@ -15,12 +15,12 @@ ne::Ennemies::~Ennemies()
 {
 }
 
-ne::Transform ne::Ennemies::getTransform()
+ne::Transform& ne::Ennemies::getTransform()
 {
     return (transform);
 }
 
-ne::Gravity ne::Ennemies::getGravity()
+ne::Gravity& ne::Ennemies::getGravity()
 {
     return (gravity);
 }
@@ -30,22 +30,27 @@ ne::Patterns& ne::Ennemies::getPattern()
     return (pat);
 }
 
-ne::RigidBody ne::Ennemies::getRigidBody()
+ne::RigidBody& ne::Ennemies::getRigidBody()
 {
     return (rigidbody);
 }
 
-ne::Color ne::Ennemies::getColor()
+ne::Color& ne::Ennemies::getColor()
 {
     return (color);
 }
 
-ne::Skin ne::Ennemies::getSkin()
+ne::Skin& ne::Ennemies::getSkin()
 {
     return (skin);
 }
 
-ne::Alien ne::Ennemies::getAlien()
+ne::EntityType::Type& ne::Ennemies::getType()
+{
+    return (type);
+}
+
+ne::Alien& ne::Ennemies::getAlien()
 {
     return (alien);
 }
@@ -78,6 +83,11 @@ void ne::Ennemies::setSkin(ne::Skin sk)
 void ne::Ennemies::setAlien(ne::Alien ali)
 {
     alien = ali;
+}
+
+void ne::Ennemies::setType(ne::EntityType::Type newType)
+{
+    type = newType;
 }
 
 void ne::Ennemies::setPattern(std::function<ne::Math::Vector3f()> func)

@@ -45,6 +45,9 @@ ne::OrangeFerry::OrangeFerry()
     alienShot.BasicTime = 2.f;
     setAlien(alienShot);
 
+    ne::EntityType::Type newType = ne::EntityType::Type::OrangeEnnemy;
+    setType(newType);
+
     setPattern(std::bind(&ne::Patterns::leftToRightPattern, &this->getPattern()));
 }
 

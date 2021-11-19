@@ -45,6 +45,9 @@ ne::GreenFerry::GreenFerry()
     alienShot.BasicTime = 3.f;
     setAlien(alienShot);
 
+    ne::EntityType::Type newType = ne::EntityType::Type::GreenEnnemy;
+    setType(newType);
+
     setPattern(std::bind(&ne::Patterns::leftToRightPattern, &this->getPattern()));
 }
 

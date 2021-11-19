@@ -13,7 +13,6 @@
  * @date        15/2021
  */
 
-#include <SFML/Graphics.hpp>
 #ifndef TYPES_HPP_
 #define TYPES_HPP_
 

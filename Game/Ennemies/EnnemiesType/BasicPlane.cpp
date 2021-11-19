@@ -45,6 +45,9 @@ ne::BasicPlane::BasicPlane()
     alienShot.BasicTime = 5.f;
     setAlien(alienShot);
 
+    ne::EntityType::Type newType = ne::EntityType::Type::BasicEnnemy;
+    setType(newType);
+    
     setPattern(std::bind(&ne::Patterns::rightToLeftPattern, &this->getPattern()));
 }
 

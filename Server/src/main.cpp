@@ -33,13 +33,38 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
         ) -> void
         {
             nn::message<rt::CustomMsgTypes> msg;
-            msg.header.id = rt::CustomMsgTypes::SendData;
             for (auto &entity : m_entities) {
-                auto &transform = coordinator->getComponent<ne::Transform>(entity);
-                auto &rigidBody = coordinator->getComponent<ne::RigidBody>(entity);
-                auto &uid = coordinator->getComponent<ne::Uid>(entity);
-                msg << transform << uid;
-                MessageAllClients(msg);
+                if (coordinator->getComponent<ne::EntityType::Type>(entity) <= ne::EntityType::Type::WhiteEnnemy) {
+                    if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::BasicEnnemy) {
+                        std::cout << "On recoit un BASIC plane" << std::endl;
+                    }
+                    if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::DarkEnnemy) {
+                        std::cout << "On recoit un DARK plane" << std::endl;
+                    }
+                    if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::GreenEnnemy) {
+                        std::cout << "On recoit un GREEN plane" << std::endl;
+                    }
+                    if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::OrangeEnnemy) {
+                        std::cout << "On recoit un ORANGE plane" << std::endl;
+                    }
+                    if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::WhiteEnnemy) {
+                        std::cout << "On recoit un WHITE plane" << std::endl;
+                    }
+                    msg.header.id = rt::CustomMsgTypes::SendEnnemies;
+                    auto &transform = coordinator->getComponent<ne::Transform>(entity);
+                    auto &uid = coordinator->getComponent<ne::Uid>(entity);
+                    auto &type = coordinator->getComponent<ne::EntityType::Type>(entity);
+                    msg << transform << uid << type;
+                    MessageAllClients(msg);
+                }
+                else if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::Bullets) {
+                    msg.header.id = rt::CustomMsgTypes::SendBullets;
+                    auto &transform = coordinator->getComponent<ne::Transform>(entity);
+                    auto &uid = coordinator->getComponent<ne::Uid>(entity);
+                    auto &type = coordinator->getComponent<ne::EntityType::Type>(entity);
+                    msg << transform << uid << type;
+                    MessageAllClients(msg);
+                }
             }
         }
 
@@ -99,7 +124,7 @@ auto main(
     uint32_t entityID = 0;
     ne::Scene testScene;
 
-    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Networkable, ne::Color, ne::Uid, ne::Skin, ne::Patterns>();
+    testScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::Networkable, ne::EntityType::Type, ne::Patterns>();
 
     auto PatternSystem = testScene.coordinator->registerSystem<ne::PatternSystem>(testScene.coordinator);
     {
@@ -119,7 +144,7 @@ auto main(
         testScene.coordinator->setSystemSignature<CustomServer>(signature);
     }
 
-    std::vector<ne::EntityID> entities(10);
+    std::vector<ne::EntityID> entities(25);
     ne::EnnemiesFactory fact;
 
     for (auto entity : entities) {
@@ -129,21 +154,23 @@ auto main(
         if (entityID < 5)
             test = fact.createEnnemies("BasicPlane");
         else if (entityID < 10)
-            test = fact.createEnnemies("DarkBlue");
+            test = fact.createEnnemies("OrangeFerry");
         else if (entityID < 15)
             test = fact.createEnnemies("GreenFerry");
         else if (entityID < 20)
-            test = fact.createEnnemies("OrangeFerry");
-        else
+            test = fact.createEnnemies("DarkBlue");
+        else if (entityID < 25)
             test = fact.createEnnemies("WhiteFerry");
 
-        testScene.coordinator->addComponent(entity, test.get()->getTransform());
-        testScene.coordinator->addComponent(entity, test.get()->getPattern());
-        testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
-        // testScene.coordinator->addComponent(entity, test.get()->getColor());
-        // testScene.coordinator->addComponent(entity, test.get()->getSkin());
-        testScene.coordinator->addComponent(entity, ne::Networkable{});
-        testScene.coordinator->addComponent(entity, ne::Uid{entityID});
+        if (entityID < 25) {
+            testScene.coordinator->addComponent(entity, test.get()->getTransform());
+            testScene.coordinator->addComponent(entity, test.get()->getRigidBody());
+            testScene.coordinator->addComponent(entity, test.get()->getSkin());
+            testScene.coordinator->addComponent(entity, ne::Uid{ entityID });
+            testScene.coordinator->addComponent(entity, test.get()->getAlien());
+            testScene.coordinator->addComponent(entity, test.get()->getType());
+            testScene.coordinator->addComponent(entity, ne::Networkable{});
+        }
         entityID++;
     }
     // std::random_device rd;  //Will be used to obtain a seed for the random number engine

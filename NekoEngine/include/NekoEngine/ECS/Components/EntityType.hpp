@@ -10,12 +10,17 @@
 
 namespace ne {
     class EntityType {
-        enum Type {
-            Ennemies,
-            Bullets,
-            Bonus,
-            Player
-        };
+        public:
+            enum Type {
+                BasicEnnemy,
+                DarkEnnemy,
+                GreenEnnemy,
+                OrangeEnnemy,
+                WhiteEnnemy,
+                Bullets,
+                Bonus,
+                Player
+            };
     };
 }
 

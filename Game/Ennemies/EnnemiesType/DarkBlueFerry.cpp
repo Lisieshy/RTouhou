@@ -45,6 +45,9 @@ ne::DarkBlueFerry::DarkBlueFerry()
     alienShot.BasicTime = 4.f;
     setAlien(alienShot);
 
+    ne::EntityType::Type newType = ne::EntityType::Type::DarkEnnemy;
+    setType(newType);
+
     setPattern(std::bind(&ne::Patterns::leftToRightPattern, &this->getPattern()));
 }
 
