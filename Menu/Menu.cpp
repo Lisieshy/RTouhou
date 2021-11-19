@@ -87,7 +87,6 @@ ne::Scene ne::Menu::getScene()
     for (auto entity: entities) {
         entity = scene.coordinator->createEntity();
         scene.coordinator->addComponent(entity, usine.at(i).getTransform());
-        scene.coordinator->addComponent(entity, usine.at(i).getColor());
         scene.coordinator->addComponent(entity, usine.at(i).getSkin());
         scene.coordinator->addComponent(entity, usine.at(i).getBut());
         i++;

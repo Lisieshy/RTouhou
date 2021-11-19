@@ -37,6 +37,12 @@ void ne::MouseSystem::update()
                 if (but.name == "Start")
                     //should change scene to lobby scene
                     std::cout << "Start" << std::endl;
+                if (but.name == "Sound_on")
+                    //if sound is on, should turn it off else turn it on
+                    std::cout << "Sound_on" << std::endl;
+                if (but.name == "Sound_off")
+                    //if sound is on, should turn it off else turn it on
+                    std::cout << "Sound_off" << std::endl;
             }                
         }
     }

@@ -25,5 +25,6 @@
 #include "NekoEngine/ECS/Components/Skin.hpp"
 #include "NekoEngine/ECS/Components/Hostile.hpp"
 #include "NekoEngine/ECS/Components/But.hpp"
+#include "NekoEngine/ECS/Components/Textinfo.hpp"
 
 #endif /* !COMPONENTS_HPP_ */

@@ -33,18 +33,13 @@ namespace ne {
              * @brief getTransform
              */
             ne::Transform getTransform();
-            ne::Gravity getGravity();
-            ne::RigidBody getRigidBody();
-            ne::Color getColor();
             ne::Skin getSkin();
-            ne::Scene getScene();
             std::shared_ptr<ne::RenderSystem> Rendering;
             ne::But getBut();
 
             ne::But but;
             ne::Transform transf;
             ne::Skin skin;
-            ne::Scene scene;
         protected:
         private:
     };

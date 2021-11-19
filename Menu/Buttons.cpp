@@ -31,33 +31,9 @@ ne::Transform ne::Buttons::getTransform()
     return (transf);
 }
 
-ne::Gravity ne::Buttons::getGravity()
-{
-    ne::Gravity grav;
-    return (grav);
-}
-
-ne::RigidBody ne::Buttons::getRigidBody()
-{
-    ne::RigidBody rigid;
-    return (rigid);
-}
-
-ne::Color ne::Buttons::getColor()
-{
-    ne::Color temp;
-    temp = {0, 0, 0, 0};
-    return (temp);
-}
-
 ne::Skin ne::Buttons::getSkin()
 {
     return (skin);
-}
-
-ne::Scene ne::Buttons::getScene()
-{
-    return (scene);
 }
 
 ne::But ne::Buttons::getBut()
