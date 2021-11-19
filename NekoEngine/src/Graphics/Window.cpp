@@ -148,6 +148,12 @@ void ne::Graphics::Window::draw(ne::Skin skin, ne::Transform transform)
     impl->i_window.draw(skin.sprite);
 }
 
+void ne::Graphics::Window::draw(ne::Textinfo& text)
+{
+    text._text.setFont(text.font);
+    impl->i_window.draw(text._text);
+}
+
 ne::Math::Vector2i ne::Graphics::Window::getMousePosition()
 {
     ne::Math::Vector2i mouse;

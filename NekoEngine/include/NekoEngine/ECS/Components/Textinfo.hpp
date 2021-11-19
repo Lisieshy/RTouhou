@@ -5,13 +5,16 @@
 ** Textinfo.hpp
 */
 
+#include <SFML/Graphics.hpp>
+
 #ifndef TEXTINFO_HPP
 #define TEXTINFO_HPP
 
 namespace ne {
     class Textinfo {
         public:
-            std::string name;
+            sf::Text _text;
+            sf::Font font;
     };
 }
 #endif /* !TEXTINFO_HPP */

@@ -21,7 +21,7 @@ namespace ne {
 
             std::shared_ptr<ne::RenderSystem> Rendering;
             std::shared_ptr<ne::MouseSystem> MouseSys;
-
+            std::shared_ptr<ne::TextSystem> TextSys;
             std::vector<ne::EntityID> entities;
             ne::Scene scene;
         protected:

@@ -1,0 +1,23 @@
+/*
+** EPITECH PROJECT, 2021
+** TextSystem.cpp
+** File description:
+** TextSystem.cpp
+*/
+
+#include "NekoEngine/ECS/Coordinator.hpp"
+#include "NekoEngine/ECS/Systems/TextSystem.hpp"
+#include "NekoEngine/ECS/Components/Transform.hpp"
+#include "NekoEngine/Graphics/Window.hpp"
+
+void ne::TextSystem::update()
+{
+    for (auto& entity : m_entities) {
+        auto& transform = coordinator->getComponent<ne::Transform>(entity);
+        auto& text = coordinator->getComponent<ne::Textinfo>(entity);
+        ne::Graphics::Window::draw(text);
+        std::cout << "yo" << std::endl;
+    }
+    std::cout << "segv" << std::endl;
+    ne::Graphics::Window::display();
+}

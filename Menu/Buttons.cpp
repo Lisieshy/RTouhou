@@ -7,10 +7,10 @@
 
 #include "Buttons.hpp"
 
-ne::Buttons::Buttons(const std::string &_name, const std::string &text, ne::Math::Vector2u pos)
+ne::Buttons::Buttons(const std::string &_name, const std::string &path, ne::Math::Vector2u pos)
 {
-    if (!skin.texture.loadFromFile(text))
-        throw std::runtime_error("Error, couldn't load " + text);
+    if (!skin.texture.loadFromFile(path))
+        throw std::runtime_error("Error, couldn't load " + path);
     skin.sprite.setTexture(skin.texture);
     skin.sprite.setTextureRect(sf::IntRect(0, 0, skin.texture.getSize().x / 2, skin.texture.getSize().y));
     skin.sprite.setScale({1.5, 1.5});
@@ -26,8 +26,6 @@ ne::Buttons::~Buttons()
 
 ne::Transform ne::Buttons::getTransform()
 {
-    transf.position.x *= ne::Graphics::Window::getScale().x;
-    transf.position.y *= ne::Graphics::Window::getScale().y;
     return (transf);
 }
 

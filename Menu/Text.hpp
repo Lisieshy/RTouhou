@@ -15,11 +15,12 @@ namespace ne {
             Text(const std::string &name, const std::string &text, ne::Math::Vector2u pos);
             ~Text();
 
-            ne::Color getColor();
             std::shared_ptr<ne::RenderSystem> Rendering;
-            ne::Textinfo getTextInfo();
+            ne::Textinfo& getTextInfo();
+            ne::Transform& getTransform();
 
             ne::Textinfo _textinfo;
+            ne::Transform transf;
         protected:
         private:
     };

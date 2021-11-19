@@ -40,6 +40,7 @@ set(NEKOMENU_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Menu.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Buttons.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Setting.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Text.cpp
 )
 
 set(NEKOENGINE_ECS_SOURCES
@@ -51,6 +52,7 @@ set(NEKOENGINE_SYSTEMS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/RenderSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/MouseSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/PhysicsSystem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/TextSystem.cpp
 )
 
 set(NEKOENGINE_COMPONENTS_SOURCES

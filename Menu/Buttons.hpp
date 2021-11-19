@@ -19,10 +19,10 @@ namespace ne {
             /**
              * @brief Constructor
              * @param name Name of the button
-             * @param text Text of the button
+             * @param path Path of the button's sprite
              * @param pos Position of the button
              */
-            Buttons(const std::string &name, const std::string &text, ne::Math::Vector2u pos);
+            Buttons(const std::string &name, const std::string &path, ne::Math::Vector2u pos);
             
             /**
              * @brief Destructor

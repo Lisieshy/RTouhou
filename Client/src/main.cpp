@@ -41,7 +41,7 @@ auto main(
     rt::CustomClient c;
     c.Connect("127.0.0.1", 60000);
 
-    std::vector<ne::EntityID> entities(3);
+    std::vector<ne::EntityID> entities(4);
     int i = 0;
     ne::EnnemiesFactory fact;
     ne::Graphics::Window::open();
@@ -56,6 +56,7 @@ auto main(
         fps++;
         sett.Rendering.get()->update();
         sett.MouseSys.get()->update();
+        sett.TextSys.get()->update();
         //menu.Rendering.get()->update();
         //menu.MouseSys.get()->update();
         auto startTime = std::chrono::high_resolution_clock::now();
