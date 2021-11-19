@@ -67,40 +67,7 @@ void ne::GameScene::InitScene()
         signature.set(Game.coordinator->getComponentType<ne::Networkable>());
         Game.coordinator->setSystemSignature<CustomServer>(signature);
     }
-  
-    PlayerSystem = Game.coordinator->registerSystem<rt::PlayerSystem>(Game.coordinator);
-    {
-        ne::Signature signature;
-        signature.set(Game.coordinator->getComponentType<ne::Transform>());
-        signature.set(Game.coordinator->getComponentType<ne::RigidBody>());
-        signature.set(Game.coordinator->getComponentType<rt::Controller>());
-        signature.set(Game.coordinator->getComponentType<ne::Renderable>());
-        signature.set(Game.coordinator->getComponentType<ne::Color>());
-        signature.set(Game.coordinator->getComponentType<ne::Skin>());
-        Game.coordinator->setSystemSignature<rt::PlayerSystem>(signature);
-    }
-  
-    ne::Skin playerSkin;
-    playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Ennemies/TouhouBasicMob.png"));
-    playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
-    ne::EntityID player = Game.coordinator->createEntity();
-
-    Game.coordinator->addComponent(player, rt::Controller{
-        .type = rt::ControlType::KEYBOARD,
-        .up = sf::Keyboard::Key::Z,
-        .down = sf::Keyboard::Key::S,
-        .left = sf::Keyboard::Key::Q,
-        .right = sf::Keyboard::Key::D,
-        .shoot = sf::Keyboard::Key::Space,
-        .speed = 20.f,
-        .deadzone = 50
-    });
-    Game.coordinator->addComponent(player, ne::Transform{});
-    Game.coordinator->addComponent(player, ne::RigidBody{});
-    Game.coordinator->addComponent(player, ne::Renderable{});
-    Game.coordinator->addComponent(player, ne::Color{ 255, 255, 255, 255 });
-    Game.coordinator->addComponent(player, playerSkin);
-    Game.coordinator->addComponent(player, ne::Uid{1500});
+    
     for (auto entity : entities) {
         entity = Game.coordinator->createEntity();
         std::shared_ptr<ne::Ennemies> test;
