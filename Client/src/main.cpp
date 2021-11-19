@@ -62,8 +62,9 @@ auto main(
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
-        //sett.TextSys.get()->update();
+        sett.RenderBackground->update();
         sett.MouseSys->update();
+        sett.TextSys->update();
         sett.Rendering->update();
 //        sett.Rendering->update();
         //ClientGame.ClientSystem->OnMessage();

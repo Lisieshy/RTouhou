@@ -8,6 +8,7 @@
 #include "Setting.hpp"
 #include "Buttons.hpp"
 #include "Text.hpp"
+#include "Background.hpp"
 
 ne::Setting::Setting(std::vector<ne::EntityID> entity)
 {
@@ -27,14 +28,12 @@ ne::Transform ne::Setting::getTransform()
 ne::Skin ne::Setting::getSkin()
 {
     ne::Skin skin;
-    skin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/menu.png"));
-    skin.sprite.setScale({1.5, 1.5});
     return (skin);
 }
 
 void ne::Setting::InitScene()
 {
-    scene.coordinator->registerComponent<ne::Transform, ne::Renderable, ne::Skin, ne::But, ne::Textinfo>();
+    scene.coordinator->registerComponent<ne::Transform, ne::Renderable, ne::Skin, ne::But, ne::Textinfo, ne::GorbBackground>();
     Rendering = scene.coordinator->registerSystem<ne::RenderSystem>(scene.coordinator);
     {
         ne::Signature sign;
@@ -42,6 +41,14 @@ void ne::Setting::InitScene()
         sign.set(scene.coordinator->getComponentType<ne::Renderable>());
         sign.set(scene.coordinator->getComponentType<ne::Skin>());
         scene.coordinator->setSystemSignature<ne::RenderSystem>(sign); 
+    }
+    RenderBackground = scene.coordinator->registerSystem<ne::BackgroundSystem>(scene.coordinator);
+    {
+        ne::Signature sign;
+        sign.set(scene.coordinator->getComponentType<ne::Transform>());
+        sign.set(scene.coordinator->getComponentType<ne::Skin>());
+        sign.set(scene.coordinator->getComponentType<ne::GorbBackground>());
+        scene.coordinator->setSystemSignature<ne::BackgroundSystem>(sign); 
     }
     MouseSys = scene.coordinator->registerSystem<ne::MouseSystem>(scene.coordinator);
     {
@@ -57,6 +64,7 @@ void ne::Setting::InitScene()
         signature.set(scene.coordinator->getComponentType<ne::Transform>());
         scene.coordinator->setSystemSignature<ne::TextSystem>(signature);
     }
+    ne::Background bg;
     ne::Text my_text("Volume", "Hello world", ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y));
     std::vector<ne::Buttons> usine;
     usine.push_back(ne::Buttons("Sound_on", "resources/button_sound_on.png",
@@ -65,9 +73,9 @@ void ne::Setting::InitScene()
     ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 4, ne::Graphics::Window::getWindow().y / 4)));
     size_t i = 0;
     auto gorboulut = scene.coordinator->createEntity();
-    scene.coordinator->addComponent(gorboulut, getTransform());
-    scene.coordinator->addComponent(gorboulut, getSkin());
-    scene.coordinator->addComponent(gorboulut, ne::Renderable{});
+    scene.coordinator->addComponent(gorboulut, bg.getSkin());
+    scene.coordinator->addComponent(gorboulut, bg.getGorb());
+    scene.coordinator->addComponent(gorboulut, bg.getTransform());
 
     auto gorb = scene.coordinator->createEntity();
     scene.coordinator->addComponent(gorb, my_text.getTransform());

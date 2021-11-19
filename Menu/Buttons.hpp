@@ -34,7 +34,6 @@ namespace ne {
              */
             ne::Transform getTransform();
             ne::Skin getSkin();
-            std::shared_ptr<ne::RenderSystem> Rendering;
             ne::But getBut();
 
             ne::But but;

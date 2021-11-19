@@ -21,5 +21,6 @@
 #include "NekoEngine/ECS/Systems/MouseSystem.hpp"
 #include "NekoEngine/ECS/Systems/TextSystem.hpp"
 #include "NekoEngine/ECS/Systems/PatternSystem.hpp"
+#include "NekoEngine/ECS/Systems/BackgroundSystem.hpp"
 
 #endif /* !SYSTEMS_HPP_ */

@@ -17,5 +17,4 @@ void ne::TextSystem::update()
         auto& text = coordinator->getComponent<ne::Textinfo>(entity);
         ne::Graphics::Window::draw(text);
     }
-    ne::Graphics::Window::display();
 }

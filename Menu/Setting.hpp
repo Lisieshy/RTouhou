@@ -19,6 +19,7 @@ namespace ne {
             ne::Skin getSkin();
             void InitScene();
 
+            std::shared_ptr<ne::BackgroundSystem> RenderBackground;
             std::shared_ptr<ne::RenderSystem> Rendering;
             std::shared_ptr<ne::MouseSystem> MouseSys;
             std::shared_ptr<ne::TextSystem> TextSys;
