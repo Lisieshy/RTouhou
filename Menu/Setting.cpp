@@ -57,15 +57,14 @@ void ne::Setting::InitScene()
         signature.set(scene.coordinator->getComponentType<ne::Transform>());
         scene.coordinator->setSystemSignature<ne::MouseSystem>(signature);
     }
-    TextSys = scene.coordinator->registerSystem<ne::TextSystem>(scene.coordinator);
-    {
-        ne::Signature signature;
-        signature.set(scene.coordinator->getComponentType<ne::Textinfo>());
-        signature.set(scene.coordinator->getComponentType<ne::Transform>());
-        scene.coordinator->setSystemSignature<ne::TextSystem>(signature);
-    }
+    //TextSys = scene.coordinator->registerSystem<ne::TextSystem>(scene.coordinator);
+    //{
+    //    ne::Signature signature;
+    //    signature.set(scene.coordinator->getComponentType<ne::Textinfo>());
+    //    signature.set(scene.coordinator->getComponentType<ne::Transform>());
+    //    scene.coordinator->setSystemSignature<ne::TextSystem>(signature);
+    //}
     ne::Background bg;
-    ne::Text my_text("Volume", "Hello world", ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y));
     std::vector<ne::Buttons> usine;
     usine.push_back(ne::Buttons("Sound_on", "resources/button_sound_on.png",
     ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 4 * 3, ne::Graphics::Window::getWindow().y / 4)));
@@ -76,11 +75,6 @@ void ne::Setting::InitScene()
     scene.coordinator->addComponent(gorboulut, bg.getSkin());
     scene.coordinator->addComponent(gorboulut, bg.getGorb());
     scene.coordinator->addComponent(gorboulut, bg.getTransform());
-
-    auto gorb = scene.coordinator->createEntity();
-    scene.coordinator->addComponent(gorb, my_text.getTransform());
-    scene.coordinator->addComponent(gorb, my_text.getTextInfo());
-    scene.coordinator->addComponent(gorb, ne::Renderable{});
 
     for (auto entity: entities) {
         entity = scene.coordinator->createEntity();

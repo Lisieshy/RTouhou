@@ -52,9 +52,10 @@ auto main(
     int fps = 0;
     auto oldTime = std::chrono::high_resolution_clock::now();
     float dt = 0.0f;
-    //ne::Menu menu(entities);
-    ne::Setting sett(entities);
-    sett.InitScene();
+    ne::Menu menu(entities);
+    //ne::Setting sett(entities);
+    //sett.InitScene();
+    menu.InitScene();
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
         auto startTime = std::chrono::high_resolution_clock::now();
@@ -62,10 +63,13 @@ auto main(
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
-        sett.RenderBackground->update();
-        sett.MouseSys->update();
-        sett.TextSys->update();
-        sett.Rendering->update();
+        menu.RenderBackground->update();
+        menu.MouseSys->update();
+        menu.Rendering->update();
+        //sett.RenderBackground->update();
+        //sett.MouseSys->update();
+        //sett.TextSys->update();
+        //sett.Rendering->update();
 //        sett.Rendering->update();
         //ClientGame.ClientSystem->OnMessage();
         //ClientGame.PlayerSystem->update(dt);
