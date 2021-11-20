@@ -31,7 +31,6 @@ namespace ne {
             ne::Scene ClientGameScene;
 
             void InitMusic();
-
             sf::Music music;
         protected:
         private:

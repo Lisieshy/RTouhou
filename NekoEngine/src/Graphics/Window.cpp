@@ -59,6 +59,10 @@ void ne::Graphics::Window::close() {
     impl.reset();
 }
 
+void ne::Graphics::Window::mustClose() {
+    impl->shouldClose = true;
+}
+
 bool ne::Graphics::Window::shouldClose() {
     return impl->shouldClose;
 }

@@ -47,12 +47,9 @@ ne::Menu::Menu(std::vector<ne::EntityID> entities)
     ne::Background bg;
     ne::Parallax par;
     std::vector<ne::Buttons> usine;
-    usine.push_back(ne::Buttons("Start", "resources/button_start.png",
-    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4)));
-    usine.push_back(ne::Buttons("Setting", "resources/button_settings.png",
-    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 2)));
-    usine.push_back(ne::Buttons("Quit", "resources/button_quit.png",
-    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4 * 3)));
+    usine.push_back(ne::Buttons("Start", "resources/button_start.png", ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4)));
+    usine.push_back(ne::Buttons("Setting", "resources/button_settings.png", ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 2)));
+    usine.push_back(ne::Buttons("Quit", "resources/button_quit.png", ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4 * 3)));
     size_t i = 0;
     auto gorboulut = scene.coordinator->createEntity();
     scene.coordinator->addComponent(gorboulut, bg.getSkin());

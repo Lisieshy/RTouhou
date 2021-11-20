@@ -11,7 +11,7 @@
 #include "NekoEngine/ECS/Systems/MouseSystem.hpp"
 #include "NekoEngine/ECS/Components/Transform.hpp"
 #include "NekoEngine/Graphics/Window.hpp"
-
+#include "../Client/include/ClientGame.hpp"
 void ne::MouseSystem::update()
 {
     for (auto& entity: m_entities) {
@@ -30,7 +30,7 @@ void ne::MouseSystem::update()
             if (ne::Graphics::Window::isClicked()) {
                 if (but.name == "Quit") {
                     //should close
-                    ne::Graphics::Window::shouldClose();
+                    ne::Graphics::Window::mustClose();
                 }
                 if (but.name == "Setting")
                     //should change scene to setting scene
@@ -38,14 +38,6 @@ void ne::MouseSystem::update()
                 if (but.name == "Start")
                     //should change scene to lobby scene
                     std::cout << "Start" << std::endl;
-                if (but.name == "Sound_on") {
-                    //enable sound
-                    std::cout << "Sound_on" << std::endl;
-                    
-                }
-                if (but.name == "Sound_off")
-                    //turn off sound
-                    std::cout << "Sound_off" << std::endl;
                 if (but.name == "Return")
                     //should return to the main menu scene
                     std::cout << "Return" << std::endl;
