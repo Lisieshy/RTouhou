@@ -22,6 +22,7 @@ namespace ne {
                 Tier3Bullets,
                 FriendlyBullets,
                 Bullets,
+                ScoreUp,
                 Bonus,
                 Player
             };

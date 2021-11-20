@@ -50,8 +50,9 @@ auto main(
         if (Game.NetworkSystem->nIDCounter > static_cast<u_int32_t>(10000)) {
             auto startTime = std::chrono::high_resolution_clock::now();
             fps++;
-            if ((timePassed += dt) >= 1.0f) {
+            if ((timePassed += dt) >= 0.001f) {
                 Game.GameLoop(dt, entityID);
+                Game.BonusSystem->update(dt, entityID);
                 Game.EnnemiesLoopSystem->update(dt, entityID);
                 Game.PatternSystem->update(dt);
                 Game.CollisionSystem->update();

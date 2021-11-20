@@ -72,6 +72,14 @@ void ne::GameScene::InitScene(uint32_t &entityID)
         Game.coordinator->setSystemSignature<ne::Collision>(signature);        
     }
 
+    BonusSystem = Game.coordinator->registerSystem<ne::BonusSystem>(Game.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(Game.coordinator->getComponentType<ne::Transform>());
+        signature.set(Game.coordinator->getComponentType<ne::EntityType::Type>());
+        Game.coordinator->setSystemSignature<ne::BonusSystem>(signature);        
+    }
+
     for (auto entity : entities) {
         ne::Transform trans;
         entity = Game.coordinator->createEntity();
