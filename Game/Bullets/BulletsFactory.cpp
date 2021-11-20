@@ -12,6 +12,7 @@ ne::BulletsFactory::BulletsFactory()
     _create["BasicWhiteBullets"] = &ne::BulletsFactory::createBasicWhiteBullets;
     _create["Tier2Bullets"] = &ne::BulletsFactory::createTier2Bullets;
     _create["Tier3Bullets"] = &ne::BulletsFactory::createTier3Bullets;
+    _create["FriendlyBullets"] = &ne::BulletsFactory::createFriendlyBullets;
 }
 
 ne::BulletsFactory::~BulletsFactory()
@@ -39,4 +40,9 @@ std::unique_ptr<ne::Bullets> ne::BulletsFactory::createTier2Bullets(const std::s
 std::unique_ptr<ne::Bullets> ne::BulletsFactory::createTier3Bullets(const std::string &name) const noexcept
 {
     return (std::make_unique<ne::Bullets>(BulletsTier3()));
+}
+
+std::unique_ptr<ne::Bullets> ne::BulletsFactory::createFriendlyBullets(const std::string &name) const noexcept
+{
+    return (std::make_unique<ne::Bullets>(FriendlyBullets()));
 }

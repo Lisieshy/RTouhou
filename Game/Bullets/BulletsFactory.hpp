@@ -59,6 +59,7 @@ namespace ne {
             std::unique_ptr<ne::Bullets> createBasicWhiteBullets(const std::string &name) const noexcept;
             std::unique_ptr<ne::Bullets> createTier3Bullets(const std::string &name) const noexcept;
             std::unique_ptr<ne::Bullets> createTier2Bullets(const std::string &name) const noexcept;
+            std::unique_ptr<ne::Bullets> createFriendlyBullets(const std::string &name) const noexcept;
     };
 }
 using BulletsFact = std::unique_ptr<ne::Bullets>(ne::BulletsFactory::*)(const std::string &name) const;

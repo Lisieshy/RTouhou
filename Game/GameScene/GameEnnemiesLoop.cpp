@@ -14,7 +14,7 @@ void ne::GameEnnemiesLoop::update(float& dt, uint32_t& ID)
         auto& EnnemiesAlien = coordinator->getComponent<ne::Alien>(entity);
         auto& EnnemiesPos = coordinator->getComponent<ne::Transform>(entity);
         auto& EnnemiesType = coordinator->getComponent<ne::EntityType::Type>(entity);
-        
+
         EnnemiesAlien.TimeToShoot -= dt;
         if (EnnemiesAlien.TimeToShoot <= 0) {
             createBullet(EnnemiesPos, ID, EnnemiesType);

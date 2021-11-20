@@ -123,6 +123,8 @@ namespace rt {
                                             bulletsCreated = bullets.createBullets("BasicWhiteBullets");
                                         else if (receivedType == ne::EntityType::Type::Tier2Bullets)
                                             bulletsCreated = bullets.createBullets("Tier2Bullets");
+                                        else if (receivedType == ne::EntityType::Type::FriendlyBullets)
+                                            bulletsCreated = bullets.createBullets("FriendlyBullets");
                                         else
                                             bulletsCreated = bullets.createBullets("Tier3Bullets");                                        
                                         bulletsCreated.get()->setTransform(receivedEntity);

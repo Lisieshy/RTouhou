@@ -51,6 +51,7 @@ namespace ne {
             std::shared_ptr<ne::GameEnnemiesLoop> EnnemiesLoopSystem;
             std::shared_ptr<CustomServer> NetworkSystem;
             std::shared_ptr<rt::PlayerSystem> PlayerSystem;
+            std::shared_ptr<ne::Collision> CollisionSystem;
 
             ne::Scene Game;
 

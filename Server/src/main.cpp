@@ -47,6 +47,7 @@ auto main(
         auto startTime = std::chrono::high_resolution_clock::now();
         fps++;
         Game.GameLoop(dt, entityID);
+        Game.CollisionSystem->update();
         Game.EnnemiesLoopSystem->update(dt, entityID);
         Game.PatternSystem->update(dt);
         if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::milliseconds{ 20 }) {

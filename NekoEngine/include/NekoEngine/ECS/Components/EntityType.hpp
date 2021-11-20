@@ -20,6 +20,7 @@ namespace ne {
                 WhiteBullets, 
                 Tier2Bullets,
                 Tier3Bullets,
+                FriendlyBullets,
                 Bullets,
                 Bonus,
                 Player

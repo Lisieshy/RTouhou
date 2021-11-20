@@ -22,7 +22,7 @@
 #include <iostream>
 #include <random>
 
-void ne::PatternSystem::update(float dt)
+void ne::PatternSystem::update(float& dt)
 {
     std::random_device rd;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
