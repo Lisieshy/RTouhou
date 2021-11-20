@@ -7,7 +7,7 @@
 
 /**
  * @file        SystemManager.tpp
- * @brief       System Manmager templates implementation
+ * @brief       System Manager templates implementation
  * @details     ECS are fun, ECS are life.
  * @author      Aurélien Schulz (@Lisieshy)
  * @date        05/2021

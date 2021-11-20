@@ -15,27 +15,27 @@ ne::Bullets::~Bullets()
 {
 }
 
-ne::Transform ne::Bullets::getTransform()
+ne::Transform& ne::Bullets::getTransform()
 {
     return (transform);
 }
 
-ne::Gravity ne::Bullets::getGravity()
+ne::Gravity& ne::Bullets::getGravity()
 {
     return (gravity);
 }
 
-ne::RigidBody ne::Bullets::getRigidBody()
+ne::RigidBody& ne::Bullets::getRigidBody()
 {
     return (rigidbody);
 }
 
-ne::Color ne::Bullets::getColor()
+ne::Color& ne::Bullets::getColor()
 {
     return (color);
 }
 
-ne::Skin ne::Bullets::getSkin()
+ne::Skin& ne::Bullets::getSkin()
 {
     return (skin);
 }

@@ -44,31 +44,31 @@ namespace ne {
              * @brief get Transform component
              * @return a ne::Transform
              */
-            ne::Transform getTransform();
+            ne::Transform& getTransform();
 
             /**
              * @brief get Gravity component
              * @return a ne::Gravity
              */
-            ne::Gravity getGravity();
+            ne::Gravity& getGravity();
 
             /**
              * @brief get RigidBody component
              * @return a ne::RigidBody
              */
-            ne::RigidBody getRigidBody();
+            ne::RigidBody& getRigidBody();
 
             /**
              * @brief get Skin component
              * @return a ne::Skin
              */
-            ne::Skin getSkin();
+            ne::Skin& getSkin();
 
             /**
              * @brief Get the Color object@
              * @return ne::Color 
              */
-            ne::Color getColor();
+            ne::Color& getColor();
 
             /**
              * @brief Get the Pattern object

@@ -23,6 +23,7 @@ namespace ne::Graphics::Window {
     struct WImpl {
         sf::RenderWindow i_window;
         bool shouldClose = false;
+        bool isClicked = false;
     };
 }
 
@@ -34,6 +35,22 @@ void ne::Graphics::Window::open() {
     impl->i_window.create(sf::VideoMode(800, 600), "NekoEngine");
     impl->i_window.setVerticalSyncEnabled(true);
     impl->shouldClose = false;
+}
+
+ne::Math::Vector2f ne::Graphics::Window::getScale()
+{
+    ne::Math::Vector2f _scale;
+    _scale.x = (impl->i_window.getSize().x / 800.0f);
+    _scale.y = (impl->i_window.getSize().y / 600.0f);
+    return (_scale);
+}
+
+ne::Math::Vector2u ne::Graphics::Window::getWindow()
+{
+    ne::Math::Vector2u vect;
+    vect.x = impl->i_window.getSize().x;
+    vect.y = impl->i_window.getSize().y;
+    return(vect);
 }
 
 void ne::Graphics::Window::close() {
@@ -68,11 +85,19 @@ void ne::Graphics::Window::pollEvent(std::shared_ptr<rt::CustomClient> client) {
                 client->MessageAll();
             }
         }
+        impl->isClicked = false;
+        if (event.mouseButton.button == sf::Mouse::Left) {
+            impl->isClicked = true;
+        }
     }
 }
 
 void ne::Graphics::Window::display() {
     impl->i_window.display();
+}
+
+bool ne::Graphics::Window::isClicked() {
+    return (impl->isClicked);
 }
 
 void ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char> Color) {
@@ -119,4 +144,18 @@ void ne::Graphics::Window::draw(ne::Skin skin, ne::Transform transform)
 {
     skin.sprite.move({transform.position.x, transform.position.y});
     impl->i_window.draw(skin.sprite);
+}
+
+void ne::Graphics::Window::draw(ne::Textinfo& text)
+{
+    text._text.setFont(text.font);
+    impl->i_window.draw(text._text);
+}
+
+ne::Math::Vector2i ne::Graphics::Window::getMousePosition()
+{
+    ne::Math::Vector2i mouse;
+    mouse.x = sf::Mouse::getPosition(impl->i_window).x;
+    mouse.y = sf::Mouse::getPosition(impl->i_window).y;
+    return (mouse);
 }

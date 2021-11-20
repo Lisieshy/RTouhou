@@ -38,7 +38,8 @@ set(NEKOENNEMIES_SOURCES
 set(NEKOGAME_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Game/GameScene/GameScene.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Game/GameScene/GameEnnemiesLoop.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Game/GlobalTexture/GlobalTexture.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/GlobalLibrary/GlobalTexture.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/GlobalLibrary/GlobalSound.cpp
 )
 
 set(NEKOBULLETS_SOURCES
@@ -57,6 +58,14 @@ set(NEKOWAVES_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Game/Waves/WavesType/Waves3.cpp
 )
 
+set(NEKOMENU_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Menu.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Buttons.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Setting.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Text.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Background.cpp
+)
+
 set(NEKOENGINE_ECS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/EntityManager.cpp
 )
@@ -64,7 +73,10 @@ set(NEKOENGINE_ECS_SOURCES
 set(NEKOENGINE_SYSTEMS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/TimerSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/RenderSystem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/MouseSystem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/TextSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/PatternSystem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/BackgroundSystem.cpp
 )
 
 set(NEKOENGINE_COMPONENTS_SOURCES
@@ -94,6 +106,7 @@ set(NEKOENGINE_SOURCES
     ${NEKOENGINE_SCENES_SOURCES}
     ${NEKOENGINE_NEKOEXCEPTION_SOURCES}
     ${NEKOENNEMIES_SOURCES}
+    ${NEKOMENU_SOURCES}
     ${NEKOBULLETS_SOURCES}
     ${NEKOWAVES_SOURCES}
     ${NEKOGAME_SOURCES}
@@ -119,6 +132,8 @@ target_include_directories(rtouhou_client
     ${PROJECT_SOURCE_DIR}/Client/
     ${PROJECT_SOURCE_DIR}/NyaLog/
     ${PROJECT_SOURCE_DIR}/NyaNet/
+    ${PROJECT_SOURCE_DIR}/Ennemies/
+    ${PROJECT_SOURCE_DIR}/Menu/
     ${PROJECT_SOURCE_DIR}/Game/
 )
 
