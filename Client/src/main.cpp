@@ -50,9 +50,10 @@ auto main(
     float dt = 0.0f;
     //ne::Menu menu(entities);
     //ne::Setting sett(entities);
-    // ne::Menu menu(entities);
-    // ne::Setting sett(entities);
+    //ne::Menu menu(entities);
+    //ne::Setting sett(entities);
     // sett.InitScene();
+    ne::Menu m(entities);
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
         auto startTime = std::chrono::high_resolution_clock::now();
@@ -60,9 +61,14 @@ auto main(
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
+        m.MouseSys->update();
+        //m.RenderBackground->update();
+        m.ParaSys->update(dt);
+        m.Rendering->update();
         //menu.RenderBackground->update();
-        //menu.MouseSys->update();
         //menu.Rendering->update();
+        //menu.MouseSys->update();
+        
         //sett.RenderBackground->update();
         //sett.MouseSys->update();
         //sett.Rendering->update();
@@ -74,9 +80,9 @@ auto main(
         // sett.TextSys->update();
         // sett.Rendering->update();
         // sett.Rendering->update();
-        ClientGame.ClientSystem->OnMessage();
-        ClientGame.RenderSystem->update();
-        ClientGame.PlayerSystem->update(dt);
+        //ClientGame.ClientSystem->OnMessage();
+        //ClientGame.RenderSystem->update();
+        //ClientGame.PlayerSystem->update(dt);
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";
             oldTime = std::chrono::high_resolution_clock::now();

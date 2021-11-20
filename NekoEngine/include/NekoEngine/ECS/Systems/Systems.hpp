@@ -22,5 +22,6 @@
 #include "NekoEngine/ECS/Systems/TextSystem.hpp"
 #include "NekoEngine/ECS/Systems/PatternSystem.hpp"
 #include "NekoEngine/ECS/Systems/BackgroundSystem.hpp"
+#include "NekoEngine/ECS/Systems/ParallaxSystem.hpp"
 
 #endif /* !SYSTEMS_HPP_ */

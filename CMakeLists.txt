@@ -53,6 +53,7 @@ set(NEKOMENU_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Setting.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Text.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Background.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Menu/Parallax.cpp
 )
 
 set(NEKOENGINE_ECS_SOURCES
@@ -66,6 +67,7 @@ set(NEKOENGINE_SYSTEMS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/TextSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/PatternSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/BackgroundSystem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/ParallaxSystem.cpp
 )
 
 set(NEKOENGINE_COMPONENTS_SOURCES

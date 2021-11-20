@@ -31,6 +31,7 @@ namespace ne {
              */
             ~Menu();
 
+            std::shared_ptr<ne::ParallaxSystem> ParaSys;
             std::shared_ptr<ne::BackgroundSystem> RenderBackground;
             std::shared_ptr<ne::RenderSystem> Rendering;
             std::shared_ptr<ne::MouseSystem> MouseSys;            

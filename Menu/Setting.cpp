@@ -42,6 +42,8 @@ ne::Setting::Setting(std::vector<ne::EntityID> entities)
     ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 4 * 3, ne::Graphics::Window::getWindow().y / 4)));
     usine.push_back(ne::Buttons("Sound_off", "resources/button_sound_off.png",
     ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 4, ne::Graphics::Window::getWindow().y / 4)));
+    usine.push_back(ne::Buttons("Return", "resources/button_return.png",
+    ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 8, ne::Graphics::Window::getWindow().y / 10)));
     size_t i = 0;
     auto gorboulut = scene.coordinator->createEntity();
     scene.coordinator->addComponent(gorboulut, bg.getSkin());
