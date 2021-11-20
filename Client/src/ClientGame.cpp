@@ -47,12 +47,12 @@ ne::ClientGame::ClientGame()
         ClientGameScene.coordinator->setSystemSignature<ne::AnimationSystem>(signature);
     }
 
-    CollisionSystem = ClientGameScene.coordinator->registerSystem<ne::Collision>(ClientGameScene.coordinator);
+    CollisionSystem = ClientGameScene.coordinator->registerSystem<ne::ClientCollision>(ClientGameScene.coordinator);
     {
         ne::Signature signature;
         signature.set(ClientGameScene.coordinator->getComponentType<ne::Transform>());
         signature.set(ClientGameScene.coordinator->getComponentType<ne::EntityType::Type>());
-        ClientGameScene.coordinator->setSystemSignature<ne::Collision>(signature);        
+        ClientGameScene.coordinator->setSystemSignature<ne::ClientCollision>(signature);        
     }
 
     ne::Skin playerSkin;

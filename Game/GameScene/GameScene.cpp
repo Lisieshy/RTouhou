@@ -80,7 +80,8 @@ void ne::GameScene::InitScene(uint32_t &entityID)
         test = bullets.createBullets("FriendlyBullets");
 
         trans = test.get()->getTransform();
-        trans.position.y = 800;
+        trans.position.y = 550;
+        test.get()->setTransform(trans);
         Game.coordinator->addComponent(entity, test.get()->getTransform());
         Game.coordinator->addComponent(entity, test.get()->getGravity());
         Game.coordinator->addComponent(entity, test.get()->getRigidBody());
@@ -90,7 +91,7 @@ void ne::GameScene::InitScene(uint32_t &entityID)
         Game.coordinator->addComponent(entity, ne::Networkable{});
         Game.coordinator->addComponent(entity, test.get()->getPattern());
         entityID++;
-        if (entityID == 10)
+        if (entityID == 20)
             break;
     }
 
