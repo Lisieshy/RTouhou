@@ -9,10 +9,27 @@
 #ifndef SETTING_HPP
 #define SETTING_HPP
 
+/**
+ * @namespace ne
+ * 
+ */
 namespace ne {
+    /**
+     * @class Setting
+     * 
+     */
     class Setting {
         public:
+            /**
+             * @brief Construct a new Setting object
+             * 
+             * @param entities Number of entities
+             */
             Setting(std::vector<ne::EntityID> entities);
+            /**
+             * @brief Destroy the Setting object
+             * 
+             */
             ~Setting();
 
             std::shared_ptr<ne::BackgroundSystem> RenderBackground;

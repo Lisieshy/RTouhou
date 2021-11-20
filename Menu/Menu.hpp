@@ -9,10 +9,26 @@
 #ifndef MENU_HPP
 #define MENU_HPP
 
+/**
+ * @namespace ne
+ * 
+ */
 namespace ne {
+    /**
+     * @class Menu
+     * 
+     */
     class Menu {
         public:
+            /**
+             * @brief Construct a new Menu object
+             * 
+             * @param entities Number of entities
+             */
             Menu(std::vector<ne::EntityID> entities);
+            /**
+             * @brief Destroy the Menu object
+             */
             ~Menu();
 
             std::shared_ptr<ne::BackgroundSystem> RenderBackground;
