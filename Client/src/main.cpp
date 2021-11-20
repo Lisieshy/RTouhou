@@ -31,7 +31,7 @@
 #include "../../Game/Ennemies/EnnemiesFactory.hpp"
 #include "../../Game/Bullets/BulletsFactory.hpp"
 #include "../../Game/GameScene/GameScene.hpp"
-#include "../../Game/GlobalTexture/GlobalTexture.hpp"
+#include "../../Game/GlobalLibrary/GlobalTexture.hpp"
 
 auto main(
     int argc,
@@ -48,9 +48,8 @@ auto main(
     int fps = 0;
     auto oldTime = std::chrono::high_resolution_clock::now();
     float dt = 0.0f;
-    // ne::Menu menu(entities);
-    // ne::Setting sett(entities);
-    // sett.InitScene();
+
+    ClientGame.InitMusic();
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
         auto startTime = std::chrono::high_resolution_clock::now();
@@ -59,6 +58,7 @@ auto main(
             0, 0, 0, 255
         });
         ClientGame.ClientSystem->OnMessage();
+        ClientGame.AnimSystem->update(dt);
         ClientGame.RenderSystem->update();
         ClientGame.PlayerSystem->update(dt);
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {

@@ -96,6 +96,7 @@ namespace rt {
                                         coordinator->addComponent(newEntity, test.get()->getAlien());
                                         coordinator->addComponent(newEntity, test.get()->getType());
                                         coordinator->addComponent(newEntity, test.get()->getPattern());
+                                        coordinator->addComponent(newEntity, ne::Animation{});
                                     }
                                 }
                             }

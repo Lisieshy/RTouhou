@@ -32,5 +32,6 @@
 #include "NekoEngine/ECS/Components/Alien.hpp"
 #include "NekoEngine/ECS/Components/EntityType.hpp"
 #include "NekoEngine/ECS/Components/GorbBackground.hpp"
+#include "NekoEngine/ECS/Components/Animation.hpp"
 
 #endif /* !COMPONENTS_HPP_ */

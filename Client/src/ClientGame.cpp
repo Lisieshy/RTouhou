@@ -9,7 +9,7 @@
 
 ne::ClientGame::ClientGame()
 {
-    ClientGameScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::EntityType::Type, ne::Patterns, rt::Controller>();
+    ClientGameScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::EntityType::Type, ne::Patterns, rt::Controller, ne::Animation>();
 
     ClientSystem = ClientGameScene.coordinator->registerSystem<rt::CustomClient>(ClientGameScene.coordinator);
     {
@@ -39,7 +39,14 @@ ne::ClientGame::ClientGame()
         signature.set(ClientGameScene.coordinator->getComponentType<ne::Skin>());
         ClientGameScene.coordinator->setSystemSignature<rt::PlayerSystem>(signature);
     }
-  
+    AnimSystem = ClientGameScene.coordinator->registerSystem<ne::AnimationSystem>(ClientGameScene.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(ClientGameScene.coordinator->getComponentType<ne::Skin>());
+        signature.set(ClientGameScene.coordinator->getComponentType<ne::Animation>());
+        ClientGameScene.coordinator->setSystemSignature<ne::AnimationSystem>(signature);
+    }
+
     ne::Skin playerSkin;
     playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Ennemies/TouhouBasicMob.png"));
     playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
@@ -62,13 +69,16 @@ ne::ClientGame::ClientGame()
     ClientGameScene.coordinator->addComponent(player, playerSkin);
     ClientGameScene.coordinator->addComponent(player, ne::  Uid{1500});
     ClientSystem->Connect("127.0.0.1", 60000);
-
-    music.openFromFile("resources/Music_SoundEffect/MainGameMusic.ogg");
-    music.play();
-    music.setLoop(true);
-    music.setVolume(60);
 }
 
 ne::ClientGame::~ClientGame()
 {
+}
+
+void ne::ClientGame::InitMusic()
+{
+    music.openFromFile("resources/Music_SoundEffect/MainGameMusic.ogg");
+    music.play();
+    music.setLoop(true);
+    music.setVolume(60);
 }

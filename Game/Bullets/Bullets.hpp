@@ -14,7 +14,7 @@
 
 
 #include "../NekoEngine/include/NekoEngine/NekoEngine.hpp"
-#include "../GlobalTexture/GlobalTexture.hpp"
+#include "../GlobalLibrary/GlobalTexture.hpp"
 #include <../NekoEngine/include/NekoEngine/ECS/Components/Components.hpp>
 #include <../NekoEngine/include/NekoEngine/Math/Vector/Vector.hpp>
 

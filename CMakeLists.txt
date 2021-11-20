@@ -77,6 +77,7 @@ set(NEKOENGINE_SYSTEMS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/TextSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/PatternSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/BackgroundSystem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/AnimationSystem.cpp
 )
 
 set(NEKOENGINE_COMPONENTS_SOURCES
