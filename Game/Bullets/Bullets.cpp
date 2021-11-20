@@ -15,27 +15,27 @@ ne::Bullets::~Bullets()
 {
 }
 
-ne::Transform ne::Bullets::getTransform()
+ne::Transform& ne::Bullets::getTransform()
 {
     return (transform);
 }
 
-ne::Gravity ne::Bullets::getGravity()
+ne::Gravity& ne::Bullets::getGravity()
 {
     return (gravity);
 }
 
-ne::RigidBody ne::Bullets::getRigidBody()
+ne::RigidBody& ne::Bullets::getRigidBody()
 {
     return (rigidbody);
 }
 
-ne::Color ne::Bullets::getColor()
+ne::Color& ne::Bullets::getColor()
 {
     return (color);
 }
 
-ne::Skin ne::Bullets::getSkin()
+ne::Skin& ne::Bullets::getSkin()
 {
     return (skin);
 }
@@ -43,6 +43,11 @@ ne::Skin ne::Bullets::getSkin()
 ne::Patterns& ne::Bullets::getPattern()
 {
     return (pat);
+}
+
+ne::EntityType::Type& ne::Bullets::getType()
+{
+    return (Type);
 }
 
 void ne::Bullets::setRigitBody(ne::RigidBody rigid)
@@ -73,4 +78,9 @@ void ne::Bullets::setSkin(ne::Skin sk)
 void ne::Bullets::setPattern(std::function<ne::Math::Vector3f()> func)
 {
     pat.patternFunc = func;
+}
+
+void ne::Bullets::setType(ne::EntityType::Type newType)
+{
+    Type = newType;
 }

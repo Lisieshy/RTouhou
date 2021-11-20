@@ -40,7 +40,10 @@ ne::BasicWhiteBullets::BasicWhiteBullets()
     skin.sprite.setTextureRect(sf::IntRect(102, 39, 14, 15));
     setSkin(skin);
 
-    setPattern(std::bind(&ne::Patterns::topToBotPattern, &this->getPattern()));
+    ne::EntityType::Type newType = ne::EntityType::Type::WhiteBullets;
+    setType(newType);
+
+    setPattern(std::bind(&ne::Patterns::BulletTopToBotPattern, &this->getPattern()));
 }
 
 ne::BasicWhiteBullets::~BasicWhiteBullets()

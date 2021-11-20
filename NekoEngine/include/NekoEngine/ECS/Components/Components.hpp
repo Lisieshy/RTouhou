@@ -26,8 +26,12 @@
 #include "NekoEngine/ECS/Components/Networkable.hpp"
 #include "NekoEngine/ECS/Components/Uid.hpp"
 #include "NekoEngine/ECS/Components/Hostile.hpp"
+#include "NekoEngine/ECS/Components/But.hpp"
+#include "NekoEngine/ECS/Components/Textinfo.hpp"
 #include "NekoEngine/ECS/Components/Patterns.hpp"
 #include "NekoEngine/ECS/Components/Alien.hpp"
 #include "NekoEngine/ECS/Components/EntityType.hpp"
+#include "NekoEngine/ECS/Components/GorbBackground.hpp"
+#include "NekoEngine/ECS/Components/Animation.hpp"
 
 #endif /* !COMPONENTS_HPP_ */

@@ -64,50 +64,40 @@ namespace rt {
                                 ne::Uid receivedUid;
                                 ne::EntityType::Type receivedType;
                                 msg >> receivedType >> receivedUid >> receivedEntity;
-
                                 for (auto& entity : m_entities) {
-                                    // std::cout << "Here is the received UID : " << receivedUid.uid << std::endl;
                                     if (receivedUid.uid == coordinator->getComponent<ne::Uid>(entity).uid) {
-                                        // std::cout << "On update l'entitée : " << entity << std::endl;
                                         _found = true;
                                         auto& t = coordinator->getComponent<ne::Transform>(entity);
                                         t = receivedEntity;
                                     }
                                 }
                                 if (!_found) {
-                                    auto newEntity = coordinator->createEntity();
-                                    std::shared_ptr<ne::Ennemies> test;
-                                    if (receivedType == ne::EntityType::Type::BasicEnnemy) {
-                                        test = fact.createEnnemies("BasicPlane");
-                                        // std::cout << "On CREE un BASIC plane" << std::endl;
+                                    if (receivedType <= ne::EntityType::Type::WhiteEnnemy) {
+                                        auto newEntity = coordinator->createEntity();
+                                        std::shared_ptr<ne::Ennemies> test;
+                                        if (receivedType == ne::EntityType::Type::BasicEnnemy)
+                                            test = fact.createEnnemies("BasicPlane");
+                                        if (receivedType == ne::EntityType::Type::DarkEnnemy)
+                                            test = fact.createEnnemies("DarkBlue");
+                                        if (receivedType == ne::EntityType::Type::GreenEnnemy)
+                                            test = fact.createEnnemies("GreenFerry");
+                                        if (receivedType == ne::EntityType::Type::OrangeEnnemy)
+                                            test = fact.createEnnemies("OrangeFerry");
+                                        if (receivedType == ne::EntityType::Type::WhiteEnnemy)
+                                            test = fact.createEnnemies("WhiteFerry");
+                                        test.get()->setTransform(receivedEntity);
+                                        test.get()->setType(receivedType);
+                                        coordinator->addComponent(newEntity, receivedEntity);
+                                        coordinator->addComponent(newEntity, test.get()->getRigidBody());
+                                        coordinator->addComponent(newEntity, ne::Renderable{});
+                                        coordinator->addComponent(newEntity, test.get()->getColor());
+                                        coordinator->addComponent(newEntity, test.get()->getSkin());
+                                        coordinator->addComponent(newEntity, ne::Uid{ receivedUid });
+                                        coordinator->addComponent(newEntity, test.get()->getAlien());
+                                        coordinator->addComponent(newEntity, test.get()->getType());
+                                        coordinator->addComponent(newEntity, test.get()->getPattern());
+                                        coordinator->addComponent(newEntity, ne::Animation{});
                                     }
-                                    if (receivedType == ne::EntityType::Type::DarkEnnemy) {
-                                        test = fact.createEnnemies("DarkBlue");
-                                        // std::cout << "On CREE un DARK plane" << std::endl;
-                                    }
-                                    if (receivedType == ne::EntityType::Type::GreenEnnemy) {
-                                        test = fact.createEnnemies("GreenFerry");
-                                        // std::cout << "On CREE un GREEN plane" << std::endl;
-                                    }
-                                    if (receivedType == ne::EntityType::Type::OrangeEnnemy) {
-                                        test = fact.createEnnemies("OrangeFerry");
-                                        // std::cout << "On CREE un ORANGE plane" << std::endl;
-                                    }
-                                    if (receivedType == ne::EntityType::Type::WhiteEnnemy) {
-                                        test = fact.createEnnemies("WhiteFerry");
-                                        // std::cout << "On CREE un WHITE plane" << std::endl;
-                                    }
-                                    test.get()->setTransform(receivedEntity);
-                                    test.get()->setType(receivedType);
-                                    coordinator->addComponent(newEntity, receivedEntity);
-                                    coordinator->addComponent(newEntity, test.get()->getRigidBody());
-                                    coordinator->addComponent(newEntity, ne::Renderable{});
-                                    coordinator->addComponent(newEntity, test.get()->getColor());
-                                    coordinator->addComponent(newEntity, test.get()->getSkin());
-                                    coordinator->addComponent(newEntity, ne::Uid{ receivedUid });
-                                    coordinator->addComponent(newEntity, test.get()->getAlien());
-                                    coordinator->addComponent(newEntity, test.get()->getType());
-                                    coordinator->addComponent(newEntity, test.get()->getPattern());
                                 }
                             }
                             break;
@@ -125,6 +115,28 @@ namespace rt {
                                         auto& t = coordinator->getComponent<ne::Transform>(entity);
                                         t = receivedEntity;
                                     }
+                                }
+                                if (!_found) {
+                                        auto newEntity = coordinator->createEntity();
+                                        std::shared_ptr<ne::Bullets> bulletsCreated;
+                                        if (receivedType == ne::EntityType::Type::WhiteBullets)
+                                            bulletsCreated = bullets.createBullets("BasicWhiteBullets");
+                                        else if (receivedType == ne::EntityType::Type::Tier2Bullets)
+                                            bulletsCreated = bullets.createBullets("Tier2Bullets");
+                                        else if (receivedType == ne::EntityType::Type::FriendlyBullets)
+                                            bulletsCreated = bullets.createBullets("FriendlyBullets");
+                                        else
+                                            bulletsCreated = bullets.createBullets("Tier3Bullets");                                        
+                                        bulletsCreated.get()->setTransform(receivedEntity);
+                                        bulletsCreated.get()->setType(receivedType);
+                                        coordinator->addComponent(newEntity, receivedEntity);
+                                        coordinator->addComponent(newEntity, bulletsCreated.get()->getRigidBody());
+                                        coordinator->addComponent(newEntity, ne::Renderable{});
+                                        coordinator->addComponent(newEntity, bulletsCreated.get()->getColor());
+                                        coordinator->addComponent(newEntity, bulletsCreated.get()->getSkin());
+                                        coordinator->addComponent(newEntity, ne::Uid{ receivedUid });
+                                        coordinator->addComponent(newEntity, bulletsCreated.get()->getType());
+                                        coordinator->addComponent(newEntity, bulletsCreated.get()->getPattern());
                                 }
                             }
                             break;

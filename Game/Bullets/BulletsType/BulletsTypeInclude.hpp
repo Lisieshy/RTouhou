@@ -6,3 +6,6 @@
 */
 
 #include "BasicWhiteBullets.hpp"
+#include "BulletsTier2.hpp"
+#include "BulletsTier3.hpp"
+#include "FriendlyBullets.hpp"

@@ -24,11 +24,14 @@
 
 #include <NyaLog/NyaLog.hpp>
 #include <include/CustomClient.hpp>
+#include "../../Menu/Menu.hpp"
+#include "../../Menu/Buttons.hpp"
+#include "../../Menu/Setting.hpp"
 #include "../include/ClientGame.hpp"
 #include "../../Game/Ennemies/EnnemiesFactory.hpp"
 #include "../../Game/Bullets/BulletsFactory.hpp"
 #include "../../Game/GameScene/GameScene.hpp"
-#include "../../Game/GlobalTexture/GlobalTexture.hpp"
+#include "../../Game/GlobalLibrary/GlobalTexture.hpp"
 
 auto main(
     int argc,
@@ -39,13 +42,14 @@ auto main(
     nl::nyalog.init();
     nl::nyalog(nl::LogLevel::Info, "R-Touhou! Configuring everything... Please wait!");
 
-    std::vector<ne::EntityID> entities(1000);
+    std::vector<ne::EntityID> entities(10000);
     ne::ClientGame ClientGame;
     ne::Graphics::Window::open();
-
     int fps = 0;
     auto oldTime = std::chrono::high_resolution_clock::now();
     float dt = 0.0f;
+
+    ClientGame.InitMusic();
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
         auto startTime = std::chrono::high_resolution_clock::now();
@@ -53,10 +57,11 @@ auto main(
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
-        ClientGame.RenderSystem->update();
         ClientGame.ClientSystem->OnMessage();
+        //ClientGame.CollisionSystem->update();
+        ClientGame.AnimSystem->update(dt);
+        ClientGame.RenderSystem->update();
         ClientGame.PlayerSystem->update(dt);
-
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";
             oldTime = std::chrono::high_resolution_clock::now();

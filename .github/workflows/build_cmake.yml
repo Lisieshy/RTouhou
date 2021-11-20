@@ -40,6 +40,7 @@ jobs:
       - name: Install dependencies on Ubuntu Latest
         if: ${{ matrix.config.os == 'ubuntu-latest' }}
         run: |
+          sudo apt-get update
           sudo apt install xorg-dev
           wget https://github.com/conan-io/conan/releases/latest/download/conan-ubuntu-64.deb
           sudo dpkg -i conan-ubuntu-64.deb

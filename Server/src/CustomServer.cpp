@@ -39,7 +39,7 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
                     msg << transform << uid << type;
                     MessageAllClients(msg);
                 }
-                else if (coordinator->getComponent<ne::EntityType::Type>(entity) == ne::EntityType::Type::Bullets) {
+                else if (coordinator->getComponent<ne::EntityType::Type>(entity) <= ne::EntityType::Type::Bullets) {
                     msg.header.id = rt::CustomMsgTypes::SendBullets;
                     auto &transform = coordinator->getComponent<ne::Transform>(entity);
                     auto &uid = coordinator->getComponent<ne::Uid>(entity);
