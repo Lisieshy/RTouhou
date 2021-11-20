@@ -19,6 +19,7 @@
 #include "../../Game/Ennemies/EnnemiesFactory.hpp"
 #include "../../Game/Bullets/BulletsFactory.hpp"
 #include "../../Server/src/CustomServer.cpp"
+#include "../Waves/Wave.hpp"
 #include <include/PlayerSystem.hpp>
 
 #ifndef GAMESCENE_HPP_
@@ -40,11 +41,9 @@ namespace ne {
              */
             ~GameScene();
 
-            void GameLoop(float dt);
+            void GameLoop(float dt, u_int32_t& ID);
 
-            void InitScene();
-
-            void setEntity(uint32_t ID);
+            void InitScene(uint32_t &entityID);
 
             std::unordered_map<uint32_t, std::shared_ptr<ne::Ennemies>> EnnemiesAlive;
 
@@ -52,6 +51,7 @@ namespace ne {
             std::shared_ptr<ne::GameEnnemiesLoop> EnnemiesLoopSystem;
             std::shared_ptr<CustomServer> NetworkSystem;
             std::shared_ptr<rt::PlayerSystem> PlayerSystem;
+            std::shared_ptr<ne::Collision> CollisionSystem;
 
             ne::Scene Game;
 
@@ -61,6 +61,8 @@ namespace ne {
             ne::BulletsFactory bullets;
 
             uint32_t entityID = 0;
+
+            ne::Wave Wave;
         protected:
         private:
     };

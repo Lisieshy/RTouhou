@@ -15,7 +15,6 @@ namespace ne {
             Text(const std::string &name, const std::string &text, ne::Math::Vector2u pos);
             ~Text();
 
-            std::shared_ptr<ne::RenderSystem> Rendering;
             ne::Textinfo& getTextInfo();
             ne::Transform& getTransform();
 

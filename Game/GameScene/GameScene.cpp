@@ -27,17 +27,12 @@ ne::GameScene::~GameScene()
 {
 }
 
-void ne::GameScene::GameLoop(float dt)
+void ne::GameScene::GameLoop(float dt, uint32_t& ID)
 {
-
+    Wave.WaveLoop(dt, ID, Game.coordinator);
 }
 
-void ne::GameScene::setEntity(uint32_t ID)
-{
-    entityID = ID;
-}
-
-void ne::GameScene::InitScene()
+void ne::GameScene::InitScene(uint32_t &entityID)
 {
     Game.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::Networkable, ne::EntityType::Type, ne::Patterns>();
 
@@ -56,6 +51,7 @@ void ne::GameScene::InitScene()
         ne::Signature signature;
         signature.set(Game.coordinator->getComponentType<ne::Alien>());
         signature.set(Game.coordinator->getComponentType<ne::Transform>());
+        signature.set(Game.coordinator->getComponentType<ne::EntityType::Type>());
         Game.coordinator->setSystemSignature<ne::GameEnnemiesLoop>(signature);
     }
 
@@ -68,25 +64,28 @@ void ne::GameScene::InitScene()
         Game.coordinator->setSystemSignature<CustomServer>(signature);
     }
     
+    CollisionSystem = Game.coordinator->registerSystem<ne::Collision>(Game.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(Game.coordinator->getComponentType<ne::Transform>());
+        signature.set(Game.coordinator->getComponentType<ne::EntityType::Type>());
+        Game.coordinator->setSystemSignature<ne::Collision>(signature);        
+    }
+
     for (auto entity : entities) {
+        ne::Transform trans;
         entity = Game.coordinator->createEntity();
-        std::shared_ptr<ne::Ennemies> test;
+        std::shared_ptr<ne::Bullets> test;
 
-        if (entityID < 5)
-            test = fact.createEnnemies("BasicPlane");
-        else if (entityID < 10)
-            test = fact.createEnnemies("OrangeFerry");
-        else if (entityID < 15)
-            test = fact.createEnnemies("GreenFerry");
-        else if (entityID < 20)
-            test = fact.createEnnemies("DarkBlue");
-        else if (entityID < 25)
-            test = fact.createEnnemies("WhiteFerry");
+        test = bullets.createBullets("FriendlyBullets");
 
+        trans = test.get()->getTransform();
+        trans.position.y = 800;
         Game.coordinator->addComponent(entity, test.get()->getTransform());
+        Game.coordinator->addComponent(entity, test.get()->getGravity());
         Game.coordinator->addComponent(entity, test.get()->getRigidBody());
         Game.coordinator->addComponent(entity, ne::Uid{ entityID });
-        Game.coordinator->addComponent(entity, test.get()->getAlien());
+        Game.coordinator->addComponent(entity, ne::Renderable{});
         Game.coordinator->addComponent(entity, test.get()->getType());
         Game.coordinator->addComponent(entity, ne::Networkable{});
         Game.coordinator->addComponent(entity, test.get()->getPattern());

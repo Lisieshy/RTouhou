@@ -14,6 +14,7 @@
 #include "../../Game/Bullets/BulletsFactory.hpp"
 #include "PlayerSystem.hpp"
 #include "NekoEngine/NekoEngine.hpp"
+#include <SFML/Audio.hpp>
 
 namespace ne {
     class ClientGame {
@@ -24,8 +25,14 @@ namespace ne {
             std::shared_ptr<ne::RenderSystem> RenderSystem;
             std::shared_ptr<rt::CustomClient> ClientSystem;
             std::shared_ptr<rt::PlayerSystem> PlayerSystem;
+            std::shared_ptr<ne::AnimationSystem> AnimSystem;
+            std::shared_ptr<ne::Collision> CollisionSystem;
 
             ne::Scene ClientGameScene;
+
+            void InitMusic();
+
+            sf::Music music;
         protected:
         private:
     };

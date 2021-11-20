@@ -17,7 +17,7 @@
 #include <../NekoEngine/include/NekoEngine/Math/Vector/Vector.hpp>
 #include <../NekoEngine/include/NekoEngine/ECS/Components/Components.hpp>
 #include <functional>
-#include "../GlobalTexture/GlobalTexture.hpp"
+#include "../GlobalLibrary/GlobalTexture.hpp"
 
 #ifndef ENNEMIES_HPP_
 #define ENNEMIES_HPP_

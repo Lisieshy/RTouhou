@@ -14,7 +14,8 @@
 
 
 #include "../NekoEngine/include/NekoEngine/NekoEngine.hpp"
-#include "../GlobalTexture/GlobalTexture.hpp"
+#include "../GlobalLibrary/GlobalTexture.hpp"
+#include <../NekoEngine/include/NekoEngine/ECS/Components/Components.hpp>
 #include <../NekoEngine/include/NekoEngine/Math/Vector/Vector.hpp>
 
 #ifndef BULLETS_HPP_
@@ -43,31 +44,31 @@ namespace ne {
              * @brief get Transform component
              * @return a ne::Transform
              */
-            ne::Transform getTransform();
+            ne::Transform& getTransform();
 
             /**
              * @brief get Gravity component
              * @return a ne::Gravity
              */
-            ne::Gravity getGravity();
+            ne::Gravity& getGravity();
 
             /**
              * @brief get RigidBody component
              * @return a ne::RigidBody
              */
-            ne::RigidBody getRigidBody();
+            ne::RigidBody& getRigidBody();
 
             /**
              * @brief get Skin component
              * @return a ne::Skin
              */
-            ne::Skin getSkin();
+            ne::Skin& getSkin();
 
             /**
              * @brief Get the Color object@
              * @return ne::Color 
              */
-            ne::Color getColor();
+            ne::Color& getColor();
 
             /**
              * @brief Get the Pattern object
@@ -75,6 +76,13 @@ namespace ne {
              * @return ne::Patterns& 
              */
             ne::Patterns& getPattern();
+
+            /**
+             * @brief Get the Type object
+             * 
+             * @return ne::EntityType::Type&
+             */
+            ne::EntityType::Type& getType();
 
             /**
              * @brief Set the Transform object
@@ -117,6 +125,13 @@ namespace ne {
              * @param std::function<ne::Math::Vector3f()>
              */
             void setPattern(std::function<ne::Math::Vector3f()>);
+
+            /**
+             * @brief Set the Type object
+             * 
+             * @param ne::EntityType::Type 
+             */
+            void setType(ne::EntityType::Type newType);
         protected:
         private:
             ne::Transform transform;
@@ -125,6 +140,7 @@ namespace ne {
             ne::Color color;
             ne::Skin skin;
             ne::Patterns pat;
+            ne::EntityType::Type Type;
     };
 }
 

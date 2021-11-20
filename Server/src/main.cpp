@@ -32,50 +32,44 @@ auto main(
     nl::nyalog.init();
     uint32_t entityID = 0;
 
-    std::vector<ne::EntityID> entities(1000);
+    std::vector<ne::EntityID> entities(10000);
     ne::GameScene Game(entities);
     ne::EnnemiesFactory fact;
-    Game.InitScene();
-
-    /*for (auto entity : entities) {
-        entity = Game.Game.coordinator->createEntity();
-        std::shared_ptr<ne::Ennemies> test;
-
-        if (entityID < 5)
-            test = fact.createEnnemies("BasicPlane");
-        else if (entityID < 10)
-            test = fact.createEnnemies("OrangeFerry");
-        else if (entityID < 15)
-            test = fact.createEnnemies("GreenFerry");
-        else if (entityID < 20)
-            test = fact.createEnnemies("DarkBlue");
-        else if (entityID < 25)
-            test = fact.createEnnemies("WhiteFerry");
-        entityID++;
-        if (entityID == 25)
-            break;
-    }*/
+    Game.InitScene(entityID);
 
     Game.NetworkSystem->Start();
 
     auto oldTime = std::chrono::high_resolution_clock::now();
+    auto beginTime = std::chrono::high_resolution_clock::now();
     float dt = 0.0f;
     int fps = 0;
+    float timePassed = 0.0f;
+    bool started = false;
 
     while (1) {
-        auto startTime = std::chrono::high_resolution_clock::now();
-        fps++;
-        Game.PatternSystem->update(dt);
-        if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::milliseconds{ 20 }) {
-            oldTime = std::chrono::high_resolution_clock::now();
-            Game.NetworkSystem->SendDataToClients();
-            fps = 0;
+        if (Game.NetworkSystem->nIDCounter > static_cast<u_int32_t>(10000)) {
+            auto startTime = std::chrono::high_resolution_clock::now();
+            fps++;
+            if ((timePassed += dt) >= 1.0f) {
+                Game.GameLoop(dt, entityID);
+                Game.EnnemiesLoopSystem->update(dt, entityID);
+                Game.PatternSystem->update(dt);
+                Game.CollisionSystem->update();
+            }
+            else {
+                std::cout << "Hello, je fix le problème !" << std::endl;
+            }
+            if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::milliseconds{ 20 }) {
+                oldTime = std::chrono::high_resolution_clock::now();
+                Game.NetworkSystem->SendDataToClients();
+                fps = 0;
+            }
+            auto stopTime = std::chrono::high_resolution_clock::now();
+            dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
         }
         Game.NetworkSystem->Update(-1, false);
-        auto stopTime = std::chrono::high_resolution_clock::now();
-        dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
-    }
 
+    }
     Game.NetworkSystem->Stop();
 
     nl::nyalog.stop();

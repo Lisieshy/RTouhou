@@ -2,12 +2,12 @@
 ** EPITECH PROJECT, 2021
 ** B-CPP-501-NCY-5-1-rtype-aurelien.schulz
 ** File description:
-** BasicWhiteBullets
+** BulletsTier3
 */
 
-#include "BasicWhiteBullets.hpp"
+#include "BulletsTier3.hpp"
 
-ne::BasicWhiteBullets::BasicWhiteBullets()
+ne::BulletsTier3::BulletsTier3()
 {
     std::random_device rd;
     std::random_device rd3;
@@ -37,15 +37,17 @@ ne::BasicWhiteBullets::BasicWhiteBullets()
 
     ne::Skin skin;
     skin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Bullets/bullets.png"));
-    skin.sprite.setTextureRect(sf::IntRect(102, 39, 14, 15));
+    skin.sprite.setTextureRect(sf::IntRect(37, 38, 14, 15));
     setSkin(skin);
 
-    ne::EntityType::Type newType = ne::EntityType::Type::WhiteBullets;
+    ne::EntityType::Type newType = ne::EntityType::Type::Tier3Bullets;
     setType(newType);
 
     setPattern(std::bind(&ne::Patterns::BulletTopToBotPattern, &this->getPattern()));
 }
 
-ne::BasicWhiteBullets::~BasicWhiteBullets()
+ne::BulletsTier3::~BulletsTier3()
 {
+
 }
+
