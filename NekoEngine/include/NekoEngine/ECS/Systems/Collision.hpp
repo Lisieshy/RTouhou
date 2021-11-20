@@ -9,11 +9,18 @@
 #define COLLISION_HPP_
 
 #include "NekoEngine/ECS/System.hpp"
+#include "NekoEngine/ECS/Components/Components.hpp"
+#include "NekoEngine/ECS/Coordinator.hpp"
+#include <iostream>
 
 namespace ne {
     class Collision : public ne::System {
         public:
             void update();
+
+            void removeEnnemies(std::vector<ne::EntityID>& EnnemiesToBeDestroyed);
+
+            void removeBullets(std::vector<ne::EntityID>& BulletsToBeDestroyed);
     };
 }
 

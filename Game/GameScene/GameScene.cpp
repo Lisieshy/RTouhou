@@ -82,8 +82,10 @@ void ne::GameScene::InitScene(uint32_t &entityID)
         trans = test.get()->getTransform();
         trans.position.y = 800;
         Game.coordinator->addComponent(entity, test.get()->getTransform());
+        Game.coordinator->addComponent(entity, test.get()->getGravity());
         Game.coordinator->addComponent(entity, test.get()->getRigidBody());
         Game.coordinator->addComponent(entity, ne::Uid{ entityID });
+        Game.coordinator->addComponent(entity, ne::Renderable{});
         Game.coordinator->addComponent(entity, test.get()->getType());
         Game.coordinator->addComponent(entity, ne::Networkable{});
         Game.coordinator->addComponent(entity, test.get()->getPattern());

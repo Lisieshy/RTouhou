@@ -54,6 +54,7 @@ auto main(
                 Game.GameLoop(dt, entityID);
                 Game.EnnemiesLoopSystem->update(dt, entityID);
                 Game.PatternSystem->update(dt);
+                Game.CollisionSystem->update();
             }
             else {
                 std::cout << "Hello, je fix le problème !" << std::endl;

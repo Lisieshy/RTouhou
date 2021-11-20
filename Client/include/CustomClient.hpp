@@ -84,7 +84,6 @@ namespace rt {
                                             test = fact.createEnnemies("OrangeFerry");
                                         if (receivedType == ne::EntityType::Type::WhiteEnnemy)
                                             test = fact.createEnnemies("WhiteFerry");
-
                                         test.get()->setTransform(receivedEntity);
                                         test.get()->setType(receivedType);
                                         coordinator->addComponent(newEntity, receivedEntity);

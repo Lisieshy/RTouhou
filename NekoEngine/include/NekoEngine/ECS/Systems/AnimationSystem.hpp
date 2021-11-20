@@ -13,7 +13,7 @@
 namespace ne {
     class AnimationSystem : public ne::System {
         public:
-            void update(float& dt);
+            void update(float dt);
 
             float animationTime = 0.5f;
     };

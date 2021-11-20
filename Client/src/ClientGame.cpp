@@ -47,6 +47,14 @@ ne::ClientGame::ClientGame()
         ClientGameScene.coordinator->setSystemSignature<ne::AnimationSystem>(signature);
     }
 
+    CollisionSystem = ClientGameScene.coordinator->registerSystem<ne::Collision>(ClientGameScene.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(ClientGameScene.coordinator->getComponentType<ne::Transform>());
+        signature.set(ClientGameScene.coordinator->getComponentType<ne::EntityType::Type>());
+        ClientGameScene.coordinator->setSystemSignature<ne::Collision>(signature);        
+    }
+
     ne::Skin playerSkin;
     playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Ennemies/TouhouBasicMob.png"));
     playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));

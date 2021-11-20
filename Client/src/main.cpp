@@ -58,6 +58,7 @@ auto main(
             0, 0, 0, 255
         });
         ClientGame.ClientSystem->OnMessage();
+        //ClientGame.CollisionSystem->update();
         ClientGame.AnimSystem->update(dt);
         ClientGame.RenderSystem->update();
         ClientGame.PlayerSystem->update(dt);

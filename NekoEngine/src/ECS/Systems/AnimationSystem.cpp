@@ -10,7 +10,7 @@
 #include "NekoEngine/ECS/Components/Components.hpp"
 #include <iostream>
 
-void ne::AnimationSystem::update(float& dt)
+void ne::AnimationSystem::update(float dt)
 {
     animationTime -= dt;
     if (animationTime <= 0.f) {
