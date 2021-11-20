@@ -14,7 +14,7 @@
 
 #include <NekoEngine/NekoEngine.hpp>
 #include <functional>
-#include "../GlobalTexture/GlobalTexture.hpp"
+#include "../Game/GlobalLibrary/GlobalTexture.hpp"
 #include <include/Controller.hpp>
 
 #ifndef PLAYER_HPP_
