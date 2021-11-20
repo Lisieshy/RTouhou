@@ -40,26 +40,35 @@ auto main(
     Game.NetworkSystem->Start();
 
     auto oldTime = std::chrono::high_resolution_clock::now();
+    auto beginTime = std::chrono::high_resolution_clock::now();
     float dt = 0.0f;
     int fps = 0;
+    float timePassed = 0.0f;
+    bool started = false;
 
     while (1) {
-        auto startTime = std::chrono::high_resolution_clock::now();
-        fps++;
-        Game.GameLoop(dt, entityID);
-        Game.CollisionSystem->update();
-        Game.EnnemiesLoopSystem->update(dt, entityID);
-        Game.PatternSystem->update(dt);
-        if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::milliseconds{ 20 }) {
-            oldTime = std::chrono::high_resolution_clock::now();
-            Game.NetworkSystem->SendDataToClients();
-            fps = 0;
+        if (Game.NetworkSystem->nIDCounter > static_cast<u_int32_t>(10000)) {
+            auto startTime = std::chrono::high_resolution_clock::now();
+            fps++;
+            if ((timePassed += dt) >= 1.0f) {
+                Game.GameLoop(dt, entityID);
+                Game.EnnemiesLoopSystem->update(dt, entityID);
+                Game.PatternSystem->update(dt);
+            }
+            else {
+                std::cout << "Hello, je fix le problème !" << std::endl;
+            }
+            if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::milliseconds{ 20 }) {
+                oldTime = std::chrono::high_resolution_clock::now();
+                Game.NetworkSystem->SendDataToClients();
+                fps = 0;
+            }
+            auto stopTime = std::chrono::high_resolution_clock::now();
+            dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
         }
         Game.NetworkSystem->Update(-1, false);
-        auto stopTime = std::chrono::high_resolution_clock::now();
-        dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
-    }
 
+    }
     Game.NetworkSystem->Stop();
 
     nl::nyalog.stop();
