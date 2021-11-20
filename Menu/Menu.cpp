@@ -45,7 +45,6 @@ ne::Menu::Menu(std::vector<ne::EntityID> entities)
         scene.coordinator->setSystemSignature<ne::ParallaxSystem>(signature);
     }
     ne::Background bg;
-    ne::Parallax par;
     std::vector<ne::Buttons> usine;
     usine.push_back(ne::Buttons("Start", "resources/button_start.png", ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4)));
     usine.push_back(ne::Buttons("Setting", "resources/button_settings.png", ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 2)));
@@ -54,11 +53,6 @@ ne::Menu::Menu(std::vector<ne::EntityID> entities)
     auto gorboulut = scene.coordinator->createEntity();
     scene.coordinator->addComponent(gorboulut, bg.getSkin());
     scene.coordinator->addComponent(gorboulut, ne::GorbBackground{});
-    auto parallax = scene.coordinator->createEntity();
-    scene.coordinator->addComponent(parallax, par.getSkin());
-    scene.coordinator->addComponent(parallax, par.getTransform());
-    scene.coordinator->addComponent(parallax, ne::ParallaxSystem{});
-    scene.coordinator->addComponent(parallax, ne::GorbBackground{});
     for (auto entity: entities) {
         entity = scene.coordinator->createEntity();
         scene.coordinator->addComponent(entity, usine.at(i).getTransform());

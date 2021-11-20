@@ -7,10 +7,11 @@
 
 #include "Parallax.hpp"
 
-ne::Parallax::Parallax()
+ne::Parallax::Parallax(ne::Math::Vector3f pos, std::string path)
 {
-    skin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/menu.png"));
+    skin.sprite.setTexture(ne::GlobalTexture::Instance().GetData(path));
     skin.sprite.setScale({1.5, 1.5});
+    transf.position = pos;
 }
 
 ne::Parallax::~Parallax()

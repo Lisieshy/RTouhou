@@ -75,8 +75,9 @@ auto main(
         // sett.TextSys->update();
         // sett.Rendering->update();
         // sett.Rendering->update();
-    
+
         ClientGame.ClientSystem->OnMessage();
+        ClientGame.Parallax->update(dt);
         ClientGame.RenderSystem->update();
         ClientGame.PlayerSystem->update(dt);
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {

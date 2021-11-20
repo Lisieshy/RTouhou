@@ -12,7 +12,7 @@
 namespace ne {
     class Parallax {
         public:
-            Parallax();
+            Parallax(ne::Math::Vector3f pos, std::string path);
             ~Parallax();
             ne::Transform& getTransform();
             ne::Skin& getSkin();
