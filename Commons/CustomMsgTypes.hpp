@@ -12,5 +12,13 @@ namespace rt {
         
         SendEnnemies,
         SendBullets,
+
+        AcceptedPlayer,
+        AssignPlayerID,
+        PlayerRegisterWithServer,
+        PlayerUnregisterWithServer,
+        AddPlayer,
+        RemovePlayer,
+        UpdatePlayer,
     };
 }

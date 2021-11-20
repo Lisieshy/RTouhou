@@ -21,7 +21,7 @@
 namespace ne {
     class PatternSystem : public ne::System {
         public:
-            void update(float dt);
+            void update(float& dt);
     };
 }
 

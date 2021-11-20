@@ -37,6 +37,16 @@ ne::Math::Vector3f ne::Patterns::topToBotPattern()
     return(ne::Math::Vector3f{0.f, 60.f, 0.f});
 }
 
+ne::Math::Vector3f ne::Patterns::BulletTopToBotPattern()
+{
+    return(ne::Math::Vector3f{0.f, 150.f, 0.f});
+}
+
+ne::Math::Vector3f ne::Patterns::BulletBotToTopPattern()
+{
+    return(ne::Math::Vector3f{0.f, -150.f, 0.f});
+}
+
 ne::Math::Vector3f ne::Patterns::leftToRightCirclePattern()
 {
     static double angle = 0;
