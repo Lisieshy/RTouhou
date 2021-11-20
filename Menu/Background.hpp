@@ -14,11 +14,8 @@ namespace ne {
         public:
             Background();
             ~Background();
-            ne::Transform getTransform();
-            ne::Skin getSkin();
-            ne::GorbBackground getGorb();
+            ne::Skin& getSkin();
 
-            ne::GorbBackground gorb;
             ne::Skin skin;
     };
 }

@@ -32,9 +32,9 @@ namespace ne {
             /**
              * @brief getTransform
              */
-            ne::Transform getTransform();
-            ne::Skin getSkin();
-            ne::But getBut();
+            ne::Transform& getTransform();
+            ne::Skin& getSkin();
+            ne::But& getBut();
 
             ne::But but;
             ne::Transform transf;

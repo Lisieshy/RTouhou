@@ -54,8 +54,6 @@ auto main(
     float dt = 0.0f;
     ne::Menu menu(entities);
     //ne::Setting sett(entities);
-    //sett.InitScene();
-    menu.InitScene();
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
         auto startTime = std::chrono::high_resolution_clock::now();
@@ -68,7 +66,6 @@ auto main(
         menu.Rendering->update();
         //sett.RenderBackground->update();
         //sett.MouseSys->update();
-        //sett.TextSys->update();
         //sett.Rendering->update();
 //        sett.Rendering->update();
         //ClientGame.ClientSystem->OnMessage();

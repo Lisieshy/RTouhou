@@ -10,29 +10,9 @@
 #include "Text.hpp"
 #include "Background.hpp"
 
-ne::Setting::Setting(std::vector<ne::EntityID> entity)
+ne::Setting::Setting(std::vector<ne::EntityID> entities)
 {
-    entities = entity;
-}
-
-ne::Setting::~Setting()
-{
-}
-
-ne::Transform ne::Setting::getTransform()
-{
-    ne::Transform transf;
-    return (transf);
-}
-
-ne::Skin ne::Setting::getSkin()
-{
-    ne::Skin skin;
-    return (skin);
-}
-
-void ne::Setting::InitScene()
-{
+    ne::Scene scene;
     scene.coordinator->registerComponent<ne::Transform, ne::Renderable, ne::Skin, ne::But, ne::Textinfo, ne::GorbBackground>();
     Rendering = scene.coordinator->registerSystem<ne::RenderSystem>(scene.coordinator);
     {
@@ -45,7 +25,6 @@ void ne::Setting::InitScene()
     RenderBackground = scene.coordinator->registerSystem<ne::BackgroundSystem>(scene.coordinator);
     {
         ne::Signature sign;
-        sign.set(scene.coordinator->getComponentType<ne::Transform>());
         sign.set(scene.coordinator->getComponentType<ne::Skin>());
         sign.set(scene.coordinator->getComponentType<ne::GorbBackground>());
         scene.coordinator->setSystemSignature<ne::BackgroundSystem>(sign); 
@@ -57,13 +36,6 @@ void ne::Setting::InitScene()
         signature.set(scene.coordinator->getComponentType<ne::Transform>());
         scene.coordinator->setSystemSignature<ne::MouseSystem>(signature);
     }
-    //TextSys = scene.coordinator->registerSystem<ne::TextSystem>(scene.coordinator);
-    //{
-    //    ne::Signature signature;
-    //    signature.set(scene.coordinator->getComponentType<ne::Textinfo>());
-    //    signature.set(scene.coordinator->getComponentType<ne::Transform>());
-    //    scene.coordinator->setSystemSignature<ne::TextSystem>(signature);
-    //}
     ne::Background bg;
     std::vector<ne::Buttons> usine;
     usine.push_back(ne::Buttons("Sound_on", "resources/button_sound_on.png",
@@ -73,9 +45,7 @@ void ne::Setting::InitScene()
     size_t i = 0;
     auto gorboulut = scene.coordinator->createEntity();
     scene.coordinator->addComponent(gorboulut, bg.getSkin());
-    scene.coordinator->addComponent(gorboulut, bg.getGorb());
-    scene.coordinator->addComponent(gorboulut, bg.getTransform());
-
+    scene.coordinator->addComponent(gorboulut, ne::GorbBackground{});
     for (auto entity: entities) {
         entity = scene.coordinator->createEntity();
         scene.coordinator->addComponent(entity, usine.at(i).getTransform());
@@ -86,4 +56,8 @@ void ne::Setting::InitScene()
         if (usine.size() == i)
             break;
     }
+}
+
+ne::Setting::~Setting()
+{
 }

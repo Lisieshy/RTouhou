@@ -9,30 +9,9 @@
 #include "Buttons.hpp"
 #include "Background.hpp"
 
-ne::Menu::Menu(std::vector<ne::EntityID> entity)
+ne::Menu::Menu(std::vector<ne::EntityID> entities)
 {
-    entities = entity;
-
-}
-
-ne::Menu::~Menu()
-{
-}
-
-ne::Skin ne::Menu::getSkin()
-{
-    ne::Skin skin;
-    return (skin);
-}
-
-ne::Transform ne::Menu::getTransform()
-{
-    ne::Transform trans;
-    return(trans);
-}
-
-void ne::Menu::InitScene()
-{
+    ne::Scene scene;
     scene.coordinator->registerComponent<ne::Transform, ne::Renderable, ne::Skin, ne::But, ne::GorbBackground>();
     Rendering = scene.coordinator->registerSystem<ne::RenderSystem>(scene.coordinator);
     {
@@ -45,7 +24,6 @@ void ne::Menu::InitScene()
     RenderBackground = scene.coordinator->registerSystem<ne::BackgroundSystem>(scene.coordinator);
     {
         ne::Signature sign;
-        sign.set(scene.coordinator->getComponentType<ne::Transform>());
         sign.set(scene.coordinator->getComponentType<ne::Skin>());
         sign.set(scene.coordinator->getComponentType<ne::GorbBackground>());
         scene.coordinator->setSystemSignature<ne::BackgroundSystem>(sign); 
@@ -67,9 +45,8 @@ void ne::Menu::InitScene()
     ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4 * 3)));
     size_t i = 0;
     auto gorboulut = scene.coordinator->createEntity();
-    scene.coordinator->addComponent(gorboulut, bg.getTransform());
     scene.coordinator->addComponent(gorboulut, bg.getSkin());
-    scene.coordinator->addComponent(gorboulut, bg.getGorb());
+    scene.coordinator->addComponent(gorboulut, ne::GorbBackground{});
 
     for (auto entity: entities) {
         entity = scene.coordinator->createEntity();
@@ -81,4 +58,8 @@ void ne::Menu::InitScene()
         if (usine.size() == i)
             break;
     }
+}
+
+ne::Menu::~Menu()
+{
 }

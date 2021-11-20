@@ -12,19 +12,12 @@
 namespace ne {
     class Setting {
         public:
-            Setting(std::vector<ne::EntityID> entity);
+            Setting(std::vector<ne::EntityID> entities);
             ~Setting();
-
-            ne::Transform getTransform();
-            ne::Skin getSkin();
-            void InitScene();
 
             std::shared_ptr<ne::BackgroundSystem> RenderBackground;
             std::shared_ptr<ne::RenderSystem> Rendering;
             std::shared_ptr<ne::MouseSystem> MouseSys;
-            std::shared_ptr<ne::TextSystem> TextSys;
-            std::vector<ne::EntityID> entities;
-            ne::Scene scene;
         protected:
         private:
     };

@@ -12,19 +12,12 @@
 namespace ne {
     class Menu {
         public:
-            Menu(std::vector<ne::EntityID> entity);
+            Menu(std::vector<ne::EntityID> entities);
             ~Menu();
-
-            ne::Transform getTransform();
-            ne::Skin getSkin();
-            void InitScene();
 
             std::shared_ptr<ne::BackgroundSystem> RenderBackground;
             std::shared_ptr<ne::RenderSystem> Rendering;
-            std::shared_ptr<ne::MouseSystem> MouseSys;
-            
-            std::vector<ne::EntityID> entities;
-            ne::Scene scene;
+            std::shared_ptr<ne::MouseSystem> MouseSys;            
         protected:
         private:
     };
