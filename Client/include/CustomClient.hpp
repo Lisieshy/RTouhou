@@ -161,6 +161,7 @@ namespace rt {
                             break;
                             case rt::CustomMsgTypes::AcceptedPlayer:
                             {
+                                std::cout << "Our player is accepted" << std::endl;
                                 nn::message<CustomMsgTypes> _msg;
                                 msg.header.id = CustomMsgTypes::PlayerRegisterWithServer;
                                 msg << _player.id.uid << _player.transform;
@@ -170,19 +171,22 @@ namespace rt {
                             case rt::CustomMsgTypes::AssignPlayerID:
                             {
                                 msg >> _nPlayerID;
+                                std::cout << "Our player is assigned" << std::endl;
+
                                 nl::nyalog(nl::LogLevel::Info, "Player ID assigned: " + std::to_string(_nPlayerID.uid));
                             }
                             break;
                             case rt::CustomMsgTypes::AddPlayer:
                             {
                                 ne::Player player;
-                                msg >> player.id.uid;
+                                msg >> player.id;
                                 _players.insert_or_assign(player.id.uid, player);
                                 if (player.id.uid == _nPlayerID.uid) {
                                     _waitingForConnection = false;
                                 }
-                                break;
+                                std::cout << "Our player is added" << std::endl;
                             }
+                            break;
                             case rt::CustomMsgTypes::RemovePlayer:
                             {
                                 uint32_t removalID = 0;

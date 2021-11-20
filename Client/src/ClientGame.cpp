@@ -67,7 +67,7 @@ ne::ClientGame::ClientGame()
         .left = sf::Keyboard::Key::Q,
         .right = sf::Keyboard::Key::D,
         .shoot = sf::Keyboard::Key::Space,
-        .speed = 20.f,
+        .speed = 60.f,
         .deadzone = 50
     });
     ClientGameScene.coordinator->addComponent(player, ne::Transform{});
@@ -75,7 +75,7 @@ ne::ClientGame::ClientGame()
     ClientGameScene.coordinator->addComponent(player, ne::Renderable{});
     ClientGameScene.coordinator->addComponent(player, ne::Color{ 255, 255, 255, 255 });
     ClientGameScene.coordinator->addComponent(player, playerSkin);
-    ClientGameScene.coordinator->addComponent(player, ne::  Uid{1500});
+    ClientGameScene.coordinator->addComponent(player, ne::Uid{1500});
     ClientSystem->Connect("127.0.0.1", 60000);   
 }
 

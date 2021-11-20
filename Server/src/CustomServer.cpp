@@ -116,7 +116,7 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
                     mAddPlayer.header.id = rt::CustomMsgTypes::AddPlayer;
                     mAddPlayer << player.id;
                     MessageAllClients(mAddPlayer);
-
+                    std::cout << "Our player is registered" << std::endl;
                     for (const auto& p : m_mapPlayersRoster) {
                         nn::message<rt::CustomMsgTypes> mAddOtherPlayer;
                         mAddOtherPlayer.header.id = rt::CustomMsgTypes::AddPlayer;
