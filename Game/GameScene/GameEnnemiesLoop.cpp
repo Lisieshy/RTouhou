@@ -8,7 +8,7 @@
 #include "GameEnnemiesLoop.hpp"
 
 
-void ne::GameEnnemiesLoop::update(float& dt, uint32_t& ID)
+void ne::GameEnnemiesLoop::update(float dt, uint32_t& ID)
 {
     for (auto &entity : m_entities) {
         auto& EnnemiesAlien = coordinator->getComponent<ne::Alien>(entity);

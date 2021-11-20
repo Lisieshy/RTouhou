@@ -41,7 +41,7 @@ namespace ne {
              */
             ~GameScene();
 
-            void GameLoop(float& dt, u_int32_t& ID);
+            void GameLoop(float dt, u_int32_t& ID);
 
             void InitScene(uint32_t &entityID);
 

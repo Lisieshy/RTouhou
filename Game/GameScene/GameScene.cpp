@@ -27,7 +27,7 @@ ne::GameScene::~GameScene()
 {
 }
 
-void ne::GameScene::GameLoop(float& dt, uint32_t& ID)
+void ne::GameScene::GameLoop(float dt, uint32_t& ID)
 {
     Wave.WaveLoop(dt, ID, Game.coordinator);
 }
