@@ -99,7 +99,7 @@ set(PROJECT_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Client/src/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Client/src/ClientGame.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Client/src/ClientCollision.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Client/src/PlayerSystem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Client/src/Sound.cpp
 )
 
 set(NEKOENGINE_SOURCES

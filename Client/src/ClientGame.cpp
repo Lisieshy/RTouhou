@@ -88,5 +88,5 @@ void ne::ClientGame::InitMusic()
     music.openFromFile("resources/Music_SoundEffect/MainGameMusic.ogg");
     music.play();
     music.setLoop(true);
-    music.setVolume(60);
+    music.setVolume(30);
 }

@@ -12,6 +12,7 @@
 #include <NekoEngine/NekoEngine.hpp>
 #include "../../Game/Ennemies/EnnemiesFactory.hpp"
 #include "../../Game/Bullets/BulletsFactory.hpp"
+#include "Sound.hpp"
 
 namespace rt {
     // Defining what types of Messages the server will be capable of handling. THEY MUST BE THE EXACT SAME AS THE SERVER.
@@ -71,6 +72,7 @@ namespace rt {
                                     }
                                 }
                                 if (!_found) {
+                                    sound.BadGuySound.play();
                                     if (receivedType <= ne::EntityType::Type::WhiteEnnemy) {
                                         auto newEntity = coordinator->createEntity();
                                         std::shared_ptr<ne::Ennemies> test;
@@ -116,6 +118,7 @@ namespace rt {
                                     }
                                 }
                                 if (!_found) {
+                                        sound.GunSound.play();
                                         auto newEntity = coordinator->createEntity();
                                         std::shared_ptr<ne::Bullets> bulletsCreated;
                                         if (receivedType == ne::EntityType::Type::WhiteBullets)
@@ -165,6 +168,8 @@ namespace rt {
         private:
             ne::EnnemiesFactory fact;
             ne::BulletsFactory bullets;
+            ne::Sound sound;
+
     };
 }
 
