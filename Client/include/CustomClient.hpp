@@ -12,6 +12,7 @@
 #include <NekoEngine/NekoEngine.hpp>
 #include "../../Game/Ennemies/EnnemiesFactory.hpp"
 #include "../../Game/Bullets/BulletsFactory.hpp"
+#include "../../Game/Player/Player.hpp"
 
 namespace rt {
     // Defining what types of Messages the server will be capable of handling. THEY MUST BE THE EXACT SAME AS THE SERVER.
@@ -158,13 +159,61 @@ namespace rt {
                                 nl::nyalog(nl::LogLevel::Info, "Hello from client " + std::to_string(clientID));
                             }
                             break;
+                            case rt::CustomMsgTypes::AcceptedPlayer:
+                            {
+                                nn::message<CustomMsgTypes> _msg;
+                                msg.header.id = CustomMsgTypes::PlayerRegisterWithServer;
+                                msg << _player.id.uid << _player.transform;
+                                Send(_msg);
+                            }
+                            break;
+                            case rt::CustomMsgTypes::AssignPlayerID:
+                            {
+                                msg >> _nPlayerID;
+                                nl::nyalog(nl::LogLevel::Info, "Player ID assigned: " + std::to_string(_nPlayerID.uid));
+                            }
+                            break;
+                            case rt::CustomMsgTypes::AddPlayer:
+                            {
+                                ne::Player player;
+                                msg >> player.id.uid;
+                                _players.insert_or_assign(player.id.uid, player);
+                                if (player.id.uid == _nPlayerID.uid) {
+                                    _waitingForConnection = false;
+                                }
+                                break;
+                            }
+                            case rt::CustomMsgTypes::RemovePlayer:
+                            {
+                                uint32_t removalID = 0;
+                                msg >> removalID;
+                                _players.erase(removalID);
+                            }
+                            break;
+                            case rt::CustomMsgTypes::UpdatePlayer:
+                            {
+                                ne::Player player;
+                                msg >> player.id >> player.transform;
+                                _players.insert_or_assign(player.id.uid, player);
+                            }
+                            break;
                         }
                     }
                 }
+
+                // Send player data to server
+                nn::message<CustomMsgTypes> pmsg;
+                pmsg.header.id = CustomMsgTypes::UpdatePlayer;
+                pmsg << _players[_nPlayerID.uid].id;
+                Send(pmsg);
             }
         private:
             ne::EnnemiesFactory fact;
             ne::BulletsFactory bullets;
+            std::unordered_map<uint32_t, ne::Player> _players;
+            ne::Player _player;
+            ne::Uid _nPlayerID = { 5000000 };
+            bool _waitingForConnection = true;
     };
 }
 
