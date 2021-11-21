@@ -161,7 +161,6 @@ namespace rt {
                                     if (receivedType <= ne::EntityType::Type::ScoreUp) {
                                         auto newEntity = coordinator->createEntity();
                                         std::shared_ptr<ne::Bonus> test;
-                                        std::cout << "GET BONUS" << std::endl;
 
                                         test = BonusFactor.createBonus("ScoreUp");
                                         test.get()->setTransform(receivedEntity);

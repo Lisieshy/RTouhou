@@ -11,7 +11,7 @@ void ne::BonusSystem::update(float dt, uint32_t &ID)
 {
     Time -= dt;
     if (Time <= 0) {
-        Time = 1.0f;
+        Time = 10.0f;
         auto NewEntity = coordinator->createEntity();
         std::shared_ptr<ne::Bonus> bonus;
 
@@ -22,5 +22,6 @@ void ne::BonusSystem::update(float dt, uint32_t &ID)
         coordinator->addComponent(NewEntity, ne::RigidBody{});
         coordinator->addComponent(NewEntity, ne::Networkable{});
         coordinator->addComponent(NewEntity, ne::Uid{ ID });
+        ID++;
     }
 }

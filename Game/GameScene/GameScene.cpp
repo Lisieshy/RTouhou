@@ -79,28 +79,4 @@ void ne::GameScene::InitScene(uint32_t &entityID)
         signature.set(Game.coordinator->getComponentType<ne::EntityType::Type>());
         Game.coordinator->setSystemSignature<ne::BonusSystem>(signature);        
     }
-
-    for (auto entity : entities) {
-        ne::Transform trans;
-        entity = Game.coordinator->createEntity();
-        std::shared_ptr<ne::Bullets> test;
-
-        test = bullets.createBullets("FriendlyBullets");
-
-        trans = test.get()->getTransform();
-        trans.position.y = 550;
-        test.get()->setTransform(trans);
-        Game.coordinator->addComponent(entity, test.get()->getTransform());
-        Game.coordinator->addComponent(entity, test.get()->getGravity());
-        Game.coordinator->addComponent(entity, test.get()->getRigidBody());
-        Game.coordinator->addComponent(entity, ne::Uid{ entityID });
-        Game.coordinator->addComponent(entity, ne::Renderable{});
-        Game.coordinator->addComponent(entity, test.get()->getType());
-        Game.coordinator->addComponent(entity, ne::Networkable{});
-        Game.coordinator->addComponent(entity, test.get()->getPattern());
-        entityID++;
-        if (entityID == 20)
-            break;
-    }
-
 }
