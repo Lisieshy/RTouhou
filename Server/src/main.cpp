@@ -58,7 +58,7 @@ auto main(
                 Game.CollisionSystem->update();
             }
             else {
-                std::cout << "Hello, je fix le problème !" << std::endl;
+                std::cout << "";
             }
             if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::milliseconds{ 20 }) {
                 oldTime = std::chrono::high_resolution_clock::now();

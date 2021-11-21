@@ -57,6 +57,11 @@ auto main(
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
+        if (ClientGame.PlayerSystem->isShooting) {
+            nn::message<rt::CustomMsgTypes> _msg;
+            _msg.header.id = rt::CustomMsgTypes::PlayerIsShooting;
+            ClientGame.ClientSystem->Send(_msg);
+        }
         ClientGame.ClientSystem->OnMessage();
         ClientGame.CollisionSystem->update();
         ClientGame.AnimSystem->update(dt);

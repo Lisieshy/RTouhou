@@ -60,16 +60,14 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
 
     protected:
 
-        auto OnClientValidated(
-            std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client
-        ) -> void
+        void OnClientValidated(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client) override
         {
             nn::message<rt::CustomMsgTypes> msg;
             msg.header.id = rt::CustomMsgTypes::AcceptedPlayer;
             client->Send(msg);
         }
 
-        virtual bool OnClientConnect(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client)
+        bool OnClientConnect(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client) override
         {
             nn::message<rt::CustomMsgTypes> msg;
             msg.header.id = rt::CustomMsgTypes::ServerAccept;
@@ -77,7 +75,7 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
             return true;
         }
 
-        virtual void OnClientDisconnect(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client)
+        void OnClientDisconnect(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client) override
         {
             std::stringstream ss;
             ss << "Removing client [" << client->GetID() << "]";
@@ -94,7 +92,7 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
             }
         }
 
-        virtual void OnMessage(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client, nn::message<rt::CustomMsgTypes> &msg)
+        void OnMessage(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client, nn::message<rt::CustomMsgTypes> &msg) override
         {
             if (!m_garbageIDs.empty()) {
                 for (auto pid : m_garbageIDs) {
@@ -110,15 +108,19 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
             switch (msg.header.id) {
             case rt::CustomMsgTypes::PlayerRegisterWithServer:
                 {
+                    std::cout << "Registered" << std::endl;
                     ne::Player player;
                     msg >> player.id >> player.transform;
                     player.id.uid = client->GetID();
+
                     m_mapPlayersRoster.insert_or_assign(player.id.uid, player);
+
 
                     nn::message<rt::CustomMsgTypes> mSendID;
                     mSendID.header.id = rt::CustomMsgTypes::AssignPlayerID;
                     mSendID << player.id;
                     MessageClient(client, mSendID);
+
 
                     nn::message<rt::CustomMsgTypes> mAddPlayer;
                     mAddPlayer.header.id = rt::CustomMsgTypes::AddPlayer;
@@ -157,6 +159,11 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
                     msg.header.id = rt::CustomMsgTypes::ServerMessage;
                     msg << client->GetID();
                     MessageAllClients(msg, client);
+                }
+            break;
+            case rt::CustomMsgTypes::PlayerIsShooting:
+                {
+                    std::cout << "Player is shooting" << std::endl;
                 }
             break;
             }

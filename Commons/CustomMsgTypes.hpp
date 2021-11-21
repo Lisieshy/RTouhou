@@ -21,5 +21,6 @@ namespace rt {
         AddPlayer,
         RemovePlayer,
         UpdatePlayer,
+        PlayerIsShooting,
     };
 }

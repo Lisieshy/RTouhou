@@ -66,6 +66,7 @@ void rt::PlayerSystem::setJoystickDeadzone(int deadzone)
 
 void rt::PlayerSystem::update(float dt)
 {
+    isShooting = false;
     for (auto& entity : m_entities) {
         auto& transform = coordinator->getComponent<ne::Transform>(entity);
         auto& rigidbody = coordinator->getComponent<ne::RigidBody>(entity);
@@ -84,6 +85,9 @@ void rt::PlayerSystem::update(float dt)
                 }
                 if (sf::Keyboard::isKeyPressed(controller.right)) {
                     transform.position.x += controller.speed * dt;
+                }
+                if (sf::Keyboard::isKeyPressed(controller.shoot)) {
+                    isShooting = true;
                 }
             break;
             case rt::ControlType::GAMEPAD:
