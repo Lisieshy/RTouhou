@@ -126,6 +126,10 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
                     mAddPlayer << player.id;
                     MessageAllClients(mAddPlayer);
                     std::cout << "Our player is registered" << std::endl;
+
+                    auto NewEntity = coordinator->createEntity();
+                    coordinator->addComponent(NewEntity, player.transform);
+                    coordinator->addComponent(NewEntity, ne::EntityType::Type::Player);
                     for (const auto& p : m_mapPlayersRoster) {
                         nn::message<rt::CustomMsgTypes> mAddOtherPlayer;
                         mAddOtherPlayer.header.id = rt::CustomMsgTypes::AddPlayer;
@@ -170,6 +174,14 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
                     std::shared_ptr<ne::Bullets> NewBullets;
                     NewBullets = bulletFact.createBullets("FriendlyBullets");
 
+                    for (auto &c : m_entities) {
+                        auto &i = coordinator->getComponent<ne::EntityType::Type>(c);
+                        if (i == ne::EntityType::Type::Player) {
+                            std::cout << "A" << std::endl;
+                            auto &newtrans = coordinator->getComponent<ne::Transform>(c);
+                            newtrans = transform;
+                        }
+                    }
                     transform.position.x += 24;
                     transform.position.y -= 8;
                     coordinator->addComponent(NewEntity, transform);
