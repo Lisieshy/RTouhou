@@ -61,6 +61,7 @@ auto main(
             nn::message<rt::CustomMsgTypes> _msg;
             _msg.header.id = rt::CustomMsgTypes::PlayerIsShooting;
             ClientGame.ClientSystem->Send(_msg);
+            std::cout << "Player is shooting" << std::endl;
         }
         ClientGame.ClientSystem->OnMessage();
         //ClientGame.CollisionSystem->update();

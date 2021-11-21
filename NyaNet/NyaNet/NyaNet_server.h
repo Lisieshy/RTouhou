@@ -114,6 +114,7 @@ namespace nn {
             ) -> void
             {
                 if (client && client->IsConnected()) {
+                    std::cout << "Sending message" << std::endl;
                     client->Send(msg);
                 } else {
                     OnClientDisconnect(client);

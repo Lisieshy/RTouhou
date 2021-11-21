@@ -61,9 +61,6 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
 
         bool OnClientConnect(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client) override
         {
-            nn::message<rt::CustomMsgTypes> msg;
-            msg.header.id = rt::CustomMsgTypes::ServerAccept;
-            client->Send(msg);
             return true;
         }
 
@@ -100,7 +97,6 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
             switch (msg.header.id) {
             case rt::CustomMsgTypes::PlayerRegisterWithServer:
                 {
-                    std::cout << "Registered" << std::endl;
                     ne::Player player;
                     msg >> player.id >> player.transform;
                     player.id.uid = client->GetID();
@@ -117,11 +113,12 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
                     nn::message<rt::CustomMsgTypes> mAddPlayer;
                     mAddPlayer.header.id = rt::CustomMsgTypes::AddPlayer;
                     mAddPlayer << player.id;
+
                     MessageAllClients(mAddPlayer);
-                    std::cout << "Our player is registered" << std::endl;
                     for (const auto& p : m_mapPlayersRoster) {
                         nn::message<rt::CustomMsgTypes> mAddOtherPlayer;
                         mAddOtherPlayer.header.id = rt::CustomMsgTypes::AddPlayer;
+                        std::cout << p.second.id.uid << std::endl;
                         mAddOtherPlayer << p.second.id;
                         MessageClient(client, mAddOtherPlayer);
                     }
