@@ -56,8 +56,8 @@ ne::ClientGame::ClientGame()
     }
 
     ne::Skin playerSkin;
-    playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Ennemies/TouhouBasicMob.png"));
-    playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
+    playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Player/reimu.png"));
+    playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 32, 50));
     ne::EntityID player = ClientGameScene.coordinator->createEntity();
 
     ClientGameScene.coordinator->addComponent(player, rt::Controller{
@@ -70,11 +70,14 @@ ne::ClientGame::ClientGame()
         .speed = 60.f,
         .deadzone = 50
     });
-    ClientGameScene.coordinator->addComponent(player, ne::Transform{});
+    ne::Transform transformPlayer;
+    transformPlayer.position = { 350.f, 500.f, 0.f };
+    ClientGameScene.coordinator->addComponent(player, transformPlayer);
     ClientGameScene.coordinator->addComponent(player, ne::RigidBody{});
     ClientGameScene.coordinator->addComponent(player, ne::Renderable{});
     ClientGameScene.coordinator->addComponent(player, ne::Color{ 255, 255, 255, 255 });
     ClientGameScene.coordinator->addComponent(player, playerSkin);
+    ClientGameScene.coordinator->addComponent(player, ne::Animation{});
     ClientGameScene.coordinator->addComponent(player, ne::Uid{1500});
     ClientSystem->Connect("127.0.0.1", 60000);   
 }

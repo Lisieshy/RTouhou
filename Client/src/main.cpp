@@ -32,6 +32,7 @@
 #include "../../Game/Bullets/BulletsFactory.hpp"
 #include "../../Game/GameScene/GameScene.hpp"
 #include "../../Game/GlobalLibrary/GlobalTexture.hpp"
+#include "../../Game/Player/Player.hpp"
 
 auto main(
     int argc,
@@ -66,7 +67,7 @@ auto main(
         ClientGame.CollisionSystem->update();
         ClientGame.AnimSystem->update(dt);
         ClientGame.RenderSystem->update();
-        //ClientGame.PlayerSystem->update(dt);
+        ClientGame.PlayerSystem->update(dt);
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";
             oldTime = std::chrono::high_resolution_clock::now();
