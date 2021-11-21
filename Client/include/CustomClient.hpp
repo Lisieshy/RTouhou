@@ -24,6 +24,7 @@ namespace rt {
     class CustomClient : public ne::System, public nn::IClient<CustomMsgTypes>
     {
         public:
+            ne::Player _player;
             // Basic function for handling ping.
             // NEVER, EVER USE THE SYSTEM CLOCK FOR A PING LIKE THAT
             // IT'S NOT A GOOD IDEA.
@@ -37,6 +38,14 @@ namespace rt {
 
                 msg << now;
                 Send(msg);
+            }
+
+            void SendPlayer()
+            {
+                nn::message<rt::CustomMsgTypes> _msg;
+                _msg.header.id = rt::CustomMsgTypes::PlayerIsShooting;
+                _msg << _player.id << _player.transform;
+                Send(_msg); 
             }
 
             // Broadcast data to all clients connected to the server.
@@ -199,14 +208,13 @@ namespace rt {
                             {
                                 nn::message<CustomMsgTypes> _msg;
                                 _msg.header.id = CustomMsgTypes::PlayerRegisterWithServer;
-                                _player.transform.position = {500.0f, 250.0f, 0.0f};
                                 _msg << _player.id << _player.transform;
                                 Send(_msg);
                             }
                             break;
                             case rt::CustomMsgTypes::AssignPlayerID:
                             {
-                                msg >> _nPlayerID;
+                                msg >> _player.id;
                                 std::cout << "Our player is assigned" << std::endl;
 
                                 nl::nyalog(nl::LogLevel::Info, "Player ID assigned: " + std::to_string(_nPlayerID.uid));
@@ -244,7 +252,7 @@ namespace rt {
                 // Send player data to server
                 nn::message<CustomMsgTypes> pmsg;
                 pmsg.header.id = CustomMsgTypes::UpdatePlayer;
-                pmsg << _players[_nPlayerID.uid].id;
+                pmsg << _players[_player.id.uid].id;
                 Send(pmsg);
             }
         private:
@@ -253,7 +261,6 @@ namespace rt {
             ne::BonusFactory BonusFactor;
             ne::Sound sound;
             std::unordered_map<uint32_t, ne::Player> _players;
-            ne::Player _player;
             ne::Uid _nPlayerID = { 5000000 };
             bool _waitingForConnection = true;
     };

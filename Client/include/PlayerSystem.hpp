@@ -22,6 +22,7 @@ namespace rt {
             void setShootKey(sf::Keyboard::Key key);
             void setPlayerSpeed(float speed);
             void setJoystickDeadzone(int deadzone);
+            ne::Transform& getPlayerTrans();
             bool isShooting;
     };
 }

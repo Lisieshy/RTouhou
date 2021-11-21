@@ -64,6 +64,15 @@ void rt::PlayerSystem::setJoystickDeadzone(int deadzone)
     }
 }
 
+ne::Transform& rt::PlayerSystem::getPlayerTrans()
+{
+    for (auto& entity : m_entities) {
+        auto& transform = coordinator->getComponent<ne::Transform>(entity);
+        return (transform);
+    }
+}
+
+
 void rt::PlayerSystem::update(float dt)
 {
     isShooting = false;

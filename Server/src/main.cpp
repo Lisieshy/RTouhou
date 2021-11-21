@@ -32,12 +32,13 @@ auto main(
     nl::nyalog.init();
     uint32_t entityID = 0;
 
-    std::vector<ne::EntityID> entities(10000);
+    std::vector<ne::EntityID> entities(50000);
     ne::GameScene Game(entities);
     ne::EnnemiesFactory fact;
     Game.InitScene(entityID);
 
     Game.NetworkSystem->Start();
+    Game.NetworkSystem->ID = entityID;
 
     auto oldTime = std::chrono::high_resolution_clock::now();
     auto beginTime = std::chrono::high_resolution_clock::now();
@@ -56,6 +57,10 @@ auto main(
                 Game.EnnemiesLoopSystem->update(dt, entityID);
                 Game.PatternSystem->update(dt);
                 Game.CollisionSystem->update();
+                if (Game.NetworkSystem->ID > entityID)
+                    entityID = Game.NetworkSystem->ID;
+                else
+                    Game.NetworkSystem->ID = entityID;
             }
             else {
                 std::cout << "";

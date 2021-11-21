@@ -19,6 +19,8 @@
 class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
 {
     public:
+        ne::BulletsFactory bulletFact;
+        uint32_t ID; 
         CustomServer(uint16_t nPort = 60000) : nn::IServer<rt::CustomMsgTypes>(nPort)
         {
         }
@@ -108,19 +110,16 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
             switch (msg.header.id) {
             case rt::CustomMsgTypes::PlayerRegisterWithServer:
                 {
-                    std::cout << "Registered" << std::endl;
                     ne::Player player;
                     msg >> player.id >> player.transform;
                     player.id.uid = client->GetID();
 
                     m_mapPlayersRoster.insert_or_assign(player.id.uid, player);
 
-
                     nn::message<rt::CustomMsgTypes> mSendID;
                     mSendID.header.id = rt::CustomMsgTypes::AssignPlayerID;
                     mSendID << player.id;
                     MessageClient(client, mSendID);
-
 
                     nn::message<rt::CustomMsgTypes> mAddPlayer;
                     mAddPlayer.header.id = rt::CustomMsgTypes::AddPlayer;
@@ -163,7 +162,25 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
             break;
             case rt::CustomMsgTypes::PlayerIsShooting:
                 {
-                    std::cout << "Player is shooting" << std::endl;
+                    static int shoot = 0;
+                    ne::Uid test;
+                    ne::Transform transform;
+                    msg >> transform >> test;
+                    auto NewEntity = coordinator->createEntity();
+                    std::shared_ptr<ne::Bullets> NewBullets;
+                    NewBullets = bulletFact.createBullets("FriendlyBullets");
+
+                    transform.position.x += 24;
+                    transform.position.y -= 8;
+                    coordinator->addComponent(NewEntity, transform);
+                    coordinator->addComponent(NewEntity, NewBullets.get()->getGravity());
+                    coordinator->addComponent(NewEntity, NewBullets.get()->getRigidBody());
+                    coordinator->addComponent(NewEntity, ne::Renderable{});
+                    coordinator->addComponent(NewEntity, NewBullets.get()->getType());
+                    coordinator->addComponent(NewEntity, ne::Uid { ID });
+                    coordinator->addComponent(NewEntity, ne::Networkable{});
+                    coordinator->addComponent(NewEntity, NewBullets.get()->getPattern());
+                    ID++;
                 }
             break;
             }
