@@ -12,7 +12,6 @@
 #include "NekoEngine/ECS/Components/Transform.hpp"
 #include "NekoEngine/Graphics/Window.hpp"
 #include "../Client/include/ClientGame.hpp"
-#include <NekoEngine/Scenes/SceneManager.hpp>
 void ne::MouseSystem::update()
 {
     for (auto& entity: m_entities) {
