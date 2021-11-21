@@ -79,7 +79,7 @@ ne::ClientGame::ClientGame()
     ClientGameScene.coordinator->addComponent(player, playerSkin);
     ClientGameScene.coordinator->addComponent(player, ne::Animation{});
     ClientGameScene.coordinator->addComponent(player, ne::Uid{1500});
-    ClientSystem->Connect("89.158.106.43", 60000);   
+    ClientSystem->Connect("127.0.0.1", 60000);   
 }
 
 ne::ClientGame::~ClientGame()

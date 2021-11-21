@@ -60,9 +60,9 @@ auto main(
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
+        ClientGame.ClientSystem->_player.transform = ClientGame.PlayerSystem->getPlayerTrans();
         if (ClientGame.PlayerSystem->isShooting && timeToShoot <= 0.0f) {
             timeToShoot = 0.5f;
-            ClientGame.ClientSystem->_player.transform = ClientGame.PlayerSystem->getPlayerTrans();
             ClientGame.ClientSystem->SendPlayer();
         }
         ClientGame.ClientSystem->OnMessage();

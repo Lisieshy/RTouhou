@@ -215,14 +215,15 @@ namespace rt {
                             case rt::CustomMsgTypes::AssignPlayerID:
                             {
                                 msg >> _player.id;
+                                _nPlayerID = _player.id;
                                 nl::nyalog(nl::LogLevel::Info, "Player ID assigned: " + std::to_string(_player.id.uid));
                             }
                             break;
                             case rt::CustomMsgTypes::AddPlayer:
                             {
-                                ne::Player player;
-                                msg >> player.id;
-                                _players.insert_or_assign(player.id.uid, player);
+                                msg >> _player.id;
+                                _players.insert_or_assign(_player.id.uid, _player);
+                                std::cout << "PLayer creation ID and transform : " << _players[_player.id.uid].id.uid << " / " << _players[_player.id.uid].transform.position.x << std::endl;
                                 if (player.id.uid == _nPlayerID.uid) {
                                     _waitingForConnection = false;
                                 }
@@ -255,10 +256,8 @@ namespace rt {
                             case rt::CustomMsgTypes::UpdatePlayer:
                             {
                                 ne::Player player;
-                                msg >> player.transform >> player.id;
-                                auto& test = _players[player.id.uid];
-                                test.transform = player.transform;
-                                _players.insert_or_assign(player.id.uid, test);
+                                msg >> _player.transform >> _player.id;
+                                _players.insert_or_assign(_player.id.uid, _player);
                             }
                             break;
                         }
