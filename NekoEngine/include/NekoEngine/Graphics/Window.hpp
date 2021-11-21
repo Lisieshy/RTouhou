@@ -91,6 +91,11 @@ namespace ne::Graphics::Window {
      * @param transform Contain position of the sprite
      */
     void draw(ne::Skin skin, ne::Transform transform);
+    /**
+     * @brief Draw the Text given as parameter
+     * 
+     * @param text Contain text
+     */
     void draw(ne::Textinfo &text);
     
     /**
@@ -98,15 +103,39 @@ namespace ne::Graphics::Window {
      * @return The window's size on a ne::Math::Vector2u
      */
     ne::Math::Vector2u getWindow();
+    /**
+     * @brief Close the window
+     * 
+     */
     void mustClose();
     /**
      * @brief Get the clicked state
      * @return The clicked state
      */
     bool isClicked();
+    /**
+     * @brief Get the Scene object
+     * 
+     * @return The scene number
+     */
     int getScene();
+    /**
+     * @brief Set the Scene object
+     * 
+     * @param nb Scene number
+     */
     void setScene(int nb);
+    /**
+     * @brief Get the Mouse Position object
+     * 
+     * @return ne::Math::Vector2i
+     */
     ne::Math::Vector2i getMousePosition();
+    /**
+     * @brief Get the Scale object
+     * 
+     * @return ne::Math::Vector2f 
+     */
     ne::Math::Vector2f getScale();
 }
 

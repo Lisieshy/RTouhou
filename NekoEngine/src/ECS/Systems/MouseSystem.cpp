@@ -28,18 +28,13 @@ void ne::MouseSystem::update()
             if (skin.sprite.getTextureRect().left > 0)
                 skin.sprite.setTextureRect(sf::IntRect(skin.sprite.getTextureRect().left - skin.texture.getSize().x / 2, skin.sprite.getTextureRect().top, skin.sprite.getTextureRect().width, skin.sprite.getTextureRect().height));
             if (ne::Graphics::Window::isClicked()) {
-                if (but.name == "Quit") {
-                    //should close
+                if (but.name == "Quit")
                     ne::Graphics::Window::mustClose();
-                }
                 if (but.name == "Setting")
-                    //should change scene to setting scene
                     ne::Graphics::Window::setScene(1);
                 if (but.name == "Start")
-                    //should change scene to lobby scene
                     ne::Graphics::Window::setScene(2);
                 if (but.name == "Return")
-                    //should return to the main menu scene
                     ne::Graphics::Window::setScene(0);
             }                
         }
