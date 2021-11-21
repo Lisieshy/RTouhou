@@ -1,0 +1,116 @@
+
+
+
+Epitech Nancy                                                     E.Ferry
+Request for Comments: 8846                                       A.Schulz
+Category: Standards Track                                      P. Fricker
+                                                                T. Moreau
+                                                              T. Wederich
+                                                                  Epitech
+                                                            November 2021
+                             R-Type Protocols
+
+Table of Contents
+
+   1. Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+   2. R-Type Architecture  . . . . . . . . . . . . . . . . . . . . . . 2
+   3. R-Type Network Protocol  . . . . . . . . . . . . . . . . . . . . 3
+   3a. Message Types . . . . . . . . . . . . . . . . . . . . . . . . . 3
+   3b. Server/Client sync  . . . . . . . . . . . . . . . . . . . . . . 3
+
+
+
+1.  Introduction
+
+   The R-Type project is a third year project from Epitech.
+
+   The R-Type project goal is to create an online multiplayer copy of the
+   original R-Type game from 1987.
+
+   This memo is the official specification of the R-Type project
+   protocols.
+
+2.  R-Type Architecture
+
+   The architecture used by the R-Type project is a classic client-server
+   game architecture.
+
+   The logic and math of the game is handled by the server only.
+
+   A client connects to the server by using the R-Type Network Protocol.
+   Once connected, the server creates a lobby and starts a countdown of
+   15 seconds before starting the game.
+   Multiple clients can connect to the same server at the same time.
+   After the countdown ends, all the clients connected will begin a new
+   game.
+
+
+Schulz                     Standards Track                       [Page 1]
+
+RFC 8846                   R-Type Protocols                 November 2021
+
+
+3.  R-Type Network Protocol
+
+   All client-server communication, before and during the game, is 
+   handled using this protocol.
+
+   3a.  Message Types
+
+      A message transmitted between the client and the server MUST have a
+      header containing the Message Type of this type:
+
+         CustomMsgType ID;
+         uint32_t SIZE;
+         std::vector<uint8_t> BODY;
+
+
+      Where ID is a element of the CustomMsgType enum class 
+      (described below) representing the action and if applicable, the
+      type of data sent, along with a BODY containing the data in 
+      SIZE bytes.
+
+      The CustomMsgType enum class:
+
+          enum class CustomMsgTypes : uint32_t {
+             ServerAccept,
+             ServerDeny,
+             ServerPing,
+             MessageAll,
+             ServerMessage,
+             SendData,
+             SendEnnemies,
+             SendBullets,
+             AcceptedPlayer,
+             AssignPlayerID,
+             PlayerRegisterWithServer,
+             PlayerUnregisterWithServer,
+             AddPlayer,
+             RemovePlayer,
+             UpdatePlayer,
+          };
+
+      To send a message, you MUST set the ID of the message to a
+      valid type. All SIZE calculation is handled automatically and
+      therefore should NOT be set manually by overriding the message.
+
+      To received a message, you MUST read the ID in the header to know
+      the type of BODY to expect, then you MUST read the SIZE to know the
+      size of the BODY.
+
+      There is no limit to the size of the message.
+
+
+
+
+Schulz                     Standards Track                       [Page 2]
+
+RFC 8846                   R-Type Protocols                 November 2021
+
+
+
+   3b.  Server/Client sync
+
+      The client and the server synchronize themselves using the message
+      type UpdatePlayer, SendData, SendEnnemies, SendBullets and
+      MessageAll.
