@@ -50,7 +50,6 @@ namespace rt {
                 if (IsConnected()) {
                     while (!Incoming().empty()) {
                         auto msg = Incoming().pop_front().msg;
-
                         switch (msg.header.id) {
                             case rt::CustomMsgTypes::ServerAccept:
                             {
@@ -161,10 +160,10 @@ namespace rt {
                             break;
                             case rt::CustomMsgTypes::AcceptedPlayer:
                             {
-                                std::cout << "Our player is accepted" << std::endl;
                                 nn::message<CustomMsgTypes> _msg;
-                                msg.header.id = CustomMsgTypes::PlayerRegisterWithServer;
-                                msg << _player.id.uid << _player.transform;
+                                _msg.header.id = CustomMsgTypes::PlayerRegisterWithServer;
+                                _player.transform.position = {500.0f, 250.0f, 0.0f};
+                                _msg << _player.id << _player.transform;
                                 Send(_msg);
                             }
                             break;
