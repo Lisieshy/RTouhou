@@ -41,7 +41,7 @@ namespace ne {
              */
             ~GameScene();
 
-            void GameLoop(float dt, u_int32_t& ID);
+            void GameLoop(float dt, uint32_t& ID);
 
             void InitScene(uint32_t &entityID);
 
@@ -52,6 +52,7 @@ namespace ne {
             std::shared_ptr<CustomServer> NetworkSystem;
             std::shared_ptr<rt::PlayerSystem> PlayerSystem;
             std::shared_ptr<ne::Collision> CollisionSystem;
+            std::shared_ptr<ne::BonusSystem> BonusSystem;
 
             ne::Scene Game;
 

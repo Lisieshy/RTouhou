@@ -47,17 +47,17 @@ ne::ClientGame::ClientGame()
         ClientGameScene.coordinator->setSystemSignature<ne::AnimationSystem>(signature);
     }
 
-    CollisionSystem = ClientGameScene.coordinator->registerSystem<ne::Collision>(ClientGameScene.coordinator);
+    CollisionSystem = ClientGameScene.coordinator->registerSystem<ne::ClientCollision>(ClientGameScene.coordinator);
     {
         ne::Signature signature;
         signature.set(ClientGameScene.coordinator->getComponentType<ne::Transform>());
         signature.set(ClientGameScene.coordinator->getComponentType<ne::EntityType::Type>());
-        ClientGameScene.coordinator->setSystemSignature<ne::Collision>(signature);        
+        ClientGameScene.coordinator->setSystemSignature<ne::ClientCollision>(signature);        
     }
 
     ne::Skin playerSkin;
-    playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Ennemies/TouhouBasicMob.png"));
-    playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
+    playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Player/reimu.png"));
+    playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 32, 50));
     ne::EntityID player = ClientGameScene.coordinator->createEntity();
 
     ClientGameScene.coordinator->addComponent(player, rt::Controller{
@@ -70,11 +70,14 @@ ne::ClientGame::ClientGame()
         .speed = 60.f,
         .deadzone = 50
     });
-    ClientGameScene.coordinator->addComponent(player, ne::Transform{});
+    ne::Transform transformPlayer;
+    transformPlayer.position = { 350.f, 500.f, 0.f };
+    ClientGameScene.coordinator->addComponent(player, transformPlayer);
     ClientGameScene.coordinator->addComponent(player, ne::RigidBody{});
     ClientGameScene.coordinator->addComponent(player, ne::Renderable{});
     ClientGameScene.coordinator->addComponent(player, ne::Color{ 255, 255, 255, 255 });
     ClientGameScene.coordinator->addComponent(player, playerSkin);
+    ClientGameScene.coordinator->addComponent(player, ne::Animation{});
     ClientGameScene.coordinator->addComponent(player, ne::Uid{1500});
     ClientSystem->Connect("127.0.0.1", 60000);   
 }
@@ -88,5 +91,5 @@ void ne::ClientGame::InitMusic()
     music.openFromFile("resources/Music_SoundEffect/MainGameMusic.ogg");
     music.play();
     music.setLoop(true);
-    music.setVolume(60);
+    music.setVolume(30);
 }

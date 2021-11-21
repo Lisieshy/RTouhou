@@ -12,6 +12,7 @@ namespace rt {
         
         SendEnnemies,
         SendBullets,
+        SendBonus,
 
         AcceptedPlayer,
         AssignPlayerID,

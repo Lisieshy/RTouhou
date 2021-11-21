@@ -12,6 +12,8 @@
 #include <NekoEngine/NekoEngine.hpp>
 #include "../../Game/Ennemies/EnnemiesFactory.hpp"
 #include "../../Game/Bullets/BulletsFactory.hpp"
+#include "../../Game/Bonus/BonusFactory.hpp"
+#include "Sound.hpp"
 #include "../../Game/Player/Player.hpp"
 
 namespace rt {
@@ -22,6 +24,7 @@ namespace rt {
     class CustomClient : public ne::System, public nn::IClient<CustomMsgTypes>
     {
         public:
+            ne::Player _player;
             // Basic function for handling ping.
             // NEVER, EVER USE THE SYSTEM CLOCK FOR A PING LIKE THAT
             // IT'S NOT A GOOD IDEA.
@@ -35,6 +38,14 @@ namespace rt {
 
                 msg << now;
                 Send(msg);
+            }
+
+            void SendPlayer()
+            {
+                nn::message<rt::CustomMsgTypes> _msg;
+                _msg.header.id = rt::CustomMsgTypes::PlayerIsShooting;
+                _msg << _player.id << _player.transform;
+                Send(_msg); 
             }
 
             // Broadcast data to all clients connected to the server.
@@ -71,6 +82,7 @@ namespace rt {
                                     }
                                 }
                                 if (!_found) {
+                                    sound.BadGuySound.play();
                                     if (receivedType <= ne::EntityType::Type::WhiteEnnemy) {
                                         auto newEntity = coordinator->createEntity();
                                         std::shared_ptr<ne::Ennemies> test;
@@ -116,6 +128,7 @@ namespace rt {
                                     }
                                 }
                                 if (!_found) {
+                                        sound.GunSound.play();
                                         auto newEntity = coordinator->createEntity();
                                         std::shared_ptr<ne::Bullets> bulletsCreated;
                                         if (receivedType == ne::EntityType::Type::WhiteBullets)
@@ -136,6 +149,39 @@ namespace rt {
                                         coordinator->addComponent(newEntity, ne::Uid{ receivedUid });
                                         coordinator->addComponent(newEntity, bulletsCreated.get()->getType());
                                         coordinator->addComponent(newEntity, bulletsCreated.get()->getPattern());
+                                }
+                            }
+                            break;
+                            case rt::CustomMsgTypes::SendBonus:
+                            {
+                                bool _found = false;
+                                ne::Transform receivedEntity;
+                                ne::Uid receivedUid;
+                                ne::EntityType::Type receivedType;
+                                msg >> receivedType >> receivedUid >> receivedEntity;
+                                for (auto& entity : m_entities) {
+                                    if (receivedUid.uid == coordinator->getComponent<ne::Uid>(entity).uid) {
+                                        _found = true;
+                                        auto& t = coordinator->getComponent<ne::Transform>(entity);
+                                        t = receivedEntity;
+                                    }
+                                }
+                                if (!_found) {
+                                    if (receivedType <= ne::EntityType::Type::ScoreUp) {
+                                        auto newEntity = coordinator->createEntity();
+                                        std::shared_ptr<ne::Bonus> test;
+
+                                        test = BonusFactor.createBonus("ScoreUp");
+                                        test.get()->setTransform(receivedEntity);
+                                        coordinator->addComponent(newEntity, receivedEntity);
+                                        coordinator->addComponent(newEntity, ne::Renderable{});
+                                        coordinator->addComponent(newEntity, ne::Uid{ receivedUid });
+                                        coordinator->addComponent(newEntity, test.get()->getSkin());
+                                        coordinator->addComponent(newEntity, test.get()->getType());
+                                        coordinator->addComponent(newEntity, test.get()->getPattern());
+                                        coordinator->addComponent(newEntity, ne::RigidBody{});
+                                        coordinator->addComponent(newEntity, ne::Color{});
+                                    }
                                 }
                             }
                             break;
@@ -162,8 +208,7 @@ namespace rt {
                             {
                                 nn::message<CustomMsgTypes> _msg;
                                 _msg.header.id = CustomMsgTypes::PlayerRegisterWithServer;
-                                _player.transform.position = {500.0f, 250.0f, 0.0f};
-                                _msg << _player.id << _player.transform;
+                                _msg << _player.id;
                                 Send(_msg);
                             }
                             break;
@@ -193,7 +238,7 @@ namespace rt {
                             case rt::CustomMsgTypes::UpdatePlayer:
                             {
                                 ne::Player player;
-                                msg >> player.id;
+                                msg >> player.transform >> player.id;
                                 _players.insert_or_assign(player.id.uid, player);
                             }
                             break;
@@ -204,14 +249,15 @@ namespace rt {
                 // Send player data to server
                 nn::message<CustomMsgTypes> pmsg;
                 pmsg.header.id = CustomMsgTypes::UpdatePlayer;
-                pmsg << _players[_player.id.uid].id;
+                pmsg << _players[_player.id.uid].id << _players[_player.id.uid].transform;
                 Send(pmsg);
             }
         private:
             ne::EnnemiesFactory fact;
             ne::BulletsFactory bullets;
+            ne::BonusFactory BonusFactor;
+            ne::Sound sound;
             std::unordered_map<uint32_t, ne::Player> _players;
-            ne::Player _player;
             ne::Uid _nPlayerID = { 5000000 };
             bool _waitingForConnection = true;
     };

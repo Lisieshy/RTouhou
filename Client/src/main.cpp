@@ -32,6 +32,7 @@
 #include "../../Game/Bullets/BulletsFactory.hpp"
 #include "../../Game/GameScene/GameScene.hpp"
 #include "../../Game/GlobalLibrary/GlobalTexture.hpp"
+#include "../../Game/Player/Player.hpp"
 
 auto main(
     int argc,
@@ -42,29 +43,30 @@ auto main(
     nl::nyalog.init();
     nl::nyalog(nl::LogLevel::Info, "R-Touhou! Configuring everything... Please wait!");
 
-    std::vector<ne::EntityID> entities(10000);
+    std::vector<ne::EntityID> entities(50000);
     ne::ClientGame ClientGame;
     ne::Graphics::Window::open();
     int fps = 0;
     auto oldTime = std::chrono::high_resolution_clock::now();
     float dt = 0.0f;
+    float timeToShoot = 0.5f;
 
     ClientGame.InitMusic();
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
+        timeToShoot -= dt;
         auto startTime = std::chrono::high_resolution_clock::now();
         ne::Graphics::Window::pollEvent(ClientGame.ClientSystem);
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
-        if (ClientGame.PlayerSystem->isShooting) {
-            nn::message<rt::CustomMsgTypes> _msg;
-            _msg.header.id = rt::CustomMsgTypes::PlayerIsShooting;
-            ClientGame.ClientSystem->Send(_msg);
-            std::cout << "Player is shooting" << std::endl;
+        if (ClientGame.PlayerSystem->isShooting && timeToShoot <= 0.0f) {
+            timeToShoot = 0.5f;
+            ClientGame.ClientSystem->_player.transform = ClientGame.PlayerSystem->getPlayerTrans();
+            ClientGame.ClientSystem->SendPlayer();
         }
         ClientGame.ClientSystem->OnMessage();
-        //ClientGame.CollisionSystem->update();
+        ClientGame.CollisionSystem->update();
         ClientGame.AnimSystem->update(dt);
         ClientGame.RenderSystem->update();
         ClientGame.PlayerSystem->update(dt);

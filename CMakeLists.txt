@@ -80,6 +80,13 @@ set(NEKOENGINE_SYSTEMS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/BackgroundSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/AnimationSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/Collision.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/NekoEngine/src/ECS/Systems/BonusSystem.cpp
+)
+
+set(NEKOBONUS_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/Bonus/BonusType/ScoreUp.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/Bonus/Bonus.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/Bonus/BonusFactory.cpp
 )
 
 set(NEKOENGINE_COMPONENTS_SOURCES
@@ -98,6 +105,8 @@ set(NEKOENGINE_NEKOEXCEPTION_SOURCES
 set(PROJECT_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Client/src/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Client/src/ClientGame.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Client/src/ClientCollision.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Client/src/Sound.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Client/src/PlayerSystem.cpp
 )
 
@@ -113,6 +122,7 @@ set(NEKOENGINE_SOURCES
     ${NEKOBULLETS_SOURCES}
     ${NEKOWAVES_SOURCES}
     ${NEKOGAME_SOURCES}
+    ${NEKOBONUS_SOURCES}
 )
 
 set(SOURCES_CLIENT

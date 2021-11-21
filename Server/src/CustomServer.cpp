@@ -19,6 +19,8 @@
 class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
 {
     public:
+        ne::BulletsFactory bulletFact;
+        uint32_t ID; 
         CustomServer(uint16_t nPort = 60000) : nn::IServer<rt::CustomMsgTypes>(nPort)
         {
         }
@@ -41,6 +43,14 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
                 }
                 else if (coordinator->getComponent<ne::EntityType::Type>(entity) <= ne::EntityType::Type::Bullets) {
                     msg.header.id = rt::CustomMsgTypes::SendBullets;
+                    auto &transform = coordinator->getComponent<ne::Transform>(entity);
+                    auto &uid = coordinator->getComponent<ne::Uid>(entity);
+                    auto &type = coordinator->getComponent<ne::EntityType::Type>(entity);
+                    msg << transform << uid << type;
+                    MessageAllClients(msg);
+                }
+                else if (coordinator->getComponent<ne::EntityType::Type>(entity) <= ne::EntityType::Type::Bonus) {
+                    msg.header.id = rt::CustomMsgTypes::SendBonus;
                     auto &transform = coordinator->getComponent<ne::Transform>(entity);
                     auto &uid = coordinator->getComponent<ne::Uid>(entity);
                     auto &type = coordinator->getComponent<ne::EntityType::Type>(entity);
@@ -98,17 +108,15 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
             case rt::CustomMsgTypes::PlayerRegisterWithServer:
                 {
                     ne::Player player;
-                    msg >> player.id >> player.transform;
+                    msg >> player.id;
                     player.id.uid = client->GetID();
 
                     m_mapPlayersRoster.insert_or_assign(player.id.uid, player);
-
 
                     nn::message<rt::CustomMsgTypes> mSendID;
                     mSendID.header.id = rt::CustomMsgTypes::AssignPlayerID;
                     mSendID << player.id;
                     MessageClient(client, mSendID);
-
 
                     nn::message<rt::CustomMsgTypes> mAddPlayer;
                     mAddPlayer.header.id = rt::CustomMsgTypes::AddPlayer;
@@ -152,7 +160,25 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
             break;
             case rt::CustomMsgTypes::PlayerIsShooting:
                 {
-                    std::cout << "Player is shooting" << std::endl;
+                    static int shoot = 0;
+                    ne::Uid test;
+                    ne::Transform transform;
+                    msg >> transform >> test;
+                    auto NewEntity = coordinator->createEntity();
+                    std::shared_ptr<ne::Bullets> NewBullets;
+                    NewBullets = bulletFact.createBullets("FriendlyBullets");
+
+                    transform.position.x += 24;
+                    transform.position.y -= 8;
+                    coordinator->addComponent(NewEntity, transform);
+                    coordinator->addComponent(NewEntity, NewBullets.get()->getGravity());
+                    coordinator->addComponent(NewEntity, NewBullets.get()->getRigidBody());
+                    coordinator->addComponent(NewEntity, ne::Renderable{});
+                    coordinator->addComponent(NewEntity, NewBullets.get()->getType());
+                    coordinator->addComponent(NewEntity, ne::Uid { ID });
+                    coordinator->addComponent(NewEntity, ne::Networkable{});
+                    coordinator->addComponent(NewEntity, NewBullets.get()->getPattern());
+                    ID++;
                 }
             break;
             }
