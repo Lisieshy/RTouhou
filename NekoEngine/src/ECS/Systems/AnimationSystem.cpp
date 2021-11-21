@@ -20,7 +20,7 @@ void ne::AnimationSystem::update(float dt)
 
             sf::IntRect NewRect = spr.sprite.getTextureRect();
             NewRect.left += NewRect.width;
-            if (NewRect.left >= spr.sprite.getTexture()->getSize().x - 30)
+            if (NewRect.left >= spr.sprite.getTexture()->getSize().x - 32)
                 NewRect.left = 0;
             spr.sprite.setTextureRect(NewRect);
         }

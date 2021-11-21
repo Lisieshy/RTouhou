@@ -20,7 +20,7 @@ void ne::ClientCollision::update()
                 auto& ComparedEnnemiesType = coordinator->getComponent<ne::EntityType::Type>(ComparedEntity);
                 if (ComparedEnnemiesType == ne::EntityType::FriendlyBullets) {
                     auto& Comparedtransform = coordinator->getComponent<ne::Transform>(ComparedEntity);
-                    if (Comparedtransform.position.x > transform.position.x && Comparedtransform.position.x < transform.position.x + 32 &&
+                    if (Comparedtransform.position.x > transform.position.x && Comparedtransform.position.x < transform.position.x + 34 &&
                         Comparedtransform.position.y > transform.position.y && Comparedtransform.position.y < transform.position.y + 32) {
                         if (std::find(EnnemiesToBeDestroyed.begin(), EnnemiesToBeDestroyed.end(), entity) == EnnemiesToBeDestroyed.end())
                             EnnemiesToBeDestroyed.push_back(entity);
