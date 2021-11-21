@@ -63,3 +63,10 @@ ne::Setting::Setting(std::vector<ne::EntityID> entities)
 ne::Setting::~Setting()
 {
 }
+
+void ne::Setting::Update()
+{
+    RenderBackground->update();
+    MouseSys->update();
+    Rendering->update();
+}

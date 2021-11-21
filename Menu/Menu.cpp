@@ -8,7 +8,6 @@
 #include "Menu.hpp"
 #include "Buttons.hpp"
 #include "Background.hpp"
-#include "Parallax.hpp"
 ne::Menu::Menu(std::vector<ne::EntityID> entities)
 {
     ne::Scene scene;
@@ -35,15 +34,7 @@ ne::Menu::Menu(std::vector<ne::EntityID> entities)
         signature.set(scene.coordinator->getComponentType<ne::Transform>());
         scene.coordinator->setSystemSignature<ne::MouseSystem>(signature);
     }
-    ParaSys = scene.coordinator->registerSystem<ne::ParallaxSystem>(scene.coordinator);
-    {
-        ne::Signature signature;
-        signature.set(scene.coordinator->getComponentType<ne::Skin>());
-        signature.set(scene.coordinator->getComponentType<ne::GorbBackground>());
-        signature.set(scene.coordinator->getComponentType<ne::Transform>());
-        signature.set(scene.coordinator->getComponentType<ne::ParallaxSystem>());
-        scene.coordinator->setSystemSignature<ne::ParallaxSystem>(signature);
-    }
+
     ne::Background bg;
     std::vector<ne::Buttons> usine;
     usine.push_back(ne::Buttons("Start", "resources/button_start.png", ne::Math::Vector2u(ne::Graphics::Window::getWindow().x / 2, ne::Graphics::Window::getWindow().y / 4)));
@@ -67,4 +58,11 @@ ne::Menu::Menu(std::vector<ne::EntityID> entities)
 
 ne::Menu::~Menu()
 {
+}
+
+void ne::Menu::Update() 
+{
+    MouseSys->update();
+    RenderBackground->update();
+    Rendering->update();
 }

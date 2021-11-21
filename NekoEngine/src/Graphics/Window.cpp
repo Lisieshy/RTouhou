@@ -24,10 +24,21 @@ namespace ne::Graphics::Window {
         sf::RenderWindow i_window;
         bool shouldClose = false;
         bool isClicked = false;
+        int nb = 0;
     };
 }
 
 static std::unique_ptr<ne::Graphics::Window::WImpl> impl;
+
+int ne::Graphics::Window::getScene()
+{
+    return (impl->nb);
+}
+
+void ne::Graphics::Window::setScene(int nb)
+{
+    impl->nb = nb;
+}
 
 void ne::Graphics::Window::open() {
     impl = std::make_unique<ne::Graphics::Window::WImpl>();

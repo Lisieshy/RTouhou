@@ -21,7 +21,6 @@
 #include <random>
 #include <chrono>
 #include <sstream>
-
 #include <NyaLog/NyaLog.hpp>
 #include <include/CustomClient.hpp>
 #include "../../Menu/Menu.hpp"
@@ -32,7 +31,6 @@
 #include "../../Game/Bullets/BulletsFactory.hpp"
 #include "../../Game/GameScene/GameScene.hpp"
 #include "../../Game/GlobalLibrary/GlobalTexture.hpp"
-
 auto main(
     int argc,
     char** argv
@@ -43,12 +41,13 @@ auto main(
     nl::nyalog(nl::LogLevel::Info, "R-Touhou! Configuring everything... Please wait!");
 
     std::vector<ne::EntityID> entities(10000);
-    ne::ClientGame ClientGame;
     ne::Graphics::Window::open();
     int fps = 0;
     auto oldTime = std::chrono::high_resolution_clock::now();
     float dt = 0.0f;
-    //ne::Setting m(entities);
+    ne::Menu scene_menu(entities);
+    ne::Setting scene_setting(entities);
+    ne::ClientGame ClientGame;
     ClientGame.InitMusic();
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
@@ -57,29 +56,13 @@ auto main(
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
-        //m.MouseSys->update();
-        //m.RenderBackground->update();
-        //m.Rendering->update();
-        ////menu.RenderBackground->update();
-        //menu.Rendering->update();
-        //menu.MouseSys->update();
-        
-        //sett.RenderBackground->update();
-        //sett.MouseSys->update();
-        //sett.Rendering->update();
-//        sett.Rendering->update();
-        //ClientGame.ClientSystem->OnMessage();
-        //ClientGame.PlayerSystem->update(dt);
-        // sett.RenderBackground->update();
-        // sett.MouseSys->update();
-        // sett.TextSys->update();
-        // sett.Rendering->update();
-        // sett.Rendering->update();
-
-        ClientGame.ClientSystem->OnMessage();
-        ClientGame.Parallax->update(dt);
-        ClientGame.RenderSystem->update();
-        ClientGame.PlayerSystem->update(dt);
+    
+        if (ne::Graphics::Window::getScene() == 0)
+            scene_menu.Update();
+        if (ne::Graphics::Window::getScene() == 1)
+            scene_setting.Update();
+        if (ne::Graphics::Window::getScene() == 2)
+            ClientGame.Update(dt);
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";
             oldTime = std::chrono::high_resolution_clock::now();

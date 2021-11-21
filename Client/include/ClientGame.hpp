@@ -31,6 +31,8 @@ namespace ne {
             std::shared_ptr<ne::ParallaxSystem> Parallax;
 
             ne::Scene ClientGameScene;
+            
+            void Update(float dt);
 
             void InitMusic();
             sf::Music music;

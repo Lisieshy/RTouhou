@@ -30,7 +30,7 @@ namespace ne {
              * @brief Destroy the Menu object
              */
             ~Menu();
-
+            void Update();
             std::shared_ptr<ne::ParallaxSystem> ParaSys;
             std::shared_ptr<ne::BackgroundSystem> RenderBackground;
             std::shared_ptr<ne::RenderSystem> Rendering;

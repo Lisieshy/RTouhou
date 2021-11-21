@@ -31,6 +31,7 @@ namespace ne {
              * 
              */
             ~Setting();
+            void Update();
 
             std::shared_ptr<ne::BackgroundSystem> RenderBackground;
             std::shared_ptr<ne::RenderSystem> Rendering;

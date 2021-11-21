@@ -65,12 +65,12 @@ ne::ClientGame::ClientGame()
         ClientGameScene.coordinator->setSystemSignature<ne::ParallaxSystem>(signature);
     }
     std::vector<ne::Parallax> usine_parallax;
-    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,0.f,0.f), "resources/parallax/bkgd_0.png"));
-    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-800.f,0.f), "resources/parallax/bkgd_1.png"));
-    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-400.f,0.f), "resources/parallax/bkgd_2.png"));
-    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-1000.f,0.f), "resources/parallax/bkgd_3.png"));
-    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-1200.f,0.f), "resources/parallax/bkgd_4.png"));
-    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-1400.f,0.f), "resources/parallax/bkgd_5.png"));
+    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,0.f,0.f), "resources/parallax/bkgd_6.png"));
+    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-1000.f,0.f), "resources/parallax/bkgd_1.png"));
+    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-2000.f,0.f), "resources/parallax/bkgd_2.png"));
+    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-3000.f,0.f), "resources/parallax/bkgd_3.png"));
+    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-4000.f,0.f), "resources/parallax/bkgd_4.png"));
+    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-5000.f,0.f), "resources/parallax/bkgd_5.png"));
     size_t i = 0;
     ne::EntityID para;
     while (i != 5) {
@@ -117,4 +117,12 @@ void ne::ClientGame::InitMusic()
     music.play();
     music.setLoop(true);
     music.setVolume(60);
+}
+
+void ne::ClientGame::Update(float dt)
+{
+    ClientSystem->OnMessage();
+    Parallax->update(dt);
+    RenderSystem->update();
+    PlayerSystem->update(dt);
 }

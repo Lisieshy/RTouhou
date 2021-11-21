@@ -12,6 +12,7 @@
 #include "NekoEngine/ECS/Components/Transform.hpp"
 #include "NekoEngine/Graphics/Window.hpp"
 #include "../Client/include/ClientGame.hpp"
+#include <NekoEngine/Scenes/SceneManager.hpp>
 void ne::MouseSystem::update()
 {
     for (auto& entity: m_entities) {
@@ -34,13 +35,13 @@ void ne::MouseSystem::update()
                 }
                 if (but.name == "Setting")
                     //should change scene to setting scene
-                    std::cout << "Setting" << std::endl;
+                    ne::Graphics::Window::setScene(1);
                 if (but.name == "Start")
                     //should change scene to lobby scene
-                    std::cout << "Start" << std::endl;
+                    ne::Graphics::Window::setScene(2);
                 if (but.name == "Return")
                     //should return to the main menu scene
-                    std::cout << "Return" << std::endl;
+                    ne::Graphics::Window::setScene(0);
             }                
         }
     }

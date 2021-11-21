@@ -17,9 +17,9 @@ void ne::ParallaxSystem::update(float dt)
     for (auto& entity: m_entities) {
         auto& transform = coordinator->getComponent<ne::Transform>(entity);
         auto& spr = coordinator->getComponent<ne::Skin>(entity);
-        transform.position.y += 10 * dt;
-        if (transform.position.y > ne::Graphics::Window::getWindow().y + 200)
-            transform.position.y = -400;
+        transform.position.y += 40 * dt;
+        if (transform.position.y > ne::Graphics::Window::getWindow().y + spr.texture.getSize().y)
+            transform.position.y = -spr.texture.getSize().y;
         ne::Graphics::Window::draw(spr, transform);
     }
 }
