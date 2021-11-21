@@ -57,6 +57,7 @@ set(NEKOWAVES_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Game/Waves/WavesType/Waves1.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Game/Waves/WavesType/Waves2.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Game/Waves/WavesType/Waves3.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/Waves/WavesType/Waves4.cpp
 )
 
 set(NEKOMENU_SOURCES

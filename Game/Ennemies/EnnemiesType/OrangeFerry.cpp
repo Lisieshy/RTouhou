@@ -48,7 +48,7 @@ ne::OrangeFerry::OrangeFerry()
     ne::EntityType::Type newType = ne::EntityType::Type::OrangeEnnemy;
     setType(newType);
 
-    setPattern(std::bind(&ne::Patterns::leftToRightPattern, &this->getPattern()));
+    setPattern(std::bind(&ne::Patterns::topToBotCirclePattern, &this->getPattern()));
 }
 
 ne::OrangeFerry::~OrangeFerry()
