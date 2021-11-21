@@ -256,7 +256,9 @@ namespace rt {
                             {
                                 ne::Player player;
                                 msg >> player.transform >> player.id;
-                                _players.insert_or_assign(player.id.uid, player);
+                                auto& test = _players[player.id.uid];
+                                test.transform = player.transform;
+                                _players.insert_or_assign(player.id.uid, test);
                             }
                             break;
                         }
