@@ -14,6 +14,9 @@
  */
 
 namespace ne {
+    /**
+     * @class Buttons
+     */
     class Buttons {
         public:
             /**
@@ -30,11 +33,23 @@ namespace ne {
             ~Buttons();
 
             /**
-             * @brief getTransform
+             * @brief Get the Transform object
+             * 
+             * @return ne::Transform& 
              */
-            ne::Transform getTransform();
-            ne::Skin getSkin();
-            ne::But getBut();
+            ne::Transform& getTransform();
+            /**
+             * @brief Get the Skin object
+             * 
+             * @return ne::Skin& 
+             */
+            ne::Skin& getSkin();
+            /**
+             * @brief Get the But object
+             * 
+             * @return ne::But& 
+             */
+            ne::But& getBut();
 
             ne::But but;
             ne::Transform transf;

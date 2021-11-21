@@ -98,12 +98,14 @@ namespace ne::Graphics::Window {
      * @return The window's size on a ne::Math::Vector2u
      */
     ne::Math::Vector2u getWindow();
-    
+    void mustClose();
     /**
      * @brief Get the clicked state
      * @return The clicked state
      */
     bool isClicked();
+    int getScene();
+    void setScene(int nb);
     ne::Math::Vector2i getMousePosition();
     ne::Math::Vector2f getScale();
 }

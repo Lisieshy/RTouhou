@@ -14,8 +14,7 @@
 void ne::BackgroundSystem::update()
 {
     for (auto& entity: m_entities) {
-        auto& transform = coordinator->getComponent<ne::Transform>(entity);
         auto& skin = coordinator->getComponent<ne::Skin>(entity);
-        ne::Graphics::Window::draw(skin, transform);
+        ne::Graphics::Window::draw(skin, ne::Transform{});
     }
 }

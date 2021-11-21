@@ -9,22 +9,33 @@
 #ifndef SETTING_HPP
 #define SETTING_HPP
 
+/**
+ * @namespace ne
+ * 
+ */
 namespace ne {
+    /**
+     * @class Setting
+     * 
+     */
     class Setting {
         public:
-            Setting(std::vector<ne::EntityID> entity);
+            /**
+             * @brief Construct a new Setting object
+             * 
+             * @param entities Number of entities
+             */
+            Setting(std::vector<ne::EntityID> entities);
+            /**
+             * @brief Destroy the Setting object
+             * 
+             */
             ~Setting();
-
-            ne::Transform getTransform();
-            ne::Skin getSkin();
-            void InitScene();
+            void Update();
 
             std::shared_ptr<ne::BackgroundSystem> RenderBackground;
             std::shared_ptr<ne::RenderSystem> Rendering;
             std::shared_ptr<ne::MouseSystem> MouseSys;
-            std::shared_ptr<ne::TextSystem> TextSys;
-            std::vector<ne::EntityID> entities;
-            ne::Scene scene;
         protected:
         private:
     };

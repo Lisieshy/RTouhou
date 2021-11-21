@@ -9,7 +9,7 @@
 
 ne::ClientGame::ClientGame()
 {
-    ClientGameScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::EntityType::Type, ne::Patterns, rt::Controller, ne::Animation>();
+    ClientGameScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::EntityType::Type, ne::Patterns, rt::Controller, ne::Animation, ne::ParallaxSystem, ne::GorbBackground>();
 
     ClientSystem = ClientGameScene.coordinator->registerSystem<rt::CustomClient>(ClientGameScene.coordinator);
     {
@@ -55,6 +55,34 @@ ne::ClientGame::ClientGame()
         ClientGameScene.coordinator->setSystemSignature<ne::Collision>(signature);        
     }
 
+    Parallax = ClientGameScene.coordinator->registerSystem<ne::ParallaxSystem>(ClientGameScene.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(ClientGameScene.coordinator->getComponentType<ne::Skin>());
+        signature.set(ClientGameScene.coordinator->getComponentType<ne::GorbBackground>());
+        signature.set(ClientGameScene.coordinator->getComponentType<ne::Transform>());
+        signature.set(ClientGameScene.coordinator->getComponentType<ne::ParallaxSystem>());
+        ClientGameScene.coordinator->setSystemSignature<ne::ParallaxSystem>(signature);
+    }
+    std::vector<ne::Parallax> usine_parallax;
+    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,0.f,0.f), "resources/parallax/bkgd_6.png"));
+    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-1000.f,0.f), "resources/parallax/bkgd_1.png"));
+    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-2000.f,0.f), "resources/parallax/bkgd_2.png"));
+    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-3000.f,0.f), "resources/parallax/bkgd_3.png"));
+    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-4000.f,0.f), "resources/parallax/bkgd_4.png"));
+    usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-5000.f,0.f), "resources/parallax/bkgd_5.png"));
+    size_t i = 0;
+    ne::EntityID para;
+    while (i != 5) {
+        para = ClientGameScene.coordinator->createEntity();
+        ClientGameScene.coordinator->addComponent(para, usine_parallax.at(i).getSkin());
+        ClientGameScene.coordinator->addComponent(para, usine_parallax.at(i).getTransform());
+        ClientGameScene.coordinator->addComponent(para, ne::GorbBackground{});
+        ClientGameScene.coordinator->addComponent(para, ne::ParallaxSystem{});
+        i++;
+        if (usine_parallax.size() == i)
+            break;
+    }
     ne::Skin playerSkin;
     playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Ennemies/TouhouBasicMob.png"));
     playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
@@ -89,4 +117,12 @@ void ne::ClientGame::InitMusic()
     music.play();
     music.setLoop(true);
     music.setVolume(60);
+}
+
+void ne::ClientGame::Update(float dt)
+{
+    ClientSystem->OnMessage();
+    Parallax->update(dt);
+    RenderSystem->update();
+    PlayerSystem->update(dt);
 }
