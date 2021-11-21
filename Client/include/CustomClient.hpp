@@ -226,6 +226,23 @@ namespace rt {
                                 if (player.id.uid == _nPlayerID.uid) {
                                     _waitingForConnection = false;
                                 }
+                                else {
+                                    ne::Skin playerSkin;
+                                    playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Player/reimu.png"));
+                                    playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 32, 50));
+                                    ne::EntityID newPlayer = coordinator->createEntity();
+
+                                    coordinator->addComponent(newPlayer, rt::Controller{});
+                                    ne::Transform transformPlayer;
+                                    transformPlayer.position = { 350.f, 500.f, 0.f };
+                                    coordinator->addComponent(newPlayer, transformPlayer);
+                                    coordinator->addComponent(newPlayer, ne::RigidBody{});
+                                    coordinator->addComponent(newPlayer, ne::Renderable{});
+                                    coordinator->addComponent(newPlayer, ne::Color{ 255, 255, 255, 255 });
+                                    coordinator->addComponent(newPlayer, playerSkin);
+                                    coordinator->addComponent(newPlayer, ne::Animation{});
+                                    coordinator->addComponent(newPlayer, ne::Uid{player.id});
+                                }
                             }
                             break;
                             case rt::CustomMsgTypes::RemovePlayer:
