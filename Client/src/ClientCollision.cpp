@@ -12,6 +12,7 @@ void ne::ClientCollision::update()
     std::vector<ne::EntityID> EnnemiesToBeDestroyed;
     std::vector<ne::EntityID> BulletsToBeDestroyed;
     std::vector<ne::EntityID> BonusToBeDestoyed;
+    std::vector<ne::EntityID> PlayerToBeDestoyed;
 
     for (auto entity : m_entities) {
         auto& EnnemiesType = coordinator->getComponent<ne::EntityType::Type>(entity);
@@ -53,7 +54,9 @@ void ne::ClientCollision::update()
                             if (std::find(BulletsToBeDestroyed.begin(), BulletsToBeDestroyed.end(), ComparedEntity) == BulletsToBeDestroyed.end()) {
                                 BulletsToBeDestroyed.push_back(ComparedEntity);
                             }
-                        std::cout << "Destroyed Player" << std::endl;
+                        if (std::find(PlayerToBeDestoyed.begin(), PlayerToBeDestoyed.end(), entity) == PlayerToBeDestoyed.end()) {
+                            PlayerToBeDestoyed.push_back(entity);
+                        }
                         break;
                     }
                 }
@@ -74,6 +77,7 @@ void ne::ClientCollision::update()
     removeEnnemies(EnnemiesToBeDestroyed);
     removeBullets(BulletsToBeDestroyed);
     removeBonus(BonusToBeDestoyed);
+    removePlayer(PlayerToBeDestoyed);
 }
 
 void ne::ClientCollision::removeEnnemies(std::vector<ne::EntityID>& EnnemiesToBeDestroyed)
@@ -120,6 +124,21 @@ void ne::ClientCollision::removeBonus(std::vector<ne::EntityID>& BonusToBeDestro
         coordinator->removeComponent<ne::Patterns>(ID);
         coordinator->removeComponent<ne::RigidBody>(ID);
         coordinator->removeComponent<ne::Color>(ID);
+        coordinator->removeComponent<ne::Uid>(ID);
+        coordinator->destroyEntity(ID);
+    }
+}
+
+void ne::ClientCollision::removePlayer(std::vector<ne::EntityID>& PlayerToBeDestroyed)
+{
+    for (auto ID : PlayerToBeDestroyed) {
+        coordinator->removeComponent<ne::Transform>(ID);
+        coordinator->removeComponent<ne::Renderable>(ID);
+        coordinator->removeComponent<ne::RigidBody>(ID);
+        coordinator->removeComponent<ne::Color>(ID);
+        coordinator->removeComponent<ne::Skin>(ID);
+        coordinator->removeComponent<ne::EntityType::Type>(ID);
+        coordinator->removeComponent<ne::Animation>(ID);
         coordinator->removeComponent<ne::Uid>(ID);
         coordinator->destroyEntity(ID);
     }
