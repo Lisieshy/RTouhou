@@ -1,0 +1,13 @@
+<map id="NekoEngine/include/NekoEngine/ECS/ComponentManager.hpp" name="NekoEngine/include/NekoEngine/ECS/ComponentManager.hpp">
+<area shape="rect" id="node1" title="Component Manmager class." alt="" coords="314,5,585,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,191,56,218"/>
+<area shape="rect" id="node3" title=" " alt="" coords="81,191,127,218"/>
+<area shape="rect" id="node4" title=" " alt="" coords="535,191,603,218"/>
+<area shape="rect" id="node5" href="$_types_8hpp.html" title="NekoEngine types definition." alt="" coords="353,273,538,300"/>
+<area shape="rect" id="node8" href="$_component_array_8hpp.html" title="Component Array template class." alt="" coords="193,95,385,136"/>
+<area shape="rect" id="node11" title=" " alt="" coords="679,102,838,129"/>
+<area shape="rect" id="node6" title=" " alt="" coords="373,348,435,375"/>
+<area shape="rect" id="node7" title=" " alt="" coords="459,348,514,375"/>
+<area shape="rect" id="node9" href="$_i_component_array_8hpp.html" title="Interface for the Component Array template class." alt="" coords="151,184,347,225"/>
+<area shape="rect" id="node10" title=" " alt="" coords="372,191,511,218"/>
+</map>

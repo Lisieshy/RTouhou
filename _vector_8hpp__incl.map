@@ -1,0 +1,6 @@
+<map id="NekoEngine/include/NekoEngine/Math/Vector/Vector.hpp" name="NekoEngine/include/NekoEngine/Math/Vector/Vector.hpp">
+<area shape="rect" id="node1" title="Contains all headers for all Vector types." alt="" coords="80,5,251,61"/>
+<area shape="rect" id="node2" href="$_vector2_8hpp.html" title="Contains Vector2 template class." alt="" coords="5,109,96,136"/>
+<area shape="rect" id="node3" href="$_vector3_8hpp.html" title="Contains Vector3 template class." alt="" coords="120,109,211,136"/>
+<area shape="rect" id="node4" href="$_vector4_8hpp.html" title="Contains Vector4 template class." alt="" coords="235,109,325,136"/>
+</map>

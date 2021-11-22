@@ -1,0 +1,16 @@
+<map id="ne::System" name="ne::System">
+<area shape="rect" id="node1" title=" " alt="" coords="5,309,92,336"/>
+<area shape="rect" id="node2" href="$classne_1_1_animation_system.html" title=" " alt="" coords="145,5,289,32"/>
+<area shape="rect" id="node3" href="$classne_1_1_background_system.html" title=" " alt="" coords="140,56,295,83"/>
+<area shape="rect" id="node4" href="$classne_1_1_bonus_system.html" title=" " alt="" coords="156,107,279,133"/>
+<area shape="rect" id="node5" href="$classne_1_1_client_collision.html" title=" " alt="" coords="155,157,279,184"/>
+<area shape="rect" id="node6" href="$classne_1_1_collision.html" title=" " alt="" coords="172,208,263,235"/>
+<area shape="rect" id="node7" href="$classne_1_1_mouse_system.html" title=" " alt="" coords="155,259,280,285"/>
+<area shape="rect" id="node8" href="$classne_1_1_parallax_system.html" title=" " alt="" coords="151,309,283,336"/>
+<area shape="rect" id="node9" href="$classne_1_1_pattern_system.html" title=" " alt="" coords="153,360,281,387"/>
+<area shape="rect" id="node10" href="$classne_1_1_render_system.html" title=" " alt="" coords="154,411,281,437"/>
+<area shape="rect" id="node11" href="$classne_1_1_text_system.html" title=" " alt="" coords="162,461,273,488"/>
+<area shape="rect" id="node12" href="$classne_1_1_timer_system.html" title=" " alt="" coords="158,512,277,539"/>
+<area shape="rect" id="node13" href="$classrt_1_1_custom_client.html" title=" " alt="" coords="160,563,275,589"/>
+<area shape="rect" id="node14" href="$classrt_1_1_player_system.html" title=" " alt="" coords="159,613,275,640"/>
+</map>
