@@ -67,6 +67,14 @@ ne::ClientGame::ClientGame()
         ClientGameScene.coordinator->setSystemSignature<ne::TextSystem>(signature);        
     }
 
+
+    ParalaxSystemClient = ClientGameScene.coordinator->registerSystem<ne::Parallax>(ClientGameScene.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(ClientGameScene.coordinator->getComponentType<ne::Textinfo>());
+        ClientGameScene.coordinator->setSystemSignature<ne::Parallax>(signature);        
+    }
+
     ne::Skin playerSkin;
     playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Player/reimu.png"));
     playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 32, 50));

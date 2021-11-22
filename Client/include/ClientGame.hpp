@@ -17,6 +17,7 @@
 #include "NekoEngine/NekoEngine.hpp"
 #include <SFML/Audio.hpp>
 #include "ClientCollision.hpp"
+#include "../include/Parallax.hpp"
 
 namespace ne {
     class ClientGame {
@@ -31,6 +32,7 @@ namespace ne {
             std::shared_ptr<ne::ClientCollision> CollisionSystem;
             std::shared_ptr<ne::WavesClientSystem> WavesSystemClient;
             std::shared_ptr<ne::TextSystem> TextSystemClient;
+            std::shared_ptr<ne::Parallax> ParalaxSystemClient;
             
             ne::Scene ClientGameScene;
 

@@ -92,6 +92,7 @@ namespace ne::Graphics::Window {
      */
     void draw(ne::Skin skin, ne::Transform transform);
     void draw(ne::Textinfo &text);
+    void draw(sf::Sprite spr);
     
     /**
      * @brief Get the window's size

@@ -62,6 +62,7 @@ auto main(
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
+        ClientGame.ParalaxSystemClient->update(dt);
         ClientGame.ClientSystem->OnMessage();
         ClientGame.WavesSystemClient->update(dt);
         ClientGame.TextSystemClient->update();
