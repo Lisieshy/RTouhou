@@ -22,6 +22,7 @@
 #include "NekoEngine/ECS/Systems/TextSystem.hpp"
 #include "NekoEngine/ECS/Systems/PatternSystem.hpp"
 #include "NekoEngine/ECS/Systems/BackgroundSystem.hpp"
+#include "NekoEngine/ECS/Systems/ParallaxSystem.hpp"
 #include "NekoEngine/ECS/Systems/AnimationSystem.hpp"
 #include "NekoEngine/ECS/Systems/Collision.hpp"
 #include "NekoEngine/ECS/Systems/BonusSystem.hpp"

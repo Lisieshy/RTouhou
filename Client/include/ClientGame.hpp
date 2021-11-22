@@ -16,11 +16,27 @@
 #include "NekoEngine/NekoEngine.hpp"
 #include <SFML/Audio.hpp>
 #include "ClientCollision.hpp"
+#include "../../Menu/Parallax.hpp"
+
+/**
+ * @namespace ne
+ */
 
 namespace ne {
+    /**
+     * @class ClientGame
+     */
     class ClientGame {
         public:
+            /**
+             * @brief Construct a new Client Game object
+             * 
+             */
             ClientGame();
+            /**
+             * @brief Destroy the Client Game object
+             * 
+             */
             ~ClientGame();
 
             std::shared_ptr<ne::RenderSystem> RenderSystem;
@@ -28,11 +44,22 @@ namespace ne {
             std::shared_ptr<rt::PlayerSystem> PlayerSystem;
             std::shared_ptr<ne::AnimationSystem> AnimSystem;
             std::shared_ptr<ne::ClientCollision> CollisionSystem;
-
+            std::shared_ptr<ne::Collision> CollisionSystem;
+            std::shared_ptr<ne::ParallaxSystem> Parallax;
             ne::Scene ClientGameScene;
+            
+            /**
+             * @brief 
+             * 
+             * @param dt float dt corresponding to the delta time 
+             */
+            void Update(float dt);
 
+            /**
+             * @brief Init the Music
+             * 
+             */
             void InitMusic();
-
             sf::Music music;
         protected:
         private:

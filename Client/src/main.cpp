@@ -21,7 +21,6 @@
 #include <random>
 #include <chrono>
 #include <sstream>
-
 #include <NyaLog/NyaLog.hpp>
 #include <include/CustomClient.hpp>
 #include "../../Menu/Menu.hpp"
@@ -33,7 +32,6 @@
 #include "../../Game/GameScene/GameScene.hpp"
 #include "../../Game/GlobalLibrary/GlobalTexture.hpp"
 #include "../../Game/Player/Player.hpp"
-
 auto main(
     int argc,
     char** argv
@@ -49,8 +47,9 @@ auto main(
     int fps = 0;
     auto oldTime = std::chrono::high_resolution_clock::now();
     float dt = 0.0f;
-    float timeToShoot = 0.5f;
-
+    ne::Menu scene_menu(entities);
+    ne::Setting scene_setting(entities);
+    ne::ClientGame ClientGame;
     ClientGame.InitMusic();
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
@@ -60,11 +59,13 @@ auto main(
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
-        ClientGame.ClientSystem->OnMessage();
-        ClientGame.CollisionSystem->update();
-        ClientGame.AnimSystem->update(dt);
-        ClientGame.RenderSystem->update();
-        ClientGame.PlayerSystem->update(dt, ClientGame.ClientSystem);
+    
+        if (ne::Graphics::Window::getScene() == 0)
+            scene_menu.Update();
+        if (ne::Graphics::Window::getScene() == 1)
+            scene_setting.Update();
+        if (ne::Graphics::Window::getScene() == 2)
+            ClientGame.Update(dt);
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";
             oldTime = std::chrono::high_resolution_clock::now();

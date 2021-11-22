@@ -23,17 +23,17 @@ ne::Buttons::~Buttons()
 {
 }
 
-ne::Transform ne::Buttons::getTransform()
+ne::Transform& ne::Buttons::getTransform()
 {
     return (transf);
 }
 
-ne::Skin ne::Buttons::getSkin()
+ne::Skin& ne::Buttons::getSkin()
 {
     return (skin);
 }
 
-ne::But ne::Buttons::getBut()
+ne::But& ne::Buttons::getBut()
 {
     return (but);
 }

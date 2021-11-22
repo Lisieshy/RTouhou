@@ -11,7 +11,7 @@
 #include "NekoEngine/ECS/Systems/MouseSystem.hpp"
 #include "NekoEngine/ECS/Components/Transform.hpp"
 #include "NekoEngine/Graphics/Window.hpp"
-
+#include "../Client/include/ClientGame.hpp"
 void ne::MouseSystem::update()
 {
     for (auto& entity: m_entities) {
@@ -29,20 +29,13 @@ void ne::MouseSystem::update()
                 skin.sprite.setTextureRect(sf::IntRect(skin.sprite.getTextureRect().left - skin.texture.getSize().x / 2, skin.sprite.getTextureRect().top, skin.sprite.getTextureRect().width, skin.sprite.getTextureRect().height));
             if (ne::Graphics::Window::isClicked()) {
                 if (but.name == "Quit")
-                    //should close
-                    std::cout << "Quit" << std::endl;
+                    ne::Graphics::Window::mustClose();
                 if (but.name == "Setting")
-                    //should change scene to setting scene
-                    std::cout << "Setting" << std::endl;
+                    ne::Graphics::Window::setScene(1);
                 if (but.name == "Start")
-                    //should change scene to lobby scene
-                    std::cout << "Start" << std::endl;
-                if (but.name == "Sound_on")
-                    //if sound is on, should turn it off else turn it on
-                    std::cout << "Sound_on" << std::endl;
-                if (but.name == "Sound_off")
-                    //if sound is on, should turn it off else turn it on
-                    std::cout << "Sound_off" << std::endl;
+                    ne::Graphics::Window::setScene(2);
+                if (but.name == "Return")
+                    ne::Graphics::Window::setScene(0);
             }                
         }
     }

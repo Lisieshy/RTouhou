@@ -17,18 +17,7 @@ ne::Background::~Background()
 {
 }
 
-ne::Transform ne::Background::getTransform()
-{
-    ne::Transform transf;
-    return (transf);
-}
-
-ne::Skin ne::Background::getSkin()
+ne::Skin& ne::Background::getSkin()
 {
     return(skin);
-}
-
-ne::GorbBackground ne::Background::getGorb()
-{
-    return (gorb);
 }
