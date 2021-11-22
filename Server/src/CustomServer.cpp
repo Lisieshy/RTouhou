@@ -28,6 +28,14 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
         std::unordered_map<uint32_t, ne::Player> m_mapPlayersRoster;
         std::vector<uint32_t> m_garbageIDs;
 
+        void sendTimeBeforeGame(float &timeBeforeGame)
+        {
+            nn::message<rt::CustomMsgTypes> msg;
+            msg.header.id = rt::CustomMsgTypes::TimeBeforeGame;
+
+            msg << timeBeforeGame;
+            MessageAllClients(msg);
+        }
         virtual auto SendDataToClients(
         ) -> void
         {

@@ -205,6 +205,12 @@ namespace rt {
                                 nl::nyalog(nl::LogLevel::Info, "Client has been accepted by the server");
                             }
                             break;
+                            case rt::CustomMsgTypes::TimeBeforeGame:
+                            {
+                                float time;
+                                msg >> time;
+                            }
+                            break;
                         }
                     }
                 }

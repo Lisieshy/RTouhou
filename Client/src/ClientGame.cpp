@@ -86,7 +86,6 @@ ne::ClientGame::ClientGame()
     playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 32, 50));
     ClientSystem->_player = ClientGameScene.coordinator->createEntity();
 
-    ClientSystem->Connect("127.0.0.1", 60000);   
     ClientGameScene.coordinator->addComponent(ClientSystem->_player, rt::Controller{
         .type = rt::ControlType::KEYBOARD,
         .up = sf::Keyboard::Key::Z,
@@ -121,9 +120,17 @@ void ne::ClientGame::InitMusic()
 
 void ne::ClientGame::Update(float dt)
 {
-    ClientSystem->OnMessage();
-    Parallax->update(dt);
-    CollisionSystem->update();
-    RenderSystem->update();
-    PlayerSystem->update(dt, ClientSystem);
+    static bool connected = false;
+
+    if (connected) {
+        ClientSystem->OnMessage();
+        Parallax->update(dt);
+        CollisionSystem->update();
+        RenderSystem->update();
+        PlayerSystem->update(dt, ClientSystem);
+    }
+    else {
+        ClientSystem->Connect("127.0.0.1", 60000);
+        connected = true;
+    }
 }

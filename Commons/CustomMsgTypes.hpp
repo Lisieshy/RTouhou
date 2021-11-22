@@ -23,5 +23,6 @@ namespace rt {
         UpdatePlayer,
         PlayerIsShooting,
         PlayerUpdate,
+        TimeBeforeGame,
     };
 }
