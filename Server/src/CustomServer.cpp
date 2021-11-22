@@ -160,7 +160,7 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
                     ID++;
                 }
             break;
-            case rt::CustomMsgTypes::PlayerUp:
+            case rt::CustomMsgTypes::PlayerUpdate:
                 {
                     ne::Transform test;
                     ne::Uid uid;
@@ -175,51 +175,6 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
                     }
                 }
             break;
-            case rt::CustomMsgTypes::PlayerDown:
-                {
-                    ne::Transform test;
-                    ne::Uid uid;
-                    msg >> test >> uid;
-
-                    for (auto &c : m_entities) {
-                        auto &i = coordinator->getComponent<ne::Uid>(c);
-                        if (uid.uid == i.uid) {
-                            auto &newtrans = coordinator->getComponent<ne::Transform>(c);
-                            newtrans = test;
-                        }
-                    }                    
-                }
-            break;
-            case rt::CustomMsgTypes::PlayerLeft:
-                {
-                    ne::Transform test;
-                    ne::Uid uid;
-                    msg >> test >> uid;
-
-                    for (auto &c : m_entities) {
-                        auto &i = coordinator->getComponent<ne::Uid>(c);
-                        if (uid.uid == i.uid) {
-                            auto &newtrans = coordinator->getComponent<ne::Transform>(c);
-                            newtrans = test;
-                        }
-                    } 
-                }
-            break;
-            case rt::CustomMsgTypes::PlayerRight:
-                {
-                    ne::Transform test;
-                    ne::Uid uid;
-                    msg >> test >> uid;
-
-                    for (auto &c : m_entities) {
-                        auto &i = coordinator->getComponent<ne::Uid>(c);
-                        if (uid.uid == i.uid) {
-                            auto &newtrans = coordinator->getComponent<ne::Transform>(c);
-                            newtrans = test;
-                        }
-                    }
-                }
-            break;            
             }
         }
 };

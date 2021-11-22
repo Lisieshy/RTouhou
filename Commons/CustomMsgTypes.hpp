@@ -22,9 +22,6 @@ namespace rt {
         RemovePlayer,
         UpdatePlayer,
         PlayerIsShooting,
-        PlayerUp,
-        PlayerDown,
-        PlayerLeft,
-        PlayerRight,
+        PlayerUpdate,
     };
 }

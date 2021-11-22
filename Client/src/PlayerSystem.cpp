@@ -87,19 +87,19 @@ void rt::PlayerSystem::update(float dt, std::shared_ptr<rt::CustomClient> client
             case rt::ControlType::KEYBOARD:
                 if (sf::Keyboard::isKeyPressed(controller.up)) {
                     transform.position.y += -controller.speed * dt;
-                    _msg.header.id = rt::CustomMsgTypes::PlayerUp;
+                    _msg.header.id = rt::CustomMsgTypes::PlayerUpdate;
                 }
                 if (sf::Keyboard::isKeyPressed(controller.down)) {
                     transform.position.y += controller.speed * dt;
-                    _msg.header.id = rt::CustomMsgTypes::PlayerDown;
+                    _msg.header.id = rt::CustomMsgTypes::PlayerUpdate;
                 }
                 if (sf::Keyboard::isKeyPressed(controller.left)) {
                     transform.position.x += -controller.speed * dt;
-                    _msg.header.id = rt::CustomMsgTypes::PlayerLeft;
+                    _msg.header.id = rt::CustomMsgTypes::PlayerUpdate;
                 }
                 if (sf::Keyboard::isKeyPressed(controller.right)) {
                     transform.position.x += controller.speed * dt;
-                    _msg.header.id = rt::CustomMsgTypes::PlayerRight;
+                    _msg.header.id = rt::CustomMsgTypes::PlayerUpdate;
                 }
                 if (sf::Keyboard::isKeyPressed(controller.shoot) && (timeShoot -= dt) <= 0) {
                     timeShoot = 0.5f;
