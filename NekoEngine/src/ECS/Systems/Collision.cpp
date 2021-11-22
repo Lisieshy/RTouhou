@@ -35,7 +35,6 @@ void ne::Collision::update()
                 auto& ComparedEnnemiesType = coordinator->getComponent<ne::EntityType::Type>(ComparedEntity);
                 if (ComparedEnnemiesType == ne::EntityType::ScoreUp) {
                     auto& Comparedtransform = coordinator->getComponent<ne::Transform>(ComparedEntity);
-
                     if (Comparedtransform.position.x > transform.position.x && Comparedtransform.position.x < transform.position.x + 32 &&
                         Comparedtransform.position.y > transform.position.y && Comparedtransform.position.y < transform.position.y + 28) {
                         std::cout << "BONUS TOOK" << std::endl;

@@ -61,19 +61,27 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
         }
 
     protected:
-
         void OnClientValidated(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client) override
         {
             nn::message<rt::CustomMsgTypes> msg;
             msg.header.id = rt::CustomMsgTypes::AcceptedPlayer;
+            msg << client->GetID();
             client->Send(msg);
+            auto newEntity = coordinator->createEntity();
+            ne::Transform trans;
+            trans.position = {350.f, 500.f, 0.f};
+            coordinator->addComponent(newEntity, ne::Transform{trans});
+            coordinator->addComponent(newEntity, ne::Networkable{});
+            coordinator->addComponent(newEntity, ne::RigidBody{});
+            coordinator->addComponent(newEntity, ne::Color{});
+            coordinator->addComponent(newEntity, ne::Gravity{});
+            coordinator->addComponent(newEntity, ne::Uid{client->GetID()});
+            coordinator->addComponent(newEntity, ne::EntityType::Type{ne::EntityType::Type::Player});
+            coordinator->addComponent(newEntity, ne::Player{});
         }
 
         bool OnClientConnect(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client) override
         {
-            nn::message<rt::CustomMsgTypes> msg;
-            msg.header.id = rt::CustomMsgTypes::ServerAccept;
-            client->Send(msg);
             return true;
         }
 
@@ -108,41 +116,6 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
             }
 
             switch (msg.header.id) {
-            case rt::CustomMsgTypes::PlayerRegisterWithServer:
-                {
-                    ne::Player player;
-                    msg >> player.id >> player.transform;
-                    player.id.uid = client->GetID();
-
-                    m_mapPlayersRoster.insert_or_assign(player.id.uid, player);
-
-                    nn::message<rt::CustomMsgTypes> mSendID;
-                    mSendID.header.id = rt::CustomMsgTypes::AssignPlayerID;
-                    mSendID << player.id;
-                    MessageClient(client, mSendID);
-
-                    nn::message<rt::CustomMsgTypes> mAddPlayer;
-                    mAddPlayer.header.id = rt::CustomMsgTypes::AddPlayer;
-                    mAddPlayer << player.id;
-                    MessageAllClients(mAddPlayer);
-                    std::cout << "Our player is registered" << std::endl;
-
-                    auto NewEntity = coordinator->createEntity();
-                    coordinator->addComponent(NewEntity, player.transform);
-                    coordinator->addComponent(NewEntity, ne::EntityType::Type::Player);
-                    for (const auto& p : m_mapPlayersRoster) {
-                        nn::message<rt::CustomMsgTypes> mAddOtherPlayer;
-                        mAddOtherPlayer.header.id = rt::CustomMsgTypes::AddPlayer;
-                        mAddOtherPlayer << p.second.id;
-                        MessageClient(client, mAddOtherPlayer);
-                    }
-                }
-            break;
-            case rt::CustomMsgTypes::UpdatePlayer:
-                {
-                    MessageAllClients(msg, client);
-                }
-            break;
             case rt::CustomMsgTypes::ServerPing:
                 {
                     std::stringstream ss;
@@ -174,14 +147,6 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
                     std::shared_ptr<ne::Bullets> NewBullets;
                     NewBullets = bulletFact.createBullets("FriendlyBullets");
 
-                    for (auto &c : m_entities) {
-                        auto &i = coordinator->getComponent<ne::EntityType::Type>(c);
-                        if (i == ne::EntityType::Type::Player) {
-                            std::cout << "A" << std::endl;
-                            auto &newtrans = coordinator->getComponent<ne::Transform>(c);
-                            newtrans = transform;
-                        }
-                    }
                     transform.position.x += 24;
                     transform.position.y -= 8;
                     coordinator->addComponent(NewEntity, transform);
@@ -195,6 +160,66 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
                     ID++;
                 }
             break;
+            case rt::CustomMsgTypes::PlayerUp:
+                {
+                    ne::Transform test;
+                    ne::Uid uid;
+                    msg >> test >> uid;
+
+                    for (auto &c : m_entities) {
+                        auto &i = coordinator->getComponent<ne::Uid>(c);
+                        if (uid.uid == i.uid) {
+                            auto &newtrans = coordinator->getComponent<ne::Transform>(c);
+                            newtrans = test;
+                        }
+                    }
+                }
+            break;
+            case rt::CustomMsgTypes::PlayerDown:
+                {
+                    ne::Transform test;
+                    ne::Uid uid;
+                    msg >> test >> uid;
+
+                    for (auto &c : m_entities) {
+                        auto &i = coordinator->getComponent<ne::Uid>(c);
+                        if (uid.uid == i.uid) {
+                            auto &newtrans = coordinator->getComponent<ne::Transform>(c);
+                            newtrans = test;
+                        }
+                    }                    
+                }
+            break;
+            case rt::CustomMsgTypes::PlayerLeft:
+                {
+                    ne::Transform test;
+                    ne::Uid uid;
+                    msg >> test >> uid;
+
+                    for (auto &c : m_entities) {
+                        auto &i = coordinator->getComponent<ne::Uid>(c);
+                        if (uid.uid == i.uid) {
+                            auto &newtrans = coordinator->getComponent<ne::Transform>(c);
+                            newtrans = test;
+                        }
+                    } 
+                }
+            break;
+            case rt::CustomMsgTypes::PlayerRight:
+                {
+                    ne::Transform test;
+                    ne::Uid uid;
+                    msg >> test >> uid;
+
+                    for (auto &c : m_entities) {
+                        auto &i = coordinator->getComponent<ne::Uid>(c);
+                        if (uid.uid == i.uid) {
+                            auto &newtrans = coordinator->getComponent<ne::Transform>(c);
+                            newtrans = test;
+                        }
+                    }
+                }
+            break;            
             }
         }
 };

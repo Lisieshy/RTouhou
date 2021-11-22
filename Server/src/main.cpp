@@ -48,7 +48,7 @@ auto main(
     bool started = false;
 
     while (1) {
-        if (Game.NetworkSystem->nIDCounter > static_cast<u_int32_t>(10000)) {
+        if (Game.NetworkSystem->nIDCounter > static_cast<uint32_t>(10000)) {
             auto startTime = std::chrono::high_resolution_clock::now();
             fps++;
             if ((timePassed += dt) >= 0.001f) {
