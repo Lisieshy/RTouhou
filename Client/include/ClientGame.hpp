@@ -44,7 +44,6 @@ namespace ne {
             std::shared_ptr<rt::PlayerSystem> PlayerSystem;
             std::shared_ptr<ne::AnimationSystem> AnimSystem;
             std::shared_ptr<ne::ClientCollision> CollisionSystem;
-            std::shared_ptr<ne::Collision> CollisionSystem;
             std::shared_ptr<ne::ParallaxSystem> Parallax;
             ne::Scene ClientGameScene;
             

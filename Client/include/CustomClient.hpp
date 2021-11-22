@@ -66,6 +66,7 @@ namespace rt {
                                 ne::Uid receivedUid;
                                 ne::EntityType::Type receivedType;
                                 msg >> receivedType >> receivedUid >> receivedEntity;
+                                // std::cout << "Received UID from enemy : " << receivedUid.uid << std::endl;
                                 for (auto& entity : m_entities) {
                                     if (receivedUid.uid == coordinator->getComponent<ne::Uid>(entity).uid) {
                                         _found = true;

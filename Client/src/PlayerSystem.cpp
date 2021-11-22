@@ -76,6 +76,7 @@ ne::Transform& rt::PlayerSystem::getPlayerTrans()
 void rt::PlayerSystem::update(float dt, std::shared_ptr<rt::CustomClient> client)
 {
     static float timeShoot = 0.5f;
+    timeShoot -= dt;
     nn::message<rt::CustomMsgTypes> _msg;
     for (auto& entity : m_entities) {
         auto& transform = coordinator->getComponent<ne::Transform>(entity);
@@ -101,7 +102,7 @@ void rt::PlayerSystem::update(float dt, std::shared_ptr<rt::CustomClient> client
                     transform.position.x += controller.speed * dt;
                     _msg.header.id = rt::CustomMsgTypes::PlayerUpdate;
                 }
-                if (sf::Keyboard::isKeyPressed(controller.shoot) && (timeShoot -= dt) <= 0) {
+                if (sf::Keyboard::isKeyPressed(controller.shoot) && timeShoot <= 0) {
                     timeShoot = 0.5f;
                     _msg.header.id = rt::CustomMsgTypes::PlayerIsShooting;
                 }

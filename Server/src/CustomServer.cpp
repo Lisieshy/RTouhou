@@ -20,7 +20,7 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
 {
     public:
         ne::BulletsFactory bulletFact;
-        uint32_t ID; 
+        uint32_t ID = 200; 
         CustomServer(uint16_t nPort = 60000) : nn::IServer<rt::CustomMsgTypes>(nPort)
         {
         }

@@ -30,7 +30,7 @@ auto main(
     nl::nyalog.setFilename("Server.log");
     nl::nyalog.setLogLevel(nl::LogLevel::Fatal);
     nl::nyalog.init();
-    uint32_t entityID = 0;
+    uint32_t entityID = 200;
 
     std::vector<ne::EntityID> entities(50000);
     ne::GameScene Game(entities);

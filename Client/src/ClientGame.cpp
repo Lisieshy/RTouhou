@@ -68,7 +68,7 @@ ne::ClientGame::ClientGame()
     usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-3000.f,0.f), "resources/parallax/bkgd_3.png"));
     usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-4000.f,0.f), "resources/parallax/bkgd_4.png"));
     usine_parallax.push_back(ne::Parallax(ne::Math::Vector3f(0.f,-5000.f,0.f), "resources/parallax/bkgd_5.png"));
-    size_t i = 0;
+    uint32_t i = 0;
     ne::EntityID para;
     while (i != 5) {
         para = ClientGameScene.coordinator->createEntity();
@@ -76,6 +76,7 @@ ne::ClientGame::ClientGame()
         ClientGameScene.coordinator->addComponent(para, usine_parallax.at(i).getTransform());
         ClientGameScene.coordinator->addComponent(para, ne::GorbBackground{});
         ClientGameScene.coordinator->addComponent(para, ne::ParallaxSystem{});
+        ClientGameScene.coordinator->addComponent(para, ne::Uid{i});
         i++;
         if (usine_parallax.size() == i)
             break;
@@ -122,6 +123,7 @@ void ne::ClientGame::Update(float dt)
 {
     ClientSystem->OnMessage();
     Parallax->update(dt);
+    CollisionSystem->update();
     RenderSystem->update();
-    PlayerSystem->update(dt);
+    PlayerSystem->update(dt, ClientSystem);
 }
