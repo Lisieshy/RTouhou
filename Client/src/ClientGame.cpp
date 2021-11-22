@@ -76,6 +76,7 @@ ne::ClientGame::ClientGame()
     ClientGameScene.coordinator->addComponent(ClientSystem->_player, ne::Color{ 255, 255, 255, 255 });
     ClientGameScene.coordinator->addComponent(ClientSystem->_player, playerSkin);
     ClientGameScene.coordinator->addComponent(ClientSystem->_player, ne::Animation{});
+    ClientGameScene.coordinator->addComponent(ClientSystem->_player, ne::EntityType::Type { ne::EntityType::Type::Player });
 }
 
 ne::ClientGame::~ClientGame()

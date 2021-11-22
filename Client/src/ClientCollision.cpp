@@ -11,6 +11,7 @@ void ne::ClientCollision::update()
 {
     std::vector<ne::EntityID> EnnemiesToBeDestroyed;
     std::vector<ne::EntityID> BulletsToBeDestroyed;
+    std::vector<ne::EntityID> BonusToBeDestoyed;
 
     for (auto entity : m_entities) {
         auto& EnnemiesType = coordinator->getComponent<ne::EntityType::Type>(entity);
@@ -18,7 +19,7 @@ void ne::ClientCollision::update()
             auto& transform = coordinator->getComponent<ne::Transform>(entity);
             for (auto ComparedEntity : m_entities) {
                 auto& ComparedEnnemiesType = coordinator->getComponent<ne::EntityType::Type>(ComparedEntity);
-                if (ComparedEnnemiesType == ne::EntityType::FriendlyBullets) {
+                if (ComparedEnnemiesType >= ne::EntityType::FriendlyPlT2 && ComparedEnnemiesType <= ne::EntityType::FriendlyBullets) {
                     auto& Comparedtransform = coordinator->getComponent<ne::Transform>(ComparedEntity);
                     if (Comparedtransform.position.x > transform.position.x && Comparedtransform.position.x < transform.position.x + 34 &&
                         Comparedtransform.position.y > transform.position.y && Comparedtransform.position.y < transform.position.y + 32) {
@@ -29,10 +30,24 @@ void ne::ClientCollision::update()
                     }
                 }
             }
+        } else if (EnnemiesType == ne::EntityType::Type::Player) {
+            auto& transform = coordinator->getComponent<ne::Transform>(entity);
+            for (auto ComparedEntity : m_entities) {
+                auto& ComparedEnnemiesType = coordinator->getComponent<ne::EntityType::Type>(ComparedEntity);
+                if (ComparedEnnemiesType == ne::EntityType::ScoreUp) {
+                    auto& Comparedtransform = coordinator->getComponent<ne::Transform>(ComparedEntity);
+                    if (Comparedtransform.position.x > transform.position.x && Comparedtransform.position.x < transform.position.x + 32 &&
+                        Comparedtransform.position.y > transform.position.y && Comparedtransform.position.y < transform.position.y + 28) {
+                        if (std::find(BonusToBeDestoyed.begin(), BonusToBeDestoyed.end(), ComparedEntity) == BonusToBeDestoyed.end())
+                            BonusToBeDestoyed.push_back(ComparedEntity);
+                    }
+                }
+            }
         }
     }
     removeEnnemies(EnnemiesToBeDestroyed);
     removeBullets(BulletsToBeDestroyed);
+    removeBonus(BonusToBeDestoyed);
 }
 
 void ne::ClientCollision::removeEnnemies(std::vector<ne::EntityID>& EnnemiesToBeDestroyed)
@@ -62,6 +77,21 @@ void ne::ClientCollision::removeBullets(std::vector<ne::EntityID>& BulletsToBeDe
         coordinator->removeComponent<ne::Skin>(ID);
         coordinator->removeComponent<ne::EntityType::Type>(ID);
         coordinator->removeComponent<ne::Patterns>(ID);
+        coordinator->removeComponent<ne::Uid>(ID);
+        coordinator->destroyEntity(ID);
+    }
+}
+
+void ne::ClientCollision::removeBonus(std::vector<ne::EntityID>& BonusToBeDestroyed)
+{
+    for (auto ID : BonusToBeDestroyed) {
+        coordinator->removeComponent<ne::Transform>(ID);
+        coordinator->removeComponent<ne::Renderable>(ID);
+        coordinator->removeComponent<ne::Skin>(ID);
+        coordinator->removeComponent<ne::EntityType::Type>(ID);
+        coordinator->removeComponent<ne::Patterns>(ID);
+        coordinator->removeComponent<ne::RigidBody>(ID);
+        coordinator->removeComponent<ne::Color>(ID);
         coordinator->removeComponent<ne::Uid>(ID);
         coordinator->destroyEntity(ID);
     }

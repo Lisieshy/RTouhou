@@ -78,6 +78,7 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
             coordinator->addComponent(newEntity, ne::Uid{client->GetID()});
             coordinator->addComponent(newEntity, ne::EntityType::Type{ne::EntityType::Type::Player});
             coordinator->addComponent(newEntity, ne::Player{});
+            coordinator->addComponent(newEntity, ne::WeaponTier{});
         }
 
         bool OnClientConnect(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client) override
@@ -145,10 +146,23 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
                     msg >> transform >> test;
                     auto NewEntity = coordinator->createEntity();
                     std::shared_ptr<ne::Bullets> NewBullets;
-                    NewBullets = bulletFact.createBullets("FriendlyBullets");
 
                     transform.position.x += 24;
                     transform.position.y -= 8;
+                    int bigbrain = 1;
+                    for (auto &c : m_entities) {
+                        auto &i = coordinator->getComponent<ne::Uid>(c);
+                        if (test.uid == i.uid) {
+                            auto &WpTIer = coordinator->getComponent<ne::WeaponTier>(c);
+                            bigbrain = WpTIer.WeaponTier;
+                        }
+                    }
+                    if (bigbrain == 1)
+                        NewBullets = bulletFact.createBullets("FriendlyBullets");
+                    else if (bigbrain == 2)
+                        NewBullets = bulletFact.createBullets("BulletsPlT2");
+                    else
+                        NewBullets = bulletFact.createBullets("BulletsPlT3");
                     coordinator->addComponent(NewEntity, transform);
                     coordinator->addComponent(NewEntity, NewBullets.get()->getGravity());
                     coordinator->addComponent(NewEntity, NewBullets.get()->getRigidBody());

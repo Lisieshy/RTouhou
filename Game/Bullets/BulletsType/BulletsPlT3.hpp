@@ -2,26 +2,25 @@
 ** EPITECH PROJECT, 2021
 ** B-CPP-501-NCY-5-1-rtype-aurelien.schulz
 ** File description:
-** FriendlyBullets
+** BulletsPlT3
 */
-
 #include "../Bullets.hpp"
 #include "SFML/Graphics.hpp"
 #include <random>
 #include <sstream>
 
-#ifndef FRIENDLYBULLETS_HPP_
-#define FRIENDLYBULLETS_HPP_
+#ifndef BULLETSPLT3_HPP_
+#define BULLETSPLT3_HPP_
 
 namespace ne {
-    class FriendlyBullets : public Bullets {
+    class BulletsPlT3 : public Bullets {
         public:
-            FriendlyBullets();
-            ~FriendlyBullets();
+            BulletsPlT3();
+            ~BulletsPlT3();
 
         protected:
         private:
     };
 }
 
-#endif /* !FRIENDLYBULLETS_HPP_ */
+#endif /* !BULLETSPLT3_HPP_ */

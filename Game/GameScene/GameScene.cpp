@@ -34,7 +34,7 @@ void ne::GameScene::GameLoop(float dt, uint32_t& ID)
 
 void ne::GameScene::InitScene(uint32_t &entityID)
 {
-    Game.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::Networkable, ne::EntityType::Type, ne::Patterns, ne::Player>();
+    Game.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::Networkable, ne::EntityType::Type, ne::Patterns, ne::Player, ne::WeaponTier>();
 
 
     PatternSystem = Game.coordinator->registerSystem<ne::PatternSystem>(Game.coordinator);

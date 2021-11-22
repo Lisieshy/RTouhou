@@ -20,6 +20,8 @@ namespace ne {
                 WhiteBullets, 
                 Tier2Bullets,
                 Tier3Bullets,
+                FriendlyPlT2,
+                FriendlyPlT3,
                 FriendlyBullets,
                 Bullets,
                 ScoreUp,
