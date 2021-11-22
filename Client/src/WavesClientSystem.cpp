@@ -26,8 +26,6 @@ void ne::WavesClientSystem::update(float dt)
     if (Time <= 0) {
         wave++;
         txtinfo._text.setString("Wave : " + std::to_string(wave));
-        std::cout << "Wave :" + wave << std::endl;
-        std::cout << txtinfo._text.getString().toAnsiString() << std::endl;
         Time = 15.0f;
     }
     ne::Graphics::Window::draw(txtinfo);

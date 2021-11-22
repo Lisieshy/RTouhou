@@ -70,6 +70,8 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
             auto newEntity = coordinator->createEntity();
             ne::Transform trans;
             trans.position = {350.f, 500.f, 0.f};
+            ne::WeaponTier tier;
+            tier.WeaponTier = 1;
             coordinator->addComponent(newEntity, ne::Transform{trans});
             coordinator->addComponent(newEntity, ne::Networkable{});
             coordinator->addComponent(newEntity, ne::RigidBody{});
@@ -78,7 +80,7 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
             coordinator->addComponent(newEntity, ne::Uid{client->GetID()});
             coordinator->addComponent(newEntity, ne::EntityType::Type{ne::EntityType::Type::Player});
             coordinator->addComponent(newEntity, ne::Player{});
-            coordinator->addComponent(newEntity, ne::WeaponTier{});
+            coordinator->addComponent(newEntity, tier);
         }
 
         bool OnClientConnect(std::shared_ptr<nn::connection<rt::CustomMsgTypes>> client) override

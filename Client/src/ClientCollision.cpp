@@ -83,7 +83,6 @@ void ne::ClientCollision::update()
 void ne::ClientCollision::removeEnnemies(std::vector<ne::EntityID>& EnnemiesToBeDestroyed)
 {
     for (auto ID : EnnemiesToBeDestroyed) {
-        std::cout << "In Ennemies" << std::endl;
         coordinator->removeComponent<ne::Transform>(ID);
         coordinator->removeComponent<ne::RigidBody>(ID);
         coordinator->removeComponent<ne::Renderable>(ID);
@@ -101,7 +100,6 @@ void ne::ClientCollision::removeEnnemies(std::vector<ne::EntityID>& EnnemiesToBe
 void ne::ClientCollision::removeBullets(std::vector<ne::EntityID>& BulletsToBeDestroyed)
 {
     for (auto ID : BulletsToBeDestroyed) {
-        std::cout << "In Bullet" << std::endl;
         coordinator->removeComponent<ne::Transform>(ID);
         coordinator->removeComponent<ne::RigidBody>(ID);
         coordinator->removeComponent<ne::Renderable>(ID);

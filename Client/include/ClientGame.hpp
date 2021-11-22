@@ -31,7 +31,7 @@ namespace ne {
             std::shared_ptr<ne::ClientCollision> CollisionSystem;
             std::shared_ptr<ne::WavesClientSystem> WavesSystemClient;
             std::shared_ptr<ne::TextSystem> TextSystemClient;
-
+            
             ne::Scene ClientGameScene;
 
             void InitMusic();
