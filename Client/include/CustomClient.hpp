@@ -25,6 +25,7 @@ namespace rt {
     {
         public:
             ne::EntityID _player;
+            uint32_t currentlyConnected = 0;
             // Basic function for handling ping.
             // NEVER, EVER USE THE SYSTEM CLOCK FOR A PING LIKE THAT
             // IT'S NOT A GOOD IDEA.
@@ -184,21 +185,25 @@ namespace rt {
                             case rt::CustomMsgTypes::UpdatePlayer:
                             {
                                 bool _found = false;
+                                static bool didPassedOnce = false;
                                 ne::Transform receivedTrans;
                                 ne::Uid receivedId;
                                 ne::EntityType::Type receivedType;
                                 msg >> receivedType >> receivedId >> receivedTrans;
-
                                 for (auto& entity : m_entities) {
                                     if (receivedId.uid == coordinator->getComponent<ne::Uid>(entity).uid) {
                                         _found = true;
+                                        auto& t = coordinator->getComponent<ne::Transform>(entity);
+                                        t = receivedTrans;
+                                        if (!didPassedOnce) {
+                                            currentlyConnected++;
+                                            didPassedOnce = true;
+                                        }
                                     }
                                 }
                                 if (!_found) {
                                     if (receivedType == ne::EntityType::Type::Player) {
                                         auto newEntity = coordinator->createEntity();
-                                        std::shared_ptr<ne::Player> test;
-
                                         ne::Skin playerSkin;
                                         playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Player/reimu.png"));
                                         playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 32, 50));
@@ -207,7 +212,9 @@ namespace rt {
                                         coordinator->addComponent(newEntity, playerSkin);
                                         coordinator->addComponent(newEntity, ne::Animation{});
                                         coordinator->addComponent(newEntity, ne::Color{});
-                                        coordinator->addComponent(newEntity, ne::Uid{});
+                                        coordinator->addComponent(newEntity, ne::EntityType::Type{ne::EntityType::Type::Player});
+                                        coordinator->addComponent(newEntity, ne::Uid{receivedId.uid + currentlyConnected});
+                                        currentlyConnected++;
                                     }
                                 }
                             }
