@@ -24,7 +24,7 @@ namespace rt {
     class CustomClient : public ne::System, public nn::IClient<CustomMsgTypes>
     {
         public:
-            ne::Player _player;
+            ne::EntityID _player;
             // Basic function for handling ping.
             // NEVER, EVER USE THE SYSTEM CLOCK FOR A PING LIKE THAT
             // IT'S NOT A GOOD IDEA.
@@ -38,14 +38,6 @@ namespace rt {
 
                 msg << now;
                 Send(msg);
-            }
-
-            void SendPlayer()
-            {
-                nn::message<rt::CustomMsgTypes> _msg;
-                _msg.header.id = rt::CustomMsgTypes::PlayerIsShooting;
-                _msg << _player.id << _player.transform;
-                Send(_msg); 
             }
 
             // Broadcast data to all clients connected to the server.
@@ -206,77 +198,21 @@ namespace rt {
                             break;
                             case rt::CustomMsgTypes::AcceptedPlayer:
                             {
-                                nn::message<CustomMsgTypes> _msg;
-                                _msg.header.id = CustomMsgTypes::PlayerRegisterWithServer;
-                                _msg << _player.id;
-                                Send(_msg);
-                            }
-                            break;
-                            case rt::CustomMsgTypes::AssignPlayerID:
-                            {
-                                msg >> _player.id;
-                                _nPlayerID = _player.id;
-                                nl::nyalog(nl::LogLevel::Info, "Player ID assigned: " + std::to_string(_player.id.uid));
-                            }
-                            break;
-                            case rt::CustomMsgTypes::AddPlayer:
-                            {
-                                msg >> _player.id;
-                                _players.insert_or_assign(_player.id.uid, _player);
-                                std::cout << "PLayer creation ID and transform : " << _players[_player.id.uid].id.uid << " / " << _players[_player.id.uid].transform.position.x << std::endl;
-                                if (player.id.uid == _nPlayerID.uid) {
-                                    _waitingForConnection = false;
-                                }
-                                else {
-                                    ne::Skin playerSkin;
-                                    playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Player/reimu.png"));
-                                    playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 32, 50));
-                                    ne::EntityID newPlayer = coordinator->createEntity();
-
-                                    coordinator->addComponent(newPlayer, rt::Controller{});
-                                    ne::Transform transformPlayer;
-                                    transformPlayer.position = { 350.f, 500.f, 0.f };
-                                    coordinator->addComponent(newPlayer, transformPlayer);
-                                    coordinator->addComponent(newPlayer, ne::RigidBody{});
-                                    coordinator->addComponent(newPlayer, ne::Renderable{});
-                                    coordinator->addComponent(newPlayer, ne::Color{ 255, 255, 255, 255 });
-                                    coordinator->addComponent(newPlayer, playerSkin);
-                                    coordinator->addComponent(newPlayer, ne::Animation{});
-                                    coordinator->addComponent(newPlayer, ne::Uid{player.id});
-                                }
-                            }
-                            break;
-                            case rt::CustomMsgTypes::RemovePlayer:
-                            {
-                                uint32_t removalID = 0;
-                                msg >> removalID;
-                                _players.erase(removalID);
-                            }
-                            break;
-                            case rt::CustomMsgTypes::UpdatePlayer:
-                            {
-                                ne::Player player;
-                                msg >> _player.transform >> _player.id;
-                                _players.insert_or_assign(_player.id.uid, _player);
+                                uint32_t id;
+                                msg >> id;
+                                coordinator->addComponent(_player, ne::Uid{id});
+                                nl::nyalog(nl::LogLevel::Info, "Client has been accepted by the server");
                             }
                             break;
                         }
                     }
                 }
-
-                // Send player data to server
-                nn::message<CustomMsgTypes> pmsg;
-                pmsg.header.id = CustomMsgTypes::UpdatePlayer;
-                pmsg << _players[_player.id.uid].id << _players[_player.id.uid].transform;
-                Send(pmsg);
             }
         private:
             ne::EnnemiesFactory fact;
             ne::BulletsFactory bullets;
             ne::BonusFactory BonusFactor;
             ne::Sound sound;
-            std::unordered_map<uint32_t, ne::Player> _players;
-            ne::Uid _nPlayerID = { 5000000 };
             bool _waitingForConnection = true;
     };
 }

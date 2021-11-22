@@ -58,9 +58,10 @@ ne::ClientGame::ClientGame()
     ne::Skin playerSkin;
     playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Player/reimu.png"));
     playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 32, 50));
-    ne::EntityID player = ClientGameScene.coordinator->createEntity();
+    ClientSystem->_player = ClientGameScene.coordinator->createEntity();
 
-    ClientGameScene.coordinator->addComponent(player, rt::Controller{
+    ClientSystem->Connect("127.0.0.1", 60000);   
+    ClientGameScene.coordinator->addComponent(ClientSystem->_player, rt::Controller{
         .type = rt::ControlType::KEYBOARD,
         .up = sf::Keyboard::Key::Z,
         .down = sf::Keyboard::Key::S,
@@ -72,14 +73,12 @@ ne::ClientGame::ClientGame()
     });
     ne::Transform transformPlayer;
     transformPlayer.position = { 350.f, 500.f, 0.f };
-    ClientGameScene.coordinator->addComponent(player, transformPlayer);
-    ClientGameScene.coordinator->addComponent(player, ne::RigidBody{});
-    ClientGameScene.coordinator->addComponent(player, ne::Renderable{});
-    ClientGameScene.coordinator->addComponent(player, ne::Color{ 255, 255, 255, 255 });
-    ClientGameScene.coordinator->addComponent(player, playerSkin);
-    ClientGameScene.coordinator->addComponent(player, ne::Animation{});
-    ClientGameScene.coordinator->addComponent(player, ne::Uid{1500});
-    ClientSystem->Connect("127.0.0.1", 60000);   
+    ClientGameScene.coordinator->addComponent(ClientSystem->_player, transformPlayer);
+    ClientGameScene.coordinator->addComponent(ClientSystem->_player, ne::RigidBody{});
+    ClientGameScene.coordinator->addComponent(ClientSystem->_player, ne::Renderable{});
+    ClientGameScene.coordinator->addComponent(ClientSystem->_player, ne::Color{ 255, 255, 255, 255 });
+    ClientGameScene.coordinator->addComponent(ClientSystem->_player, playerSkin);
+    ClientGameScene.coordinator->addComponent(ClientSystem->_player, ne::Animation{});
 }
 
 ne::ClientGame::~ClientGame()

@@ -60,16 +60,11 @@ auto main(
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{
             0, 0, 0, 255
         });
-        ClientGame.ClientSystem->_player.transform = ClientGame.PlayerSystem->getPlayerTrans();
-        if (ClientGame.PlayerSystem->isShooting && timeToShoot <= 0.0f) {
-            timeToShoot = 0.5f;
-            ClientGame.ClientSystem->SendPlayer();
-        }
         ClientGame.ClientSystem->OnMessage();
         ClientGame.CollisionSystem->update();
         ClientGame.AnimSystem->update(dt);
         ClientGame.RenderSystem->update();
-        ClientGame.PlayerSystem->update(dt);
+        ClientGame.PlayerSystem->update(dt, ClientGame.ClientSystem);
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
             std::string title = "R-Touhou | ";
             oldTime = std::chrono::high_resolution_clock::now();

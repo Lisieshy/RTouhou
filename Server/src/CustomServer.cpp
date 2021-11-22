@@ -66,6 +66,7 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
         {
             nn::message<rt::CustomMsgTypes> msg;
             msg.header.id = rt::CustomMsgTypes::AcceptedPlayer;
+            msg << client->GetID();
             client->Send(msg);
         }
 
@@ -105,38 +106,6 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
             }
 
             switch (msg.header.id) {
-            case rt::CustomMsgTypes::PlayerRegisterWithServer:
-                {
-                    ne::Player player;
-                    msg >> player.id;
-                    player.id.uid = client->GetID();
-
-                    m_mapPlayersRoster.insert_or_assign(player.id.uid, player);
-
-                    nn::message<rt::CustomMsgTypes> mSendID;
-                    mSendID.header.id = rt::CustomMsgTypes::AssignPlayerID;
-                    mSendID << player.id;
-                    MessageClient(client, mSendID);
-
-                    nn::message<rt::CustomMsgTypes> mAddPlayer;
-                    mAddPlayer.header.id = rt::CustomMsgTypes::AddPlayer;
-                    mAddPlayer << player.id;
-
-                    MessageAllClients(mAddPlayer);
-                    for (const auto& p : m_mapPlayersRoster) {
-                        nn::message<rt::CustomMsgTypes> mAddOtherPlayer;
-                        mAddOtherPlayer.header.id = rt::CustomMsgTypes::AddPlayer;
-                        std::cout << p.second.id.uid << std::endl;
-                        mAddOtherPlayer << p.second.id;
-                        MessageClient(client, mAddOtherPlayer);
-                    }
-                }
-            break;
-            case rt::CustomMsgTypes::UpdatePlayer:
-                {
-                    MessageAllClients(msg, client);
-                }
-            break;
             case rt::CustomMsgTypes::ServerPing:
                 {
                     std::stringstream ss;
@@ -181,6 +150,28 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
                     ID++;
                 }
             break;
+            case rt::CustomMsgTypes::PlayerUp:
+                {
+                    ne::Transform test;
+                    ne::Uid uid;
+                    msg >> test >> uid;
+                }
+            break;
+            case rt::CustomMsgTypes::PlayerDown:
+                {
+                    
+                }
+            break;
+            case rt::CustomMsgTypes::PlayerLeft:
+                {
+                    
+                }
+            break;
+            case rt::CustomMsgTypes::PlayerRight:
+                {
+                    
+                }
+            break;            
             }
         }
 };
