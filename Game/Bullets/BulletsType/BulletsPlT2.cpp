@@ -2,12 +2,12 @@
 ** EPITECH PROJECT, 2021
 ** B-CPP-501-NCY-5-1-rtype-aurelien.schulz
 ** File description:
-** FriendlyBullets
+** BulletsPlT2
 */
 
-#include "FriendlyBullets.hpp"
+#include "BulletsPlT2.hpp"
 
-ne::FriendlyBullets::FriendlyBullets()
+ne::BulletsPlT2::BulletsPlT2()
 {
     std::random_device rd;
     std::random_device rd3;
@@ -37,16 +37,15 @@ ne::FriendlyBullets::FriendlyBullets()
 
     ne::Skin skin;
     skin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Bullets/bullets.png"));
-    skin.sprite.setTextureRect(sf::IntRect(22, 152, 16, 15));
+    skin.sprite.setTextureRect(sf::IntRect(86, 152, 16, 15));
     setSkin(skin);
 
-    ne::EntityType::Type newType = ne::EntityType::Type::FriendlyBullets;
+    ne::EntityType::Type newType = ne::EntityType::Type::FriendlyPlT2;
     setType(newType);
 
     setPattern(std::bind(&ne::Patterns::BulletBotToTopPattern, &this->getPattern()));
 }
 
-ne::FriendlyBullets::~FriendlyBullets()
+ne::BulletsPlT2::~BulletsPlT2()
 {
 }
-

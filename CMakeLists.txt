@@ -48,6 +48,8 @@ set(NEKOBULLETS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Game/Bullets/BulletsType/BulletsTier2.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Game/Bullets/BulletsType/BulletsTier3.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Game/Bullets/BulletsType/FriendlyBullets.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/Bullets/BulletsType/BulletsPlT2.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game/Bullets/BulletsType/BulletsPlT3.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Game/Bullets/BulletsFactory.cpp
 )
 

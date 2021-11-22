@@ -21,6 +21,10 @@ namespace ne {
             void removeEnnemies(std::vector<ne::EntityID>& EnnemiesToBeDestroyed);
 
             void removeBullets(std::vector<ne::EntityID>& BulletsToBeDestroyed);
+
+            void removeBonus(std::vector<ne::EntityID>& BonusToBeDestroyed);
+
+            void removePlayer(std::vector<ne::EntityID>& PlayerToBeDestroyed);
     };
 }
 

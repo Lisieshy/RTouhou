@@ -9,3 +9,5 @@
 #include "BulletsTier2.hpp"
 #include "BulletsTier3.hpp"
 #include "FriendlyBullets.hpp"
+#include "BulletsPlT2.hpp"
+#include "BulletsPlT3.hpp"

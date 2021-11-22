@@ -14,7 +14,7 @@
 namespace rt {
     class PlayerSystem : public ne::System {
         public:
-            void update(float dt);
+            void update(float dt, std::shared_ptr<rt::CustomClient> client);
             void setUpKey(sf::Keyboard::Key key);
             void setDownKey(sf::Keyboard::Key key);
             void setLeftKey(sf::Keyboard::Key key);
