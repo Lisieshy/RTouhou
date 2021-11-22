@@ -192,8 +192,6 @@ namespace rt {
                                 for (auto& entity : m_entities) {
                                     if (receivedId.uid == coordinator->getComponent<ne::Uid>(entity).uid) {
                                         _found = true;
-                                        auto& t = coordinator->getComponent<ne::Transform>(entity);
-                                        t = receivedTrans;
                                     }
                                 }
                                 if (!_found) {
@@ -206,11 +204,7 @@ namespace rt {
                                         playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 32, 50));
                                         coordinator->addComponent(newEntity, receivedTrans);
                                         coordinator->addComponent(newEntity, ne::Renderable{});
-                                        coordinator->addComponent(newEntity, ne::Uid{ receivedId });
                                         coordinator->addComponent(newEntity, playerSkin);
-                                        coordinator->addComponent(newEntity, receivedType);
-                                        coordinator->addComponent(newEntity, rt::Controller{});
-                                        coordinator->addComponent(newEntity, ne::RigidBody{});
                                         coordinator->addComponent(newEntity, ne::Color{});
                                     }
                                 }
