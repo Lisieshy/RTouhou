@@ -12,6 +12,7 @@
 #include "NekoEngine/ECS/Components/Alien.hpp"
 #include "../../Game/Ennemies/Ennemies.hpp"
 #include "../../Game/Bullets/BulletsFactory.hpp"
+#include "../include/WavesClientSystem.hpp"
 #include "PlayerSystem.hpp"
 #include "NekoEngine/NekoEngine.hpp"
 #include <SFML/Audio.hpp>
@@ -28,6 +29,8 @@ namespace ne {
             std::shared_ptr<rt::PlayerSystem> PlayerSystem;
             std::shared_ptr<ne::AnimationSystem> AnimSystem;
             std::shared_ptr<ne::ClientCollision> CollisionSystem;
+            std::shared_ptr<ne::WavesClientSystem> WavesSystemClient;
+            std::shared_ptr<ne::TextSystem> TextSystemClient;
 
             ne::Scene ClientGameScene;
 

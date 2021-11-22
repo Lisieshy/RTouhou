@@ -26,7 +26,8 @@ namespace ne {
                 Bullets,
                 ScoreUp,
                 Bonus,
-                Player
+                Player,
+                txt,
             };
     };
 }

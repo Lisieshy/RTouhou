@@ -33,6 +33,7 @@
 #include "../../Game/GameScene/GameScene.hpp"
 #include "../../Game/GlobalLibrary/GlobalTexture.hpp"
 #include "../../Game/Player/Player.hpp"
+#include "../include/WavesClientSystem.hpp"
 
 auto main(
     int argc,
@@ -51,6 +52,7 @@ auto main(
     float dt = 0.0f;
     float timeToShoot = 0.5f;
 
+    ClientGame.WavesSystemClient->init();
     ClientGame.InitMusic();
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
@@ -61,6 +63,8 @@ auto main(
             0, 0, 0, 255
         });
         ClientGame.ClientSystem->OnMessage();
+        ClientGame.WavesSystemClient->update(dt);
+        ClientGame.TextSystemClient->update();
         ClientGame.CollisionSystem->update();
         ClientGame.AnimSystem->update(dt);
         ClientGame.RenderSystem->update();

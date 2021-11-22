@@ -9,7 +9,7 @@
 
 ne::ClientGame::ClientGame()
 {
-    ClientGameScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::EntityType::Type, ne::Patterns, rt::Controller, ne::Animation>();
+    ClientGameScene.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::EntityType::Type, ne::Patterns, rt::Controller, ne::Animation, ne::Textinfo>();
 
     ClientSystem = ClientGameScene.coordinator->registerSystem<rt::CustomClient>(ClientGameScene.coordinator);
     {
@@ -50,6 +50,21 @@ ne::ClientGame::ClientGame()
         signature.set(ClientGameScene.coordinator->getComponentType<ne::Transform>());
         signature.set(ClientGameScene.coordinator->getComponentType<ne::EntityType::Type>());
         ClientGameScene.coordinator->setSystemSignature<ne::ClientCollision>(signature);        
+    }
+
+    WavesSystemClient = ClientGameScene.coordinator->registerSystem<ne::WavesClientSystem>(ClientGameScene.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(ClientGameScene.coordinator->getComponentType<ne::Transform>());
+        signature.set(ClientGameScene.coordinator->getComponentType<ne::Textinfo>());
+        ClientGameScene.coordinator->setSystemSignature<ne::WavesClientSystem>(signature);        
+    }
+
+    TextSystemClient = ClientGameScene.coordinator->registerSystem<ne::TextSystem>(ClientGameScene.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(ClientGameScene.coordinator->getComponentType<ne::Textinfo>());
+        ClientGameScene.coordinator->setSystemSignature<ne::TextSystem>(signature);        
     }
 
     ne::Skin playerSkin;
