@@ -205,7 +205,9 @@ namespace rt {
                                         coordinator->addComponent(newEntity, receivedTrans);
                                         coordinator->addComponent(newEntity, ne::Renderable{});
                                         coordinator->addComponent(newEntity, playerSkin);
+                                        coordinator->addComponent(newEntity, ne::Animation{});
                                         coordinator->addComponent(newEntity, ne::Color{});
+                                        coordinator->addComponent(newEntity, ne::Uid{});
                                     }
                                 }
                             }
