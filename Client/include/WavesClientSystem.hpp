@@ -18,7 +18,7 @@ namespace ne {
 
             void update(float dt);
 
-            float Time = 1.0f;
+            float Time = 15.0f;
             int wave = 1;
 
             ne::Textinfo txtinfo;
