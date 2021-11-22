@@ -23,7 +23,7 @@ void ne::Collision::update()
                     auto& Comparedtransform = coordinator->getComponent<ne::Transform>(ComparedEntity);
                     if (Comparedtransform.position.x > transform.position.x && Comparedtransform.position.x < transform.position.x + 32 &&
                         Comparedtransform.position.y > transform.position.y && Comparedtransform.position.y < transform.position.y + 28) {
-                        if (std::find(EnnemiesToBeDestroyed.begin(), EnnemiesToBeDestroyed.end(), entity) == EnnemiesToBeDestroyed.end())
+                        if (std::find(EnnemiesToBeDestroyed.begin(), EnnemiesToBeDestroyed.end(), ComparedEntity) == EnnemiesToBeDestroyed.end())
                             EnnemiesToBeDestroyed.push_back(entity);
                         if (std::find(BulletsToBeDestroyed.begin(), BulletsToBeDestroyed.end(), ComparedEntity) == BulletsToBeDestroyed.end())
                             BulletsToBeDestroyed.push_back(ComparedEntity);
@@ -42,6 +42,21 @@ void ne::Collision::update()
                         wp.WeaponTier++;
                         if (std::find(BonusToBeDestoyed.begin(), BonusToBeDestoyed.end(), ComparedEntity) == BonusToBeDestoyed.end())
                             BonusToBeDestoyed.push_back(ComparedEntity);
+                    }
+                } if (ComparedEnnemiesType <= ne::EntityType::Type::Tier3Bullets) {
+                    auto& Comparedtransform = coordinator->getComponent<ne::Transform>(ComparedEntity);
+                    if (Comparedtransform.position.x > transform.position.x && Comparedtransform.position.x < transform.position.x + 32 &&
+                        Comparedtransform.position.y > transform.position.y && Comparedtransform.position.y < transform.position.y + 28) {
+                        if (ComparedEnnemiesType <= ne::EntityType::Type::WhiteEnnemy)
+                            if (std::find(EnnemiesToBeDestroyed.begin(), EnnemiesToBeDestroyed.end(), ComparedEntity) == EnnemiesToBeDestroyed.end()) {
+                                EnnemiesToBeDestroyed.push_back(ComparedEntity);
+                            }
+                        else if (ComparedEnnemiesType <= ne::EntityType::Type::Tier3Bullets)
+                            if (std::find(BulletsToBeDestroyed.begin(), BulletsToBeDestroyed.end(), ComparedEntity) == BulletsToBeDestroyed.end()) {
+                                BulletsToBeDestroyed.push_back(ComparedEntity);
+                            }
+                        std::cout << "Destroyed Player" << std::endl;
+                        break;
                     }
                 }
             }

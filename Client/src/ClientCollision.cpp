@@ -23,7 +23,7 @@ void ne::ClientCollision::update()
                     auto& Comparedtransform = coordinator->getComponent<ne::Transform>(ComparedEntity);
                     if (Comparedtransform.position.x > transform.position.x && Comparedtransform.position.x < transform.position.x + 34 &&
                         Comparedtransform.position.y > transform.position.y && Comparedtransform.position.y < transform.position.y + 32) {
-                        if (std::find(EnnemiesToBeDestroyed.begin(), EnnemiesToBeDestroyed.end(), entity) == EnnemiesToBeDestroyed.end())
+                        if (std::find(EnnemiesToBeDestroyed.begin(), EnnemiesToBeDestroyed.end(), ComparedEntity) == EnnemiesToBeDestroyed.end())
                             EnnemiesToBeDestroyed.push_back(entity);
                         if (std::find(BulletsToBeDestroyed.begin(), BulletsToBeDestroyed.end(), ComparedEntity) == BulletsToBeDestroyed.end())
                             BulletsToBeDestroyed.push_back(ComparedEntity);
@@ -41,8 +41,34 @@ void ne::ClientCollision::update()
                         if (std::find(BonusToBeDestoyed.begin(), BonusToBeDestoyed.end(), ComparedEntity) == BonusToBeDestoyed.end())
                             BonusToBeDestoyed.push_back(ComparedEntity);
                     }
+                }  if (ComparedEnnemiesType <= ne::EntityType::Type::Tier3Bullets) {
+                    auto& Comparedtransform = coordinator->getComponent<ne::Transform>(ComparedEntity);
+                    if (Comparedtransform.position.x > transform.position.x && Comparedtransform.position.x < transform.position.x + 32 &&
+                        Comparedtransform.position.y > transform.position.y && Comparedtransform.position.y < transform.position.y + 28) {
+                        if (ComparedEnnemiesType <= ne::EntityType::Type::WhiteEnnemy)
+                            if (std::find(EnnemiesToBeDestroyed.begin(), EnnemiesToBeDestroyed.end(), ComparedEntity) == EnnemiesToBeDestroyed.end()) {
+                                EnnemiesToBeDestroyed.push_back(ComparedEntity);
+                            }
+                        else if (ComparedEnnemiesType <= ne::EntityType::Type::Tier3Bullets)
+                            if (std::find(BulletsToBeDestroyed.begin(), BulletsToBeDestroyed.end(), ComparedEntity) == BulletsToBeDestroyed.end()) {
+                                BulletsToBeDestroyed.push_back(ComparedEntity);
+                            }
+                        std::cout << "Destroyed Player" << std::endl;
+                        break;
+                    }
                 }
             }
+        } else {
+            auto& transform = coordinator->getComponent<ne::Transform>(entity);
+            if (transform.position.y > 600 || transform.position.x < -395 || transform.position.x > 1195 || transform.position.y < -400) {
+                if (EnnemiesType <= ne::EntityType::Type::WhiteEnnemy)
+                    if (std::find(EnnemiesToBeDestroyed.begin(), EnnemiesToBeDestroyed.end(), entity) == EnnemiesToBeDestroyed.end())
+                        EnnemiesToBeDestroyed.push_back(EnnemiesType);
+                else if (EnnemiesType <= ne::EntityType::Type::Bullets)
+                    if (std::find(BulletsToBeDestroyed.begin(), BulletsToBeDestroyed.end(), entity) == BulletsToBeDestroyed.end())
+                        BulletsToBeDestroyed.push_back(EnnemiesType);                
+            }
+
         }
     }
     removeEnnemies(EnnemiesToBeDestroyed);
@@ -53,6 +79,7 @@ void ne::ClientCollision::update()
 void ne::ClientCollision::removeEnnemies(std::vector<ne::EntityID>& EnnemiesToBeDestroyed)
 {
     for (auto ID : EnnemiesToBeDestroyed) {
+        std::cout << "In Ennemies" << std::endl;
         coordinator->removeComponent<ne::Transform>(ID);
         coordinator->removeComponent<ne::RigidBody>(ID);
         coordinator->removeComponent<ne::Renderable>(ID);
@@ -70,6 +97,7 @@ void ne::ClientCollision::removeEnnemies(std::vector<ne::EntityID>& EnnemiesToBe
 void ne::ClientCollision::removeBullets(std::vector<ne::EntityID>& BulletsToBeDestroyed)
 {
     for (auto ID : BulletsToBeDestroyed) {
+        std::cout << "In Bullet" << std::endl;
         coordinator->removeComponent<ne::Transform>(ID);
         coordinator->removeComponent<ne::RigidBody>(ID);
         coordinator->removeComponent<ne::Renderable>(ID);

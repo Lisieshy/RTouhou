@@ -17,7 +17,7 @@ namespace ne {
                 GreenEnnemy,
                 OrangeEnnemy,
                 WhiteEnnemy,
-                WhiteBullets, 
+                WhiteBullets,
                 Tier2Bullets,
                 Tier3Bullets,
                 FriendlyPlT2,
