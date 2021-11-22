@@ -57,6 +57,14 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
                     msg << transform << uid << type;
                     MessageAllClients(msg);
                 }
+                else if (coordinator->getComponent<ne::EntityType::Type>(entity) <= ne::EntityType::Type::Player) {
+                    msg.header.id = rt::CustomMsgTypes::UpdatePlayer;
+                    auto &transform = coordinator->getComponent<ne::Transform>(entity);
+                    auto &uid = coordinator->getComponent<ne::Uid>(entity);
+                    auto &type = coordinator->getComponent<ne::EntityType::Type>(entity);
+                    msg << transform << uid << type;
+                    MessageAllClients(msg);
+                }
             }
         }
 

@@ -51,7 +51,8 @@ auto main(
         if (Game.NetworkSystem->nIDCounter > static_cast<uint32_t>(10000)) {
             auto startTime = std::chrono::high_resolution_clock::now();
             fps++;
-            if ((timePassed += dt) >= 0.001f) {
+            std::cout << dt << std::endl;
+            if ((timePassed += dt) >= 1.0f) {
                 Game.GameLoop(dt, entityID);
                 Game.BonusSystem->update(dt, entityID);
                 Game.EnnemiesLoopSystem->update(dt, entityID);
@@ -61,9 +62,6 @@ auto main(
                     entityID = Game.NetworkSystem->ID;
                 else
                     Game.NetworkSystem->ID = entityID;
-            }
-            else {
-                std::cout << "";
             }
             if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::milliseconds{ 20 }) {
                 oldTime = std::chrono::high_resolution_clock::now();
