@@ -32,12 +32,13 @@ auto main(
     nl::nyalog.init();
     uint32_t entityID = 0;
 
-    std::vector<ne::EntityID> entities(10000);
+    std::vector<ne::EntityID> entities(50000);
     ne::GameScene Game(entities);
     ne::EnnemiesFactory fact;
     Game.InitScene(entityID);
 
     Game.NetworkSystem->Start();
+    Game.NetworkSystem->ID = entityID;
 
     auto oldTime = std::chrono::high_resolution_clock::now();
     auto beginTime = std::chrono::high_resolution_clock::now();
@@ -47,17 +48,22 @@ auto main(
     bool started = false;
 
     while (1) {
-        if (Game.NetworkSystem->nIDCounter > static_cast<u_int32_t>(10000)) {
+        if (Game.NetworkSystem->nIDCounter > static_cast<uint32_t>(10000)) {
             auto startTime = std::chrono::high_resolution_clock::now();
             fps++;
-            if ((timePassed += dt) >= 1.0f) {
+            if ((timePassed += dt) >= 0.001f) {
                 Game.GameLoop(dt, entityID);
+                Game.BonusSystem->update(dt, entityID);
                 Game.EnnemiesLoopSystem->update(dt, entityID);
                 Game.PatternSystem->update(dt);
                 Game.CollisionSystem->update();
+                if (Game.NetworkSystem->ID > entityID)
+                    entityID = Game.NetworkSystem->ID;
+                else
+                    Game.NetworkSystem->ID = entityID;
             }
             else {
-                std::cout << "Hello, je fix le problème !" << std::endl;
+                std::cout << "";
             }
             if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::milliseconds{ 20 }) {
                 oldTime = std::chrono::high_resolution_clock::now();

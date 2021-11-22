@@ -32,10 +32,7 @@ ne::ClientGame::ClientGame()
     {
         ne::Signature signature;
         signature.set(ClientGameScene.coordinator->getComponentType<ne::Transform>());
-        signature.set(ClientGameScene.coordinator->getComponentType<ne::RigidBody>());
         signature.set(ClientGameScene.coordinator->getComponentType<rt::Controller>());
-        signature.set(ClientGameScene.coordinator->getComponentType<ne::Renderable>());
-        signature.set(ClientGameScene.coordinator->getComponentType<ne::Color>());
         signature.set(ClientGameScene.coordinator->getComponentType<ne::Skin>());
         ClientGameScene.coordinator->setSystemSignature<rt::PlayerSystem>(signature);
     }
@@ -47,12 +44,12 @@ ne::ClientGame::ClientGame()
         ClientGameScene.coordinator->setSystemSignature<ne::AnimationSystem>(signature);
     }
 
-    CollisionSystem = ClientGameScene.coordinator->registerSystem<ne::Collision>(ClientGameScene.coordinator);
+    CollisionSystem = ClientGameScene.coordinator->registerSystem<ne::ClientCollision>(ClientGameScene.coordinator);
     {
         ne::Signature signature;
         signature.set(ClientGameScene.coordinator->getComponentType<ne::Transform>());
         signature.set(ClientGameScene.coordinator->getComponentType<ne::EntityType::Type>());
-        ClientGameScene.coordinator->setSystemSignature<ne::Collision>(signature);        
+        ClientGameScene.coordinator->setSystemSignature<ne::ClientCollision>(signature);        
     }
 
     Parallax = ClientGameScene.coordinator->registerSystem<ne::ParallaxSystem>(ClientGameScene.coordinator);
@@ -84,27 +81,29 @@ ne::ClientGame::ClientGame()
             break;
     }
     ne::Skin playerSkin;
-    playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Ennemies/TouhouBasicMob.png"));
-    playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
-    ne::EntityID player = ClientGameScene.coordinator->createEntity();
+    playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Player/reimu.png"));
+    playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 32, 50));
+    ClientSystem->_player = ClientGameScene.coordinator->createEntity();
 
-    ClientGameScene.coordinator->addComponent(player, rt::Controller{
+    ClientSystem->Connect("127.0.0.1", 60000);   
+    ClientGameScene.coordinator->addComponent(ClientSystem->_player, rt::Controller{
         .type = rt::ControlType::KEYBOARD,
         .up = sf::Keyboard::Key::Z,
         .down = sf::Keyboard::Key::S,
         .left = sf::Keyboard::Key::Q,
         .right = sf::Keyboard::Key::D,
         .shoot = sf::Keyboard::Key::Space,
-        .speed = 20.f,
+        .speed = 60.f,
         .deadzone = 50
     });
-    ClientGameScene.coordinator->addComponent(player, ne::Transform{});
-    ClientGameScene.coordinator->addComponent(player, ne::RigidBody{});
-    ClientGameScene.coordinator->addComponent(player, ne::Renderable{});
-    ClientGameScene.coordinator->addComponent(player, ne::Color{ 255, 255, 255, 255 });
-    ClientGameScene.coordinator->addComponent(player, playerSkin);
-    ClientGameScene.coordinator->addComponent(player, ne::  Uid{1500});
-    ClientSystem->Connect("127.0.0.1", 60000);   
+    ne::Transform transformPlayer;
+    transformPlayer.position = { 350.f, 500.f, 0.f };
+    ClientGameScene.coordinator->addComponent(ClientSystem->_player, transformPlayer);
+    ClientGameScene.coordinator->addComponent(ClientSystem->_player, ne::RigidBody{});
+    ClientGameScene.coordinator->addComponent(ClientSystem->_player, ne::Renderable{});
+    ClientGameScene.coordinator->addComponent(ClientSystem->_player, ne::Color{ 255, 255, 255, 255 });
+    ClientGameScene.coordinator->addComponent(ClientSystem->_player, playerSkin);
+    ClientGameScene.coordinator->addComponent(ClientSystem->_player, ne::Animation{});
 }
 
 ne::ClientGame::~ClientGame()
@@ -116,7 +115,7 @@ void ne::ClientGame::InitMusic()
     music.openFromFile("resources/Music_SoundEffect/MainGameMusic.ogg");
     music.play();
     music.setLoop(true);
-    music.setVolume(60);
+    music.setVolume(30);
 }
 
 void ne::ClientGame::Update(float dt)

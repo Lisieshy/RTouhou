@@ -34,7 +34,7 @@ void ne::GameScene::GameLoop(float dt, uint32_t& ID)
 
 void ne::GameScene::InitScene(uint32_t &entityID)
 {
-    Game.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::Networkable, ne::EntityType::Type, ne::Patterns>();
+    Game.coordinator->registerComponent<ne::Transform, ne::Gravity, ne::RigidBody, ne::Renderable, ne::Color, ne::Skin, ne::Uid, ne::Alien, ne::Networkable, ne::EntityType::Type, ne::Patterns, ne::Player>();
 
 
     PatternSystem = Game.coordinator->registerSystem<ne::PatternSystem>(Game.coordinator);
@@ -72,26 +72,11 @@ void ne::GameScene::InitScene(uint32_t &entityID)
         Game.coordinator->setSystemSignature<ne::Collision>(signature);        
     }
 
-    for (auto entity : entities) {
-        ne::Transform trans;
-        entity = Game.coordinator->createEntity();
-        std::shared_ptr<ne::Bullets> test;
-
-        test = bullets.createBullets("FriendlyBullets");
-
-        trans = test.get()->getTransform();
-        trans.position.y = 800;
-        Game.coordinator->addComponent(entity, test.get()->getTransform());
-        Game.coordinator->addComponent(entity, test.get()->getGravity());
-        Game.coordinator->addComponent(entity, test.get()->getRigidBody());
-        Game.coordinator->addComponent(entity, ne::Uid{ entityID });
-        Game.coordinator->addComponent(entity, ne::Renderable{});
-        Game.coordinator->addComponent(entity, test.get()->getType());
-        Game.coordinator->addComponent(entity, ne::Networkable{});
-        Game.coordinator->addComponent(entity, test.get()->getPattern());
-        entityID++;
-        if (entityID == 10)
-            break;
+    BonusSystem = Game.coordinator->registerSystem<ne::BonusSystem>(Game.coordinator);
+    {
+        ne::Signature signature;
+        signature.set(Game.coordinator->getComponentType<ne::Transform>());
+        signature.set(Game.coordinator->getComponentType<ne::EntityType::Type>());
+        Game.coordinator->setSystemSignature<ne::BonusSystem>(signature);        
     }
-
 }

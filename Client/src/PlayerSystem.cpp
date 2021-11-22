@@ -64,26 +64,46 @@ void rt::PlayerSystem::setJoystickDeadzone(int deadzone)
     }
 }
 
-void rt::PlayerSystem::update(float dt)
+ne::Transform& rt::PlayerSystem::getPlayerTrans()
 {
+    for (auto& entity : m_entities) {
+        auto& transform = coordinator->getComponent<ne::Transform>(entity);
+        return (transform);
+    }
+}
+
+
+void rt::PlayerSystem::update(float dt, std::shared_ptr<rt::CustomClient> client)
+{
+    static float timeShoot = 0.5f;
+    nn::message<rt::CustomMsgTypes> _msg;
     for (auto& entity : m_entities) {
         auto& transform = coordinator->getComponent<ne::Transform>(entity);
         auto& rigidbody = coordinator->getComponent<ne::RigidBody>(entity);
         auto& controller = coordinator->getComponent<rt::Controller>(entity);
+        auto& id = coordinator->getComponent<ne::Uid>(entity);
 
         switch (controller.type) {
             case rt::ControlType::KEYBOARD:
                 if (sf::Keyboard::isKeyPressed(controller.up)) {
                     transform.position.y += -controller.speed * dt;
+                    _msg.header.id = rt::CustomMsgTypes::PlayerUpdate;
                 }
                 if (sf::Keyboard::isKeyPressed(controller.down)) {
                     transform.position.y += controller.speed * dt;
+                    _msg.header.id = rt::CustomMsgTypes::PlayerUpdate;
                 }
                 if (sf::Keyboard::isKeyPressed(controller.left)) {
                     transform.position.x += -controller.speed * dt;
+                    _msg.header.id = rt::CustomMsgTypes::PlayerUpdate;
                 }
                 if (sf::Keyboard::isKeyPressed(controller.right)) {
                     transform.position.x += controller.speed * dt;
+                    _msg.header.id = rt::CustomMsgTypes::PlayerUpdate;
+                }
+                if (sf::Keyboard::isKeyPressed(controller.shoot) && (timeShoot -= dt) <= 0) {
+                    timeShoot = 0.5f;
+                    _msg.header.id = rt::CustomMsgTypes::PlayerIsShooting;
                 }
             break;
             case rt::ControlType::GAMEPAD:
@@ -103,5 +123,7 @@ void rt::PlayerSystem::update(float dt)
                 }
             break;
         }
+        _msg << id << transform;
+        client->Send(_msg); 
     }
 }

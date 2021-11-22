@@ -15,6 +15,7 @@
 #include "PlayerSystem.hpp"
 #include "NekoEngine/NekoEngine.hpp"
 #include <SFML/Audio.hpp>
+#include "ClientCollision.hpp"
 #include "../../Menu/Parallax.hpp"
 
 /**
@@ -42,9 +43,9 @@ namespace ne {
             std::shared_ptr<rt::CustomClient> ClientSystem;
             std::shared_ptr<rt::PlayerSystem> PlayerSystem;
             std::shared_ptr<ne::AnimationSystem> AnimSystem;
+            std::shared_ptr<ne::ClientCollision> CollisionSystem;
             std::shared_ptr<ne::Collision> CollisionSystem;
             std::shared_ptr<ne::ParallaxSystem> Parallax;
-
             ne::Scene ClientGameScene;
             
             /**

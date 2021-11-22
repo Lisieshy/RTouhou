@@ -31,6 +31,7 @@
 #include "../../Game/Bullets/BulletsFactory.hpp"
 #include "../../Game/GameScene/GameScene.hpp"
 #include "../../Game/GlobalLibrary/GlobalTexture.hpp"
+#include "../../Game/Player/Player.hpp"
 auto main(
     int argc,
     char** argv
@@ -40,7 +41,8 @@ auto main(
     nl::nyalog.init();
     nl::nyalog(nl::LogLevel::Info, "R-Touhou! Configuring everything... Please wait!");
 
-    std::vector<ne::EntityID> entities(10000);
+    std::vector<ne::EntityID> entities(50000);
+    ne::ClientGame ClientGame;
     ne::Graphics::Window::open();
     int fps = 0;
     auto oldTime = std::chrono::high_resolution_clock::now();
@@ -51,6 +53,7 @@ auto main(
     ClientGame.InitMusic();
     while (!ne::Graphics::Window::shouldClose()) {
         fps++;
+        timeToShoot -= dt;
         auto startTime = std::chrono::high_resolution_clock::now();
         ne::Graphics::Window::pollEvent(ClientGame.ClientSystem);
         ne::Graphics::Window::clear(ne::Math::Vector4<unsigned char>{

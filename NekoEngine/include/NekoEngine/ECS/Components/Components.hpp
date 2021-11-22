@@ -33,5 +33,6 @@
 #include "NekoEngine/ECS/Components/EntityType.hpp"
 #include "NekoEngine/ECS/Components/GorbBackground.hpp"
 #include "NekoEngine/ECS/Components/Animation.hpp"
+#include "NekoEngine/ECS/Components/PlayerShoot.hpp"
 
 #endif /* !COMPONENTS_HPP_ */

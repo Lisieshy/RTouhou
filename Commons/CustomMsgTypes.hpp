@@ -12,6 +12,7 @@ namespace rt {
         
         SendEnnemies,
         SendBullets,
+        SendBonus,
 
         AcceptedPlayer,
         AssignPlayerID,
@@ -20,5 +21,7 @@ namespace rt {
         AddPlayer,
         RemovePlayer,
         UpdatePlayer,
+        PlayerIsShooting,
+        PlayerUpdate,
     };
 }

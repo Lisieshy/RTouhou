@@ -88,8 +88,9 @@ namespace nn {
                 const message<T>& msg
             ) -> void
             {
-                if (IsConnected())
+                if (IsConnected()) {
                     m_connection->Send(msg);
+                }
             }
 
         protected:

@@ -43,6 +43,8 @@ void ne::GameEnnemiesLoop::createBullet(ne::Transform& EnnemiesPos, uint32_t& ID
         bull = bullets.createBullets("Tier2Bullets");
     else if (EnnemiesType == ne::EntityType::Type::GreenEnnemy)
         bull = bullets.createBullets("Tier3Bullets");
+    else
+        bull = bullets.createBullets("Tier3Bullets");
     coordinator->addComponent(NewEntity, trans);
     coordinator->addComponent(NewEntity, bull.get()->getGravity());
     coordinator->addComponent(NewEntity, bull.get()->getRigidBody());
