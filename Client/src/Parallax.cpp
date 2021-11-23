@@ -38,11 +38,11 @@ ne::Parallax::Parallax()
     par6.setPosition({0.f, -5000.f});
 
     _par.push_back(par1);
-    _par.push_back(par2);
-    _par.push_back(par3);
-    _par.push_back(par4);
-    _par.push_back(par5);
-    _par.push_back(par6);
+    _par2.push_back(par2);
+    _par3.push_back(par3);
+    _par4.push_back(par4);
+    _par5.push_back(par5);
+    _par6.push_back(par6);
 }
 
 ne::Parallax::~Parallax()
@@ -55,9 +55,31 @@ void ne::Parallax::update(float dt)
 
     for (auto &i : _par) {
         float pos = i.getPosition().y;
-        pos += 40 * dt;
+        pos += 200 * dt;
+        if (pos > ne::Graphics::Window::getWindow().y + 800) {
+            pos = -3500.f;
+        } 
+        i.setPosition({0.f, pos});
+        ne::Graphics::Window::draw(i);
+        x++;
+    }
+
+    for (auto &i : _par3) {
+        float pos = i.getPosition().y;
+        pos += 400 * dt;
         if (pos > ne::Graphics::Window::getWindow().y + 1100) {
             pos = -4900.f;
+        } 
+        i.setPosition({0.f, pos});
+        ne::Graphics::Window::draw(i);
+        x++;
+    }
+
+    for (auto &i : _par2) {
+        float pos = i.getPosition().y;
+        pos += 400 * dt;
+        if (pos > ne::Graphics::Window::getWindow().y + 900) {
+            pos = -4200.f;
         } 
         i.setPosition({0.f, pos});
         ne::Graphics::Window::draw(i);
