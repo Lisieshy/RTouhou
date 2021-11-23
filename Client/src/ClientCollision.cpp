@@ -141,7 +141,6 @@ void ne::ClientCollision::removePlayer(std::vector<ne::EntityID>& PlayerToBeDest
     for (auto ID : PlayerToBeDestroyed) {
         coordinator->removeComponent<ne::Transform>(ID);
         coordinator->removeComponent<ne::Renderable>(ID);
-        coordinator->removeComponent<ne::RigidBody>(ID);
         coordinator->removeComponent<ne::Color>(ID);
         coordinator->removeComponent<ne::Skin>(ID);
         coordinator->removeComponent<ne::EntityType::Type>(ID);
