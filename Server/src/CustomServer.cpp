@@ -161,10 +161,58 @@ class CustomServer : public ne::System, public nn::IServer<rt::CustomMsgTypes>
                     }
                     if (bigbrain == 1)
                         NewBullets = bulletFact.createBullets("FriendlyBullets");
-                    else if (bigbrain == 2)
-                        NewBullets = bulletFact.createBullets("BulletsPlT2");
-                    else
+                    else if (bigbrain == 2) {
+                        auto NewEntity2 = coordinator->createEntity();
+                        std::shared_ptr<ne::Bullets> NewBullets2;
+
+                        NewBullets2 = bulletFact.createBullets("BulletsPlT2");
+                        ne::Transform xxxx = transform;
+                        coordinator->addComponent(NewEntity2, xxxx);
+                        coordinator->addComponent(NewEntity2, NewBullets2.get()->getGravity());
+                        coordinator->addComponent(NewEntity2, NewBullets2.get()->getRigidBody());
+                        coordinator->addComponent(NewEntity2, ne::Renderable{});
+                        coordinator->addComponent(NewEntity2, NewBullets2.get()->getType());
+                        coordinator->addComponent(NewEntity2, ne::Uid { ID });
+                        coordinator->addComponent(NewEntity2, ne::Networkable{});
+                        coordinator->addComponent(NewEntity2, NewBullets2.get()->getPattern());
+                        ID++;
+                        transform.position.x -= 50;
+                        if (bigbrain == 2)
+                            NewBullets = bulletFact.createBullets("BulletsPlT2");
+                    }
+                    else {
+                        auto NewEntity2 = coordinator->createEntity();
+                        std::shared_ptr<ne::Bullets> NewBullets2;
+
+                        NewBullets2 = bulletFact.createBullets("BulletsPlT3");
+                        coordinator->addComponent(NewEntity2, transform);
+                        coordinator->addComponent(NewEntity2, NewBullets2.get()->getGravity());
+                        coordinator->addComponent(NewEntity2, NewBullets2.get()->getRigidBody());
+                        coordinator->addComponent(NewEntity2, ne::Renderable{});
+                        coordinator->addComponent(NewEntity2, NewBullets2.get()->getType());
+                        coordinator->addComponent(NewEntity2, ne::Uid { ID });
+                        coordinator->addComponent(NewEntity2, ne::Networkable{});
+                        coordinator->addComponent(NewEntity2, NewBullets2.get()->getPattern());
+                        ID++;
+                        transform.position.x -= 50;
+
+                        auto NewEntity3 = coordinator->createEntity();
+                        std::shared_ptr<ne::Bullets> NewBullets3;
+
+                        NewBullets3 = bulletFact.createBullets("BulletsPlT3");
+                        ne::Transform xxxx = transform;
+                        coordinator->addComponent(NewEntity3, xxxx);
+                        coordinator->addComponent(NewEntity3, NewBullets3.get()->getGravity());
+                        coordinator->addComponent(NewEntity3, NewBullets3.get()->getRigidBody());
+                        coordinator->addComponent(NewEntity3, ne::Renderable{});
+                        coordinator->addComponent(NewEntity3, NewBullets3.get()->getType());
+                        coordinator->addComponent(NewEntity3, ne::Uid { ID });
+                        coordinator->addComponent(NewEntity3, ne::Networkable{});
+                        coordinator->addComponent(NewEntity3, NewBullets3.get()->getPattern());
+                        ID++;
+                        transform.position.x += 25;
                         NewBullets = bulletFact.createBullets("BulletsPlT3");
+                    }
                     coordinator->addComponent(NewEntity, transform);
                     coordinator->addComponent(NewEntity, NewBullets.get()->getGravity());
                     coordinator->addComponent(NewEntity, NewBullets.get()->getRigidBody());
