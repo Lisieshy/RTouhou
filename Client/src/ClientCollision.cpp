@@ -24,7 +24,7 @@ void ne::ClientCollision::update()
                     auto& Comparedtransform = coordinator->getComponent<ne::Transform>(ComparedEntity);
                     if (Comparedtransform.position.x > transform.position.x && Comparedtransform.position.x < transform.position.x + 34 &&
                         Comparedtransform.position.y > transform.position.y && Comparedtransform.position.y < transform.position.y + 32) {
-                        if (std::find(EnnemiesToBeDestroyed.begin(), EnnemiesToBeDestroyed.end(), ComparedEntity) == EnnemiesToBeDestroyed.end())
+                        if (std::find(EnnemiesToBeDestroyed.begin(), EnnemiesToBeDestroyed.end(), entity) == EnnemiesToBeDestroyed.end())
                             EnnemiesToBeDestroyed.push_back(entity);
                         if (std::find(BulletsToBeDestroyed.begin(), BulletsToBeDestroyed.end(), ComparedEntity) == BulletsToBeDestroyed.end())
                             BulletsToBeDestroyed.push_back(ComparedEntity);
