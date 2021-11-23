@@ -146,6 +146,11 @@ void ne::Graphics::Window::draw(ne::Skin skin, ne::Transform transform)
     impl->i_window.draw(skin.sprite);
 }
 
+void ne::Graphics::Window::draw(sf::Sprite spr)
+{
+    impl->i_window.draw(spr);
+}
+
 void ne::Graphics::Window::draw(ne::Textinfo& text)
 {
     text._text.setFont(text.font);

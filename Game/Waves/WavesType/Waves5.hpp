@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2021
 ** B-CPP-501-NCY-5-1-rtype-aurelien.schulz
 ** File description:
-** Waves3
+** Waves5
 */
 
 #include "../../Ennemies/EnnemiesFactory.hpp"
@@ -10,17 +10,19 @@
 #include "NekoEngine/ECS/Components/Alien.hpp"
 #include "../../Ennemies/Ennemies.hpp"
 #include "../AWaves.hpp"
+#include "Waves4.hpp"
+#include "Waves3.hpp"
 #include "Waves2.hpp"
 #include "Waves1.hpp"
 
-#ifndef WAVES3_HPP_
-#define WAVES3_HPP_
+#ifndef WAVES5_HPP_
+#define WAVES5_HPP_
 
 namespace ne {
-    class Waves3 : public AWaves {
+    class Waves5 : public AWaves {
         public:
-            Waves3();
-            ~Waves3();
+            Waves5();
+            ~Waves5();
 
             void LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coordinator);
             ne::EnnemiesFactory factory;
@@ -29,4 +31,4 @@ namespace ne {
     };
 }
 
-#endif /* !WAVES3_HPP_ */
+#endif /* !WAVES5_HPP_ */

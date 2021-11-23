@@ -36,7 +36,7 @@ void ne::PatternSystem::update(float& dt)
         auto& rigidbody = coordinator->getComponent<ne::RigidBody>(entity);
         auto& pattern = coordinator->getComponent<ne::Patterns>(entity);
         transform.position += pattern.patternFunc() * (dt / 2);
-        if (transform.position.y > 600.f) {
+        if (transform.position.y > 600.f || transform.position.x < -400.f || transform.position.x > 1200.f) {
             if (coordinator->getComponent<ne::EntityType::Type>(entity) <= ne::EntityType::Type::WhiteEnnemy)
                 enemyToBeDestroyed.push_back(entity);
             else if (coordinator->getComponent<ne::EntityType::Type>(entity) <= ne::EntityType::Type::Bullets)

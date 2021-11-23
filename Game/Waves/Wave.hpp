@@ -20,6 +20,8 @@ namespace ne {
             ne::Waves1 firstWave;
             ne::Waves2 secondWave;
             ne::Waves3 ThirdWave;
+            ne::Waves4 FourthWave;
+            ne::Waves5 fifth;
         protected:
         private:
     };

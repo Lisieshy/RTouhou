@@ -41,8 +41,8 @@ ne::BasicPlane::BasicPlane()
     setSkin(skin);
 
     ne::Alien alienShot;
-    alienShot.TimeToShoot = 5.f;
-    alienShot.BasicTime = 5.f;
+    alienShot.TimeToShoot = 3.f;
+    alienShot.BasicTime = 3.f;
     setAlien(alienShot);
 
     ne::EntityType::Type newType = ne::EntityType::Type::BasicEnnemy;

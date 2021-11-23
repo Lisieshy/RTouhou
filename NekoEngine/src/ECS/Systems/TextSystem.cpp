@@ -13,7 +13,6 @@
 void ne::TextSystem::update()
 {
     for (auto& entity : m_entities) {
-        auto& transform = coordinator->getComponent<ne::Transform>(entity);
         auto& text = coordinator->getComponent<ne::Textinfo>(entity);
         ne::Graphics::Window::draw(text);
     }

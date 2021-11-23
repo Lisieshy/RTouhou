@@ -19,7 +19,7 @@
 #define GLOBALSOUND_HPP_
 
 namespace ne {
-    class GlobalSound : public ne::AbsctractLibrary<std::string, sf::SoundBuffer> {
+    class GlobalSound : public ne::AbsctractLibrary<std::string, sf::Font> {
         private:
             /**
              * @brief Construct a new Global Sound object

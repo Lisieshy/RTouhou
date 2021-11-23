@@ -11,7 +11,7 @@
 namespace ne {
     class WeaponTier {
         public:
-            int WeaponTier = 1;
+            int WeaponTier;
     };
 }
 

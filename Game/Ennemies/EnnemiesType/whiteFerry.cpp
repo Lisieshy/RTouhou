@@ -47,7 +47,7 @@ ne::whiteFerry::whiteFerry()
     ne::EntityType::Type newType = ne::EntityType::Type::WhiteEnnemy;
     setType(newType);
 
-    setPattern(std::bind(&ne::Patterns::leftToRightPattern, &this->getPattern()));
+    setPattern(std::bind(&ne::Patterns::topToBotCirclePattern, &this->getPattern()));
 }
 
 ne::whiteFerry::~whiteFerry()
