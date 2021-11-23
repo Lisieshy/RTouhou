@@ -23,7 +23,7 @@ void ne::Waves5::LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coo
     trans.scale = {0.f, 0.f, 0.f};
     trans.position.y = 80;
     trans.position.x = -200;
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 5; i++) {
         std::shared_ptr<ne::Ennemies> ennemies;
         auto NewEntity = coordinator->createEntity();
 
@@ -47,7 +47,7 @@ void ne::Waves5::LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coo
     trans.scale = {0.f, 0.f, 0.f};
     trans.position.y = 0;
     trans.position.x = -15;
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 5; i++) {
         std::shared_ptr<ne::Ennemies> ennemies;
         auto NewEntity = coordinator->createEntity();
 
@@ -68,7 +68,7 @@ void ne::Waves5::LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coo
 
     trans.position.y = 100;
     trans.position.x = 800;
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 5; i++) {
         std::shared_ptr<ne::Ennemies> ennemies;
         auto NewEntity = coordinator->createEntity();
 
