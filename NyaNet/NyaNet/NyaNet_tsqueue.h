@@ -18,20 +18,33 @@ namespace nn {
             tsqueue(const tsqueue<T>&) = delete;
             virtual ~tsqueue() { clear(); }
 
+            /**
+             * @brief The front of the queue
+             * 
+             * @return T const& 
+             */
             auto front(
             ) -> T const&
             {
                 std::scoped_lock lock(_mutex);
                 return _queue.front();
             }
-
+            /**
+             * @brief The back of the queue
+             * 
+             * @return T const& 
+             */
             auto back(
             ) -> T const&
             {
                 std::scoped_lock lock(_mutex);
                 return _queue.back();
             }
-
+            /**
+             * @brief Push an item at the front of the queue
+             * 
+             * @param const T& 
+             */
             auto push_front(
                 const T& item
             ) -> void
@@ -42,7 +55,11 @@ namespace nn {
                 std::unique_lock<std::mutex> ul(_mutexBlocking);
                 _cvBlocking.notify_one();
             }
-
+            /**
+             * @brief Push an item at the back of the queue
+             * 
+             * @param item 
+             */
             auto push_back(
                 const T& item
             ) -> void
@@ -52,28 +69,44 @@ namespace nn {
                 std::unique_lock<std::mutex> ul(_mutexBlocking);
                 _cvBlocking.notify_one();
             }
-
+            /**
+             * @brief Is the queue empty
+             * 
+             * @return true 
+             * @return false 
+             */
             auto empty(
             ) -> bool
             {
                 std::scoped_lock lock(_mutex);
                 return _queue.empty();
             }
-
+            /**
+             * @brief Count the number of element in the queue
+             * 
+             * @return size_t 
+             */
             auto count(
             ) -> size_t
             {
                 std::scoped_lock lock(_mutex);
                 return _queue.size();
             }
-
+            /**
+             * @brief Clear the queue
+             * 
+             */
             auto clear(
             ) -> void
             {
                 std::scoped_lock lock(_mutex);
                 _queue.clear();
             }
-
+            /**
+             * @brief Pop the first element of the queue
+             * 
+             * @return T 
+             */
             auto pop_front(
             ) -> T
             {
@@ -82,7 +115,11 @@ namespace nn {
                 _queue.pop_front();
                 return t;
             }
-
+            /**
+             * @brief Pop the last element of the queue
+             * 
+             * @return T 
+             */
             auto pop_back(
             ) -> T
             {
@@ -91,7 +128,10 @@ namespace nn {
                 _queue.pop_back();
                 return t;
             }
-
+            /**
+             * @brief Wait while the queue is empty
+             * 
+             */
             auto wait(
             ) -> void
             {

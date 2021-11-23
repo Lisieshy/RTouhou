@@ -55,7 +55,12 @@ namespace nn {
             {
 
             }
-
+            /**
+             * @brief Connect a Server to a Client
+             * 
+             * @param nn::IServer<T>* 
+             * @param uint32_t 
+             */
             auto ConnectToClient(
                 nn::IServer<T>* server,
                 uint32_t uid = 0
@@ -70,7 +75,11 @@ namespace nn {
                     }
                 }
             }
-
+            /**
+             * @brief Connect a Client to a Server
+             * 
+             * @param const asio::ip::tcp::resolver::results_type& 
+             */
             auto ConnectToServer(
                 const asio::ip::tcp::resolver::results_type& endpoints
             ) -> void
@@ -91,7 +100,10 @@ namespace nn {
                     );
                 }
             }
-
+            /**
+             * @brief Close the connection socket
+             * 
+             */
             auto Disconnect(
             ) -> void
             {
@@ -104,13 +116,21 @@ namespace nn {
                         }
                     );
             }
-
+            /**
+             * @brief Is there a connection
+             * 
+             * @return bool
+             */
             auto IsConnected(
             ) -> bool const
             {
                 return m_socket.is_open();
             }
-
+            /**
+             * @brief Send a message
+             * 
+             * @param const message<T>& 
+             */
             auto Send(
                 const message<T>& msg
             ) -> void
@@ -127,7 +147,11 @@ namespace nn {
                     }
                 );
             }
-
+            /**
+             * @brief Get the ID of the connection.
+             * 
+             * @return uint32_t const 
+             */
             auto GetID(
             ) -> uint32_t const
             {
@@ -135,6 +159,10 @@ namespace nn {
             }
 
         private:
+            /**
+             * @brief Read the header of the message
+             * 
+             */
             auto ReadHeader(
             ) -> void
             {
@@ -167,7 +195,10 @@ namespace nn {
                     }
                 );
             }
-
+            /**
+             * @brief Read the body of the message
+             * 
+             */
             auto ReadBody(
             ) -> void
             {
@@ -193,7 +224,10 @@ namespace nn {
                     }
                 );
             }
-
+            /**
+             * @brief Write the header of the message
+             * 
+             */
             auto WriteHeader(
             ) -> void
             {
@@ -225,7 +259,10 @@ namespace nn {
                     }
                 );
             }
-
+            /**
+             * @brief Write the body of the message
+             * 
+             */
             auto WriteBody(
             ) -> void
             {
@@ -254,7 +291,10 @@ namespace nn {
                     }
                 );
             }
-
+            /**
+             * @brief Storing incoming message in a queue of message
+             * 
+             */
             auto AddToIncomingMessageQueue(
             ) -> void
             {
@@ -272,14 +312,22 @@ namespace nn {
 
                 ReadHeader();
             }
-
+            /**
+             * @brief Scramble an input to be sure this is a known Client
+             * 
+             * @param uint64_t 
+             * @return uint64_t 
+             */
             uint64_t scramble(uint64_t nInput)
             {
                 uint64_t out = nInput ^ 0xDEADBEEFC0DECAFE;
                 out = (out & 0xF0F0F0F0F0F0F0) >> 4 | (out & 0x0F0F0F0F0F0F0F) << 4;
                 return out ^ 0xC0DEFACE12345678;
             }
-
+            /**
+             * @brief Write Validation
+             * 
+             */
             auto WriteValidation(
             ) -> void
             {
@@ -295,7 +343,11 @@ namespace nn {
                     }
                 });
             }
-
+            /**
+             * @brief Read the validation sended from the Client
+             * 
+             * @param nn::IServer<T>* 
+             */
             auto ReadValidation(
                 nn::IServer<T>* server = nullptr
             ) -> void

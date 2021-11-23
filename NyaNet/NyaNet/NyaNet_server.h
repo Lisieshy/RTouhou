@@ -34,6 +34,11 @@ namespace nn {
                 Stop();
             }
 
+            /**
+             * @brief Start the Server
+             * 
+             * @return bool
+             */
             auto Start(
             ) -> bool
             {
@@ -54,7 +59,10 @@ namespace nn {
                 nl::nyalog(nl::LogLevel::Info, "[SERVER] Started!");
                 return true;
             }
-
+            /**
+             * @brief Stop the server
+             * 
+             */
             auto Stop(
             ) -> void
             {
@@ -65,7 +73,10 @@ namespace nn {
 
                 nl::nyalog(nl::LogLevel::Info, "[SERVER] Stopped!");
             }
-
+            /**
+             * @brief Wait for a connection with async
+             * 
+             */
             auto WaitForClientConnection(
             ) -> void
             {
@@ -107,7 +118,12 @@ namespace nn {
                     }
                 );
             }
-
+            /**
+             * @brief Message a specific client
+             * 
+             * @param std::shared_ptr<connection<T>> 
+             * @param message<T>& 
+             */
             auto MessageClient(
                 std::shared_ptr<connection<T>> client,
                 const message<T>& msg
@@ -128,7 +144,12 @@ namespace nn {
                     );
                 }
             }
-
+            /**
+             * @brief Message all client, you can ignore one client.
+             * 
+             * @param const message<T>& 
+             * @param std::shared_ptr<connection<T>> 
+             */
             auto MessageAllClients(
                 const message<T>& msg,
                 std::shared_ptr<connection<T>> pIgnoreClient = nullptr
@@ -158,6 +179,12 @@ namespace nn {
                     );
             }
 
+            /**
+             * @brief Update the server and handle the message received with OnMessage
+             * 
+             * @param size_t 
+             * @param bool 
+             */
             auto Update(
                 size_t nMaxMessages = -1,
                 bool bWait = false

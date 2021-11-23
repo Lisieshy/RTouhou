@@ -22,12 +22,16 @@ namespace nn {
         message_header<T> header{};
         std::vector<uint8_t> body;
 
+        /**
+         * @brief Size of the message
+         * 
+         * @return size_t const 
+         */
         auto size(
         ) -> size_t const
         {
             return body.size();
         }
-
         auto friend operator<<(
             std::ostream& os,
             const message<T>& msg
@@ -36,7 +40,14 @@ namespace nn {
             os << "ID:" << int(msg.header.id) << " Size:" << msg.header.size;
             return os;
         }
-
+        /**
+         * @brief Append data to the message
+         * 
+         * @tparam Type 
+         * @param message<T>& 
+         * @param const Type& 
+         * @return message<T>& 
+         */
         template<typename Type>
         auto friend operator<<(
             message<T>& msg,
@@ -65,7 +76,15 @@ namespace nn {
             return msg;
         }
 
+
         template<typename Type>
+        /**
+         * @brief Export the data from the message
+         * 
+         * @param message<T>& 
+         * @param Type& 
+         * @return message<T>& 
+         */
         auto friend operator>>(
             message<T>& msg,
             Type& data

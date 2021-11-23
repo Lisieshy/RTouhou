@@ -25,7 +25,6 @@ namespace rt {
     {
         public:
             ne::EntityID _player;
-            uint32_t currentlyConnected = 0;
             // Basic function for handling ping.
             // NEVER, EVER USE THE SYSTEM CLOCK FOR A PING LIKE THAT
             // IT'S NOT A GOOD IDEA.
@@ -196,7 +195,6 @@ namespace rt {
                                         auto& t = coordinator->getComponent<ne::Transform>(entity);
                                         t = receivedTrans;
                                         if (!didPassedOnce) {
-                                            currentlyConnected++;
                                             didPassedOnce = true;
                                         }
                                     }
@@ -214,7 +212,6 @@ namespace rt {
                                         coordinator->addComponent(newEntity, ne::Color{});
                                         coordinator->addComponent(newEntity, ne::EntityType::Type{ne::EntityType::Type::Player});
                                         coordinator->addComponent(newEntity, ne::Uid{receivedId.uid});
-                                        currentlyConnected++;
                                     }
                                 }
                             }

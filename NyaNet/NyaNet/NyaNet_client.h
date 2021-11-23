@@ -23,7 +23,13 @@ namespace nn {
             {
                 Disconnect();
             }
-
+            /**
+             * @brief Connect a Client to a Server by giving the IP and the port in parameter.
+             * 
+             * @param std::string 
+             * @param uint16_t 
+             * @return bool
+             */
             auto Connect(
                 const std::string& host,
                 const uint16_t port
@@ -54,7 +60,10 @@ namespace nn {
                 }
                 return false;
             }
-
+            /**
+             * @brief Disconnect the Client from the server.
+             * 
+             */
             auto Disconnect(
             ) -> void
             {
@@ -68,7 +77,11 @@ namespace nn {
 
                 m_connection.release();
             }
-
+            /**
+             * @brief Check if the Client is connected to a Server.
+             * 
+             * @return bool 
+             */
             auto IsConnected(
             ) -> bool
             {
@@ -77,13 +90,21 @@ namespace nn {
                 else
                     return false;
             }
-
+            /**
+             * @brief Get all the incoming message from the Server
+             * 
+             * @return tsqueue<owned_message<T>>& 
+             */
             auto Incoming(
             ) -> tsqueue<owned_message<T>>&
             {
                 return m_qMessagesIn;
             }
-
+            /**
+             * @brief Send a message to the currently connected Server
+             * 
+             * @param message<T> 
+             */
             auto Send(
                 const message<T>& msg
             ) -> void
