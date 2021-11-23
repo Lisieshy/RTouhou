@@ -63,13 +63,22 @@ void ne::ClientCollision::update()
             }
         } else {
             auto& transform = coordinator->getComponent<ne::Transform>(entity);
-            if (transform.position.y > 600 || transform.position.x < -395 || transform.position.x > 1195 || transform.position.y < -400) {
-                if (EnnemiesType <= ne::EntityType::Type::WhiteEnnemy)
-                    if (std::find(EnnemiesToBeDestroyed.begin(), EnnemiesToBeDestroyed.end(), entity) == EnnemiesToBeDestroyed.end())
-                        EnnemiesToBeDestroyed.push_back(EnnemiesType);
-                else if (EnnemiesType <= ne::EntityType::Type::Bullets)
-                    if (std::find(BulletsToBeDestroyed.begin(), BulletsToBeDestroyed.end(), entity) == BulletsToBeDestroyed.end())
-                        BulletsToBeDestroyed.push_back(EnnemiesType);                
+            if (transform.position.y > 595 || transform.position.x < -395 || transform.position.x > 1195 || transform.position.y < -395) {
+                if (EnnemiesType <= ne::EntityType::Type::WhiteEnnemy) {
+                    if (std::find(EnnemiesToBeDestroyed.begin(), EnnemiesToBeDestroyed.end(), entity) == EnnemiesToBeDestroyed.end()) {
+                        EnnemiesToBeDestroyed.push_back(entity);
+                    }
+                }
+                else if (EnnemiesType <= ne::EntityType::Type::Bullets) {
+                    if (std::find(BulletsToBeDestroyed.begin(), BulletsToBeDestroyed.end(), entity) == BulletsToBeDestroyed.end()) {
+                        BulletsToBeDestroyed.push_back(entity);                
+                    }
+                }
+                else if (EnnemiesType == ne::EntityType::Type::Bonus) {
+                    if (std::find(BonusToBeDestoyed.begin(), BonusToBeDestoyed.end(), entity) == BonusToBeDestoyed.end()) {
+                        BonusToBeDestoyed.push_back(entity);                
+                    }
+                }
             }
 
         }
