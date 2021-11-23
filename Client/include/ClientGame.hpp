@@ -12,10 +12,12 @@
 #include "NekoEngine/ECS/Components/Alien.hpp"
 #include "../../Game/Ennemies/Ennemies.hpp"
 #include "../../Game/Bullets/BulletsFactory.hpp"
+#include "../include/WavesClientSystem.hpp"
 #include "PlayerSystem.hpp"
 #include "NekoEngine/NekoEngine.hpp"
 #include <SFML/Audio.hpp>
 #include "ClientCollision.hpp"
+#include "../include/Parallax.hpp"
 
 namespace ne {
     class ClientGame {
@@ -28,7 +30,10 @@ namespace ne {
             std::shared_ptr<rt::PlayerSystem> PlayerSystem;
             std::shared_ptr<ne::AnimationSystem> AnimSystem;
             std::shared_ptr<ne::ClientCollision> CollisionSystem;
-
+            std::shared_ptr<ne::WavesClientSystem> WavesSystemClient;
+            std::shared_ptr<ne::TextSystem> TextSystemClient;
+            std::shared_ptr<ne::Parallax> ParalaxSystemClient;
+            
             ne::Scene ClientGameScene;
 
             void InitMusic();
