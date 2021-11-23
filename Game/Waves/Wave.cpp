@@ -31,5 +31,11 @@ void ne::Wave::WaveLoop(float& dt, uint32_t& ID, std::shared_ptr<ne::Coordinator
     }  if (i == 3 && ThirdWave.IsWaveFinished(dt)) {
         FourthWave.LaunchWaves(ID, coordinator);
         i = 4;
-    } 
+    } if (i == 4 && FourthWave.IsWaveFinished(dt)) {
+        fifth.LaunchWaves(ID, coordinator);
+        i = 5;
+    } if (i == 5 && fifth.IsWaveFinished(dt)) {
+        firstWave.LaunchWaves(ID, coordinator);
+        i = 6;
+    }
 }

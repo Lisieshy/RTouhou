@@ -2,31 +2,28 @@
 ** EPITECH PROJECT, 2021
 ** B-CPP-501-NCY-5-1-rtype-aurelien.schulz
 ** File description:
-** Waves4
+** Waves5
 */
 
-#include "Waves4.hpp"
+#include "Waves5.hpp"
 
-ne::Waves4::Waves4()
+ne::Waves5::Waves5()
 {
 }
 
-ne::Waves4::~Waves4()
+ne::Waves5::~Waves5()
 {
 }
 
-void ne::Waves4::LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coordinator)
+void ne::Waves5::LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coordinator)
 {
     ne::Transform trans;
-    // ne::Waves2 wave2;
-
-    // wave2.LaunchWaves(ID, coordinator); 
 
     trans.rotation = {0.f, 0.f, 0.f};
     trans.scale = {0.f, 0.f, 0.f};
     trans.position.y = 80;
     trans.position.x = -200;
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 3; i++) {
         std::shared_ptr<ne::Ennemies> ennemies;
         auto NewEntity = coordinator->createEntity();
 
@@ -50,7 +47,7 @@ void ne::Waves4::LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coo
     trans.scale = {0.f, 0.f, 0.f};
     trans.position.y = 0;
     trans.position.x = -15;
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 3; i++) {
         std::shared_ptr<ne::Ennemies> ennemies;
         auto NewEntity = coordinator->createEntity();
 
@@ -71,7 +68,7 @@ void ne::Waves4::LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coo
 
     trans.position.y = 100;
     trans.position.x = 800;
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 3; i++) {
         std::shared_ptr<ne::Ennemies> ennemies;
         auto NewEntity = coordinator->createEntity();
 
