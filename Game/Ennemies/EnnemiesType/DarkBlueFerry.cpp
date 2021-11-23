@@ -41,8 +41,8 @@ ne::DarkBlueFerry::DarkBlueFerry()
     setSkin(skin);
 
     ne::Alien alienShot;
-    alienShot.TimeToShoot = 4.f;
-    alienShot.BasicTime = 4.f;
+    alienShot.TimeToShoot = 3.f;
+    alienShot.BasicTime = 3.f;
     setAlien(alienShot);
 
     ne::EntityType::Type newType = ne::EntityType::Type::DarkEnnemy;

@@ -25,13 +25,13 @@ void ne::Waves1::LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coo
     trans.scale = {0.f, 0.f, 0.f};
     trans.position.y = -100;
     for (int y = 0; y < 3; y++) {
-        trans.position.y += 40;
-        for (int i = 0; i < 15; i++) {
+        trans.position.y += 46;
+        for (int i = 0; i < 12; i++) {
             std::shared_ptr<ne::Ennemies> ennemies;
             auto NewEntity = coordinator->createEntity();
 
-            trans.position.x = 38;
-            trans.position.x += 50 * i;
+            trans.position.x = 45;
+            trans.position.x += 60 * i;
             trans.position.z = 0;
             ennemies = factory.createEnnemies("BasicPlane");
             coordinator->addComponent(NewEntity, trans);

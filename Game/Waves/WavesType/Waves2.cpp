@@ -24,11 +24,11 @@ void ne::Waves2::LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coo
     trans.scale = {0.f, 0.f, 0.f};
     trans.position.y = 0;
     trans.position.x = -200;
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 9; i++) {
         std::shared_ptr<ne::Ennemies> ennemies;
         auto NewEntity = coordinator->createEntity();
 
-        trans.position.x += 50;
+        trans.position.x += 60;
         trans.position.z = 0;
         ennemies = factory.createEnnemies("DarkBlue");
         coordinator->addComponent(NewEntity, trans);
@@ -45,11 +45,11 @@ void ne::Waves2::LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coo
 
     trans.position.y = 200;
     trans.position.x = 1000;
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 9; i++) {
         std::shared_ptr<ne::Ennemies> ennemies;
         auto NewEntity = coordinator->createEntity();
 
-        trans.position.x -= 50;
+        trans.position.x -= 60;
         trans.position.z = 0;
         ennemies = factory.createEnnemies("GreenFerry");
         coordinator->addComponent(NewEntity, trans);

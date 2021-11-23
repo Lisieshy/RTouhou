@@ -30,7 +30,7 @@ void ne::Waves4::LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coo
         std::shared_ptr<ne::Ennemies> ennemies;
         auto NewEntity = coordinator->createEntity();
 
-        trans.position.x += 50;
+        trans.position.x += 70;
         trans.position.z = 0;
         ennemies = factory.createEnnemies("DarkBlue");
         ennemies.get()->setPattern(std::bind(&ne::Patterns::leftToRightSnakePattern, &ennemies.get()->getPattern()));
