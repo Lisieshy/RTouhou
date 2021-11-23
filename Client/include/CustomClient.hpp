@@ -196,7 +196,6 @@ namespace rt {
                                         auto& t = coordinator->getComponent<ne::Transform>(entity);
                                         t = receivedTrans;
                                         if (!didPassedOnce) {
-                                            std::cout << "This is our player ID : " << coordinator->getComponent<ne::Uid>(entity).uid << std::endl;
                                             currentlyConnected++;
                                             didPassedOnce = true;
                                         }
@@ -204,7 +203,6 @@ namespace rt {
                                 }
                                 if (!_found) {
                                     if (receivedType == ne::EntityType::Type::Player) {
-                                        std::cout << "This is the created player ID : " << receivedId.uid << std::endl; 
                                         auto newEntity = coordinator->createEntity();
                                         ne::Skin playerSkin;
                                         playerSkin.sprite.setTexture(ne::GlobalTexture::Instance().GetData("resources/Player/reimu.png"));

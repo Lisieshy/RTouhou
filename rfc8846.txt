@@ -72,23 +72,26 @@ RFC 8846                   R-Type Protocols                 November 2021
 
       The CustomMsgType enum class:
 
-          enum class CustomMsgTypes : uint32_t {
-             ServerAccept,
-             ServerDeny,
-             ServerPing,
-             MessageAll,
-             ServerMessage,
-             SendData,
-             SendEnnemies,
-             SendBullets,
-             AcceptedPlayer,
-             AssignPlayerID,
-             PlayerRegisterWithServer,
-             PlayerUnregisterWithServer,
-             AddPlayer,
-             RemovePlayer,
-             UpdatePlayer,
-          };
+         enum class CustomMsgTypes : uint32_t {
+            ServerAccept,
+            ServerDeny,
+            ServerPing,
+            MessageAll,
+            ServerMessage,
+            SendData,
+            SendEnnemies,
+            SendBullets,
+            SendBonus,
+            AcceptedPlayer,
+            AssignPlayerID,
+            PlayerRegisterWithServer,
+            PlayerUnregisterWithServer,
+            AddPlayer,
+            RemovePlayer,
+            UpdatePlayer,
+            PlayerIsShooting,
+            PlayerUpdate,
+         };
 
       To send a message, you MUST set the ID of the message to a
       valid type. All SIZE calculation is handled automatically and

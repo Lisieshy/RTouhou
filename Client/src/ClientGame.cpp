@@ -57,7 +57,7 @@ ne::ClientGame::ClientGame()
     playerSkin.sprite.setTextureRect(sf::IntRect(0, 0, 32, 50));
     ClientSystem->_player = ClientGameScene.coordinator->createEntity();
 
-    ClientSystem->Connect("127.0.0.1", 60000);   
+    ClientSystem->Connect("10.18.206.203", 60000);   
     ClientGameScene.coordinator->addComponent(ClientSystem->_player, rt::Controller{
         .type = rt::ControlType::KEYBOARD,
         .up = sf::Keyboard::Key::Z,
