@@ -19,7 +19,12 @@ namespace ne {
 
             void update(float dt);
 
-            std::vector<sf::Sprite> _par;
+            std::vector<sf::Sprite>_par;
+            std::vector<sf::Sprite>_par2;
+            std::vector<sf::Sprite>_par3;
+            std::vector<sf::Sprite>_par4;
+            std::vector<sf::Sprite>_par5;
+            std::vector<sf::Sprite>_par6;
         protected:
         private:
 
