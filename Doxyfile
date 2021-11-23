@@ -839,6 +839,11 @@ WARN_LOGFILE           =
 INPUT                  = NekoEngine \
                          Client \
                          NyaLog \
+                         Server \
+                         Menu \
+                         Commons \
+                         NyaNet \
+                         Game \
                          README.md
 
 # This tag can be used to specify the character encoding of the source files
