@@ -16,7 +16,16 @@
 namespace ne {
     class BulletsTier2 : public Bullets {
         public:
+            /**
+             * @brief Construct a new Bullets Tier2 object
+             * 
+             */
             BulletsTier2();
+
+            /**
+             * @brief Destroy the Bullets Tier2 object
+             * 
+             */
             ~BulletsTier2();
 
         protected:

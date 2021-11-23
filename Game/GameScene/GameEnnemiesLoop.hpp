@@ -24,7 +24,7 @@ namespace ne {
     class GameEnnemiesLoop : public ne::System {
         public:
             /**
-             * @brief 
+             * @brief update all ennemies to know if they want to shoot
              * 
              * @param float dt (time)
              * @param float ID (Ennemies ID) 
@@ -32,6 +32,13 @@ namespace ne {
              */
             void update(float dt, uint32_t& ID);
 
+            /**
+             * @brief Create a Bullet object
+             * 
+             * @param ne::Transform& EnnemiesPos 
+             * @param uint32_t& ID 
+             * @param ne::EntityType::Type& EnnemiesType 
+             */
             void createBullet(ne::Transform& EnnemiesPos, uint32_t& ID, ne::EntityType::Type& EnnemiesType);
     };  
 }

@@ -24,15 +24,29 @@ namespace ne {
         protected:
             std::unordered_map<Key, Data> _lib;
         public:
+            /**
+             * @brief Construct a new Absctract Library object
+             * 
+             */
             AbsctractLibrary() = default;
             virtual ~AbsctractLibrary() = 0;
 
+            /**
+             * @brief Get the Data object
+             * 
+             * @param const Key& name 
+             * @return const Data& 
+             */
             const Data &GetData(const Key& name)
             {
                 if (_lib.find(name) == _lib.end())
                     load(name);
                 return _lib.find(name)->second;
             }
+            /**
+             * @brief clear everything
+             * 
+             */
             void clear()
             {
                 for (auto &c : _lib)

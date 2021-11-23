@@ -15,7 +15,16 @@
 namespace ne {
     class BulletsPlT2 : public Bullets {
         public:
+            /**
+             * @brief Construct a new Bullets PlT2object
+             * 
+             */
             BulletsPlT2();
+
+            /**
+             * @brief Destroy the Bullets PlT2object
+             * 
+             */
             ~BulletsPlT2();
 
         protected:
