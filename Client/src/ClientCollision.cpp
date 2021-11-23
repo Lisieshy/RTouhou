@@ -13,7 +13,6 @@ void ne::ClientCollision::update()
     std::vector<ne::EntityID> BulletsToBeDestroyed;
     std::vector<ne::EntityID> BonusToBeDestoyed;
     std::vector<ne::EntityID> PlayerToBeDestoyed;
-
     for (auto entity : m_entities) {
         auto& EnnemiesType = coordinator->getComponent<ne::EntityType::Type>(entity);
         if (EnnemiesType <= ne::EntityType::Type::WhiteEnnemy) {
