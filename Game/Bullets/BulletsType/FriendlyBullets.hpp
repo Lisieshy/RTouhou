@@ -16,7 +16,16 @@
 namespace ne {
     class FriendlyBullets : public Bullets {
         public:
+            /**
+             * @brief Construct a new Friendly Bullets object
+             * 
+             */
             FriendlyBullets();
+
+            /**
+             * @brief Destroy the Friendly Bullets object
+             * 
+             */
             ~FriendlyBullets();
 
         protected:

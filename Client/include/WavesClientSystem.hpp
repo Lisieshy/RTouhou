@@ -14,8 +14,17 @@
 namespace ne {
     class WavesClientSystem : public ne::System {
         public:
+            /**
+             * @brief Init text for the wave
+             * 
+             */
             void init();
 
+            /**
+             * @brief Update text
+             * 
+             * @param float dt 
+             */
             void update(float dt);
 
             float Time = 15.0f;

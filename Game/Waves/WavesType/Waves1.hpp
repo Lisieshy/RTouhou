@@ -15,9 +15,24 @@
 namespace ne {
     class Waves1 : public AWaves {
         public:
+            /**
+             * @brief Construct a new Waves 1 object
+             * 
+             */
             Waves1();
+
+            /**
+             * @brief Destroy the Waves 1 object
+             * 
+             */
             ~Waves1();
 
+            /**
+             * @brief Launch wave
+             * 
+             * @param uint32_t& ID 
+             * @param std::shared_ptr<ne::Coordinator>& coordinator 
+             */
             void LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coordinator);
             ne::EnnemiesFactory factory;
         protected:

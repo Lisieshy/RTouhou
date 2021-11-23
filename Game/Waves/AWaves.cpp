@@ -23,6 +23,11 @@ bool ne::AWaves::IsWaveFinished(float dt)
     return false;
 }
 
+void ne::AWaves::resetWave()
+{
+    WaveTime = 15.0f;
+}
+
 void ne::AWaves::LaunchWaves(uint32_t& ID, std::shared_ptr<ne::Coordinator>& coordinator)
 {
 

@@ -41,8 +41,19 @@ namespace ne {
              */
             ~GameScene();
 
+            /**
+             * @brief Loop throw all element
+             * 
+             * @param float dt 
+             * @param uint32_t& ID 
+             */
             void GameLoop(float dt, uint32_t& ID);
 
+            /**
+             * @brief Create system
+             * 
+             * @param uint32_t &entityID 
+             */
             void InitScene(uint32_t &entityID);
 
             std::unordered_map<uint32_t, std::shared_ptr<ne::Ennemies>> EnnemiesAlive;

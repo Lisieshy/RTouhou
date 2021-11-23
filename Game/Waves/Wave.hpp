@@ -13,8 +13,24 @@
 namespace ne {
     class Wave {
         public:
+            /**
+             * @brief Construct a new Wave object
+             * 
+             */
             Wave();
+
+            /**
+             * @brief Destroy the Wave object
+             * 
+             */
             ~Wave();
+
+            /**
+             * @brief check wave to launch and launch it
+             * 
+             * @param uint32_t& ID 
+             * @param std::shared_ptr<ne::Coordinator>& coordinator 
+             */
             void WaveLoop(float& dt, uint32_t& ID, std::shared_ptr<ne::Coordinator>& coordinator);
 
             ne::Waves1 firstWave;

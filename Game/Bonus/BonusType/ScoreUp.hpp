@@ -12,7 +12,16 @@
 namespace ne {
     class ScoreUp : public Bonus {
         public:
+            /**
+             * @brief Construct a new Score Up object
+             * 
+             */
             ScoreUp();
+
+            /**
+             * @brief Destroy the Score Up object
+             * 
+             */
             ~ScoreUp();
 
         protected:

@@ -14,9 +14,23 @@
 namespace ne {
     class Parallax : public ne::System {
         public:
+            /**
+             * @brief Construct a new Parallax object
+             * 
+             */
             Parallax();
+
+            /**
+             * @brief Destroy the Parallax object
+             * 
+             */
             ~Parallax();
 
+            /**
+             * @brief Update paralax
+             * 
+             * @param float dt 
+             */
             void update(float dt);
 
             std::vector<sf::Sprite> _par;
